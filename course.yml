@@ -4,5 +4,5 @@ instructors      :
  - tyler.ransom@duke.edu
 description      : Prototype for Causal Inference methods course
 university       : DataCamp
-difficulty_level : 4
-time_needed      : 3 hours
+difficulty_level : 3
+time_needed      : 4 hours
