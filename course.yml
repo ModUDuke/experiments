@@ -1,7 +1,8 @@
 title            : causalinference
 instructors      :
  - speckart@duke.edu
-description      : This is an automatically generated demo course which will help you on your way to create an awesome DataCamp course.
+ - tyler.ransom@duke.edu
+description      : Prototype for Causal Inference methods course
 university       : DataCamp
-difficulty_level : 2
-time_needed      : 1 hour
+difficulty_level : 4
+time_needed      : 3 hours
