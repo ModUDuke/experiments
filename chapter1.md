@@ -23,7 +23,7 @@ In this exercise, you will be performing statistical tests to see if patients wh
 *** =pre_exercise_code
 ```{r}
 set.seed(1)
-load('OHIEexperimental.RDa')
+load(url('http://assets.datacamp.com/production/course_1566/OHIEexperimental.RDa'))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","age_19_34_inp","age_35_49_inp","age_50_64_inp")]
 ```
 
