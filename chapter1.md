@@ -255,7 +255,7 @@ test_error()
 success_msg("Good work!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:5349e868bb
 ## Estimating average treatment effects (ATEs) across experimental groups
 
 Data from the Oregon Health Insurance Experiment, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `trmt` and `ctrl` denoting the treatment and control groups, respectively.
