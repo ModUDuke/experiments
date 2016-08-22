@@ -163,8 +163,8 @@ mean(trmt$hispanic_inp)-mean(ctrl$hispanic_inp)
 # SCT written with testwhat: https://github.com/datacamp/testwhat/wiki
 
 # test_function("mean", args = "object",
-              not_called_msg = "You didn't call `mean()`!",
-              incorrect_msg = "You didn't call `mean(object = ...)` with the correct argument, `object`.")
+#              not_called_msg = "You didn't call `mean()`!",
+#              incorrect_msg = "You didn't call `mean(object = ...)` with the correct argument, `object`.")
 
 test_error()
 
