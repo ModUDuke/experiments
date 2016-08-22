@@ -254,3 +254,87 @@ test_error()
 
 success_msg("Good work!")
 ```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Estimating average treatment effects (ATEs) across experimental groups
+
+Data from the Oregon Health Insurance Experiment, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `trmt` and `ctrl` denoting the treatment and control groups, respectively.
+
+In this exercise, you will be using a two-sided t-test to analyze if the difference in the means of health outcome variables of patients who did and did not receive health insurance are statistically different.
+
+*** =instructions
+- The way to perfrom a t-test in `R` is with the  `t.test()` function
+- Use a two-sided t-test to examine whether or not the treatment and control groups have significantly different average values for the following health outcomes: 
+- systolic blood pressure (variable `bp_sar_inp`)
+- diastolic blood pressure (variable `bp_dar_inp`)
+- diabetes (variable `dia_dx_post_lottery`)
+- depression diagnosis (variable `dep_dx_post_lottery`)
+- anti-depressant usage (variable `antidep_med_inpbinary`)
+
+*** =hint
+- Use `t.test(ctrl$var, trmt$var, mu=0)` to statistically test that the treatment and control groups are balanced
+
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
+OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","bp_sar_inp","bp_dar_inp","dia_dx_post_lottery","dep_dx_post_lottery","antidep_med_inpbinary")]
+trmt <- OHIE[OHIE$treatment==1 & !is.na(OHIE$treatment),]
+ctrl <- OHIE[OHIE$treatment==0 & !is.na(OHIE$treatment),]
+rm(OHIE)
+```
+
+*** =sample_code
+```{r}
+# trmt and ctrl are both available in your workspace
+
+# Test for presence of significant treatment effect for systolic blood pressure (variable `bp_sar_inp`)
+
+
+# Test for presence of significant treatment effect for diastolic blood pressure (variable `bp_dar_inp`)
+
+
+# Test for presence of significant treatment effect for diabetes (variable `dia_dx_post_lottery`)
+
+
+# Test for presence of significant treatment effect for depression diagnosis (variable `dep_dx_post_lottery`)
+
+
+# Test for presence of significant treatment effect for anti-depressant usage (variable `antidep_med_inpbinary`)
+
+
+```
+
+*** =solution
+```{r}
+# trmt and ctrl are both available in your workspace
+
+# Test for presence of significant treatment effect for systolic blood pressure (variable `bp_sar_inp`)
+t.test(ctrl$bp_sar_inp, trmt$bp_sar_inp, mu=0)
+
+# Test for presence of significant treatment effect for diastolic blood pressure (variable `bp_dar_inp`)
+t.test(ctrl$bp_dar_inp, trmt$bp_dar_inp, mu=0)
+
+# Test for presence of significant treatment effect for diabetes (variable `dia_dx_post_lottery`)
+t.test(ctrl$dia_dx_post_lottery, trmt$dia_dx_post_lottery, mu=0)
+
+# Test for presence of significant treatment effect for depression diagnosis (variable `dep_dx_post_lottery`)
+t.test(ctrl$dep_dx_post_lottery, trmt$dep_dx_post_lottery, mu=0)
+
+# Test for presence of significant treatment effect for anti-depressant usage (variable `antidep_med_inpbinary`)
+t.test(ctrl$antidep_med_inpbinary, trmt$antidep_med_inpbinary, mu=0)
+
+```
+
+*** =sct
+```{r}
+# SCT written with testwhat: https://github.com/datacamp/testwhat/wiki
+
+# test_function("mean", args = "object",
+#              not_called_msg = "You didn't call `mean()`!",
+#              incorrect_msg = "You didn't call `mean(object = ...)` with the correct argument, `object`.")
+
+test_error()
+
+success_msg("Good work!")
+```
