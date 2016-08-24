@@ -4,7 +4,7 @@ description : This exercise helps you get to know your data better
 attachments :
   video_link : https://vimeo.com/179938122
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bfc8a2d235
 ## Design of the Oregon Healthcare Experiment
 
 *** =video_link
