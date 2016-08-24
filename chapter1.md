@@ -1,21 +1,29 @@
 ---
-title       : Getting to know your data
+title       : Getting to Know Your Data
 description : This exercise helps you get to know your data better
 attachments :
-  video_link : https://www.youtube.com/watch?v=P5M7ptDor6w
+  video_link : https://vimeo.com/179938122
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Design of the Oregon Healthcare Experiment
+
+*** =video_link
+//player.vimeo.com/video/179938122
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:1ecca31bfa
-## Intro to analyzing experimental data
+## Introduction to Analyzing Experimental Data
 
-Data from the Oregon Health Insurance Experiment, `OHIE`, is available in the workspace.
+Let’s pretend that we’re on a research team that will look at the Oregon Health Insurance Experiment data for insights into improving people’s health results. The first thing any researcher does is to look at the structure of the data, and determining an appropriate method of analysis. 
 
-In this exercise, you will be manipulating the data by dividing it into a treatment group and control group for future analysis.
+A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace.
+
+In this exercise, you will be manipulating the data by trying to divide it into a treatment group and control group.  That will allow us to use an experiment-style analysis to help us answer our research question.
 
 *** =instructions
 - Examine the structure of `OHIE`
 - Subset the `OHIE` data frame into treatment and control groups
 - The treatment variable is a column in `OHIE` called `treatment`
-- Call the treatment group `trmt` and the control group `ctrl`. 
+- Call the treatment group `treatmentgroup` and the control group `controlgroup`. 
 
 *** =hint
 - Use `str()` to examine the structure of the data
@@ -34,10 +42,10 @@ OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","age_19_34_i
 # Check out the structure of OHIE
 
 
-# Create a new data frame called `trmt` that contains only treated individuals 
+# Create a new data frame called `treatmentgroup` that contains only treated individuals 
 
 
-# Create a new data frame called `ctrl` that contains only control individuals 
+# Create a new data frame called `controlgroup` that contains only control individuals 
 
 ```
 
@@ -48,11 +56,11 @@ OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","age_19_34_i
 # Check out the structure of OHIE
 str(OHIE)
 
-# Create a new data frame called `trmt` that contains only treated individuals 
-trmt <- OHIE[OHIE$treatment==1, ]
+# Create a new data frame called `treatmentgroup` that contains only treated individuals 
+treatmentgroup <- OHIE[OHIE$treatment==1, ]
 
-# Create a new data frame called `ctrl` that contains only control individuals 
-ctrl <- OHIE[OHIE$treatment==0, ]
+# Create a new data frame called `controlgroup` that contains only control individuals 
+controlgroup <- OHIE[OHIE$treatment==0, ]
 ```
 
 *** =sct
@@ -63,9 +71,9 @@ test_function("str", args = "object",
               not_called_msg = "You didn't call `str()`!",
               incorrect_msg = "You didn't call `str(object = ...)` with the correct argument, `object`.")
 
-test_object("trmt")
+test_object("treatmentgroup")
 
-test_object("ctrl")
+test_object("controlgroup")
 
 test_error()
 
@@ -74,14 +82,17 @@ success_msg("Good work!")
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:e054d70ffa
-## Testing for balancedness across experimental groups: Part I
+## Testing for Balancedness Across Experimental gGroups: Part I
 
-Data from the Oregon Health Insurance Experiment, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `trmt` and `ctrl` denoting the treatment and control groups, respectively.
+Let’s take a look at the demographic makeup of our treatment and control groups to help us understand the kinds of people we have in our dataset, and how balanced the two groups look at first glance.  Hopefully,
+we’ll have the same proportions of young people to old people, men and women, and other demographic traits in both the treatment and control groups. For now, a quick manual comparison of these values will give us a sense of what we’ll be dealing with as we move forward.
 
-In this exercise, you will be comparing means of demographic variables to see if the group of patients who did and did not receive health insurance have the same characteristics
+A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `treatmentgroup` and `controlgroup` denoting the treatment and control groups, respectively.
+
+In this exercise, you will be comparing means of some demographic variables to see if the group of patients who did and did not receive health insurance have the same characteristics. If there is “balance” in these variables between the two groups then our analysis will be much easier.
 
 *** =instructions
-- Test that the treatment and control groups have the same average values for the following characteristics: 
+- Test whether the treatment and control groups have the same average values for the following characteristics: 
 - gender (variable `gender_inp`)
 - age in 19-34 (variable `age_19_34_inp`)
 - age in 50-64 (variable `age_50_64_inp`)
@@ -98,14 +109,14 @@ In this exercise, you will be comparing means of demographic variables to see if
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","age_19_34_inp","age_35_49_inp","age_50_64_inp","race_white_inp","race_black_inp","hispanic_inp")]
-trmt <- OHIE[OHIE$treatment==1 & !is.na(OHIE$treatment),]
-ctrl <- OHIE[OHIE$treatment==0 & !is.na(OHIE$treatment),]
+treatmentgroup <- OHIE[OHIE$treatment==1 & !is.na(OHIE$treatment),]
+controlgroup <- OHIE[OHIE$treatment==0 & !is.na(OHIE$treatment),]
 rm(OHIE)
 ```
 
 *** =sample_code
 ```{r}
-# trmt and ctrl are both available in your workspace
+# treatmentgroup and controlgroup are both available in your workspace
 
 # Compute the mean difference in the proportion female (gender_inp==1) in the treatment and control groups
 
@@ -129,25 +140,25 @@ rm(OHIE)
 
 *** =solution
 ```{r}
-# trmt and ctrl are both available in your workspace
+# treatmentgroup and controlgroup are both available in your workspace
 
 # Compute the mean difference in the proportion female (gender_inp==1) in the treatment and control groups
-mean(trmt$gender_inp)-mean(ctrl$gender_inp)
+mean(treatmentgroup$gender_inp)-mean(controlgroup$gender_inp)
 
 # Compute the mean difference in the proportion between ages of 19-34 (age_19_34_inp==1) in the treatment and control groups
-mean(trmt$age_19_34_inp)-mean(ctrl$age_19_34_inp)
+mean(treatmentgroup$age_19_34_inp)-mean(controlgroup$age_19_34_inp)
 
 # Compute the mean difference in the proportion between ages of 50-64 (age_50_64_inp==1) in the treatment and control groups
-mean(trmt$age_50_64_inp)-mean(ctrl$age_50_64_inp)
+mean(treatmentgroup$age_50_64_inp)-mean(controlgroup$age_50_64_inp)
 
 # Compute the mean difference in the proportion white (race_white_inp==1) in the treatment and control groups
-mean(trmt$race_white_inp)-mean(ctrl$race_white_inp)
+mean(treatmentgroup$race_white_inp)-mean(controlgroup$race_white_inp)
 
 # Compute the mean difference in the proportion black (race_black_inp==1) in the treatment and control groups
-mean(trmt$race_black_inp)-mean(ctrl$race_black_inp)
+mean(treatmentgroup$race_black_inp)-mean(controlgroup$race_black_inp)
 
 # Compute the mean difference in the proportion hispanic (hispanic_inp==1) in the treatment and control groups
-mean(trmt$hispanic_inp)-mean(ctrl$hispanic_inp)
+mean(treatmentgroup$hispanic_inp)-mean(controlgroup$hispanic_inp)
 
 ```
 
@@ -165,11 +176,13 @@ success_msg("Good work!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:be77016734
-## Testing for balancedness across experimental groups: Part II
+## Testing for Balance Across Experimental Groups: Part II
 
-Data from the Oregon Health Insurance Experiment, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `trmt` and `ctrl` denoting the treatment and control groups, respectively.
+We’ve now seen the basic descriptive information about the people in our data by comparing some average values about their ages, genders, and racial composition in both the treatment and control groups, and they look pretty balanced at first glance. Now we need to check whether these average values hold up as statistically balanced as well. 
 
-In this exercise, you will be using a two-sided t-test to analyze if the difference in the means of demographic variables of patients who did and did not receive health insurance are statistically different.
+A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `treatmentgroup` and `controlgroup` denoting the treatment and control groups, respectively.
+
+In this exercise, you will be using a two-sided t-test to analyze if the difference in the means of demographic variables of patients who did and did not receive health insurance are statistically different. If it turns out that the groups are not balanced statistically, then our analysis will have to get more complicated, so let’s hope they pass this test!
 
 *** =instructions
 - The way to perfrom a t-test in `R` is with the  `t.test()` function
@@ -182,21 +195,21 @@ In this exercise, you will be using a two-sided t-test to analyze if the differe
 - hispanic (variable `hispanic_inp`)
 
 *** =hint
-- Use `t.test(ctrl$var, trmt$var, mu=0)` to statistically test that the treatment and control groups are balanced
+- Use `t.test(controlgroup$var, treatmentgroup$var, mu=0)` to statistically test that the treatment and control groups are balanced
 
 *** =pre_exercise_code
 ```{r}
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","age_19_34_inp","age_35_49_inp","age_50_64_inp","race_white_inp","race_black_inp","hispanic_inp")]
-trmt <- OHIE[OHIE$treatment==1 & !is.na(OHIE$treatment),]
-ctrl <- OHIE[OHIE$treatment==0 & !is.na(OHIE$treatment),]
+treatmentgroup <- OHIE[OHIE$treatment==1 & !is.na(OHIE$treatment),]
+controlgroup <- OHIE[OHIE$treatment==0 & !is.na(OHIE$treatment),]
 rm(OHIE)
 ```
 
 *** =sample_code
 ```{r}
-# trmt and ctrl are both available in your workspace
+# treatmentgroup and controlgroup are both available in your workspace
 
 # Test equality in means of female (gender_inp==1) in the treatment and control groups
 
@@ -220,25 +233,25 @@ rm(OHIE)
 
 *** =solution
 ```{r}
-# trmt and ctrl are both available in your workspace
+# treatmentgroup and controlgroup are both available in your workspace
 
 # Test equality in means of female (gender_inp==1) in the treatment and control groups
-t.test(ctrl$gender_inp, trmt$gender_inp, mu=0)
+t.test(controlgroup$gender_inp, treatmentgroup$gender_inp, mu=0)
 
 # Test equality in means of proportion aged 19-34 (age_19_34_inp==1) in the treatment and control groups
-t.test(ctrl$age_19_34_inp, trmt$age_19_34_inp, mu=0)
+t.test(controlgroup$age_19_34_inp, treatmentgroup$age_19_34_inp, mu=0)
 
 # Test equality in means of proportion aged 50-64 (age_50_64_inp==1) in the treatment and control groups
-t.test(ctrl$age_50_64_inp, trmt$age_50_64_inp, mu=0)
+t.test(controlgroup$age_50_64_inp, treatmentgroup$age_50_64_inp, mu=0)
 
 # Test equality in means of proportion white (race_white_inp==1) in the treatment and control groups
-t.test(ctrl$race_white_inp, trmt$race_white_inp, mu=0)
+t.test(controlgroup$race_white_inp, treatmentgroup$race_white_inp, mu=0)
 
 # Test equality in means of proportion black (race_black_inp==1) in the treatment and control groups
-t.test(ctrl$race_black_inp, trmt$race_black_inp, mu=0)
+t.test(controlgroup$race_black_inp, treatmentgroup$race_black_inp, mu=0)
 
 # Test equality in means of proportion hispanic (hispanic_inp==1) in the treatment and control groups
-t.test(ctrl$hispanic_inp, trmt$hispanic_inp, mu=0)
+t.test(controlgroup$hispanic_inp, treatmentgroup$hispanic_inp, mu=0)
 
 ```
 
@@ -256,11 +269,13 @@ success_msg("Good work!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:5349e868bb
-## Estimating average treatment effects (ATEs) across experimental groups
+## Estimating Average Treatment Effects (ATEs) Across Experimental Groups
 
-Data from the Oregon Health Insurance Experiment, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `trmt` and `ctrl` denoting the treatment and control groups, respectively.
+We finally know that our treatment and control groups are balanced at a statistical level, and now we can look at the outcome variables we actually care about - like people’s blood pressure, diabetes diagnosis, or depression screen - and we can trust that the differences in means between the treatment and control groups will provide the Average Treatment Effect of having insurance on those outcomes.
 
-In this exercise, you will be using a two-sided t-test to analyze if the difference in the means of health outcome variables of patients who did and did not receive health insurance are statistically different.
+A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `treatmentgroup` and `controlgroup` denoting the treatment and control groups, respectively.
+
+In this exercise, you will be using a two-sided t-test to analyze if the difference in the means of health outcome variables of patients who did and did not receive health insurance are statistically different. The research team is eager to hear your results!
 
 *** =instructions
 - The way to perfrom a t-test in `R` is with the  `t.test()` function
@@ -272,21 +287,21 @@ In this exercise, you will be using a two-sided t-test to analyze if the differe
 - anti-depressant usage (variable `antidep_med_inpbinary`)
 
 *** =hint
-- Use `t.test(ctrl$var, trmt$var, mu=0)` to statistically test that the treatment and control groups are balanced
+- Use `t.test(controlgroup$var, treatmentgroup$var, mu=0)` to statistically test that the treatment and control groups are balanced
 
 *** =pre_exercise_code
 ```{r}
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","bp_sar_inp","bp_dar_inp","dia_dx_post_lottery","dep_dx_post_lottery","antidep_med_inpbinary")]
-trmt <- OHIE[OHIE$treatment==1 & !is.na(OHIE$treatment),]
-ctrl <- OHIE[OHIE$treatment==0 & !is.na(OHIE$treatment),]
+treatmentgroup <- OHIE[OHIE$treatment==1 & !is.na(OHIE$treatment),]
+controlgroup <- OHIE[OHIE$treatment==0 & !is.na(OHIE$treatment),]
 rm(OHIE)
 ```
 
 *** =sample_code
 ```{r}
-# trmt and ctrl are both available in your workspace
+# treatmentgroup and controlgroup are both available in your workspace
 
 # Test for presence of significant treatment effect for systolic blood pressure (variable `bp_sar_inp`)
 
@@ -307,22 +322,22 @@ rm(OHIE)
 
 *** =solution
 ```{r}
-# trmt and ctrl are both available in your workspace
+# treatmentgroup and controlgroup are both available in your workspace
 
 # Test for presence of significant treatment effect for systolic blood pressure (variable `bp_sar_inp`)
-t.test(ctrl$bp_sar_inp, trmt$bp_sar_inp, mu=0)
+t.test(controlgroup$bp_sar_inp, treatmentgroup$bp_sar_inp, mu=0)
 
 # Test for presence of significant treatment effect for diastolic blood pressure (variable `bp_dar_inp`)
-t.test(ctrl$bp_dar_inp, trmt$bp_dar_inp, mu=0)
+t.test(controlgroup$bp_dar_inp, treatmentgroup$bp_dar_inp, mu=0)
 
 # Test for presence of significant treatment effect for diabetes (variable `dia_dx_post_lottery`)
-t.test(ctrl$dia_dx_post_lottery, trmt$dia_dx_post_lottery, mu=0)
+t.test(controlgroup$dia_dx_post_lottery, treatmentgroup$dia_dx_post_lottery, mu=0)
 
 # Test for presence of significant treatment effect for depression diagnosis (variable `dep_dx_post_lottery`)
-t.test(ctrl$dep_dx_post_lottery, trmt$dep_dx_post_lottery, mu=0)
+t.test(controlgroup$dep_dx_post_lottery, treatmentgroup$dep_dx_post_lottery, mu=0)
 
 # Test for presence of significant treatment effect for anti-depressant usage (variable `antidep_med_inpbinary`)
-t.test(ctrl$antidep_med_inpbinary, trmt$antidep_med_inpbinary, mu=0)
+t.test(controlgroup$antidep_med_inpbinary, treatmentgroup$antidep_med_inpbinary, mu=0)
 
 ```
 
