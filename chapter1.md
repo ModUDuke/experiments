@@ -82,7 +82,7 @@ success_msg("Good work!")
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:e054d70ffa
-## Testing for Balancedness Across Experimental gGroups: Part I
+## Testing for Balancedness Across Experimental Groups: Part I
 
 Let’s take a look at the demographic makeup of our treatment and control groups to help us understand the kinds of people we have in our dataset, and how balanced the two groups look at first glance.  Hopefully,
 we’ll have the same proportions of young people to old people, men and women, and other demographic traits in both the treatment and control groups. For now, a quick manual comparison of these values will give us a sense of what we’ll be dealing with as we move forward.
