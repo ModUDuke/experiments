@@ -6,7 +6,7 @@ video_link : https://vimeo.com/179938122
 [comment]: # (Course information. Note, due to markdown constraints, all comments below code they refer to) 
 
 
---- key:a8e73f79fa
+--- key:9772960bd4
 type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 [comment]: # (First exercise, set type to video)
 ## Introduction to Experiments
@@ -16,7 +16,7 @@ type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 [comment]: # (Link to video) 
 
 
---- key:68b46968ff
+--- key:25754115c7
 type:MultipleChoiceExercise lang:r xp:100 skills:1
 [comment]: # (Second exercise, set tupe to multiple choice) 
 ## Problem 1: Something
@@ -44,7 +44,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 [comment]: # (Feedback dependent on answer. test_mc identifies which is correct )   
 
 
---- key:7fd0b89408
+--- key:701b063e55
 type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 [comment]: # (Third exercise, set type to normal to code with R) 
 ## Problem 2: Something Different
