@@ -5,13 +5,13 @@ attachments :
 video_link : https://vimeo.com/179938122
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bfc8a2d235
 ## Introduction to Experiments
 *** =video_link
 //player.vimeo.com/video/179938122
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:1ecca31bfa
 ## Problem 1: Something
 This is a question
 *** =instructions
@@ -31,7 +31,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:fe659fa2fc
 ## Problem 2: Something Different
 This describes (in general terms) what you need to do. For this example, what does 2+2 equal?
 *** =instructions
