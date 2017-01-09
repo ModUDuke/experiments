@@ -9,34 +9,34 @@
     <!-- set type to video --> 
         --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bfc8a2d235
     <!-- Title --> 
-        ## Introduction to Experiments
+## Introduction to Experiments
     <!-- Link to video --> 
-        *** =video_link
+*** =video_link
         //player.vimeo.com/video/179938122
 
 <!-- Second Exercise - Multiple Choice--> 
     <!-- set type to multiple choice --> 
         --- type:MultipleChoiceExercise lang:r xp:100 skills:1 key:1ecca31bfa
     <!-- Title --> 
-        ## Problem 1: Something
+## Problem 1: Something
     <!-- Problem text --> 
 This is a question
     <!-- Choices --> 
-      *** =instructions
+*** =instructions
       - Answer 1
       - Answer 2
       - Answer 3
       - Answer 4
     <!-- Hints --> 
-      *** =hint
+*** =hint
       - Here is a useful hint: Answer 3 is the right answer
     <!-- Not clear whether this syntax is necessary -->   
-      *** =pre_exercise_code
+*** =pre_exercise_code
       ```{r}
       #none
       ```
     <!-- Feedback dependent on answer. test_mc identifies which is correct  -->   
-      *** =sct
+*** =sct
       ```{r}
       msg1 = "Try again"
       msg2 = "Try again"
@@ -49,18 +49,18 @@ This is a question
     <!-- set type to Normal --> 
         --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bfc8a2d235
     <!-- Title --> 
-        ## Problem 2: Something Different
+## Problem 2: Something Different
       <!-- Problem text -->
           This describes (in general terms) what you need to do.
     <!-- Specific Instructions -->
-        *** =instructions
+*** =instructions
         - Do this something with `variable`
         - Do  something else with `key term` 
     <!-- Hint -->
-        *** =hint
+*** =hint
         - This is a useful hint
     <!-- Data for exercise -->
-        *** =pre_exercise_code
+*** =pre_exercise_code
         ```{r}
         load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
         ```
@@ -70,13 +70,13 @@ This is a question
         # Useful initial code
         ```
     <!-- Ideal way to solve problem -->
-        *** =solution
+*** =solution
         ```{r}
         # Solution and ideal way to solve problem. For example, imagine we want the user to add 2+2 and store result in "x"
         x <- 2+2
         ```
     <!-- Check to determine if student was correct -->
-        *** =sct
+*** =sct
         ```{r}
             test_object("x")
             success_msg("Good work!")
