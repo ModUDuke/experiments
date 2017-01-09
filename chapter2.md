@@ -31,7 +31,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bfc8a2d235
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:fe659fa2fc
 ## Problem 2: Something Different
 This describes (in general terms) what you need to do.
 *** =instructions
