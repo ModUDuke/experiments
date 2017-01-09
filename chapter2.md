@@ -12,7 +12,7 @@ video_link : https://vimeo.com/179938122
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:1ecca31bfa
-## Problem 1: Something
+## Problem 1: Something key:1ecca31bfa
 This is a question
 *** =instructions
 - Answer 1
@@ -33,7 +33,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:fe659fa2fc
 ## Problem 2: Something Different
-This describes (in general terms) what you need to do. For this example, what does 2+2 equal?
+This describes (in general terms) what you need to do. For this example, what does 2+2 equal? key:fe659fa2fc
 *** =instructions
 - Do this something with `variable`
 - Do  something else with `key term` 
