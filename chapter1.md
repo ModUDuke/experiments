@@ -5,12 +5,12 @@
   video_link :
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4745db858e
 ## Controlled Experiments
 *** =video_link
 //player.vimeo.com/video/198212077
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
 ## Problem 1
 Laurel wants to know which phone is more durable: The WePhone 10S or the Universe S10. To determine which phone is more durable, he buys one of each phone and tests how much force is needed to crush each phone with his hydraulic press. Assuming that each phone is made exactly according to specification and that each phone is tested under exactly the same condition, would this controlled experiment be able to determine which phone is more durable?
 
@@ -24,7 +24,7 @@ msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e157142b3a
 ## Problem 2
 Laurel's experiment determines that the WePhone 10S is more durable than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and incorrectly assumes that whichever specification is most different between the phones is the cause of their different durabilities.
 *** =instructions
@@ -72,13 +72,13 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9e9326a35b
 ## Randomized Experiments
 *** =video_link
 //player.vimeo.com/video/198212082
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:243af9a90f
 ## Problem 3
 Laurel is now interested in determining whether the WePhone 10S is more bendable than the Universe S10. He tests this by having four of his friends try to bend one of the two phones for a duration of 1 minute each. Two of his friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, whereas his other two friends are assigned to trying to bend the WePhone 10S. He finds that the average treatment effect of the WePhone 10S on bendability is -2 degrees (i.e. on average, his friends bent the WePhone 10S 2 degrees less less than his friends bent the Universe S10). Of the following, which is the most problematic design error in this experiment?
 
@@ -98,7 +98,7 @@ msg4 = "Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1c689745b7
 ## Problem 4
 If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S with their hands, which group would serve as a better sample?
 
