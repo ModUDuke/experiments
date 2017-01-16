@@ -5,12 +5,12 @@
   video_link :
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:b0cde8c9d5
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Controlled Experiments
 *** =video_link
 //player.vimeo.com/video/198212077
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:0178e669d3
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Problem 1
 Laurel wants to know which phone is more durable: The WePhone 10S or the Universe S10. To determine which phone is more durable, he buys one of each phone and tests how much force is needed to crush each phone with his hydraulic press. Assuming that each phone is made exactly according to specification and that each phone is tested under exactly the same condition, would this controlled experiment be able to determine which phone is more durable?
 
@@ -24,7 +24,7 @@ msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:2c6c147048
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Problem 2
 Laurel's experiment determines that the WePhone 10S is more durable than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and incorrectly assumes that whichever specification is most different between the phones is the cause of their different durabilities.
 *** =instructions
@@ -40,13 +40,14 @@ PhoneSpecifications<-t(PhoneSpecifications)
 ```{r}
 PhoneSpecifications #Dataframe
 
-Solution1<-   #Write Column name of specification with the largest ratio between the WePhone 10S and the Universe S10
+print(Solution1<-" "  ) #Write Column name of specification with the largest ratio between the WePhone 10S and the Universe S10
 
-Solution2<-   #Write quotient of phone specifications selected in Solution1
+print(Solution2<-     ) #Write quotient of phone specifications selected in Solution1
 
 ```
 *** =solution
 ```{r}
+#loop through specification ratios to find max ratio
 Ratios<-vector(length=5)
 for(i in 1:length(PhoneSpecifications[1,])){
 Ratios[i]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]
@@ -61,14 +62,15 @@ print(Solution2<-max(Ratios))
 ex() %>% check_output("[L|l]uminance+?",
 missing_msg = "Solution1 is incorrect. Make sure it is in string format and printed in the console")
 
-test_object("Solution2")
+ex() %>% check_output("1.45+?",
+missing_msg = "Solution2 is incorrect. Make sure to divide the WePhone10S's specification by the UniverseS10's specification")
 
 success_msg("Good work!")
 ```
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bfc8a2d235
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Randomized Experiments
 *** =video_link
 //player.vimeo.com/video/198212082
