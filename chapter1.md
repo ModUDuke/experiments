@@ -5,12 +5,12 @@
   video_link :
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4745db858e
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Controlled Experiments
 *** =video_link
 //player.vimeo.com/video/198212077
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Problem 1
 Laurel cracked the screen on her old phone, and her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel that buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe is identical from the factory, and if the phones are tested under exactly the same condition, is just one crushing test enough to determine durability?
 
@@ -24,7 +24,7 @@ msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e157142b3a
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Problem 2
 Laurel's video showed that the WePhone 10S was stronger than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and assumes that whichever specification is most different between the phones is the cause of their different durabilities.
 
@@ -62,10 +62,10 @@ print(Solution2<-max(Ratios))
 ```{r}
 #I use regular expressions to allow for multiple spellings of answers. 
 
-ex() %>% check_output('"[L|l]uminance+?"',
+ex() %>% check_output('"[L|l]uminance*"',
 missing_msg = "Solution1 is incorrect. Please write out your answer. Make sure it is in string format and printed in the console") 
 
-ex() %>% check_output("1.45+?",
+ex() %>% check_output("1.45*",
 missing_msg = "Solution2 is incorrect. Make sure to divide the WePhone10S's specification by the UniverseS10's specification")
 
 success_msg("Good work! Keep in mind, even though there is a correlation between the treatment (luminance) and outcome (durability), this correlation is spurious; in reality, a phone's luminance (brightness) does not have a causal effect on its durability.
@@ -73,13 +73,13 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9e9326a35b
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Randomized Experiments
 *** =video_link
 //player.vimeo.com/video/198212082
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:243af9a90f
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Problem 3
 Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends try to join her at an electronics store to bend one of the two phones for a duration of 1 minute each. 
 
@@ -101,7 +101,7 @@ msg4 = "Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1c689745b7
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Problem 4
 If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S with their hands, which group would serve as a better sample?
 
