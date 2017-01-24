@@ -5,31 +5,32 @@
   video_link :
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4745db858e
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Controlled Experiments
 *** =video_link
 //player.vimeo.com/video/198212077
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Problem 1
-Laurel wants to know which phone is more durable: The WePhone 10S or the Universe S10. To determine which phone is more durable, he buys one of each phone and tests how much force is needed to crush each phone with his hydraulic press. Assuming that each phone is made exactly according to specification and that each phone is tested under exactly the same condition, would this controlled experiment be able to determine which phone is more durable?
+Laurel cracked the screen on her old phone, and her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel that buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe is identical from the factory, and if the phones are tested under exactly the same condition, is just one crushing test enough to determine durability?
 
 *** =instructions
 - Yes
 - No
 *** =sct
 ```{r}
-msg1 = "Correct, if all experimental conditions between the phones are identical (i.e. if all other factors that could influence the outcome are controlled for) only two observations are needed to determine whether there is a causal effect between the treatment (phone type) and outcome (durability)"
+msg1 = "Correct, only two observations are needed to determine whether there is a causal effect between the treatment (phone type) and outcome (durability if all experimental conditions between the phones are identical (i.e. If all other factors that could influence the outcome are controlled for). That's assuming you think a crush test is a valid one for determining real-world durability, of course!"
 msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e157142b3a
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Problem 2
-Laurel's experiment determines that the WePhone 10S is more durable than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and incorrectly assumes that whichever specification is most different between the phones is the cause of their different durabilities.
+Laurel's video showed that the WePhone 10S was stronger than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and assumes that whichever specification is most different between the phones is the cause of their different durabilities.
+
 *** =instructions
-- Examine the provided phone specifications in dataframe`PhoneSpecifications` and name the specification that has the `largest ratio` between the WePhone 10S and the Universe S10
-- What is the `size` of this ratio (expressed as a quotient)?
+- Examine the provided phone specifications in dataframe`PhoneSpecifications` and identify the specification that has the `largest ratio` between the WePhone 10S and the Universe S10
+- In the console window, a.) write out the `name` that specification, and b.) write out the `size` of this ratio (expressed as a quotient)
 *** =pre_exercise_code
 ```{r}
 PhoneSpecifications<-data.frame(WePhone10S=c(190,4000,5.5,64,800),UniverseS10=c(180,3500,5.2,64,550))
@@ -62,7 +63,7 @@ print(Solution2<-max(Ratios))
 #I use regular expressions to allow for multiple spellings of answers. 
 
 ex() %>% check_output('"[L|l]uminance+?"',
-missing_msg = "Solution1 is incorrect. Make sure it is in string format and printed in the console") 
+missing_msg = "Solution1 is incorrect. Please write out your answer. Make sure it is in string format and printed in the console") 
 
 ex() %>% check_output("1.45+?",
 missing_msg = "Solution2 is incorrect. Make sure to divide the WePhone10S's specification by the UniverseS10's specification")
@@ -72,15 +73,17 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9e9326a35b
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Randomized Experiments
 *** =video_link
 //player.vimeo.com/video/198212082
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:243af9a90f
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Problem 3
-Laurel is now interested in determining whether the WePhone 10S is more bendable than the Universe S10. He tests this by having four of his friends try to bend one of the two phones for a duration of 1 minute each. Two of his friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, whereas his other two friends are assigned to try to bending the WePhone 10S. He finds that the average treatment effect of the WePhone 10S on bendability is -2 degrees (i.e. on average, his friends bent the WePhone 10S 2 degrees less less than his friends bent the Universe S10). Of the following, which is the most problematic design error in this experiment?
+Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends try to join her at an electronics store to bend one of the two phones for a duration of 1 minute each. 
+
+Two of her friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, and her other two friends try bending the WePhone 10S. They find the Universe S10 bent about 2 degrees more than the WePhone 10, so she concludes the average treatment effect of the WePhone 10S on bendability is -2 degrees. Of the following, which is the most problematic design error in this experiment?
 
 
 *** =instructions
@@ -93,12 +96,12 @@ Laurel is now interested in determining whether the WePhone 10S is more bendable
 ```{r}
 msg1 = "Try again"
 msg2 = "Try again"
-msg3 = "Correct, Laurel's friends were not randomly assigned to each treatment. Instead, he assigned them based on their own preferences, which could lead to confounded results."
+msg3 = "Correct, Laurel's friends were not randomly assigned to each treatment. Instead, she assigned them based on their own preferences, which could lead to confounded results. For example, what if the Universe S10 testers hated Universe phones, so tried harder to damage them?."
 msg4 = "Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1c689745b7
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Problem 4
 If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S with their hands, which group would serve as a better sample?
 
@@ -114,6 +117,6 @@ If Laurel was interested in what proportion of the U.S. population could bend a 
 msg1 = "Try again"
 msg2 = "This answer may be tempting, but Laurel wants a sample that is reflective of the U.S. population"
 msg3 = "Try again"
-msg4 = "Correct"
+msg4 = "Correct. A single neighborhood is unlikely to reflect the diversity of the whole country, and involving people across the world brings in a lot of complicating confounders. People in her town is closer to ideal, but really to get a true representation of the US population, you need to survey strangers across the US"
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
