@@ -127,12 +127,12 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ef7f2e2846
 ## Bounds Analysis for Missing Data
 *** =video_link
 //player.vimeo.com/video/199858153
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
 ## Problem 1
 Which one of the following approaches is *not* an appropriate way to deal with treatment noncompliance?
 
@@ -152,7 +152,7 @@ msg5 = "Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e157142b3a
 ## Problem 2
 CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random 50% group of its customers: those in the treatment group are invited to navigate to a webpage to opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
 
@@ -173,7 +173,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:a00d1ebc4c
 ## Working with non-compliance
 
 Let's continue with the CreditCo dataset described in the previous exercise.
@@ -238,7 +238,7 @@ mean(CreditCo$opt_in[CreditCo$offered==1])
 
 
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:a42175703d
 ## Computing bounds under non-compliance
 
 Continuing with the dataset from the previous exercise, you will now compute the bounds of  average treatment effect of opting in to a credit line increase offer.
