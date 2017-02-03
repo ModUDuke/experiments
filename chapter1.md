@@ -293,3 +293,4 @@ lbound <- pct_opt*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-pct_opt)*
 ```
 
 
+
