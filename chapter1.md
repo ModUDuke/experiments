@@ -132,7 +132,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/199858153
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:fa050e19b1
 ## MC 5
 Which one of the following approaches is *not* an appropriate way to deal with treatment noncompliance?
 
@@ -152,7 +152,7 @@ msg5 = "Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e157142b3a
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1557ba9536
 ## MC 6
 CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random 50% group of its customers: those in the treatment group are invited to navigate to a webpage to opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
 
