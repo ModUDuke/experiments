@@ -1,6 +1,7 @@
 title            : causalinference
 instructors      :
  - speckart@duke.edu
+ - bentley.coffey@duke.edu
  - tyler.ransom@duke.edu
 description      : Prototype for Causal Inference methods course
 university       : DataCamp
