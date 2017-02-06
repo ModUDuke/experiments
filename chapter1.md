@@ -271,6 +271,8 @@ draw <- rnorm(n, mean=0, sd=0.5)
 CreditCo$balance_post <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + 1*CreditCo$offered*CreditCo$opt_in + draw
 CreditCo$balance_post <- exp(CreditCo$balance_post)
 
+rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
+
 CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post")]
 ```
 
@@ -399,6 +401,8 @@ CreditCo$default_post <- as.integer(draw<p)
 draw <- rnorm(n, mean=0, sd=0.5)
 CreditCo$balance_post <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + 1*CreditCo$offered*CreditCo$opt_in + draw
 CreditCo$balance_post <- exp(CreditCo$balance_post)
+
+rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
 
 CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post")]
 ```
