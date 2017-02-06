@@ -196,8 +196,81 @@ In this exercise, you will compute the average treatment effect of taking a cred
 
 *** =pre_exercise_code
 ```{r}
+
 set.seed(1)
-load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/CreditCoNonCompliance.Rda'))
+
+n                          <- 9e5
+frac_treated               <- .5
+frac_female                <- .5656
+frac_white                 <- .688
+
+#------------------------------------------
+# Initialize dataframe
+#------------------------------------------
+CreditCo <- as.data.frame(matrix(0, ncol=11,nrow=n))
+
+colnames(CreditCo) <- c("id",
+"offered",
+"opt_in",
+"FICO",
+"age",
+"female",
+"race_white",
+"default_pre",
+"default_post",
+"balance_pre",
+"balance_post")#Factors=factor(),
+
+#------------------------------------------
+# Simulate baseline data
+#------------------------------------------
+CreditCo$id         <- seq(1,n,1)
+CreditCo$offered  <- as.integer(runif(n)<frac_treated)
+CreditCo$opt_in     <- rep.int(0,n)
+CreditCo$FICO       <- rnorm(n, mean=736, sd=300)
+CreditCo$age        <- sample(18:55, n, replace=T)
+CreditCo$female     <- as.integer(runif(n)<frac_female)
+CreditCo$race_white <- as.integer(runif(n)<frac_white)
+
+# make FICO score intelligible
+CreditCo$FICO[CreditCo$FICO>850] <- 850
+CreditCo$FICO[CreditCo$FICO<300] <- 300
+CreditCo$FICO                    <- round(CreditCo$FICO)
+
+# simulate pre-experiment default rate
+draw <- runif(n)
+xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white
+p    <- exp(xb)/(1+exp(xb))
+CreditCo$default_pre <- as.integer(draw<p)
+
+# simulate pre-experiment balance level
+draw <- rnorm(n, mean=0, sd=0.5)
+CreditCo$balance_pre <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + draw
+CreditCo$balance_pre <- exp(CreditCo$balance_pre)
+
+#------------------------------------------
+# Simulate noncompliance
+#------------------------------------------
+# simulate opt-in behavior
+draw <- runif(sum(CreditCo$offered))
+xb   <- 6.75-1.2*CreditCo$FICO/100+.07*(CreditCo$FICO^2)/10000-2.1*CreditCo$female-2*CreditCo$race_white
+p    <- exp(xb)/(1+exp(xb))
+CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw<p[CreditCo$offered==1])
+
+#------------------------------------------
+# Simulate post outcomes
+#------------------------------------------
+# default
+draw <- runif(n)
+xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white+4*CreditCo$offered*CreditCo$opt_in
+p    <- exp(xb)/(1+exp(xb))
+CreditCo$default_post <- as.integer(draw<p)
+
+# balance
+draw <- rnorm(n, mean=0, sd=0.5)
+CreditCo$balance_post <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + 1*CreditCo$offered*CreditCo$opt_in + draw
+CreditCo$balance_post <- exp(CreditCo$balance_post)
+
 CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post")]
 ```
 
