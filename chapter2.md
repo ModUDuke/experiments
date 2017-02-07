@@ -5,12 +5,12 @@
   video_link :
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:42e831dde4
 ## What is the Point of Statistical Inference?
 *** =video_link
 //player.vimeo.com/video/198212067
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
 ## MC 1
 Under which scenario might an experimenter not need to use statistical inference to justify his causal claims?
 
@@ -28,7 +28,7 @@ msg4 = "Correct! The purpose of statistical inference in randomized experiments 
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2fc3d44de
 ## MC 2
 A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was (100% - 40% =) 60%. Why might the professor want to get a larger sample before publishing these results?
 
@@ -51,7 +51,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/198212064
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:7eab53249a
 ## MC 3
 How are the results from randomized control trials interpreted differently than randomized experiments?
 
@@ -74,7 +74,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/198212064
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0fa656dc08
 ## Practice Reading Tables
 Let's practice reading tables from the Oregon Health Experiment. The dataframe "OregonHealthDepressionResults" indicates results from the Oregon Health Experiment (in percentages) pertaining to depression. With this dataframe, answer the following questions:
 
@@ -132,7 +132,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/198212064
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:82150d848b
 ## Practice working with the Oregon Health Experiment
 A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. This has been divided into two separate dataframes: `treatmentgroup` and `controlgroup` denoting the treatment and control groups, respectively. With this dataframe, determine the following:
 
@@ -204,19 +204,19 @@ test_object("Solution3b")
 success_msg("Good work!")
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ef7f2e2846
 ## Important Issues in Experiment Design These Modules Ignore
 *** =video_link
 //player.vimeo.com/video/198212060
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5f5a6d0023
 ## Common Issues in Experiments
 *** =video_link
 //player.vimeo.com/video/199856354
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
 ## MC 4
 The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% off promotion for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and net profit during the promotional day. Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
@@ -234,7 +234,7 @@ msg4 = "Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:fa050e19b1
 ## MC 5
 Unter's CEO is still convinced that lowering the prices of their services might increase the company's net profits. He is hesitant to lower Unter's prices for a longer period, since the company would risk losing a great deal of income if the price-drop did not substantially increase revenue. Therefore, to experiment how a long-term price drop would effect Unter's profits, the CEO of Unter decides to drop the prices of their services in one city. Over the course of a year, Unter's profits in that city rose substantially. Unter's CEO is now convinced that he should drop Unter's prices nation-wide. Why might this conclusion still be too hasty?
 
@@ -253,13 +253,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0f5e7a1e15
 ## Difficulties in Performing Randomized Experiments
 *** =video_link
 //player.vimeo.com/video/200052274
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1557ba9536
 ## MC 6
 Which of the following causal questions is possible to answer with a randomized experiment (without major ethical concerns)?
 
@@ -277,12 +277,12 @@ msg4 = "Correct! Each other experiment is not only difficult to create, but coul
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a5a7d9f747
 ## Noncompliance in Experiments
 *** =video_link
 //player.vimeo.com/video/198212091
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c896674673
 ## MC 7
 Which one of the following approaches is *not* an appropriate way to deal with treatment noncompliance?
 
@@ -302,7 +302,7 @@ msg5 = "Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:db0bf3e371
 ## Survey Noncompliance
 *** =video_link
 //player.vimeo.com/video/198212102
@@ -328,7 +328,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:a00d1ebc4c
 ## Working with non-compliance
 Let's continue with the CreditCo dataset described in the previous exercise.
 
@@ -433,7 +433,7 @@ test_object("Solution2")
 test_object("Solution3")
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:25526ab294
 ## Bounds Analysis for Missing Data
 *** =video_link
 //player.vimeo.com/video/199858153
