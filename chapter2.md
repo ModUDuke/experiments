@@ -74,6 +74,29 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/198212086
 
+## Reading Average Treatment Effect & Confidence Intervals in a Table: Depression in the Oregon Health Experiment
+*** =video_link
+//player.vimeo.com/video/198212094
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
+## MC 4
+What is the difference between a statistically significant effect and a clinically (or "substantively") significant effect?
+
+*** =instructions
+- Statistically significant effects are bigger than clinically significant effects
+- Statistically significant effects don't necessarily matter, whereas clinically significant effects do matter
+- Statistically significant effects have smaller confidence intervals than clinically significant effects
+- Statistically significant effects don't necessarily matter, whereas clinically significant effects do matter
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! Statistical significance indicates whether an effect is real, but it does not necessarily indicate whether it is meaningful. With enough data, a study might find a statistically significant effect of season on people's preference to buy tissue paper, but the effect might not be important (for example, if people were 0.2% more likely to buy tissue paper in the spring over the fall)."
+msg3 = "Try again"
+msg4 = "Try again"
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0fa656dc08
 ## Practice Reading Tables
 Now let's practice reading tables from the Oregon Health Experiment. As described in the previous video, the Oregon Health Experiment studies the effect of getting Medicaid coverage on respondent's health.
@@ -82,7 +105,8 @@ The dataframe "OregonHealthResults" indicates results from the Oregon Health Exp
 
 *** =instructions
 - What is the mean value of positive screening in the control group?
-- What is the average treatment effect of medicaid coverage on diagnosis after lottery? 
+- What is the average treatment effect of medicaid coverage on positive screening? 
+- Given the mean value of positive screening in the control group and the average treatment effect of medicaid coverage on positive screening, estimate the mean value of positive screening in the treatment group.
 - What is the the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use of medication?
 - Which average treatment effect of medicaid coverage on depression was not statistically significant? 
 
@@ -105,20 +129,23 @@ str(OregonHealthResults) # Dataframe
 
 print(Solution1<- ) # Write mean value of positive screening in the control group
 
-print(Solution2<- ) # Write average treatment effect of medicaid coverage on diagnosis after lottery
+print(Solution2<- ) # Write average treatment effect of medicaid coverage on positive screening
 
-print(Solution3<- ) # Write the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use Of medication
+print(Solution3<- ) # Write mean value of positive screening in the treatment group
 
-print(Solution4<-"") # Write name of variable whose average treatment effect was not statistically significant
+print(Solution4<- ) # Write the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use Of medication
+
+print(Solution5<-"") # Write name of variable whose average treatment effect was not statistically significant
 
 ```
 
 *** =solution
 ```{r}
 print(Solution1<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$`Mean Value in Control Group`)
-print(Solution2<-OregonHealthResults[OregonHealthResults$Variable=="Diagnosis_After_Lottery",]$`Change with Medicaid Coverage`)
-print(Solution3<-OregonHealthResults[OregonHealthResults$Variable=="Current_Use_Of_Medication",]$`95% Confidence Interval (lower bound)`)
-print(Solution4<-OregonHealthResults[OregonHealthResults$`P Value`>.05,]$Variable)
+print(Solution2<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$`Change with Medicaid Coverage`)
+print(Solution3<-Solution1+Solution2)
+print(Solution4<-OregonHealthResults[OregonHealthResults$Variable=="Current_Use_Of_Medication",]$`95% Confidence Interval (lower bound)`)
+print(Solution5<-OregonHealthResults[OregonHealthResults$`P Value`>.05,]$Variable)
 
 ```
 
@@ -127,14 +154,32 @@ print(Solution4<-OregonHealthResults[OregonHealthResults$`P Value`>.05,]$Variabl
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
+test_object("Solution4")
 ex() %>% check_output('"[C|c]urrent.*"',
-missing_msg = "Solution4 is incorrect. Please write out your answer. Make sure it is in string format and printed in the console") 
+missing_msg = "Solution5 is incorrect. Please write out your answer. Make sure it is in string format and printed in the console") 
 success_msg("Good work!")
 ```
 
-## The Design of the Oregon Health Experiment.
+## Reading Average Treatment Effect & Confidence Intervals in a Table: Cholesterol in the Oregon Health Experiment
 *** =video_link
-//player.vimeo.com/video/198212064
+//player.vimeo.com/video/198212098
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
+## MC 5
+If an average treatment effect's confidence interval covers a susbstantially smaller range than its standard error, what might we conclude about the size of that average treatment effect?
+
+
+*** =instructions
+- The average treatment effect is large
+- The average treatment effect is small
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! When an average treatment effect has a small confidence interval and a large standard error, it suggests that the average treatment effect is small, relative to the amount of variance typically found in that parameter."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
 
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:82150d848b
@@ -142,12 +187,12 @@ success_msg("Good work!")
 A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, do the following:
 
 *** =instructions
-- Create a new data frame called `TreatmentGroup` that contains only treated individuals, and a new data frame called `ControlGroup` that contains only control individuals 
 - Test if there is a statistically significant difference in gender between the treament and control groups (i.e. whether gender is balanced between the treatment and control group). 
 - Determine if the treatment and control groups have significantly different average values for the following health outcomes: systolic blood pressure (variable `bp_sar_inp`), and diastolic blood pressure (variable `bp_dar_inp`).
 
 *** =hint
 - For the first question, you will need to `subset` the `OHIE` data frame by treatment. 
+- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
 - For each of the following questions, use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
 
 
@@ -162,10 +207,6 @@ OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp"
 *** =sample_code
 ```{r}
 str(OHIE) #Dataframe
-
-TreatmentGroup<- # Create a new data frame called `TreatmentGroup` that contains only treated individuals 
-
-ControlGroup<- # Create a new data frame called `ControlGroup` that contains only control individuals 
 
 print(Solution1a<- ) # Test if gender is balanced between the treatment and control groups 
 
@@ -183,8 +224,6 @@ print(Solution3b<-"" ) # Does the treatment have a statistically significant eff
 
 *** =solution
 ```{r}
-TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-ControlGroup <- OHIE[OHIE$treatment==0, ]
 print(Solution1a<- t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0))
 print(Solution1b<-"Yes")
 print(Solution2a<- t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp,mu=0))
@@ -194,11 +233,9 @@ print(Solution3b<-"Yes")
 
 ```
 
-
 *** =sct
 ```{r}
-test_object("TreatmentGroup")
-test_object("ControlGroup")
+
 test_object("Solution1a")
 test_object("Solution1b")
 test_object("Solution2a")
@@ -208,6 +245,9 @@ test_object("Solution3b")
 
 success_msg("Good work!")
 ```
+
+
+
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ef7f2e2846
 ## Important Issues in Experiment Design These Modules Ignore
@@ -222,7 +262,7 @@ success_msg("Good work!")
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
-## MC 4
+## MC 6
 The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% off promotion for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and net profit during the promotional day. Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
 *** =instructions
@@ -240,7 +280,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:fa050e19b1
-## MC 5
+## MC 7
 Unter's CEO is still convinced that lowering the prices of their services might increase the company's net profits. He is hesitant to lower Unter's prices for a longer period, since the company would risk losing a great deal of income if the price-drop did not substantially increase revenue. Therefore, to experiment how a long-term price drop would effect Unter's profits, the CEO of Unter decides to drop the prices of their services in one city. Over the course of a year, Unter's profits in that city rose substantially. Unter's CEO is now convinced that he should drop Unter's prices nation-wide. Why might this conclusion still be too hasty?
 
 *** =instructions
@@ -264,7 +304,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:7c1f83a32b
-## MC 6
+## MC 8
 Which of the following causal questions is possible to answer with a randomized experiment (without major ethical concerns)?
 
 *** =instructions
@@ -288,7 +328,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/198212091
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c896674673
-## MC 7
+## MC 9
 Which one of the following approaches is *not* an appropriate way to deal with treatment noncompliance?
 
 *** =instructions
@@ -314,7 +354,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1557ba9536
-## MC 8
+## MC 10
 CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random 50% group of its customers: those in the treatment group are invited to navigate to a webpage to opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
 
 *** =instructions

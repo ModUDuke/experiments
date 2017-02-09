@@ -25,7 +25,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e157142b3a
-## MC 2
+## Comparing Ratios
 Laurel's video showed that the WePhone 10S was stronger than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and assumes that whichever specification is most different between the phones is the cause of their different durabilities.
 
 *** =instructions
@@ -80,7 +80,7 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:243af9a90f
-## MC 3
+## MC 2
 Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends try to join her at an electronics store to bend one of the two phones for a duration of 1 minute each. 
 
 Two of her friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, and her other two friends try bending the WePhone 10S. They find the Universe S10 bent about 2 degrees more than the WePhone 10, so she concludes the average treatment effect of the WePhone 10S on bendability is -2 degrees. Of the following, which is the most problematic design error in this experiment?
@@ -102,7 +102,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1c689745b7
-## MC 4
+## MC 3
 If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S with their hands, which group would serve as a better sample?
 
 
@@ -120,3 +120,70 @@ msg3 = "Try again"
 msg4 = "Correct. A single neighborhood is unlikely to reflect the diversity of the whole country, and involving people across the world brings in a lot of complicating confounders. People in her town is closer to ideal, but really to get a true representation of the US population, you need to survey strangers across the US"
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e157142b3a
+## Practice identifying imbalance
+Laurel has saved all of the wePhones that she broke since she bought her started her YouTube channel, and she now wants to auction them off on eBay. However, Laurel is uncertain what base-acution price to set for her broken WePhones. 
+
+To determine what price to set at the beginning of her WePhone auctions, Laurel conducts a new experiment: Laurel grabs a random sample of broken WePhones from her closet, and randomly assigns them to a treatment group (WePhones to be base priced at $10), and a control group (WePhones to be base priced at $5). However, before auctioning the WePhones, Laurel discovers that her sample is unbalanced. Using the data frame `WePhones`:
+
+*** =instructions
+- Look through each column in the dataframe, and determine which factor level (WePhone trait) is unbalanced between the treatment and control groups.
+
+*** =hint
+- You will need to `subset` the `WePhones` dataframe by treatment group. 
+- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
+- Keep in mind that all vectors in dataframe `WePhones` are of class "factor"
+- Use the `t.test` function where on each trait of the treatment and control groups to determine which traits are unbalanced
+
+*** =pre_exercise_code
+```{r}
+# Initialize dataframe
+    set.seed(1)
+    n <- 100
+    WePhones <- as.data.frame(matrix(0, ncol=6,nrow=n))
+    colnames(WePhones) <- c("Treatment","Color","Hard_Drive_Capacity","Model","Condition","Network")
+# Simulate baseline data
+    WePhones$Treatment<-rbinom(n,1,.5)
+    WePhones$Color<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Hard_Drive_Capacity<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Model<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Network<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Condition<-rbinom(n,1,runif(1,.2,.8))
+# Simulate unbalanced data
+  # probability baseline
+      p<-runif(1,.1,.7)
+  # Randomly assign unbalanced variable
+      WePhones[,sample(2:6,1)]<-ifelse(WePhones$Treatment==1,rbinom(n,1,p),rbinom(n,1,p+.2))
+# Transform into factor variables
+    WePhones$Color<-as.factor(ifelse(WePhones$Color==1,"Platinum","Black"))
+    WePhones$Hard_Drive_Capacity<-as.factor(ifelse(WePhones$Hard_Drive_Capacity==1,"64gb","32gb"))
+    WePhones$Model<-as.factor(ifelse(WePhones$Model==1,"8","7"))
+    WePhones$Network<-as.factor(ifelse(WePhones$Network==1,"Mendizon","Trot"))
+    WePhones$Condition<-as.factor(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
+```
+*** =sample_code
+```{r}
+WePhones #Dataframe
+
+Solution1<-" " #Write column name of specification with the largest ratio between the WePhone 10S and the Universe S10
+
+```
+*** =solution
+```{r}
+  a<-vector()
+for(i in 2:6){
+  a[i-1]<-t.test(as.character(WePhones[,i][WePhones$Treatment==0])==(levels(WePhones[,i])[1]),as.character(WePhones[,i][WePhones$Treatment==1])==(levels(WePhones[,i])[1]))$p.value
+}    
+  Solution1<-names(WePhones)[match(a[a<.05],a)+1]
+```
+*** =sct
+```{r}
+test_object("Solution1")
+
+success_msg("Good work!")
+```
+
+
+
