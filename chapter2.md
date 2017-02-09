@@ -79,7 +79,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/198212094
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## MC 4
 What is the difference between a statistically significant effect and a clinically (or "substantively") significant effect?
 
@@ -165,7 +165,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/198212098
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5765daa781
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## MC 5
 If an average treatment effect's confidence interval covers a susbstantially smaller range than its standard error, what might we conclude about the size of that average treatment effect?
 
@@ -262,7 +262,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/199856354
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:05d04d65f6
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
 ## MC 6
 The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% off promotion for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and net profit during the promotional day. Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 

@@ -122,7 +122,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e97cd6d50d
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice identifying imbalance
 Laurel has saved all of the wePhones that she broke since she bought her started her YouTube channel, and she now wants to auction them off on eBay. However, Laurel is uncertain what base-acution price to set for her broken WePhones. 
 
