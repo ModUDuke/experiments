@@ -165,7 +165,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/198212098
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:fc31fe44a5
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
 ## MC 5
 If an average treatment effect's confidence interval covers a susbstantially smaller range than its standard error, what might we conclude about the size of that average treatment effect?
 
@@ -224,6 +224,8 @@ print(Solution3b<-"" ) # Does the treatment have a statistically significant eff
 
 *** =solution
 ```{r}
+TreatmentGroup <- OHIE[OHIE$treatment==1, ]
+ControlGroup <- OHIE[OHIE$treatment==0, ]
 print(Solution1a<- t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0))
 print(Solution1b<-"Yes")
 print(Solution2a<- t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp,mu=0))
@@ -235,7 +237,6 @@ print(Solution3b<-"Yes")
 
 *** =sct
 ```{r}
-
 test_object("Solution1a")
 test_object("Solution1b")
 test_object("Solution2a")
@@ -261,7 +262,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/199856354
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6a7d0fae24
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
 ## MC 6
 The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% off promotion for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and net profit during the promotional day. Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
