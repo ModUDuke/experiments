@@ -79,7 +79,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/198212094
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
 ## MC 4
 What is the difference between a statistically significant effect and a clinically (or "substantively") significant effect?
 
@@ -165,7 +165,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/198212098
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5765daa781
 ## MC 5
 If an average treatment effect's confidence interval covers a susbstantially smaller range than its standard error, what might we conclude about the size of that average treatment effect?
 
