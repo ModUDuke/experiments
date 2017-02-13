@@ -12,7 +12,7 @@
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
 ## MC 1
-Laurel cracked the screen on her old phone, and her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel that buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe is identical from the factory, and if the phones are tested under exactly the same condition, is just one crushing test enough to determine durability?
+Laurel cracked the screen on her old phone, and her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel video where the host buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe from the factory is truly identical and if the phones are tested under exactly the same condition, then is just one crushing test enough to determine durability?
 
 *** =instructions
 - Yes
@@ -124,7 +124,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e97cd6d50d
 ## Practice identifying imbalance
-Laurel has saved all of the wePhones that she broke since she bought her started her YouTube channel, and she now wants to auction them off on eBay. However, Laurel is uncertain what base-acution price to set for her broken WePhones. 
+Laurel has saved all of the wePhones that she has broken and she now wants to auction them off on eBay. However, Laurel is uncertain what base-acution price to set for her broken WePhones. 
 
 To determine what price to set at the beginning of her WePhone auctions, Laurel conducts a new experiment: Laurel grabs a random sample of broken WePhones from her closet, and randomly assigns them to a treatment group (WePhones to be base priced at $10), and a control group (WePhones to be base priced at $5). However, before auctioning the WePhones, Laurel discovers that her sample is unbalanced. Using the data frame `WePhones`:
 
