@@ -262,7 +262,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/199856354
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e302f4bddd
 ## MC 6
 The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% off promotion for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and net profit during the promotional day. Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
