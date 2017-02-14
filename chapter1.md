@@ -20,7 +20,7 @@ Laurel cracked the screen on her old phone, and her next phone choice will be ba
 *** =sct
 ```{r}
 msg1 = "Correct, only two observations are needed to determine whether there is a causal effect between the treatment (phone type) and outcome (durability if all experimental conditions between the phones are identical (i.e. If all other factors that could influence the outcome are controlled for). That's assuming you think a crush test is a valid one for determining real-world durability, of course!"
-msg2 = "Try again"
+msg2 = "You might think not, but think of this as the most theoretically ideal case, and try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
@@ -94,10 +94,10 @@ Two of her friends really want to try to bend the Universe S10, so Laurel assign
 
 *** =sct
 ```{r}
-msg1 = "Try again"
-msg2 = "Try again"
+msg1 = "Not in this case, as all her friends did what she asked. Try again"
+msg2 = "There are probably ethical issues involved with knowingly breaking things in a store, but from a scientific perspective, there's a bigger experiment design issue than that. Try again"
 msg3 = "Correct, Laurel's friends were not randomly assigned to each treatment. Instead, she assigned them based on their own preferences, which could lead to confounded results. For example, what if the Universe S10 testers hated Universe phones, so tried harder to damage them?."
-msg4 = "Try again"
+msg4 = "We haven't gotten to visualizing this data yet, so try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -114,9 +114,9 @@ If Laurel was interested in what proportion of the U.S. population could bend a 
 
 *** =sct
 ```{r}
-msg1 = "Try again"
+msg1 = "One neighborhood is probably not as diverse as the whole country, so try another option"
 msg2 = "This answer may be tempting, but Laurel wants a sample that is reflective of the U.S. population"
-msg3 = "Try again"
+msg3 = "This is closer to the best case, but is unlikely to be as diverse as the whole U.S. Try again"
 msg4 = "Correct. A single neighborhood is unlikely to reflect the diversity of the whole country, and involving people across the world brings in a lot of complicating confounders. People in her town is closer to ideal, but really to get a true representation of the US population, you need to survey strangers across the US"
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
