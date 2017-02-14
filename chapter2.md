@@ -21,16 +21,16 @@ Under which scenario might an experimenter not need to use statistical inference
 - When he can have his entire population of interest participate in the experiment.
 *** =sct
 ```{r}
-msg1 = "Try again!"
-msg2 = "Try again"
-msg3 = "Try again"
+msg1 = "Even if it sounds good, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again"
+msg2 = "Even with a large sample, you still need to check for some statistical measures to see if it's valid, so try again"
+msg3 = "Even with a well-designed experiment, you still will have just a sample of the possible data to look at, so that's not quite right. Try again"
 msg4 = "Correct! The purpose of statistical inference in randomized experiments is to help researchers make valid propositions about a population given a sample. This is unnecessary if the entire population of interest participates in the experiment."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2fc3d44de
 ## MC 2
-A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was (100% - 40% =) 60%. Why might the professor want to get a larger sample before publishing these results?
+A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was 5/5 - 2/5 = 3/5, or 60%. Why might the professor want to get a larger sample before publishing these results?
 
 *** =instructions
 - To please his reviewers.
@@ -40,10 +40,10 @@ A professor was interested in whether myopia in children could be caused by envi
 
 *** =sct
 ```{r}
-msg1 = "Try again"
-msg2 = "Try again"
+msg1 = "While this might feel like the most immediate reason, what other reason do you think his reviewers mentioned? Try again"
+msg2 = "Noncompliance isn't mentioned as an issue in this case, so it's not the key issue we're looking for. Try again"
 msg3 = "Correct! Even when we draw from a completely random sample, there is always the chance that our sample is not representative of the whole population. The larger the sample size that we draw from, the less likely that our findings were to have occurred by chance."
-msg4 = "Try again"
+msg4 = "Confounders are always an issue, particularly when looking at real world data, but that's not quite the best reason to get a larger sample in this case. Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -64,9 +64,9 @@ How are the results from randomized control trials interpreted differently than 
 *** =sct
 ```{r}
 msg1 = "Correct! A randomized control trial is a type of randomized experiment."
-msg2 = "Try again"
-msg3 = "Try again"
-msg4 = "Try again"
+msg2 = "RCTs are not the only things with real-world implications, so try again"
+msg3 = "RCTs have to look at statistics as much as any experiment, so try again"
+msg4 = "You can use all kinds of tools with RCTs, not just CATEs, so look again for a better answer"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -87,13 +87,13 @@ What is the difference between a statistically significant effect and a clinical
 - Statistically significant effects are bigger than clinically significant effects
 - Statistically significant effects don't necessarily matter, whereas clinically significant effects do matter
 - Statistically significant effects have smaller confidence intervals than clinically significant effects
-- Statistically significant effects don't necessarily matter, whereas clinically significant effects do matter
+- Statistically significant effects always matter, whereas clinically significant effects sometimes don't matter
 *** =sct
 ```{r}
-msg1 = "Try again"
+msg1 = "This might be true in some individual cases, but it's not a rule, so try again"
 msg2 = "Correct! Statistical significance indicates whether an effect is real, but it does not necessarily indicate whether it is meaningful. With enough data, a study might find a statistically significant effect of season on people's preference to buy tissue paper, but the effect might not be important (for example, if people were 0.2% more likely to buy tissue paper in the spring over the fall)."
-msg3 = "Try again"
-msg4 = "Try again"
+msg3 = "This might be true in some individual cases, but it's not a rule, so try again"
+msg4 = "This is not how you should be thinking about treatments, so look again!"
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -273,10 +273,10 @@ The transportation network company, Unter Technologies, is interested in increas
 - Unter cars are not very fast.
 *** =sct
 ```{r}
-msg1 = "Try again"
-msg2 = "Try again"
+msg1 = "Doing some qualitative research to learn The Why behind a behavior change can be helpful, but there's an experiment design issue to address first. Try again"
+msg2 = "This question doesn't say how much data they have, but there's another experiment design issue to consider, so try again"
 msg3 = "Correct! Unter's experiment specifically tests the effect of a temporary price reduction in its services, rather than the effect of a permanent price reduction. Sales may have increased during the promotional period, but sales might not have increased quite as much during a longer period of time."
-msg4 = "Try again"
+msg4 = "This seems unlikely to be a confounding variable in this experiment, so look again for another experiment design issue"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -291,10 +291,10 @@ Unter's CEO is still convinced that lowering the prices of their services might 
 - Unter's experiment did not control for noncompliance.
 *** =sct
 ```{r}
-msg1 = "Try again"
+msg1 = "The company probably does exist in a complex market, but there's something else to worry about without that consideration. Try again"
 msg2 = "Correct! Unter's experimental results may have been specific to the city that Unter conducted the experiment in. People from other cities may not be as sensitive to price-reductions as the city in Unter's experiment."
-msg3 = "Try again"
-msg4 = "Try again"
+msg3 = "Doing some qualitative research to learn The Why behind a behavior change can be helpful, but there's an experiment design issue to address first. Try again"
+msg4 = "The question assumes the CEO can successfully set prices in his own company, so if that's true, what other answer might still be a design issue we need to worry about?"
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -315,10 +315,10 @@ Which of the following causal questions is possible to answer with a randomized 
 - The effect of economic incentives on athletic performance.
 *** =sct
 ```{r}
-msg1 = "Try again"
-msg2 = "Try again"
-msg3 = "Try again"
-msg4 = "Correct! Each other experiment is not only difficult to create, but could cause substantial harm to an experiment's participants."
+msg1 = "This would definitely cause major ethical concerns, so look again"
+msg2 = "This is a very personal topic to many people, and likely to involve big ethical concerns, so try again"
+msg3 = "This sounds incredibly unethical, so look for a better answer!"
+msg4 = "Correct! Each of the other experiments is not only difficult to create, but could cause substantial harm to an experiment's participants."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -340,11 +340,11 @@ Which one of the following approaches is *not* an appropriate way to deal with t
 - Assume Random Compliance
 *** =sct
 ```{r}
-msg1 = "Try again"
-msg2 = "Try again"
+msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
+msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
 msg3 = "Correct! Randomized Control Trials are not a valid way to correct for noncompliance, because they themselves are suscpetible to treatment noncompliance."
-msg4 = "Try again"
-msg5 = "Try again"
+msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
+msg5 = "Assuming Random Compliance is not always applicable, but it still is a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
