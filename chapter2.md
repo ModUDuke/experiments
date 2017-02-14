@@ -99,16 +99,20 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0fa656dc08
 ## Practice Reading Tables
-Now let's practice reading tables from the Oregon Health Experiment. As described in the previous video, the Oregon Health Experiment studies the effect of getting Medicaid coverage on respondent's health.
+Now let's practice reading tables from the Oregon Health Experiment. As described in the previous video, the Oregon Health Experiment studies the effect of getting Medicaid coverage on respondent's health, so let's look at some mental health results in the data.
 
-The dataframe "OregonHealthResults" indicates results from the Oregon Health Experiment (in percentages) pertaining to depression. With this dataframe, answer the following questions:
+The dataframe "OregonHealthResults" indicates results from the Oregon Health Experiment (in percentages) pertaining to depression, and to get a good sense of how this was affected in the experiment, you decide to review some results and then calculate some new numbers for yourself . 
+
+With this dataframe, you decide to first look at two basic items: the average positive screen value in the control group, and the Average Treatment Effect of Medicaid on positive screen values.  Once you know those, you decide to calculate the mean value in the treatment group, the 95% confidence interval lower bound, and then decide if any values are not statistically significant.
+
+These calculations will give you a deeper sense of the impact of health insurance on basic mental health.
 
 *** =instructions
 - What is the mean value of positive screening in the control group?
 - What is the average treatment effect of medicaid coverage on positive screening? 
 - Given the mean value of positive screening in the control group and the average treatment effect of medicaid coverage on positive screening, estimate the mean value of positive screening in the treatment group.
 - What is the the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use of medication?
-- Which average treatment effect of medicaid coverage on depression was not statistically significant? 
+- Which average treatment effect of medicaid coverage on depression was not statistically significant? You can write this out as a line of text.
 
 *** =pre_exercise_code
 ```{r}
@@ -184,7 +188,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:82150d848b
 ## Practice working with the Oregon Health Experiment
-A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, do the following:
+Let's say you're wondering how much mens' and womens' health differed in the experiment, and what the data says about Medicaid's effects on those differences, so you decide to look at some of the basic health numbers in the data. A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, you make some quick calculations to learn about any differences that might be linked to gender by looking at:
 
 *** =instructions
 - Test if there is a statistically significant difference in gender between the treament and control groups (i.e. whether gender is balanced between the treatment and control group). 
@@ -376,11 +380,9 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:a00d1ebc4c
 ## Working with non-compliance
-Let's continue with the CreditCo dataset described in the previous exercise.
+Let's continue with the CreditCo dataset described in the previous exercise. The CFO has assigned you to figure out the average treatment effect of taking a credit line increase offer on late payments (defaults), and he wants to see something before lunch. You realize that you can give him a simple result: you just need to do some quick checks for balance in your samples and compute a "naive" average treatment effect to get the analysis started.
 
-A simulated version of this dataset, `CreditCo`, is available in the workspace.
-
-In this exercise, you will compute the average treatment effect of taking a credit line increase offer on late payments (default).
+A simulated version of this dataset, `CreditCo`, is available in the workspace.  With that data:
 
 *** =instructions
 - See if treatment and control groups are of equal size
@@ -487,10 +489,13 @@ test_object("Solution3")
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:a42175703d
 ## Computing bounds under non-compliance
-Continuing with the dataset from the previous exercise, you will now compute the bounds of average treatment effect of opting into a credit line increase offer.
+Your calculations on the CreditCo data showed that noncompliance was an issue in the experiment, so you decide to look at 2 methods for dealing with it.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. 
+
+First, you compute the bounds of average treatment effect of opting into a credit line increase offer. Second, you calculate what the average treatment effect would be in one of the two other methods (or both, if you want to be complete!).
 
 *** =instructions
-- Compute bounds on the average treatment effect under non-compliant behavior, and compare with other methods of correcting for non-compliance.
+- Compute bounds on the average treatment effect under non-compliant behavior
+- Compare this with the result of another methods of correcting for non-compliance.
 
 *** =hint
 - Remember to be aware of selecting the correct subsample
