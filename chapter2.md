@@ -152,7 +152,7 @@ test_object("Solution3")
 success_msg("Good work!")
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5fa7d35f25
 ## Practice Reading Tables (Part II)
 Now that we know how an Average Treatment Effect is related to mean values in the treatment and control groups, we should examine the reliability of these results. Therefore, you decide to examine the 95% confidence interval lower bound, and statistical significance for one of the table's Average Treatment Effects.
 
