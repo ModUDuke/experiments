@@ -11,7 +11,7 @@
 //player.vimeo.com/video/198212067
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
-## MC 1
+## Multiple Choice: Statistical inference
 Under which scenario might an experimenter not need to use statistical inference to justify his causal claims?
 
 *** =instructions
@@ -29,7 +29,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2fc3d44de
-## MC 2
+## Multiple Choice: Sample size
 A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was 5/5 - 2/5 = 3/5, or 60%. Why might the professor want to get a larger sample before publishing these results?
 
 *** =instructions
@@ -52,7 +52,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/198212064
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:7eab53249a
-## MC 3
+## Multiple Choice: Experiments vs. RCTs
 How are the results from randomized control trials interpreted differently than randomized experiments?
 
 *** =instructions
@@ -80,7 +80,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
-## MC 4
+## Multiple Choice: Significance
 What is the difference between a statistically significant effect and a clinically (or "substantively") significant effect?
 
 *** =instructions
@@ -205,7 +205,7 @@ success_msg("Good work!")
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5765daa781
-## MC 5
+## Multiple Choice: Interpreting effect sizes
 The head of the marketing department at Bizer Inc., is trying to decide whether to reference a new cholesterol medicine's average treatment effect in the company's advertisements for that medicine. He knows that on average, the medicine reduces cholesterol in respondents by about 1mg/dL, but he's not sure whether that number is large or small; that is, whether the medicine's average treatment effect is worth advertising. If cholesterol is highly variable in the population (about 70% of the population has cholesterol between 160mg/dL and 240mg/dL), does an average treatment effect of 1mg/dL seem relatively small or relatively large? In other words, when an average treatment effect is substantially smaller than the standard error of the mean for a parameter, how would we tyipcally interpret the size of that average treatment effect?
 
 
@@ -300,7 +300,7 @@ success_msg("Good work!")
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e302f4bddd
-## MC 6
+## Multiple Choice: Drawing conclusions from experiments
 The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% off promotion for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and net profit during the promotional day. Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
 *** =instructions
@@ -318,7 +318,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:fa050e19b1
-## MC 7
+## Multiple Choice: Generalizing experimental results
 Unter's CEO is still convinced that lowering the prices of their services might increase the company's net profits. He is hesitant to lower Unter's prices for a longer period, since the company would risk losing a great deal of income if the price-drop did not substantially increase revenue. Therefore, to experiment how a long-term price drop would effect Unter's profits, the CEO of Unter decides to drop the prices of their services in one city. Over the course of a year, Unter's profits in that city rose substantially. Unter's CEO is now convinced that he should drop Unter's prices nation-wide. Why might this conclusion still be too hasty?
 
 *** =instructions
@@ -342,7 +342,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:7c1f83a32b
-## MC 8
+## Multiple Choice: Ethics in experiments
 Which of the following causal questions is possible to answer with a randomized experiment (without major ethical concerns)?
 
 *** =instructions
@@ -366,7 +366,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/198212091
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c896674673
-## MC 9
+## Multiple Choice: Ways to deal with noncompliance
 Which one of the following approaches is *not* an appropriate way to deal with treatment noncompliance?
 
 *** =instructions
@@ -392,7 +392,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1557ba9536
-## MC 10
+## Multiple Choice: Quantifying noncompliance concerns
 CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random 50% group of its customers: those in the treatment group are invited to navigate to a webpage to opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
 
 *** =instructions
