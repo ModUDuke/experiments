@@ -359,12 +359,12 @@ Which of the following causal questions is possible to answer with a randomized 
 - The effect of losing one's job on mental health.
 - The effect of religion on financial well-being.
 - The effect of social isolation on academic performance.
-- The effect of economic incentives on athletic performance.
+- The effect of financial incentives on athletic performance.
 *** =sct
 ```{r}
-msg1 = "This would definitely cause major ethical concerns, so look again"
+msg1 = "This would definitely cause major ethical concerns because randomly assigning people to lose their job is not allowed.Try again"
 msg2 = "This is a very personal topic to many people, and likely to involve big ethical concerns, so try again"
-msg3 = "This sounds incredibly unethical, so look for a better answer!"
+msg3 = "Randomly assigning people to social isolation is incredibly unethical, so look for a better answer!"
 msg4 = "Correct! Each of the other experiments is not only difficult to create, but could cause substantial harm to an experiment's participants."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
@@ -403,17 +403,19 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1557ba9536
 ## Multiple Choice: Quantifying noncompliance concerns
-CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random 50% group of its customers: those in the treatment group are invited to navigate to a webpage to opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
+CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random 50% group of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
+
+Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
 
 *** =instructions
-- No, because people in the treatment group likely decided to opt in based on a coin flip
+- No, because people in the treatment group likely used a coin flip to make their opt-in decision
 - Yes, because the opt-in rate is low
 - No, because an opt-in rate of 40% is actually quite high
 - Yes, because the set of people opting in are probably people with worse spending habits.
 *** =sct
 ```{r}
-msg1 = "This is partially correct. A low compliance rate is one symptom of a noncompliance problem."
-msg2 = "While this is a possibility, it is unlikely to actually be the case."
+msg1 = "While this is a possibility, it is unlikely to actually be the case. Try again."
+msg2 = "This is partially correct. A low compliance rate is one symptom of a noncompliance problem."
 msg3 = "While high compliance rates indicate a lower noncompliance problem, the rate of 40% in this situation is likely to be problematic."
 msg4 = "Correct! In this situation, researchers at CreditCo should be worried about the spending habits of those who opted in to the offer."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
