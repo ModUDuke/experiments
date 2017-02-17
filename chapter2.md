@@ -12,17 +12,17 @@
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
 ## Multiple Choice: Statistical inference
-Under which scenario might an experimenter not need to use statistical inference to justify his causal claims?
+Under which scenario might an experimenter *not* need to use statistical inference to justify his causal claims?
 
 *** =instructions
-- When his causal claim seems intuitive.
+- When his causal claim is logically sound.
 - When his sample is large.
 - When his experiment is well-designed.
 - When he can have his entire population of interest participate in the experiment.
 *** =sct
 ```{r}
-msg1 = "Even if it sounds good, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again"
-msg2 = "Even with a large sample, you still need to check for some statistical measures to see if it's valid, so try again"
+msg1 = "Even if it makes sense, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again"
+msg2 = "Even with a large sample, you still need to use statistical measures to verify the experiment's validity, so try again"
 msg3 = "Even with a well-designed experiment, you still will have just a sample of the possible data to look at, so that's not quite right. Try again"
 msg4 = "Correct! The purpose of statistical inference in randomized experiments is to help researchers make valid propositions about a population given a sample. This is unnecessary if the entire population of interest participates in the experiment."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
@@ -30,7 +30,9 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2fc3d44de
 ## Multiple Choice: Sample size
-A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was 5/5 - 2/5 = 3/5, or 60%. Why might the professor want to get a larger sample before publishing these results?
+A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. 
+
+All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was 5/5 - 2/5 = 3/5, or 60%. Why might the professor want to get a larger sample before publishing these results?
 
 *** =instructions
 - To please his reviewers.
@@ -65,7 +67,7 @@ How are the results from randomized control trials interpreted differently than 
 ```{r}
 msg1 = "Correct! A randomized control trial is a type of randomized experiment."
 msg2 = "RCTs are not the only things with real-world implications, so try again"
-msg3 = "RCTs have to look at statistics as much as any experiment, so try again"
+msg3 = "RCTs must be analyzed using statistical methods as much as any experiment, so try again"
 msg4 = "You can use all kinds of tools with RCTs, not just CATEs, so look again for a better answer"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
@@ -90,10 +92,10 @@ What is the difference between a statistically significant effect and a clinical
 - Statistically significant effects always matter, whereas clinically significant effects sometimes don't matter
 *** =sct
 ```{r}
-msg1 = "This might be true in some individual cases, but it's not a rule, so try again"
+msg1 = "This might be true in some individual cases, but it's not true in general, so try again"
 msg2 = "Correct! Statistical significance indicates whether an effect is real, but it does not necessarily indicate whether it is meaningful. With enough data, a study might find a statistically significant effect of season on people's preference to buy tissue paper, but the effect might not be important (for example, if people were 0.2% more likely to buy tissue paper in the spring over the fall)."
-msg3 = "This might be true in some individual cases, but it's not a rule, so try again"
-msg4 = "This is not how you should be thinking about treatments, so look again!"
+msg3 = "This might be true in some individual cases, but it's not true in general, so try again"
+msg4 = "This is not how you should interpret treatment effects, so look again!"
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -206,7 +208,9 @@ success_msg("Good work!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5765daa781
 ## Multiple Choice: Interpreting effect sizes
-The head of the marketing department at Bizer Inc., is trying to decide whether to reference a new cholesterol medicine's average treatment effect in the company's advertisements for that medicine. He knows that on average, the medicine reduces cholesterol in respondents by about 1mg/dL, but he's not sure whether that number is large or small; that is, whether the medicine's average treatment effect is worth advertising. If cholesterol is highly variable in the population (about 70% of the population has cholesterol between 160mg/dL and 240mg/dL), does an average treatment effect of 1mg/dL seem relatively small or relatively large? In other words, when an average treatment effect is substantially smaller than the standard error of the mean for a parameter, how would we tyipcally interpret the size of that average treatment effect?
+The head of marketing at Bizer, Inc. is trying to decide whether to include a new cholesterol medicine's average treatment effect in the company's advertisements for that medicine. He knows that on average, the medicine reduces cholesterol in respondents by about 1mg/dL and knows that the effect is statistically different from zero. However, he's not sure whether that number is large or small; that is, whether the medicine's average treatment effect is worth advertising. 
+
+If cholesterol is highly variable in the population (about 70% of the population has cholesterol between 160mg/dL and 240mg/dL), does an average treatment effect of 1mg/dL seem relatively small or relatively large? In other words, when an average treatment effect is substantially smaller than the standard error of the mean for a parameter, how would we tyipcally interpret the size of that average treatment effect?
 
 
 *** =instructions
@@ -214,8 +218,8 @@ The head of the marketing department at Bizer Inc., is trying to decide whether 
 - The average treatment effect is small
 *** =sct
 ```{r}
-msg1 = "Although a 1mg/dL reduction in cholesterol might seem substantial to some portions of the population, it is not very large reduction relative to the amount of variance in cholesterol among the population. Try again."
-msg2 = "Correct! When an average treatment effect is small relative to the standard error of a sample mean, it suggests that the average treatment effect is small, relative to the amount of variance typically found in that parameter."
+msg1 = "Although a 1mg/dL reduction in cholesterol is statistically significant and might be substantial for some members of the population, it is not a very large reduction relative to the amount of variance in cholesterol in the population. Try again."
+msg2 = "Correct! When an average treatment effect is small relative to the standard error of a sample mean, it suggests that the average treatment effect is small, relative to the amount of variance typically found in that parameter. This thought process is especially helpful when deciding if an estimated effect is clinically significant (even if it is statistically significant)."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
@@ -301,29 +305,35 @@ success_msg("Good work!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e302f4bddd
 ## Multiple Choice: Drawing conclusions from experiments
-The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% off promotion for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and net profit during the promotional day. Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
+The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. 
+
+Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% discount for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and profits during the promotional day. 
+
+Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
 *** =instructions
-- Unter did not survey its consumers to determine if people were enticed by Unter's lower prices.
+- Unter did not survey its customers to determine if they were enticed by Unter's lower prices.
 - Unter does not have enough data to test the statistical significance of its findings.
 - The treatment in Unter's experiment might not have the same effect as the treatment in their policy proposal.
-- Unter cars are not very fast.
+- Unter's experiment didn't address the strategic responses of its competitors.
 *** =sct
 ```{r}
-msg1 = "Doing some qualitative research to learn The Why behind a behavior change can be helpful, but there's an experiment design issue to address first. Try again"
-msg2 = "This question doesn't say how much data they have, but there's another experiment design issue to consider, so try again"
-msg3 = "Correct! Unter's experiment specifically tests the effect of a temporary price reduction in its services, rather than the effect of a permanent price reduction. Sales may have increased during the promotional period, but sales might not have increased quite as much during a longer period of time."
-msg4 = "This seems unlikely to be a confounding variable in this experiment, so look again for another experiment design issue"
+msg1 = "Doing additional research to learn The Why behind a behavioral change can be helpful, but there's an experiment design issue to address first. Try again"
+msg2 = "This question doesn't say how much data Unter used, but there's another experiment design issue to consider, so try again"
+msg3 = "Correct! Unter's experiment specifically tests the effect on profits of a temporary price reduction in its services, rather than the effect of a permanent price reduction. Profits increased during the promotional period, but there is no evidence that profits would remain higher over a longer period of time."
+msg4 = "While Unter's profits are a function of its competitors' behavior, there is another experiment design issue that is more appropriate. Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:fa050e19b1
 ## Multiple Choice: Generalizing experimental results
-Unter's CEO is still convinced that lowering the prices of their services might increase the company's net profits. He is hesitant to lower Unter's prices for a longer period, since the company would risk losing a great deal of income if the price-drop did not substantially increase revenue. Therefore, to experiment how a long-term price drop would effect Unter's profits, the CEO of Unter decides to drop the prices of their services in one city. Over the course of a year, Unter's profits in that city rose substantially. Unter's CEO is now convinced that he should drop Unter's prices nation-wide. Why might this conclusion still be too hasty?
+Unter's CEO is still convinced that lowering the prices of their services might increase the company's profits. He is hesitant to lower Unter's prices for a longer period, since the company would risk losing a great deal of income if the price-drop did not substantially increase revenue. 
+
+Therefore, to understand how a long-term price drop would affect Unter's profits, the CEO of Unter decides to drop the prices of their services in one city. Over the course of a year, Unter's profits in that city rose substantially. Unter's CEO is now convinced that he should drop Unter's prices nation-wide. Why might this conclusion still be too hasty?
 
 *** =instructions
 - Unter's experiment did not pay attention to how its changes affected its competitors.
-- The context in Unter's experiment might not generalize to other contexts effected by Unter's policy proposal.
+- The context in Unter's experiment might not generalize to other contexts affected by Unter's policy proposal.
 - Unter's experiment did not specify why people might be enticed by lower prices.
 - Unter's experiment did not control for noncompliance.
 *** =sct
