@@ -12,15 +12,15 @@
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
 ## Multiple Choice: Controlled experiments
-Laurel cracked the screen on her old phone, and her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel video where the host buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe from the factory is truly identical and if the phones are tested under exactly the same condition, then is just one crushing test enough to determine durability?
+Laurel is in the market for a new phone after cracking the screen on her old one. Her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel video where the host buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe from the factory is truly identical and if the phones are tested under exactly the same condition, then is just one crushing test enough to determine durability?
 
 *** =instructions
 - Yes
 - No
 *** =sct
 ```{r}
-msg1 = "Correct, only two observations are needed to determine whether there is a causal effect between the treatment (phone type) and outcome (durability if all experimental conditions between the phones are identical (i.e. If all other factors that could influence the outcome are controlled for). That's assuming you think a crush test is a valid one for determining real-world durability, of course!"
-msg2 = "You might think not, but think of this as the most theoretically ideal case, and try again"
+msg1 = "Correct, only two observations are needed to determine whether there is a causal effect between the treatment (phone type) and outcome (durability) if all experimental conditions between the phones are identical (i.e. If all other factors that could influence the outcome are controlled for). That's assuming you think a crush test is a valid one for determining real-world durability, of course!"
+msg2 = "You might think not, but consider this as the most theoretically ideal case, and try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
@@ -81,29 +81,31 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:243af9a90f
 ## Multiple Choice: Experimental design
-Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends try to join her at an electronics store to bend one of the two phones for a duration of 1 minute each. 
+Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends to join her at an electronics store and bend one of the two phones for a duration of 1 minute each. 
 
-Two of her friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, and her other two friends try bending the WePhone 10S. They find the Universe S10 bent about 2 degrees more than the WePhone 10, so she concludes the average treatment effect of the WePhone 10S on bendability is -2 degrees. Of the following, which is the most problematic design error in this experiment?
+Two of her friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, and her other two friends try bending the WePhone 10S. 
+
+The Universe S10 was bent about 2 degrees more than the WePhone 10, so Laurel concludes that the average treatment effect of the WePhone 10S on bendability is -2 degrees. Of the following, which is the most problematic design error in this experiment?
 
 
 *** =instructions
 - Noncompliance
 - Ethics
 - Random assignment
-- Data visualization
+- Not enough data
 
 *** =sct
 ```{r}
 msg1 = "Not in this case, as all her friends did what she asked. Try again"
 msg2 = "There are probably ethical issues involved with knowingly breaking things in a store, but from a scientific perspective, there's a bigger experiment design issue than that. Try again"
-msg3 = "Correct, Laurel's friends were not randomly assigned to each treatment. Instead, she assigned them based on their own preferences, which could lead to confounded results. For example, what if the Universe S10 testers hated Universe phones, so tried harder to damage them?."
-msg4 = "We haven't gotten to visualizing this data yet, so try again"
+msg3 = "Correct, Laurel's friends were not randomly assigned to each treatment. Instead, she assigned them based on their own preferences, which could lead to confounded results. For example, what if the Universe S10 testers hated Universe phones, so tried harder to damage them?"
+msg4 = "Sample size is not related to experimental design. We'll talk later about how sample size matters in making inference about experimental results."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1c689745b7
 ## Multiple Choice: Sampling
-If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S with their hands, which group would serve as a better sample?
+If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S at least 1 degree with their hands, which group would serve as a better sample?
 
 
 *** =instructions
