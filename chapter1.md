@@ -11,7 +11,7 @@
 //player.vimeo.com/video/198212077
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ebe90c9c16
-## MC 1
+## Multiple Choice: Controlled experiments
 Laurel cracked the screen on her old phone, and her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel video where the host buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe from the factory is truly identical and if the phones are tested under exactly the same condition, then is just one crushing test enough to determine durability?
 
 *** =instructions
@@ -80,7 +80,7 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:243af9a90f
-## MC 2
+## Multiple Choice: Experimental design
 Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends try to join her at an electronics store to bend one of the two phones for a duration of 1 minute each. 
 
 Two of her friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, and her other two friends try bending the WePhone 10S. They find the Universe S10 bent about 2 degrees more than the WePhone 10, so she concludes the average treatment effect of the WePhone 10S on bendability is -2 degrees. Of the following, which is the most problematic design error in this experiment?
@@ -102,7 +102,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1c689745b7
-## MC 3
+## Multiple Choice: Sampling
 If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S with their hands, which group would serve as a better sample?
 
 
