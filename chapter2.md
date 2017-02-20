@@ -290,6 +290,54 @@ success_msg("Good work!")
 
 
 
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice working with eGulf
+To increase their commissions, the popular online auctioneer, eGulf, wants to help its sellers increase the final sales prices of their merchandise. For each auction on eGulf, sellers are allowed to post up to 10 pictures of an item that they are selling. Past studies suggest that customer's appraisals of merchandise (and subsequently, final bids of merchandise) improve when sellers include more pictures of their merchandise; therefore, eGulf considers raising the number of pictures that a seller can post on an auction's webpage. 
+
+To test whether eGulf should allow sellers to post more than 10 pictures of their items, eGulf conducts an experiment: eGulf finds a random sample of dedicated used WePhone sellers that typically post 10 pictures of their used WePhones, and temporarily allows them to post up to 15 pictures for each auction of their WePhones. Using the results of this experiment, listed in dataset `eGulf`, test whether there is an added benefit to posting more than 10 pictures on WePhone auctions. Specifically:
+
+*** =instructions
+- Statistically test whether sellers who posted more than 10 pictures (`Seller_Opted_Into_Treatment`==1) on their WePhone auctions (`Final_Sales_Price`) sold their WePhones at higher prices than sellers who posted 10 or less pictures on their WePhone auctions (`Seller_Opted_Into_Treatment`==0)
+
+*** =hint
+- For the first question, you will need to `subset` the `eGulf` data frame by treatment. 
+- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
+- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+
+*** =pre_exercise_code
+```{r}
+# Initialize dataframe
+set.seed(1)
+n <- 1000
+eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
+colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
+# Simulate baseline data
+  # Make seller feedback count
+    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
+  # Make feedback score loosely correlated with feedback count 
+    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(100,1,10),2)
+  # Make seller offered treatment loosely correlated with with feedback count 
+    eGulf$Seller_Offered_Treatment<-rbinom(n,1,.5+eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)/5)
+  # Make seller opted_into_treatment correlated with seller_feedback_score
+    eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
+  # Make final sales price also correlated with seller_feedback_score
+    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
+```
+*** =sample_code
+```{r}
+str(eGulf) #Dataframe
+Solution1<- # Use a t.test to determine whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices
+```
+*** =solution
+```{r}
+Solution1<-t.test(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1],eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0])
+```
+*** =sct
+```{r}
+test_object("Solution1")
+success_msg("Good work! It looks like posting more photos was positively associated with final WePhone sales prices.")
+```
+
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ef7f2e2846
 ## Important Issues in Experiment Design These Modules Ignore
@@ -394,6 +442,59 @@ msg4 = "Intention to Treat Analysis is definitely a common way to deal with nonc
 msg5 = "Assuming Random Compliance is not always applicable, but it still is a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Noncompliance in eGulf
+Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we did not examine whether noncompliance could have confounded our results. Specifically, what if the sellers who chose to post more than 10 pictures of their WePhones were different from those who chose not to post more than 10 pictures? If the experiment's dependent variable is associated with a difference between compliers and noncompliers, its association with the treatment effect may be spurious. Therefore, we should test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
+
+*** =instructions
+- Statistically test whether sellers who were offered treatment (`Seller_Offered_Treatment`) and opted into the treatment (`Seller_Opted_Into_Treatment`==1) had different prior average feedback scores (`Seller_Feedback_Score`) than sellers who were offered treatment but did not opt into treatment. 
+- Test whether sellers' prior average feedback scores (`Seller_Feedback_Score`) were associated with their recent auction's final sales price (`Final_Sales_Price`) using R's correlation (`cor()`) function
+
+*** =hint
+- For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
+- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the who were offered and opted into treatment, and a new data frame called `ControlGroup` who were offered but did not opt into treatment.
+- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+
+*** =pre_exercise_code
+```{r}
+# Initialize dataframe
+set.seed(1)
+n <- 1000
+eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
+colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
+# Simulate baseline data
+  # Make seller feedback count
+    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
+  # Make feedback score loosely correlated with feedback count 
+    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(100,1,10),2)
+  # Make seller offered treatment loosely correlated with with feedback count 
+    eGulf$Seller_Offered_Treatment<-rbinom(n,1,.5+eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)/5)
+  # Make seller opted_into_treatment correlated with seller_feedback_score
+    eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
+  # Make final sales price also correlated with seller_feedback_score
+    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
+```
+*** =sample_code
+```{r}
+str(eGulf) #Dataframe
+
+Solution1<- # Use a t.test to determine whether, among those offered treatment, those who opted into treatment had different seller feedback scores than those who chose not to opt into treatment.
+
+Solution2<- # Determine whether seller's feedback scores are associated with final sales prices
+```
+*** =solution
+```{r}
+Solution1<-t.test(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1&eGulf$Seller_Offered_Treatment==1],eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==0 & eGulf$Seller_Offered_Treatment==1])
+Solution2<-cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
+```
+*** =sct
+```{r}
+test_object("Solution1")
+test_object("Solution2")
+success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who had not posted more photos. Additionally prior average feedback scores were strongly correlated with final WePhone sales prices. This suggests that the relationship between posting more photos and final sales prices might be spurious")
+```
+
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:db0bf3e371
 ## Survey Noncompliance
