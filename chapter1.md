@@ -131,13 +131,13 @@ Laurel has saved all of the wePhones that she has broken and she now wants to au
 To determine what price to set at the beginning of her WePhone auctions, Laurel conducts a new experiment: Laurel grabs a random sample of broken WePhones from her closet, and randomly assigns them to a treatment group (WePhones to be base priced at $10), and a control group (WePhones to be base priced at $5). However, before auctioning the WePhones, Laurel discovers that her sample is unbalanced. Using the data frame `WePhones`:
 
 *** =instructions
-- Look through each column in the dataframe, and determine which factor level (WePhone trait) is unbalanced between the treatment and control groups.
+- Look through each column in the dataframe, and determine which WePhone trait is unbalanced between the treatment and control groups.
 
 *** =hint
+- Use the `t.test` function on each trait of the treatment and control groups to determine which traits are unbalanced
 - You will need to `subset` the `WePhones` dataframe by treatment group. 
 - It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
-- Keep in mind that all vectors in dataframe `WePhones` are of class "factor"
-- Use the `t.test` function where on each trait of the treatment and control groups to determine which traits are unbalanced
+
 
 *** =pre_exercise_code
 ```{r}
@@ -158,25 +158,25 @@ To determine what price to set at the beginning of her WePhone auctions, Laurel 
       p<-runif(1,.1,.7)
   # Randomly assign unbalanced variable
       WePhones[,sample(2:6,1)]<-ifelse(WePhones$Treatment==1,rbinom(n,1,p),rbinom(n,1,p+.2))
-# Transform into factor variables
-    WePhones$Color<-as.factor(ifelse(WePhones$Color==1,"Platinum","Black"))
-    WePhones$Hard_Drive_Capacity<-as.factor(ifelse(WePhones$Hard_Drive_Capacity==1,"64gb","32gb"))
-    WePhones$Model<-as.factor(ifelse(WePhones$Model==1,"8","7"))
-    WePhones$Network<-as.factor(ifelse(WePhones$Network==1,"Mendizon","Trot"))
-    WePhones$Condition<-as.factor(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
+# Transform into character variables
+    WePhones$Color<-as.character(ifelse(WePhones$Color==1,"Platinum","Black"))
+    WePhones$Hard_Drive_Capacity<-as.character(ifelse(WePhones$Hard_Drive_Capacity==1,"64gb","32gb"))
+    WePhones$Model<-as.character(ifelse(WePhones$Model==1,"8","7"))
+    WePhones$Network<-as.character(ifelse(WePhones$Network==1,"Mendizon","Trot"))
+    WePhones$Condition<-as.character(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
 ```
 *** =sample_code
 ```{r}
 WePhones #Dataframe
 
-Solution1<-" " #Write column name of specification with the largest ratio between the WePhone 10S and the Universe S10
+Solution1<-" " #Write name of unbalanced trait between control and treatment groups
 
 ```
 *** =solution
 ```{r}
   a<-vector()
 for(i in 2:6){
-  a[i-1]<-t.test(as.character(WePhones[,i][WePhones$Treatment==0])==(levels(WePhones[,i])[1]),as.character(WePhones[,i][WePhones$Treatment==1])==(levels(WePhones[,i])[1]))$p.value
+  a[i-1]<-t.test(WePhones[,i][WePhones$Treatment==0]==unique(WePhones[,i])[1],WePhones[,i][WePhones$Treatment==1]==unique(WePhones[,i])[1])$p.value
 }    
   Solution1<-names(WePhones)[match(a[a<.05],a)+1]
 ```
