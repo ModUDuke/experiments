@@ -290,7 +290,7 @@ success_msg("Good work!")
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4f3ebb92a2
 ## Practice working with eGulf
 To increase their commissions, the popular online auctioneer, eGulf, wants to help its sellers increase the final sales prices of their merchandise. For each auction on eGulf, sellers are allowed to post up to 10 pictures of an item that they are selling. Past studies suggest that customer's appraisals of merchandise (and subsequently, final bids of merchandise) improve when sellers include more pictures of their merchandise; therefore, eGulf considers raising the number of pictures that a seller can post on an auction's webpage. 
 
@@ -443,7 +443,7 @@ msg5 = "Assuming Random Compliance is not always applicable, but it still is a c
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
 ## Noncompliance in eGulf
 Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we did not examine whether noncompliance could have confounded our results. Specifically, what if the sellers who chose to post more than 10 pictures of their WePhones were different from those who chose not to post more than 10 pictures? If the experiment's dependent variable is associated with a difference between compliers and noncompliers, its association with the treatment effect may be spurious. Therefore, we should test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
 
