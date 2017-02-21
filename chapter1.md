@@ -1,9 +1,19 @@
-  ---
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Introduction to the Chapter on Experiments
+*** =video_link
+//player.vimeo.com/video/205124502
+ 
+ 
+ ---
   title       : Introduction to Experiments
   description : This exercise helps you get to know your data better
   attachments :
   video_link :
 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## A Quick Response
+*** =video_link
+//player.vimeo.com/video/205124567
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4745db858e
 ## Controlled Experiments
