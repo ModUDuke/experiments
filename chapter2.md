@@ -27,7 +27,7 @@ msg3 = "Even with a well-designed experiment, you still will have just a sample 
 msg4 = "Correct! The purpose of statistical inference in randomized experiments is to help researchers make valid propositions about a population given a sample. This is unnecessary if the entire population of interest participates in the experiment."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:76542ba835
 ## p values, Confidence Intervals, and Hypothesis Tests
 *** =video_link
 //player.vimeo.com/video/205124286
@@ -52,7 +52,7 @@ msg3 = "Correct! Even when we draw from a completely random sample, there is alw
 msg4 = "Confounders are always an issue, particularly when looking at real world data, but that's not quite the best reason to get a larger sample in this case. Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7b5a9a2cb6
 ## Randomized Controlled Trial
 *** =video_link
 //player.vimeo.com/video/198212064
@@ -75,12 +75,12 @@ msg3 = "RCTs must be analyzed using statistical methods as much as any experimen
 msg4 = "You can use all kinds of tools with RCTs, not just CATEs, so look again for a better answer"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:46fda452f0
 ## The Design of the Oregon Health Experiment.
 *** =video_link
 //player.vimeo.com/video/198212086
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:47f92415c5
 ## Reading Average Treatment Effect & Confidence Intervals in a Table: Depression in the Oregon Health Experiment
 *** =video_link
 //player.vimeo.com/video/198212094
@@ -204,12 +204,12 @@ ex() %>% check_output('"[C|c]urrent.*"',
 missing_msg = "Solution2 is incorrect. Please write out your answer. Make sure it is in string format and printed in the console") 
 success_msg("Good work!")
 ```
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:743f5494ef
 ## A Note on Heteroskedasticity
 *** =video_link
 //player.vimeo.com/video/205124690
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:6a474387e6
 ## Reading Average Treatment Effect & Confidence Intervals in a Table: Cholesterol in the Oregon Health Experiment
 *** =video_link
 //player.vimeo.com/video/198212098
@@ -346,7 +346,7 @@ Solution1<-t.test(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1],
 test_object("Solution1")
 success_msg("Good work! It looks like posting more photos was positively associated with final WePhone sales prices.")
 ```
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ad358b17bb
 ## Where the Chapter Will Go From Here
 *** =video_link
 //player.vimeo.com/video/205124618
