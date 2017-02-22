@@ -29,7 +29,9 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
 ## Noncompliance in eGulf
-Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we did not examine whether noncompliance could have confounded our results. Specifically, what if the sellers who chose to post more than 10 pictures of their WePhones were different from those who chose not to post more than 10 pictures? If the experiment's dependent variable is associated with a difference between compliers and noncompliers, its association with the treatment effect may be spurious. Therefore, we should test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
+Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we did not examine whether noncompliance could have confounded our results. Specifically, what if the sellers who chose to post more than 10 pictures of their WePhones were different from those who chose not to post more than 10 pictures? 
+
+If the experiment's dependent variable is associated with a difference between compliers and noncompliers, its association with the treatment effect may be spurious. Therefore, we should test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
 
 *** =instructions
 - Statistically test whether sellers who were offered treatment (`Seller_Offered_Treatment`) and opted into the treatment (`Seller_Opted_Into_Treatment`==1) had different prior average feedback scores (`Seller_Feedback_Score`) than sellers who were offered treatment but did not opt into treatment. 
