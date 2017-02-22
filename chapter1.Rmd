@@ -11,3 +11,42 @@ description : "These videos will help you think about experiments"
 ## A Quick Response
 *** =video_link
 //player.vimeo.com/video/205124567
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Multiple Choice: Rainfall in Sonoma County
+Rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume. Which of the following answers could support a **causal explanation** for this relationship? 
+
+*** =instructions
+-Across the world, people prefer to buy more eBay products on rainy days.
+-Climate change has caused Sonoma County to have increased rainfall and has encouraged the global population to do more shopping from home.
+-eBay sales and rainfall in Sonoma County have both been increasing at similar rates in recent years
+-Rainfall motivates residents of Sonoma County to buy and sell goods on eBay at extraordinarily high rates
+*** =sct
+```{r}
+msg1 = "This answer is close to correct, but not quite. Remember, eBay sells its goods to people across the world - why would the correlation be so strong with rainfall just in Sonoma County? Try again"
+msg2 = "This is a possible explanation for the correlation between eBay sales and rainfall in Sonoma County, but it is not a causal relationship. Instead it would suggests that this correlation is spurious. Try again"
+msg3 = "This is what it means for there to be a correlation between rainfall in Sonoma County and ebay sales, but it is not a causal explanation for this correlation. Try again"
+msg4 = "Good Job. As ridiculous as this sounds, it is what a causal relationship between rainfall in Sonoma County and eBay sales might suggest. Of course, residents of Sonoma County would have to have providing a huge proportion of all eBay transactions for the correlation we to hold."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Multiple Choice: Experimental design
+Annual Apple iPhone sales are highly correlated with annual eBay sales. If this relationship is spurious, what might be causing this high correlation?
+*** =instructions
+-Most transactions on eBay are for Apple iPhones.
+-Time causes technology sales and technology usage to increase
+-Most people only shop on eBay with Apple iphones.
+-Buying an iPhone makes people more comfortable with using technology for market transactions.
+
+*** =sct
+```{r}
+msg1 = "This would suggest a causal relationship. Try again"
+msg2 = "Correct! This would cause both iPhone and eBay sales to increase."
+msg3 = "This would suggest a causal relationship. Try again"
+msg4 = "This would suggest a causal relationship. Try again"
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
