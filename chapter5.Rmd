@@ -228,7 +228,7 @@ success_msg("Good work!")
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4f3ebb92a2
 ## Practice working with eGulf
-To increase their commissions, the popular online auctioneer, eGulf, wants to help its sellers increase the final sales prices of their merchandise. For each auction on eGulf, sellers are allowed to post up to 10 pictures of an item that they are selling. Past studies suggest that customer's appraisals of merchandise (and subsequently, final bids of merchandise) improve when sellers include more pictures of their merchandise; therefore, eGulf considers raising the number of pictures that a seller can post on an auction's webpage. 
+To increase their commissions, the popular online auctioneer, eGulf, wants to help its sellers increase the final sales prices of their merchandise. For each auction on eGulf, sellers are allowed to post up to 10 pictures of an item that they are selling. Past studies suggest that customers' appraisals of merchandise (and subsequently, final bids of merchandise) improve when sellers include more pictures of their merchandise; therefore, eGulf considers raising the limit on the number of pictures that a seller can post on an auction's webpage.
 
 To test whether eGulf should allow sellers to post more than 10 pictures of their items, eGulf conducts an experiment: eGulf finds a random sample of dedicated used WePhone sellers that typically post 10 pictures of their used WePhones, and temporarily allows them to post up to 15 pictures for each auction of their WePhones. Using the results of this experiment, listed in dataset `eGulf`, test whether there is an added benefit to posting more than 10 pictures on WePhone auctions. Specifically:
 
