@@ -1,6 +1,6 @@
 --- 
 title_meta  : Chapter 1
-title       : Experiments 1: Introduction
+title       : Experiments 1 Introduction
 description : "These videos will help you think about experiments"
 attachments : 
   slides_link:
