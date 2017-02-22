@@ -13,7 +13,7 @@ description : "These videos will help you think about experiments"
 //player.vimeo.com/video/205124567
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f571c52e35
 ## Multiple Choice: Rainfall in Sonoma County
 Rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume. Which of the following answers could support a **causal explanation** for this relationship? 
 
@@ -34,7 +34,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:caffaa946e
 ## Multiple Choice: Experimental design
 Annual Apple iPhone sales are highly correlated with annual eBay sales. If this relationship is spurious, what might be causing this high correlation?
 
