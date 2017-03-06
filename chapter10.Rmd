@@ -1,1 +1,58 @@
-foo
+--- 
+title       : "Experiments 10: Natural Experiments"
+description : "These videos and exercises introduce natural experiments, sometimes called quasi-experiments"
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## The Two Kinds of Natural Experiments
+*** =video_link
+//player.vimeo.com/video/199856738
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Resistance to Policy Manipulation in Natural Experiments
+*** =video_link
+//player.vimeo.com/video/199856469
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Finding Data from Natural Experiments
+*** =video_link
+//player.vimeo.com/video/199856888
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Justifying As-If Randomization
+*** =video_link
+//player.vimeo.com/video/199856949
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Analyzing Natural Experiments
+*** =video_link
+//player.vimeo.com/video/199857027
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Analyzing Data from Natural Experiments
+*** =video_link
+//player.vimeo.com/video/199857237
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Squatter Property Rights: Effect on Teenage Pregnancy
+*** =video_link
+//player.vimeo.com/video/199857584
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## London Cholera Outbreak: Early Data Visualizations
+*** =video_link
+//player.vimeo.com/video/199857705
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## London Cholera Outbreak: Was it a Natural Experiment?
+*** =video_link
+//player.vimeo.com/video/199857892
+
