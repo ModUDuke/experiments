@@ -3,37 +3,37 @@ title       : "Experiments 9: Long-term Average Treatment Effects"
 description : "This video and exercise discusses how to compute and interpret long-term causal effects"
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4a42746de
 ## Finding Lifetime Outcomes of Experiments
 *** =video_link
 //player.vimeo.com/video/199856517
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9223675c47
 ## Introducing Perry Preschool
 *** =video_link
 //player.vimeo.com/video/198212111
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c91ef16385
 ## Perry Preschool: Comparing Educational Attainment Data
 *** =video_link
 //player.vimeo.com/video/198212115
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0b1c5f21e2
 ## Perry Preschool: Comparing Preschool's Effects on Crime
 *** =video_link
 //player.vimeo.com/video/198212118
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:381790e170
 ## Perry Preschool: Calculating the Lifetime Cost of Crime
 *** =video_link
 //player.vimeo.com/video/198212123
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc13ef9f57
 ## Issues with Sample Sizes
 *** =video_link
 //player.vimeo.com/video/198212075
