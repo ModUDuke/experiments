@@ -39,17 +39,6 @@ description : "These videos and exercises introduce natural experiments, sometim
 //player.vimeo.com/video/199857237
 
 
---- 
-title       : "Experiments 8: Bounds Analysis"
-description : "This video and exercise discusses how to form bounds on causal effects in the presence of experimental noncompliance"
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:25526ab294
-## Bounds Analysis for Missing Data
-*** =video_link
-//player.vimeo.com/video/199858153
-
-
 --- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
 ## CreditCo Natural Experiment
 A previous exercise using the CreditCo data showed that noncompliance was an issue in the experiment. However, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, there was bad weather for half of the people who received the offer, and, as a result, this group decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
