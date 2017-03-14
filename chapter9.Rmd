@@ -9,7 +9,7 @@ description : "This video and exercise discusses how to compute and interpret lo
 //player.vimeo.com/video/199856517
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8eb0408533
 ## Multiple Choice: Proxy Variables
 Why is the key reason that people use proxy variables for their outcomes of interest in experiments?
 
@@ -27,7 +27,7 @@ msg4 = "Correct! Experimentalists only use proxy variables in place of an experi
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1913543c45
 ## Multiple Choice: Choosing a Good Proxy Variable
 Business analysts are often interested in learning which business strategies work and which do not. One effective way to study whether a certain business strategy is effective is to examine a large group of nascent businesses over time, and track whether businesses that implemented that strategy were more likely to close. The difficulty with this research strategy is that it can take many years for nascent businesses to close, delaying one's ability to determine their experiment's results. To reduce the time it takes to determine how a business strategy affects a business's chance of survival, which of the following would be the most effective and direct proxy variable for business closure?
 
@@ -46,7 +46,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:3329371fd4
 ## Multiple Choice: Bad proxy variable
 A scientist conducts an experiment that studies how attending church effects one's happiness. Since the scientist was trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides to study the effect of religious attendance on a proxy variable for happiness - income - which is known to be correlated with and causal of happiness. The economist studies a large sample of non-religious people, and has half of them attend church weekly, and the other half not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own unhappiness, finds no statistically significant average treatment effect of religious attendance on happiness (measured as income). If in reality, church attendance is causal of happiness, which answer is **NOT** a possible explanation for why the experiment failed to produce a statistically significant effect?
 
@@ -65,7 +65,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
 ## Practice identifying spurious results with bad proxy variables
 The economist from the previous question runs a second experiment, this time measuring the effect of *work hours* on happiness via income as a proxy variable. He helps respondents in his treatment group negotiate to work an additional 10 hours at their primary jobs per week for one year. This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. A more experienced economist replicates the first economist's study, but also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate. Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following: 
 
@@ -140,7 +140,7 @@ success_msg("Good work! While proxy variables can be an extremely useful tool fo
 //player.vimeo.com/video/198212115
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4ddc3a17bc
 ## Practice identifying heteroskedastic outcomes (Part 1)
 The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resource (HR) Department. To make sure this would not antagonize their workforce, Unter conducts an experiment. With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year. They then survey the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes." With the dataframe, `UnterHR`, determine whether there is a negative average treatment effect of reducing the size of Unter's HR department on employee turnover:
 
@@ -178,7 +178,7 @@ test_object("Solution1")
 success_msg("Good work! It seems that reducing the size of HR reduced Unter employee's intention to leave their jobs")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c229f94a13
 ## Practice identifying heteroskedastic outcomes (Part 2)
 Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option. However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
 
@@ -226,7 +226,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a52ff8b8f4
 ## Practice identifying heteroskedastic outcomes (Part 3)
 Let's look for the heteroskedastic effect of the treatment on men and women in Unter Technologies ourselves. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
 
