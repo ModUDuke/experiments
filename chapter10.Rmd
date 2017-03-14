@@ -50,7 +50,7 @@ description : "This video and exercise discusses how to form bounds on causal ef
 //player.vimeo.com/video/199858153
 
 
---- type:NormalExercise lang:r xp:100 skills:1 key:
+--- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
 ## CreditCo Natural Experiment
 A previous exercise using the CreditCo data showed that noncompliance was an issue in the experiment. However, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, there was bad weather for half of the people who received the offer, and, as a result, this group decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
 
