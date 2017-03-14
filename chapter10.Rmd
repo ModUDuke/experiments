@@ -39,6 +39,118 @@ description : "These videos and exercises introduce natural experiments, sometim
 //player.vimeo.com/video/199857237
 
 
+--- 
+title       : "Experiments 8: Bounds Analysis"
+description : "This video and exercise discusses how to form bounds on causal effects in the presence of experimental noncompliance"
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:25526ab294
+## Bounds Analysis for Missing Data
+*** =video_link
+//player.vimeo.com/video/199858153
+
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:
+## CreditCo Natural Experiment
+A previous exercise using the CreditCo data showed that noncompliance was an issue in the experiment. However, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, there was bad weather for half of the people who received the offer, and, as a result, this group decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
+
+First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
+
+*** =instructions
+- Compare take-up rates (among those offered) for rained-out customers vs. sunny customers
+- Use a t-test to compare the pre-offer outcomes of those whose weather was rainy vs. sunny
+- Compute the treatment effect of rain on post-offer credit balances
+- Compute the treatment effect of rain on post-offer default
+
+*** =hint
+- Remember to be aware of selecting the correct subsample
+
+*** =pre_exercise_code
+```{r}
+  set.seed(1)
+  n             <- 9e5
+  frac_treated  <- .5
+  frac_female   <- .5656
+  frac_white    <- .688
+
+# Initialize dataframe
+  CreditCo <- as.data.frame(matrix(0, ncol=11,nrow=n))
+  colnames(CreditCo) <- c("id","offered","opt_in","FICO","age","female","race_white","default_pre","default_post","balance_pre","balance_post")
+
+# Simulate baseline data
+  CreditCo$id         <- seq(1,n,1)
+  CreditCo$offered    <- as.integer(runif(n)<frac_treated)
+  CreditCo$opt_in     <- rep.int(0,n)
+  CreditCo$FICO       <- rnorm(n, mean=736, sd=300)
+  CreditCo$age        <- sample(18:55, n, replace=T)
+  CreditCo$female     <- as.integer(runif(n)<frac_female)
+  CreditCo$race_white <- as.integer(runif(n)<frac_white)
+
+# make FICO score intelligible
+  CreditCo$FICO[CreditCo$FICO>850] <- 850
+  CreditCo$FICO[CreditCo$FICO<300] <- 300
+  CreditCo$FICO                    <- round(CreditCo$FICO)
+
+# simulate pre-experiment default rate
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_pre <- as.integer(draw<p)
+
+# simulate pre-experiment balance level
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_pre <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + draw
+  CreditCo$balance_pre <- exp(CreditCo$balance_pre)
+
+# Simulate opt-in behavior based on weather
+  draw <- runif(n)
+  CreditCo$rainy <- draw>0.5
+  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(CreditCo$rainy[CreditCo$offered==1]==1)
+
+# Simulate post outcomes
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white+4*CreditCo$offered*CreditCo$opt_in
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_post <- as.integer(draw<p)
+
+# balance
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_post <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + 1*CreditCo$offered*CreditCo$opt_in + draw
+  CreditCo$balance_post <- exp(CreditCo$balance_post)
+
+# Remove elements and variables from environment
+  rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
+  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post","rainy")]
+```
+
+*** =sample_code
+```{r}
+# The dataset `CreditCo` is available in your workspace
+
+print(Solution1<- )# Test the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
+
+print(Solution2<- )# Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value
+
+print(Solution3<- )# Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value
+
+```
+
+*** =solution
+```{r}
+Solution1 <- mean(CreditCo$opt_in[CreditCo$offered==1])
+Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
+
+```
+
+*** =sct
+```{r}
+test_object("Solution1")
+test_object("Solution2")
+test_object("Solution3")
+```
+
+
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc685a5444
 ## Squatter Property Rights: Effect on Teenage Pregnancy
 *** =video_link
