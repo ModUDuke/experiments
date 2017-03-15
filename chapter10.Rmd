@@ -118,9 +118,11 @@ First, you will test if this is a valid natural experiment. This involves testin
 
 print(Solution1<- )# Test the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
 
-print(Solution2<- )# Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value
+print(Solution2<- )# Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test.
 
-print(Solution3<- )# Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value
+print(Solution3<- )# Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers.
+
+print(Solution4<- )# Do the same as above, but for post-treatment default rates
 
 ```
 
