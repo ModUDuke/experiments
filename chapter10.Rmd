@@ -94,7 +94,7 @@ First, you will test if this is a valid natural experiment. This involves testin
 # Simulate opt-in behavior based on weather
   draw <- runif(n)
   CreditCo$rainy <- draw>0.5
-  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(CreditCo$rainy[CreditCo$offered==1]==1)
+  CreditCo$opt_in[CreditCo$offered==1] <- 1-as.integer(CreditCo$rainy[CreditCo$offered==1]==1)
 
 # Simulate post outcomes
   draw <- runif(n)
@@ -116,22 +116,22 @@ First, you will test if this is a valid natural experiment. This involves testin
 ```{r}
 # The dataset `CreditCo` is available in your workspace
 
-print(Solution1<- )# Test the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
+print(Solution1<- )# Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
 
-print(Solution2<- )# Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test.
+print(Solution2<- )# Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
 
-print(Solution3<- )# Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers.
+print(Solution3<- )# Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
 
-print(Solution4<- )# Do the same as above, but for post-treatment default rates
+print(Solution4<- )# Do the same as above, but for post-treatment default rates. Again, use a t-test.
 
 ```
 
 *** =solution
 ```{r}
-Solution1 <- mean(CreditCo$opt_in[CreditCo$rainy==1]-CreditCo$opt_in[CreditCo$rainy==0])
+Solution1 <- t.test(CreditCo$opt_in[CreditCo$offered==1 & CreditCo$rainy==1],CreditCo$opt_in[CreditCo$offered==1 & CreditCo$rainy==0])
 Solution2 <- t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
-Solution3 <- mean(CreditCo$balance_post[CreditCo$rainy==1]-CreditCo$balance_post[CreditCo$rainy==0])
-Solution4 <- mean(CreditCo$default_post[CreditCo$rainy==1]-CreditCo$default_post[CreditCo$rainy==0])
+Solution3 <- t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
+Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
 
 ```
 
