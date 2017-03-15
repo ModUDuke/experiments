@@ -93,8 +93,11 @@ First, you will test if this is a valid natural experiment. This involves testin
 
 # Simulate opt-in behavior based on weather
   draw <- runif(n)
+  draw2 <- runif(n)
   CreditCo$rainy <- draw>0.5
-  CreditCo$opt_in[CreditCo$offered==1] <- 1-as.integer(CreditCo$rainy[CreditCo$offered==1]==1)
+  xb   <- 1.5-35*CreditCo$rainy
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw2[CreditCo$offered==1]<p[CreditCo$offered==1])
 
 # Simulate post outcomes
   draw <- runif(n)
@@ -128,7 +131,7 @@ print(Solution4<- )# Do the same as above, but for post-treatment default rates.
 
 *** =solution
 ```{r}
-Solution1 <- t.test(CreditCo$opt_in[CreditCo$offered==1 & CreditCo$rainy==1],CreditCo$opt_in[CreditCo$offered==1 & CreditCo$rainy==0])
+Solution1 <- t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
 Solution2 <- t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
 Solution3 <- t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
 Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
