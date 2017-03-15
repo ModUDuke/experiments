@@ -46,10 +46,10 @@ A previous exercise using the CreditCo data showed that noncompliance was an iss
 First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
 
 *** =instructions
-- Compare take-up rates (among those offered) for rained-out customers vs. sunny customers
-- Use a t-test to compare the pre-offer outcomes of those whose weather was rainy vs. sunny
-- Compute the treatment effect of rain on post-offer credit balances
-- Compute the treatment effect of rain on post-offer default
+- Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers
+- Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny
+- Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment
+- Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment
 
 *** =hint
 - Remember to be aware of selecting the correct subsample
@@ -126,9 +126,10 @@ print(Solution3<- )# Calculate the lower bound of the ATE by assuming that all n
 
 *** =solution
 ```{r}
-Solution1 <- mean(CreditCo$opt_in[CreditCo$offered==1])
-Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
-Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution1 <- mean(CreditCo$opt_in[CreditCo$rainy==1]-CreditCo$opt_in[CreditCo$rainy==0])
+Solution2 <- t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
+Solution3 <- mean(CreditCo$balance_post[CreditCo$rainy==1]-CreditCo$balance_post[CreditCo$rainy==0])
+Solution4 <- mean(CreditCo$default_post[CreditCo$rainy==1]-CreditCo$default_post[CreditCo$rainy==0])
 
 ```
 
