@@ -8,7 +8,7 @@ description : "These videos and exercises introduce natural experiments, sometim
 *** =video_link
 //player.vimeo.com/video/199856738
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b3e25ee162
 ## As-if Natural experiments
 Which of the following is an accurrate description of an "as if" natural experiment: 
 *** =instructions
@@ -43,7 +43,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/199856949
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
 ## Practice Justifying As-If Randomization
 Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments (i.e. with basically random assignment) when they are clearly not, is by stating where their data is balanced. Let's give it a try.
 
@@ -105,7 +105,7 @@ success_msg("Good work! Identifying balance is crucial to justifying natural exp
 //player.vimeo.com/video/199857237
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
 ## Manipulating Confidence Intervals - Practice with Sea Otter Diets
 When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the opposite. 
 
@@ -157,7 +157,7 @@ success_msg("Good work! As you can see, the confidence interval is highly suscep
 *** =video_link
 //player.vimeo.com/video/199857584
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5341ad7e2f
 ## Interpreting Results of Natural Experiments
 The effect of the property rights experiment was not statistically significant. If you were going to describe this experiment to a friend, how would you describe the effect of squatters' rights on teenage pregnancy?
 *** =instructions
