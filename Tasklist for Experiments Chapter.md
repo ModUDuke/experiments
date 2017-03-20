@@ -12,6 +12,9 @@
 - [ ] Edit: Practice Identifying Heteroskedastic Outcomes (Part 2)
 - [ ] Edit: Practice Identifying Heteroskedastic Outcomes (Part 3)
 - [ ] New Multiple Choice after Perry Effects on Educational Attainment?
+- [ ] New Video on Base Rate Fallacy stuff
+- [ ] New Video on Splitting Populations
+- [ ] New Video on p hacking & Philosophy of All Science Everywhere
 - [ ] New Video on Aggregate Effects
 - [ ] New Coding Exercise(s) on Aggregate Effects (x2?)
 - [ ] New Multiple Choice on Sample Size Issues?
