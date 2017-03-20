@@ -4,6 +4,8 @@
 - [X] Delete Statistical Inference Video
 - [X] Upload Even More Issues with Experiments video
 - [X] Upload Public Policy & Natural Experiments video
+- [ ] Delete any other videos that have been combined into new videos
+- [ ] Make sure lesson videos are correct 
 - [ ] Edit: Multiple Choice: Proxy variables
 - [ ] Edit: Mutliple Choice: Choosing a Good Proxy Variable
 - [ ] Edit: Multiple Choice: Bad Proxy Variables
