@@ -1,9 +1,9 @@
-- [ ] Upload new Perry Preschool Effects on Ed Attainment Video
-- [ ] Delete Effects on Crime video
-- [ ] Upload new Issues with Sample Sizes video
-- [ ] Delete Statistical Inference Video
-- [ ] Upload Even More Issues with Experiments video
-- [ ] Upload Public Policy & Natural Experiments video
+- [X] Upload new Perry Preschool Effects on Ed Attainment Video
+- [X] Delete Effects on Crime video
+- [X] Upload new Issues with Sample Sizes video
+- [X] Delete Statistical Inference Video
+- [X] Upload Even More Issues with Experiments video
+- [X] Upload Public Policy & Natural Experiments video
 - [ ] Edit: Multiple Choice: Proxy variables
 - [ ] Edit: Mutliple Choice: Choosing a Good Proxy Variable
 - [ ] Edit: Multiple Choice: Bad Proxy Variables
