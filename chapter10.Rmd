@@ -8,7 +8,7 @@ description : "These videos and exercises introduce natural experiments, sometim
 *** =video_link
 //player.vimeo.com/video/199856738
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b3e25ee162
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## As-if Natural experiments
 Which of the following is an accurrate description of an "as if" natural experiment: 
 *** =instructions
@@ -43,7 +43,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/199856949
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice Justifying As-If Randomization
 Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments (i.e. with basically random assignment) when they are clearly not, is by stating where their data is balanced. Let's give it a try.
 
@@ -98,22 +98,6 @@ success_msg("Good work! Identifying balance is crucial to justifying natural exp
 *** =video_link
 //player.vimeo.com/video/199857027
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:a9d826e1d0
-## Explaining the Results of Natural Experiments
-The experiment described in this module uses many kinds of evidence to argue that the situation was an as-if natural experiment.  Two ways of explaining the results are the "experience hypothesis", that the squatters' change in behavior was changed after their new social experiences, and the "motivated beliefs" hypothesis, that they changed their behavior early in the process in anticipation of how their life could change.  Which do you think is more likely?
-
-*** =instructions
-- Experience Hypothesis
-- Motivated Beliefs Hypothesis
-*** =hint
-- Here is a useful hint: Answer 3 is the right answer
-*** =sct
-```{r}
-msg1 = "There are good arguments on both sides, and many people have argued that either side is correct. These kinds of questions are usually best answered by collaborative work by experts from many fields to provide a more complete view of the issues-and even then there will be plenty of disagreement!"
-msg2 = "There are good arguments on both sides, and many people have argued that either side is correct. These kinds of questions are usually best answered by collaborative work by experts from many fields to provide a more complete view of the issues-and even then there will be plenty of disagreement!"
-test_mc(correct = c(1,2), feedback_msgs = c(msg1,msg2))
-```
-
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e3839c7816
 ## Analyzing Data from Natural Experiments
@@ -121,7 +105,7 @@ test_mc(correct = c(1,2), feedback_msgs = c(msg1,msg2))
 //player.vimeo.com/video/199857237
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Manipulating Confidence Intervals - Practice with Sea Otter Diets
 When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the opposite. 
 
@@ -173,7 +157,7 @@ success_msg("Good work! As you can see, the confidence interval is highly suscep
 *** =video_link
 //player.vimeo.com/video/199857584
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5341ad7e2f
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Interpreting Results of Natural Experiments
 This is a question
 *** =instructions
