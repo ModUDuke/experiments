@@ -8,6 +8,23 @@ description : "These videos and exercises introduce natural experiments, sometim
 *** =video_link
 //player.vimeo.com/video/199856738
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## As-if Natural experiments
+Which of the following is an accurrate description of an "as if" natural experiment: 
+*** =instructions
+- An experiment where treatment was determined by factors outside the control of the investigators. Assignment to the treatment is completely random.
+- An experiment where treatment was determined by factors outside the control of the investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
+- An experiment conducted in a natural setting by investigators. Assignment to the treatment is completely random.
+- An experiment conducted in a natural setting by investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
+*** =sct
+```{r}
+msg1 = "This describes a true natural experiment. Try again."
+msg2 = "Well done. Although there might be a pattern to who got treated in an as-if experiment, the pattern should cause no bias in one's outcome of interest."
+msg3 = "This would not even be a natural experiment! Try again."
+msg4 = "This would not even be a natural experiment! Try again."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9269e44505
 ## Resistance to Policy Manipulation in Natural Experiments
@@ -26,17 +43,152 @@ description : "These videos and exercises introduce natural experiments, sometim
 *** =video_link
 //player.vimeo.com/video/199856949
 
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice Justifying As-If Randomization
+Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments (i.e. with basically random assignment) when they are clearly not, is by stating where their data is balanced. Let's give it a try.
+
+The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The scientists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health, but their "natural experiment" of exposure to Katy Perry music is not very balanced. Help them justify their assumption! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
+
+*** =instructions
+- Look through each variable in dataset `KatyPerry`, and name a variable that is balanced between the datasets
+
+*** =hint
+- You will need to use the `subset` and `t.test` functions.
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+}
+#Create rounding function that allows to round to numbers above 1
+mround <- function(x,base){ 
+  base*round(x/base) 
+} 
+#Create variables
+n=6666
+KatyPerry<-data.frame(Treatment=rbinom(n,1,.3))
+KatyPerry$YearsEducation<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=14,sd=2,min=0,max=20),rtnorm(n,mean=12,sd=3,min=0,max=18)))
+KatyPerry$Income<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=45,sd=7,min=0,max=100),rtnorm(n,mean=20,sd=5,min=0,max=100)))*1000
+KatyPerry$HearingProblems<-rbinom(n,1,.1)
+KatyPerry$Age<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=40,sd=10,min=10,max=80),rtnorm(n,mean=25,sd=5,min=10,max=80)))
+```
+*** =sample_code
+```{r}
+Solution<-"" # Name of variable that is balanced between the treatment and control groups
+```
+*** =solution
+```{r}
+treatment<-KatyPerry[KatyPerry$Treatment==1,]
+control<-KatyPerry[KatyPerry$Treatment==0,]
+p<-vector()
+for(i in 2:length(control)){
+  p[i-1]<-t.test(control[,i],treatment[,i])$p.value
+}
+Solution<-names(KatyPerry)[which(p>.05)+1]
+```
+
+*** =sct
+```{r}
+test_object("Solution")
+success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if there is not balance between a treatment and control group in a natural experiment, scientists will try to subset the control group to be balanced with treatment group, and then assess the data.")
+```
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5dec6afcd9
 ## Analyzing Natural Experiments
 *** =video_link
 //player.vimeo.com/video/199857027
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Explaining the Results of Natural Experiments
+The experiment described in this module uses many kinds of evidence to argue that the situation was an as-if natural experiment.  Two ways of explaining the results are the "experience hypothesis", that the squatters' change in behavior was changed after their new social experiences, and the "motivated beliefs" hypothesis, that they changed their behavior early in the process in anticipation of how their life could change.  Which do you think is more likely?
+
+*** =instructions
+- Experience Hypothesis
+- Motivated Beliefs Hypothesis
+*** =hint
+- Here is a useful hint: Answer 3 is the right answer
+*** =sct
+```{r}
+msg1 = "There are good arguments on both sides, and many people have argued that either side is correct. These kinds of questions are usually best answered by collaborative work by experts from many fields to provide a more complete view of the issues-and even then there will be plenty of disagreement!"
+msg2 = "There are good arguments on both sides, and many people have argued that either side is correct. These kinds of questions are usually best answered by collaborative work by experts from many fields to provide a more complete view of the issues-and even then there will be plenty of disagreement!"
+test_mc(correct = 1|2, feedback_msgs = c(msg1,msg2))
+```
+
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e3839c7816
 ## Analyzing Data from Natural Experiments
 *** =video_link
 //player.vimeo.com/video/199857237
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Manipulating Confidence Intervals - Practice with Sea Otter Diets
+When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the opposite. 
+
+To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. Although their average treatment effects was positive (ATE = 8.33 people) With a 95% confidence interval, their results were inconclusive. Although the results were somewhat suggestive of a positive treatment effect, the results were not statistically significant (CI = -0.23 - 16.94). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
+
+*** =instructions
+- Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`Treatment`) on the size of the sea otters' audiences (`Audience`).
+*** =pre_exercise_code
+```{r}
+SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
+```
+*** =sample_code
+```{r}
+t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) # This was the t.test used by the otter enthusiast to get the results listed above.
+
+Test1<- # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
+LowerBound1<- Test1$conf.int[1]
+UpperBound1<- #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
+
+Test2<- # Run another t.test, with confidence level = .5, and assign it to the object 'Test2'
+LowerBound2<- #Use the Test2 object to assign the lower bound of the confidence interval.
+UpperBound2<- #Use the Test2 object to assign the upper bound of the confidence interval.
+  
+
+```
+*** =solution
+```{r}
+t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) # This was the t.test used by the otter enthusiast to get the results listed above.
+
+Test1<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .99) # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
+LowerBound1<- Test1$conf.int[1]
+UpperBound1<- Test1$conf.int[2] #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
+
+Test2<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .50) # Run another t.test, with confidence level = .50, and assign it to the object 'Test2'
+LowerBound2<-Test2$conf.int[1] #Use the Test2 object to assign the lower bound of the confidence interval.
+UpperBound2<-Test2$conf.int[2] #Use the Test2 object to assign the upper bound of the confidence interval.
+```
+*** =sct
+```{r}
+test_object("UpperBound1")
+test_object("LowerBound2")
+test_object("UpperBound2")
+success_msg("Good work! As you can see, the confidence interval is highly susceptible to what percentage you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
+```
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc685a5444
+## Squatter Property Rights: Effect on Teenage Pregnancy
+*** =video_link
+//player.vimeo.com/video/199857584
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Interpreting Results of Natural Experiments
+This is a question
+*** =instructions
+- The experiment could not show whether or how property rights affects teenage pregnancy 
+- Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for
+- Property rights does not change the rate of teenage pregnancy at all
+- Property rights causes the rate of teenage pregnancy to go up a little because teens now had a home for their children. 
+*** =sct
+```{r}
+msg1 = "Correct! It's very tempting to tell a story that sounds hopeful or can clearly assign blame, or to make it fit in line with other researchers' findings, but this particular set of data was not able to show whether property rights effected teenage pregnancy positively or negatively, nor whether property rights even affects teenage pregnancy at all.  The researchers gave it a try, but in this particular case, their data didn't work out as well as they hoped."
+msg2 = "This would be over-interpreting the data. Try again."
+msg3 = "This answer is close, but not quite correct. Try again."
+msg4 = "This would be over-interpreting the data. Try again."
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
@@ -145,11 +297,6 @@ test_object("Solution2")
 test_object("Solution3")
 ```
 
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc685a5444
-## Squatter Property Rights: Effect on Teenage Pregnancy
-*** =video_link
-//player.vimeo.com/video/199857584
 
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c6894f628a

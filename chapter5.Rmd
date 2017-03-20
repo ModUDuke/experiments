@@ -12,6 +12,23 @@ description : "These videos and exercises will allow you to practice skills used
 *** =video_link
 //player.vimeo.com/video/198212094
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Multiple Choice: Confidence Intervals
+Why might it be risky to implement a policy that has zero in the confidence interval of its average treatment effect?
+
+*** =instructions
+- Because the confidence interval equation defaults to 0 with large amounts of data.
+- Because having zero in one's confidence interval implies that a treatment effect could have a positive or negative effect on one's outcome of interest.
+- Because having zero in one's confidence interval implies that a treatment effect has no effect.
+- I don't really understand why. Maybe there is no reason?
+*** =sct
+```{r}
+msg1 = "This is not true. With tremendous sample size (N > 1,000,000), confidence intervals rarely cross 0, even for relatively insignificant treatment effects. Try again."
+msg2 = "Correct! It would be very risky to implement a policy that could potentially have the opposite effect than you intended."
+msg3 = "This is often how such confidence intervals are interpreted, but this is a mistake. A confidence interval that contains zero does is not evidence that there is no treatment effect, but that it is uncertain whether there is a treatment effect. Try again."
+msg4 = "There is a reason! Try again."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:533b160157
 ## Multiple Choice: Significance

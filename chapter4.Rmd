@@ -72,3 +72,17 @@ msg3 = "RCTs must be analyzed using statistical methods as much as any experimen
 msg4 = "You can use all kinds of tools with RCTs, not just CATEs, so look again for a better answer"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Statistical Inference Across Disciplines
+Let's say that you are an economics major.  Is there any reason to think that you can help a chemistry major look at their data?
+*** =instructions
+- Yes
+- No
+*** =sct
+```{r}
+msg1 = "Of course you can! The data analysis techniques in all of the sciences are much, much more similar than different. While academic fields can create their own algorithms for field-specific problems, they are all joined together by the same basic concepts about finding the best and most quantitative ways to tie causes to effects."
+msg2 = "Try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
+```
