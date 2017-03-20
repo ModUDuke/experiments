@@ -74,7 +74,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e587a26773
 ## Statistical Inference Across Disciplines
 Let's say that you are an economics major.  Is there any reason to think that you can help a chemistry major look at their data?
 *** =instructions
