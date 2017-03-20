@@ -12,7 +12,7 @@ description : "These videos and exercises will allow you to practice skills used
 *** =video_link
 //player.vimeo.com/video/198212094
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2e74d95e94
 ## Multiple Choice: Confidence Intervals
 Why might it be risky to implement a policy that has zero in the confidence interval of its average treatment effect?
 
