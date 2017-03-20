@@ -6,7 +6,7 @@
 - [ ] Upload Public Policy & Natural Experiments video
 - [ ] Edit: Multiple Choice: Proxy variables
 - [ ] Edit: Mutliple Choice: Choosing a Good Proxy Variable
-- [ ] Edit: Multiple Choice: Bad Proxy Variabl
+- [ ] Edit: Multiple Choice: Bad Proxy Variables
 - [ ] Edit: Practice Identifying Spurious Resutls with Bad Proxy Variables
 - [ ] Edit: Practice Identifying Heteroskedastic Outcomes (Part 1) 
 - [ ] Edit: Practice Identifying Heteroskedastic Outcomes (Part 2)
