@@ -66,6 +66,7 @@ _Video: London Cholera Outbreak: Was it A Natural Experiment?_
 - [X] Delete Statistical Inference Video
 - [X] Upload Even More Issues with Experiments video
 - [X] Upload Public Policy & Natural Experiments video
+- [ ] Edit/upload Intro to Bayesian Stats video
 - [ ] Delete any other videos that have been combined into new videos
 - [ ] Make sure lesson videos are correct 
 - [ ] Put all videos and exercises in order that reflects original Matt videos as needed
