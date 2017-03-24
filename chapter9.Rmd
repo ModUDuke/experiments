@@ -17,14 +17,18 @@ description : "This video and exercise discusses how to compute and interpret lo
 
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4ddc3a17bc
-## Practice identifying heteroskedastic outcomes (Part 1)
-The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resource (HR) Department. To make sure this would not antagonize their workforce, Unter conducts an experiment. With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year. They then survey the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes." With the dataframe, `UnterHR`, determine whether there is a negative average treatment effect of reducing the size of Unter's HR department on employee turnover:
+## Practice identifying heterogeneous outcomes (Part 1)
+The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department. 
+
+To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year (the employees are not allowed to tell others about what they've heard). Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes." 
+
+With the dataframe, `UnterHR`, determine whether there is a negative average treatment effect of reducing the size of Unter's HR department on employee turnover:
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave the job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition by the mean rate of people's intention to leave their job in the treatment condition.
+- Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave the job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
 *** =hint
 - You will need to use the `mean` and `subset` commands.
-- - Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
+- Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
 *** =pre_exercise_code
 ```{r}
 set.seed(1)
@@ -55,8 +59,10 @@ success_msg("Good work! It seems that reducing the size of HR reduced Unter empl
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c229f94a13
-## Practice identifying heteroskedastic outcomes (Part 2)
-Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option. However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
+## Practice identifying heterogeneous outcomes (Part 2)
+Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option. 
+
+However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
 
 *** =instructions
 - While the pooled average treatment effect is slightly negative, and the average treatment effect for men is negative, the average treatment effect for women is positive.
@@ -94,7 +100,7 @@ p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`
 ```
 *** =sct
 ```{r}
-msg1 = "Good job! This is an example of a heteroskedastic average treatment effect - the treament has different effects on men and women. However, when men and women are pooled, this heteroskedasticity is masked"
+msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treament has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked"
 msg2 = "Almost, try again"
 msg3 = "Almost, try again"
 msg4 = "Almost, try again"
@@ -103,8 +109,8 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a52ff8b8f4
-## Practice identifying heteroskedastic outcomes (Part 3)
-Let's look for the heteroskedastic effect of the treatment on men and women in Unter Technologies ourselves. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
+## Practice identifying heterogeneous outcomes (Part 3)
+Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
 
 *** =instructions
 - Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`) 
@@ -153,7 +159,7 @@ success_msg("Good work!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2924e39895
 ## Identifying Underlying  Mechanisms 
-Based on just the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
+Based solely on the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
 *** =instructions
 - Yes, the tables clearly identify why attending preschool leads to lower rates of criminal activity among men and women.
 - No, we need more information about how preschool education effects individuals before we can definitively identify why preschool leads to reduced criminal activity. 
@@ -173,30 +179,32 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8eb0408533
 ## Multiple Choice: Proxy Variables
-Why is the key reason that people use proxy variables for their outcomes of interest in experiments?
+What is the key reason for why people use proxy variables for their outcomes of interest in experiments?
 
 *** =instructions
 - Because proxy variables are less biased than dependent variables.
-- Because an experiment might yield heteroskedastic treatment effects.
+- Because an experiment might yield heterogeneous treatment effects.
 - Because an experiment does not always yield statistically significant results.
 - Because an experiment's true outcome of interest is not always possible to study.
 *** =sct
 ```{r}
 msg1 = "The wording on this answer is tricky, but remember that an experiment's dependent variable is the outcome that is being measured. If a proxy variable is used in place of one's outcome of interest, it is an experiment's dependent variable. In actuality, proxy variables tend to be more susceptible to experimental biases than are direct measurements of one's outcome of interest. Try again"
-msg2 = "If anything, using a proxy variable might hide the fact that an experiment yields heteroskedastic effects on one's outcome of interest, which is not good. Try again"
-msg3 = "Experiments do not always yield statistically significant results, but this is a poor reason to use a proxy variable if you can measure your outcome of interest directly. Try again"
+msg2 = "If anything, using a proxy variable might hide the fact that an experiment yields heterogeneous effects on one's outcome of interest, which is not good. Try again"
+msg3 = "Experiments do not always yield statistically significant results, and this is a poor reason to use a proxy variable if you can measure your outcome of interest directly. Try again"
 msg4 = "Correct! Experimentalists only use proxy variables in place of an experiment's outcome or treatment of interest when it is not viable to test or measure one's outcome or treatment of interest directly."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1913543c45
 ## Multiple Choice: Choosing a Good Proxy Variable
-Business analysts are often interested in learning which business strategies work and which do not. One effective way to study whether a certain business strategy is effective is to examine a large group of nascent businesses over time, and track whether businesses that implemented that strategy were more likely to close. The difficulty with this research strategy is that it can take many years for nascent businesses to close, delaying one's ability to determine their experiment's results. To reduce the time it takes to determine how a business strategy affects a business's chance of survival, which of the following would be the most effective and direct proxy variable for business closure?
+Business analysts are often interested in learning which business strategies work and which do not. One useful way to study whether a certain business strategy is effective is to examine a large group of nascent businesses over time, and track whether businesses that implemented that strategy were more likely to close down. The difficulty with this research strategy is that it can take many years for nascent businesses to close, delaying one's ability to determine their experiment's results. 
+
+To reduce the time it takes to determine how a business strategy affects a business's chance of survival, which of the following would be the most effective and direct proxy variable for business closure?
 
 *** =instructions
 - A business's proportion of online sales to retail sales
 - The number of years that a business has been active
-- A business's gross annual profit
+- A business's annual operating income (i.e. profit)
 - A business's employee turnover rate
 *** =sct
 ```{r}
@@ -210,33 +218,40 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:3329371fd4
 ## Multiple Choice: Questionable Proxy Variables
-A scientist conducts an experiment that studies how attending church effects one's happiness. Since the scientist was trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides to study the effect of religious attendance on a proxy variable for happiness - income - which is known to be correlated with and causal of happiness. The economist studies a large sample of non-religious people, and has half of them attend church weekly, and the other half not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income). Which of the following would make us question whether income is a good proxy variable for happiness in this experiment?
+A scientist conducts an experiment that studies how attending church effects one's happiness. Since the scientist was trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness. 
+
+The economist randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income). 
+
+Which of the following hypothetical scenarios, if true, would make us question whether income is a good proxy variable for happiness in this experiment?
 
 *** =instructions
-- Religious attendance has a positive effect on happiness.
-- Across the population, income is not associated with church attendance
-- Relgious attendance makes people sad, but employers are more likely to give raises to employees who seem sad.
+- If religious attendance were found to have a positive effect on happiness.
+- If, across the population, income were not associated with church attendance
+- If relgious attendance made people sad, and employers were more likely to give raises to employees who seem sad.
 *** =sct
 ```{r}
-msg1 = "Since this is consistent with our results, if anything, this would suggest that income is a good proxy variable for happiness. Try again"
+msg1 = "Since this scenario is consistent with our results, if anything, this would suggest that income is a good proxy variable for happiness. Try again"
 msg2 = "Since we are conducting an experiment, we can directly control who goes to church and who does not. Whether there is an association between income and church attendance among the population is irrelevant to our experimental results. Try again"
-msg3 = "Correct! If this is the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest"
+msg3 = "Correct! If this were the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
 ## Practice identifying spurious results with bad proxy variables
-The economist from the previous question runs a second experiment, this time measuring the effect of *work hours* on happiness via income as a proxy variable. He helps respondents in his treatment group negotiate to work an additional 10 hours at their primary jobs per week for one year. This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. A more experienced economist replicates the first economist's study, but also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate. Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following: 
+The economist from the previous question runs a second experiment, this time measuring the effect of *work hours* on happiness via income as a proxy variable. He helps respondents in his treatment group negotiate to work an additional 10 hours at their primary jobs per week for one year. 
+
+This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. A more experienced economist replicates the first economist's study, but also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate. 
+
+Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following: 
 
 *** =instructions
-- Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`.
+- Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
 - Demonstrate that there is a statistically significant effect of the treatment, `Treatment`, with the proxy variable, `Income`.
 - Determine whether there is a statistically significant effect of the treatment, `Treatment`, with the true outcome of interest, `Happiness`.
 
 *** =hint
 - For the first question, you will need to `subset` the `econometrics` data frame by treatment. 
-- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
 - Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other, and the `cor` function to determine whether variables are correlated.
 
 *** =pre_exercise_code
@@ -296,7 +311,7 @@ success_msg("Good work! While proxy variables can be an extremely useful tool fo
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:80741dce58
 ## Reporting Informative Results
-Let's say that you are writing up a report on an experiment, and your mentor asked you to report all results to the nearest 100th digit. If the p value for your key statistic is 0.0542, and your field tends to consider any result with p-values of 0.05 or less to be statistically significant and valid, what is the most informative/least misleading number to write down as the p-value in your report?
+Let's say that you are writing up a report on an experiment, and your mentor asked you to report all results to the nearest 100th digit. If the p value for your key statistic were 0.0542, and your field tends to consider any result with p-values of 0.05 or less to be statistically significant and valid, what would be the most informative/least misleading number to write down as the p-value in your report?
 *** =instructions
 - 0.05
 - 0.054
@@ -325,7 +340,11 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:65e3dda974
 ## A Furry Conclusion to Long-term Average Treatment Effects
-A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "love hormone." Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play. What is an accurrate summary of the results of this experiment? 
+A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "love hormone." 
+
+Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play. 
+
+What is an accurrate summary of the results of this experiment? 
 
 *** =instructions
 -The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for cats** than for dogs, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**. 
