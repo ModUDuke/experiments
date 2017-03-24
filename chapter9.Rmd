@@ -289,9 +289,9 @@ success_msg("Good work! While proxy variables can be an extremely useful tool fo
 
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc13ef9f57
-## Issues with Sample Sizes
+## Issues with Sample Sizes & Extrapolation
 *** =video_link
-//player.vimeo.com/video/198212075
+//player.vimeo.com/video/209271673
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:80741dce58
@@ -313,6 +313,16 @@ msg4 = "This is accurrate, but this response is not to the nearest 100th digit. 
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:209271489
+## Experiment Design & RCTs
+*** =video_link
+//player.vimeo.com/video/209271489
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:209271489
+## Other Issues in Experiments (including money & ethics)
+*** =video_link
+//player.vimeo.com/video/209272116
+
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:65e3dda974
 ## A Furry Conclusion to Long-term Average Treatment Effects
 A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "love hormone." Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play. What is an accurrate summary of the results of this experiment? 
@@ -332,4 +342,3 @@ msg3 = "This question is tricky. Read the answers carefully and try again."
 msg4 = "This question is tricky. Read the answers carefully and try again."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
-
