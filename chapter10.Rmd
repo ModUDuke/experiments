@@ -41,7 +41,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ## Practice Justifying As-If Randomization
 Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments (i.e. with basically random assignment) when they are clearly not, is by stating where their data is balanced. Let's give it a try.
 
-The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The scientists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health, but their "natural experiment" of exposure to Katy Perry music is not very balanced. Help them justify their assumption! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
+The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The scientists who gathered this set of data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, their "natural experiment" of exposure to Katy Perry music is not very balanced. Help them justify their assumption! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
 
 *** =instructions
 - Look through each variable in dataset `KatyPerry`, and name a variable that is balanced between the datasets
@@ -78,7 +78,7 @@ p<-vector()
 for(i in 2:length(control)){
   p[i-1]<-t.test(control[,i],treatment[,i])$p.value
 }
-Solution<-names(KatyPerry)[which(p>.05)+1]
+Solution<-names(KatyPerry)[which(p<=.05)+1]
 ```
 
 *** =sct
@@ -101,9 +101,11 @@ success_msg("Good work! Identifying balance is crucial to justifying natural exp
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
 ## Manipulating Confidence Intervals - Practice with Sea Otter Diets
-When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the opposite. 
+When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the opposite. 
 
-To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. Although their average treatment effects was positive (ATE = 8.33 people) With a 95% confidence interval, their results were inconclusive. Although the results were somewhat suggestive of a positive treatment effect, the results were not statistically significant (CI = -0.23 - 16.94). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
+To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. They found an average treatment effect that was positive (ATE = 8.33 people).
+
+Although the results seemed to indicate a positive treatment effect, the results were not statistically significant (95% Confidence Interval = [-0.23, 16.94]). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent of a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
 
 *** =instructions
 - Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`Treatment`) on the size of the sea otters' audiences (`Audience`).
@@ -155,10 +157,10 @@ success_msg("Good work! As you can see, the confidence interval is highly suscep
 ## Interpreting Results of Natural Experiments
 The effect of the property rights experiment was not statistically significant. If you were going to describe this experiment to a friend, how would you describe the effect of squatters' rights on teenage pregnancy?
 *** =instructions
-- The experiment could not show whether or how property rights affects teenage pregnancy 
+- The experiment could not show whether or how property rights affect teenage pregnancy 
 - Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for
-- Property rights does not change the rate of teenage pregnancy at all
-- Property rights causes the rate of teenage pregnancy to go up a little because teens now had a home for their children. 
+- Property rights did not change the rate of teenage pregnancy at all
+- Property rights caused the rate of teenage pregnancy to go up a little because teens now had a home for their children. 
 *** =sct
 ```{r}
 msg1 = "Correct! It's very tempting to tell a story that sounds hopeful or can clearly assign blame, or to make it fit in line with other researchers' findings, but this particular set of data was not able to show whether property rights effected teenage pregnancy positively or negatively, nor whether property rights even affects teenage pregnancy at all.  The researchers gave it a try, but in this particular case, their data didn't work out as well as they hoped."
