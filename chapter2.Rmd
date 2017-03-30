@@ -27,43 +27,47 @@ Laurel's video showed that the WePhone 10S was stronger than the Universe S10. L
 
 *** =instructions
 - Examine the provided phone specifications in dataframe`PhoneSpecifications` and identify the specification that has the `largest ratio` between the WePhone 10S and the Universe S10
-- In the console window, a.) write out the `name` that specification, and b.) write out the `size` of this ratio (expressed as a quotient)
+- Write out the `name` of that specification
+- write out the `size` of this ratio (expressed as a quotient)
+
+*** =hint
+- For Solution1, make sure to identify the name of the specification precisely. A trick to doing this without writing it out is to use the `names` function, for example `names(PhoneSpecifications)[X]` where X equals the column of the specification
+- For Solution2. The ratio of a specification between the WePhone 10S and Universe S10 can be calculated by dividing the specification value of the WePhone 10S by the specification value of the Universe S10. Make sure that your answer is not rounded. Use R's syntax to compute (for example, enter `Specification$X[1]/Specification$X[2]` where X is the specification.
+
+
+
 *** =pre_exercise_code
 ```{r}
-PhoneSpecifications<-data.frame(WePhone10S=c(190,4000,5.5,64,800),UniverseS10=c(180,3500,5.2,64,550))
-row.names(PhoneSpecifications)<-c("Weight (g)","Battery Capacity (mAh)","Diagonal Length (in)","Storage (Gb)","Luminance (cd/m2)")
-PhoneSpecifications<-t(PhoneSpecifications)
+PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(190,180),Battery_Capacity=c(4000,3500),Diagonal_Length=c(5.5,5.2),Storage=c(64,64),Luminance=c(800,550))
 ```
 *** =sample_code
 ```{r}
-PhoneSpecifications #Dataframe
+PhoneSpecifications #Print dataframe to console
 
-print(Solution1<-" "  ) #Write column name of specification with the largest ratio between the WePhone 10S and the Universe S10
+Solution1<-    #Write column name of specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character)
 
-print(Solution2<-     ) #Write quotient of phone specifications selected in Solution1
+Solution2<-    #Return quotient of phone specifications selected in Solution1 (do not round!)
 
 ```
 *** =solution
 ```{r}
 #loop through specification ratios to find max ratio
 Ratios<-vector(length=5)
-for(i in 1:length(PhoneSpecifications[1,])){
-Ratios[i]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]
+for(i in 2:length(PhoneSpecifications[1,])){
+  Ratios[i-1]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]
 }
-print(Solution1<-dimnames(PhoneSpecifications)[[2]][match(max(Ratios),Ratios)])
+Solution1<-names(PhoneSpecifications)[match(max(Ratios),Ratios)+1]
 
-print(Solution2<-max(Ratios))
+Solution2<-max(Ratios)
 
 ```
 *** =sct
 ```{r}
-#I use regular expressions to allow for multiple spellings of answers. 
 
-ex() %>% check_output('"[L|l]uminance.*"',
-missing_msg = "Solution1 is incorrect. Please write out your answer. Make sure it is in string format and printed in the console") 
+test_object("Solution1")
 
-ex() %>% check_output("1.45.*",
-missing_msg = "Solution2 is incorrect. Make sure to divide the WePhone10S's specification by the UniverseS10's specification")
+test_object("Solution2")
+
 
 success_msg("Good work! Keep in mind, even though there is a correlation between the treatment (luminance) and outcome (durability), this correlation is spurious; in reality, a phone's luminance (brightness) does not have a causal effect on its durability.
 ")
