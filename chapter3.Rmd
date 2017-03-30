@@ -60,13 +60,7 @@ Laurel has saved all of the wePhones that she has broken and she now wants to au
 To determine what price to set at the beginning of her WePhone auctions, Laurel conducts a new experiment: Laurel grabs a random sample of broken WePhones from her closet, and randomly assigns them to a treatment group (WePhones to be base priced at $10), and a control group (WePhones to be base priced at $5). However, before auctioning the WePhones, Laurel discovers that her sample is unbalanced. Using the data frame `WePhones`:
 
 *** =instructions
-- Look through each column in the dataframe, and determine which WePhone trait is unbalanced between the treatment and control groups.
-
-*** =hint
-- Use the `t.test` function on each trait of the treatment and control groups to determine which traits are unbalanced
-- You will need to `subset` the `WePhones` dataframe by treatment group. 
-- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
-
+- Follow the instructions in the console to look through each column in the dataframe, and determine which WePhone trait is unbalanced between the treatment and control groups.
 
 *** =pre_exercise_code
 ```{r}
@@ -88,21 +82,40 @@ To determine what price to set at the beginning of her WePhone auctions, Laurel 
   # Randomly assign unbalanced variable
       WePhones[,sample(2:6,1)]<-ifelse(WePhones$Treatment==1,rbinom(n,1,p),rbinom(n,1,p+.2))
 # Transform into character variables
-    WePhones$Color<-as.character(ifelse(WePhones$Color==1,"Platinum","Black"))
-    WePhones$Hard_Drive_Capacity<-as.character(ifelse(WePhones$Hard_Drive_Capacity==1,"64gb","32gb"))
-    WePhones$Model<-as.character(ifelse(WePhones$Model==1,"8","7"))
-    WePhones$Network<-as.character(ifelse(WePhones$Network==1,"Mendizon","Trot"))
-    WePhones$Condition<-as.character(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
+    WePhones$Color<-as.factor(ifelse(WePhones$Color==1,"Platinum","Black"))
+    WePhones$Hard_Drive_Capacity<-as.factor(ifelse(WePhones$Hard_Drive_Capacity==1,"64gb","32gb"))
+    WePhones$Model<-as.factor(ifelse(WePhones$Model==1,"8","7"))
+    WePhones$Network<-as.factor(ifelse(WePhones$Network==1,"Mendizon","Trot"))
+    WePhones$Condition<-as.factor(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
 ```
 *** =sample_code
 ```{r}
-WePhones #Dataframe
+# Let's first take a look at the structure of the dataframe
+  str(WePhones) # Notice that each variable is a factor, with two levels. 
 
-Solution1<-" " #Write name of unbalanced trait between control and treatment groups
+# Let's practice identifying whether the treatment and control are different for Color
+  # For ease of computation, let's subset the WePhones dataframe into two new dataframes, one for phones in the treatment, and one for phones in the control
+    Treatment<-WePhones[WePhones$Treatment==1,]
+    Control<-WePhones[WePhones$Treatment==0,]
+    
+  # Now, let's calculate the percent of phones in the treatment group and control group that are "Black"
+    mean(Treatment$Color=="Black")
+    mean(Control$Color=="Black")
+  
+  # These numbers look different, but are they? Let's use a t.test to find out. The p.value derived from a t.test function computes the probability that the difference in the means between two sets of numbers (vectors) is equal to 0.
+    t.test(Treatment$Color=="Black",Control$Color=="Black")$p.value
+  # These results show that there is a 0.46 (or 46%) chance that the difference in the means between the number of black phones in the treatment and control groups is equal to 0. In other words, it is fairly likely that the number of black phones in the treatment and control groups are the same. Typically, we only refute the null-hypothesis (in this case, that the phone specifications are imbalanced) when there is less than a 5% chance of it being true. Also, since there are only two different colors in the treatment and control groups, we do not need to test whether they have roughly the same proportion of platinum phones - the results will be identical.  
+      
+  #Use the t.test function to search through the treatment and control groups of each other specification between the phones until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups i less than 5%)
+        
+t.test(  )$p.value
+      
+Solution1<-" " #Write the name of the unbalanced trait between control and treatment groups (precisely)
 
 ```
 *** =solution
 ```{r}
+
   a<-vector()
 for(i in 2:6){
   a[i-1]<-t.test(WePhones[,i][WePhones$Treatment==0]==unique(WePhones[,i])[1],WePhones[,i][WePhones$Treatment==1]==unique(WePhones[,i])[1])$p.value
@@ -113,5 +126,5 @@ for(i in 2:6){
 ```{r}
 test_object("Solution1")
 
-success_msg("Good work!")
+success_msg("Good work! The methods for computing balance in this exercise are very common to experimental research. You may want to return to this exercise and look at how we computed imbalance if you ever get stuck in later ones.")
 ```
