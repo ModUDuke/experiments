@@ -7,11 +7,6 @@ description : "These videos will help you think about experiments"
 *** =video_link
 //player.vimeo.com/video/205124502
  
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:764f98ae81
-## A Quick Response
-*** =video_link
-//player.vimeo.com/video/205124567
-
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f571c52e35
 ## Multiple Choice: Rainfall in Sonoma County
@@ -52,3 +47,9 @@ msg3 = "This would suggest a causal relationship rather than a spurious correlat
 msg4 = "This would suggest a causal relationship rather than a spurious correlation. Try again"
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:764f98ae81
+## A Quick Response
+*** =video_link
+//player.vimeo.com/video/205124567
