@@ -29,6 +29,64 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/205124286
 
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Getting to work with confidence
+Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time. 
+
+*** =instructions
+- Assuming that Donny's sample is representative of the true distribution of commute times, use the vector `Commute` to determine how much time Donny should leave for his commute if he wants to arrive to work on time at least 95% of the time. 
+- Since Donny's sample is subject to error, determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 50% of the time with 95% confidence. 
+
+
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+#Create rnorm function that allows for min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Dataframe
+
+Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
+```
+*** =sample_code
+```{r}
+# Let's first summarize Donny's commute time to get a sense of what it looks like.
+  summary(Commute) 
+# It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes!
+
+# For additional understanding, let's also plot what Donny's commute time looks like on a density curve
+  plot(density(Commute))
+#This is just another way of representing Donny's commute time. The Y axis, marked "density", shows the proportion of times that donny's travel time is a certain length, give by the X-axis. So about .08 or 8% of the time, Donny's travel takes exactly 9 minutes.  
+
+  
+#Now for question 1: We need to determine approximately how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. The question did not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset (i.e. the 95th quantile of commute times). There are several ways to get this answer, but we would recommend using the "quantile" function
+
+Solution1<- #95th quantile  
+
+
+#Question 2 asks us to determine how long Donny should leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence. In other words, what time are we 95% confident that Donny could leave and get to work on time half of the time, given our limited sample? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. This can be computed with a one sample t.test. The upper bound of a t.test object (i.e. class "htest") can be found in $conf.int[2].
+
+Solution2<- #Upper bound of the confidence interval on the mean
+  
+
+```
+*** =solution
+```{r}
+Solution1<- quantile(Commute,.95) #95th quantile  
+Solution2<-t.test(Commute)$conf.int[2] #upper bound
+```
+*** =sct
+```{r}
+test_object("Solution1")
+test_object("Solution2")
+success_msg("Good job! Based on Donny's previous commutes, he can be fairly confident that he will get to work at least half the time if he allows himself 10.7 minutes to get there. Of course, if the traffic changes according to when Donny leaves, it would bias our results.")
+```
+
+
+
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2fc3d44de
 ## Multiple Choice: Sample size
 A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. 
@@ -48,29 +106,6 @@ msg2 = "Noncompliance isn't mentioned as an issue in this case, so it's not the 
 msg3 = "Correct! Even when we draw from a completely random sample, there is always the chance that our sample is not representative of the whole population. The larger the sample size that we draw from, the less likely that our findings were to have occurred by chance."
 msg4 = "Confounders are always an issue, particularly when looking at real world data, but that's not quite the best reason to get a larger sample in this case. Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7b5a9a2cb6
-## Randomized Controlled Trials
-*** =video_link
-//player.vimeo.com/video/198212064
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:7eab53249a
-## Multiple Choice: Experiments vs. RCTs
-How are the results from randomized control trials interpreted differently than randomized experiments?
-
-*** =instructions
-- They are not interpreted differently from randomized experiments.
-- They have real-world implications.
-- They do not need to be tested for statistical significance.
-- They should be estimated with conditional average treatment effects.
-
-*** =sct
-```{r}
-msg1 = "Correct! A randomized control trial is a type of randomized experiment."
-msg2 = "RCTs are not the only things with real-world implications, so try again"
-msg3 = "RCTs must be analyzed using statistical methods as much as any experiment, so try again"
-msg4 = "You can use all kinds of tools with RCTs, not just CATEs, so look again for a better answer"
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
