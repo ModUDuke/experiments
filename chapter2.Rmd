@@ -74,7 +74,7 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:a880db44ea
 ## Multiple Choice: Is it a Controlled Experiment?
 As a staunch fiscal conservative, Peter is looking for ways to lower his daily expenses. Peter believes he might be able to lower his costs on car gasoline if he stops using his air conditioner and just opens his window. As an experiment, Peter tracks his gas usage during his commute to work over two days. During the first day, Peter uses his air conditioner. The second day, Peter opens his window. Is this a controlled experiment?
 
