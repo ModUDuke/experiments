@@ -52,15 +52,18 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ## Practice Reading Tables (Part I)
 Now let's practice reading tables from the Oregon Health Experiment. As described in the previous video, the Oregon Health Experiment studies the effect of getting Medicaid coverage on respondent's health, so let's look at some mental health results in the data.
 
-The dataframe "OregonHealthResults" indicates results from the Oregon Health Experiment (in percentages) pertaining to depression, and to get a good sense of how this was affected in the experiment, you decide to review some results and then calculate some new numbers for yourself. 
+The dataframe "OregonHealthResults" indicates results from the Oregon Health Experiment (in percentages) pertaining to depression. To get a good sense of how this was affected in the experiment, let's review some of its results and calculate some of the numbers ourselves. 
 
-One of the most interesting results of any experiment is the Average Treatment Effect relative to the mean value of a parameter. Therefore, With this dataframe, you decide to first look at two basic items: The average positive screen value in the control group, and the Average Treatment Effect of Medicaid on positive screen values. These calculations will give you a deeper sense of the impact of health insurance on basic mental health.
+One of the most interesting results of any experiment is the Average Treatment Effect relative to the mean value of a parameter. Therefore, let's use this dataframe, to look at two basic items: The average positive screen value in the control group, and the Average Treatment Effect of Medicaid on positive screen values. These calculations will give you a deeper sense of the impact of health insurance on basic mental health.
 
 
 *** =instructions
 - What is the mean value of positive screening in the control group?
 - What is the average treatment effect of medicaid coverage on positive screening? 
 - Given the mean value of positive screening in the control group and the average treatment effect of medicaid coverage on positive screening, estimate the mean value of positive screening in the treatment group.
+
+*** =hint
+- You can calculate the mean value of positive screening in the treatment group by adding the mean value in the control group with the average treatment effect.
 
 *** =pre_exercise_code
 ```{r}
@@ -70,28 +73,31 @@ OregonHealth<-data.frame(c("Blood pressure - Systolic (mm Hg)","Blood pressure -
               c(-2.97,-2.65,-7.16,-1.89,-4.48,-3.44,-7.75,-1.31,-10.28,-1.52,-0.75,-0.09,-4.44,1.93,1.39,-16.7,0.15,-0.46,-1.56,-1.11,-2.64),
               c(1.93,1.04,4.49,5.4,5.8,7.84,2.89,2.98,4.64,6.29,8.35,0.11,2.59,5.73,9.48,-1.6,7.46,11.45,1.15,4.37,1.9),
               c(0.68,0.39,0.65,0.34,0.8,0.45,0.37,0.45,0.46,0.23,0.1,0.82,0.61,0.001,0.008,0.02,0.04,0.07,0.76,0.24,0.75))
-names(OregonHealth)<-c("Variable","Mean Value in Control Group","Change with Medicaid Coverage","95% Confidence Interval (lower bound)","95% Confidence Interval (Upper Bound)","P Value")
+names(OregonHealth)<-c("Variable","Mean_Value_in_Control_Group","Change_with_Medicaid_Coverage","95%_Confidence_Interval_(lower_bound)","95%_Confidence_Interval_(Upper_Bound)","P_Value")
 OregonHealthResults<-OregonHealth[16:18,]
 OregonHealthResults$Variable<-c("Positive_Screening","Diagnosis_After_Lottery","Current_Use_Of_Medication")
 rm(OregonHealth)
 ```
 *** =sample_code
 ```{r}
-str(OregonHealthResults) # Dataframe
+# Let's print the results from the OregonHealthResults dataframe
+OregonHealthResults 
 
-print(Solution1<- ) # Write mean value of positive screening in the control group
+# Now let's practice reading the table identify the following:
 
-print(Solution2<- ) # Write average treatment effect of medicaid coverage on positive screening
+Solution1<- # Write the mean value of positive screening in the control group (do not round)
 
-print(Solution3<- ) # Write mean value of positive screening in the treatment group
+Solution2<- # Write the average treatment effect of medicaid coverage on positive screening
+
+Solution3<-  # Use solution1 and Solution2 to calculate the mean value of positive screening in the treatment group
 
 ```
 
 *** =solution
 ```{r}
-print(Solution1<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$`Mean Value in Control Group`)
-print(Solution2<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$`Change with Medicaid Coverage`)
-print(Solution3<-Solution1+Solution2)
+Solution1<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$Mean_Value_in_Control_Group
+Solution2<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$Change_with_Medicaid_Coverage
+Solution3<-Solution1+Solution2
 
 ```
 
@@ -105,7 +111,7 @@ success_msg("Good work!")
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5fa7d35f25
 ## Practice Reading Tables (Part II)
-Now that we know how an Average Treatment Effect is related to mean values in the treatment and control groups, we should examine the reliability of these results. Therefore, you decide to examine the 95% confidence interval lower bound, and statistical significance for one of the table's Average Treatment Effects.
+Now that we know how an Average Treatment Effect is related to mean values in the treatment and control groups, we should examine the reliability of these results. Therefore, let's examine the 95% confidence interval lower bound, and statistical significance for one of the table's Average Treatment Effects.
 
 *** =instructions
 - What is the the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use of medication?
@@ -119,39 +125,99 @@ OregonHealth<-data.frame(c("Blood pressure - Systolic (mm Hg)","Blood pressure -
               c(-2.97,-2.65,-7.16,-1.89,-4.48,-3.44,-7.75,-1.31,-10.28,-1.52,-0.75,-0.09,-4.44,1.93,1.39,-16.7,0.15,-0.46,-1.56,-1.11,-2.64),
               c(1.93,1.04,4.49,5.4,5.8,7.84,2.89,2.98,4.64,6.29,8.35,0.11,2.59,5.73,9.48,-1.6,7.46,11.45,1.15,4.37,1.9),
               c(0.68,0.39,0.65,0.34,0.8,0.45,0.37,0.45,0.46,0.23,0.1,0.82,0.61,0.001,0.008,0.02,0.04,0.07,0.76,0.24,0.75))
-names(OregonHealth)<-c("Variable","Mean Value in Control Group","Change with Medicaid Coverage","95% Confidence Interval (lower bound)","95% Confidence Interval (Upper Bound)","P Value")
+names(OregonHealth)<-c("Variable","Mean_Value_in_Control_Group","Change_with_Medicaid_Coverage","95%_Confidence_Interval_(lower_bound)","95%_Confidence_Interval_(Upper_Bound)","P_Value")
 OregonHealthResults<-OregonHealth[16:18,]
 OregonHealthResults$Variable<-c("Positive_Screening","Diagnosis_After_Lottery","Current_Use_Of_Medication")
 rm(OregonHealth)
 ```
 *** =sample_code
 ```{r}
-str(OregonHealthResults) # Dataframe
+# Let's print the results from the OregonHealthResults dataframe
+OregonHealthResults
 
-print(Solution1<- ) # Write the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use Of medication
+# Now let's practice reading the table identify the following:
 
-print(Solution2<-"") # Write name of variable whose average treatment effect was not statistically significant
+Solution1<-  # Write the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use Of medication
+
+Solution2<-"" # Write name of variable whose average treatment effect was not statistically significant (must be a string)
 
 ```
 
 *** =solution
 ```{r}
-print(Solution1<-OregonHealthResults[OregonHealthResults$Variable=="Current_Use_Of_Medication",]$`95% Confidence Interval (lower bound)`)
-print(Solution2<-OregonHealthResults[OregonHealthResults$`P Value`>.05,]$Variable)
+
+Solution1<-OregonHealthResults[OregonHealthResults$Variable=="Current_Use_Of_Medication",]$`95%_Confidence_Interval_(lower_bound)`
+Solution2<-OregonHealthResults[OregonHealthResults$P_Value>.05,]$Variable
 
 ```
+
 
 *** =sct
 ```{r}
 test_object("Solution1")
-ex() %>% check_output('"[C|c]urrent.*"',
-missing_msg = "Solution2 is incorrect. Please write out your answer. Make sure it is in string format and printed in the console") 
+test_object("Solution2")
 success_msg("Good work!")
 ```
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:743f5494ef
 ## A Note on Heteroskedasticity
 *** =video_link
 //player.vimeo.com/video/205124690
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Practice identifying heteroskedastic outcomes
+An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains the syntax to produce plots for income's relationship with three different predictors: Education, Age, and City Population. Each dot represents an observation from our sample. Using these graphs, determine which independant variable has the most heteroskedastic relationship with income
+
+*** =instructions
+- Education
+- Age
+- City Population
+
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+mround <- function(x,base){ 
+  base*round(x/base) 
+} 
+rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+}
+options(scipen=1)
+n=900
+Sample<-as.data.frame(matrix(nrow=n,ncol=4))
+names(Sample)<-c("Income","Education","Age","City_Population")
+Sample$Education<-rtnorm(n, mean=15, sd=3, min = 10, max = 20)
+Sample$Age<-round(rtnorm(n, mean=45, sd=10, min = 15, max = 92),0)
+Sample$City_Population<-rtnorm(n, mean=10000, sd=1000, min = 8000, max = 15000)
+Sample$Income<-(20000*Sample$Education+20*Sample$City_Population+Sample$Age*5000+ifelse(Sample$Age>45,rtnorm(n, mean=1000, sd=1000*(45-Sample$Age)^2, min = -500000, max = 1000000),0))/2
+  
+plot(Sample$Age,Sample$Income)
+plot(Sample$Education,Sample$Income)
+plot(Sample$City_Population,Sample$Income)
+
+```
+
+*** =sample_code
+```{r}
+#Relationship between Education and Income
+  plot(Sample$Education,Sample$Income)
+
+#Relationship between Age and Income
+  plot(Sample$Age,Sample$Income)
+
+#Relationship between City Population and Income
+  plot(Sample$City_Population,Sample$Income)
+```
+*** =sct
+```{r}
+msg1 = "Almost, try again"
+msg2 = "Good job! This is an example of a heteroskedastic treatment effect. Among our sample, income was slightly correlated with age, but only varied slightly until respondents reached their late 50s. If we were to ignore this trend while studying the relationship between age and income, it could confound or bias our results."
+msg3 = "Almost, try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:6a474387e6
 ## Reading Average Treatment Effect & Confidence Intervals in a Table: Cholesterol in the Oregon Health Experiment
@@ -200,19 +266,31 @@ OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp"
 
 *** =sample_code
 ```{r}
-str(OHIE) #Dataframe
+# Since the OHIE dataset is fairly big, let's start to get a sense of it by looking at it's structure
+  str(OHIE)
 
-print(Solution1a<- ) # Use a t.test to determine whether gender is balanced between the treatment and control groups 
+# Since we are going to run several t.tests, let's make the syntax below simpler by separating the OHIE dataset into treatment and control groups.
+  TreatmentGroup <- OHIE[OHIE$treatment==1, ]
+  ControlGroup <- OHIE[OHIE$treatment==0, ]
 
-print(Solution1b<-"" ) # Based on your t.test, is gender balanced? Answer with "Yes" or "No" 
+# Since we are still early in our unit, we will help you answer the first question. We need to determine whether gender is balanced between the treatment and control groups. This requires a two sample t.test.
+  Solution1a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
 
-print(Solution2a<- ) # Use a t.test to determine if the treatment had a statistically significant effect on systolic blood pressure 
+# To determine whether the t.test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically 0 (i.e. we cannot be confident that there is a difference between the treatment and control group). Based on the confidence interval in Solution1a, do the results appear statistically significant?
+  Solution1b<-"" # Is gender balanced? Answer with "Yes" or "No" 
 
-print(Solution2b<-"" ) # Based on your t.test, does the treatment have a statistically significant effect on systolic blood pressure? Answer with "Yes" or "No" 
+# A more direct way to test for statistical significance is to just look at the p.vale of the t.test. To directly compute the p-value for solution1a, we could have just typed: "Solution1a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)$p.value". Try to use a t.test to determine whether the treatment had a statistically significant effect on systolic blood pressure, and return the p.value in solution 2.
+  Solution2a<-  # Return the p.value of a t.test measuring the average treatment effect on systolic blood pressure 
 
-print(Solution3a<- ) # Use a t.test to determine if the treatment had a statistically significant effect on diastolic blood pressure 
+# A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution2a, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure?  
+  Solution2b<-"" # Was there a statistically significant average treatment effect on systolic blood pressure? Answer with "Yes" or "No" 
 
-print(Solution3b<-"" ) # Based on your t.test, does the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No" 
+# Based on the above, try the last two questions by yourself.
+  Solution3a<-  # Return the p.value of a t.test that measures the average treatment effect on diastolic blood pressure 
+
+  Solution3b<-""  # Based on your t.test, does the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No" 
+
+
 
 ```
 
@@ -220,12 +298,12 @@ print(Solution3b<-"" ) # Based on your t.test, does the treatment have a statist
 ```{r}
 TreatmentGroup <- OHIE[OHIE$treatment==1, ]
 ControlGroup <- OHIE[OHIE$treatment==0, ]
-print(Solution1a<- t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0))
-print(Solution1b<-"Yes")
-print(Solution2a<- t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp,mu=0))
-print(Solution2b<-"No")
-print(Solution3a<- t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp,mu=0))
-print(Solution3b<-"Yes")
+Solution1a<- t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
+Solution1b<-"Yes"
+Solution2a<- t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp,mu=0)$p.value
+Solution2b<-"No"
+Solution3a<- t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp,mu=0)$p.value
+Solution3b<-"Yes"
 
 ```
 
@@ -250,12 +328,13 @@ To increase their commissions, the popular online auctioneer, eGulf, wants to he
 To test whether eGulf should allow sellers to post more than 10 pictures of their items, eGulf conducts an experiment: eGulf finds a random sample of dedicated used WePhone sellers that typically post 10 pictures of their used WePhones, and temporarily allows them to post up to 15 pictures for each auction of their WePhones. Using the results of this experiment, listed in dataset `eGulf`, test whether there is an added benefit to posting more than 10 pictures on WePhone auctions. Specifically:
 
 *** =instructions
+- Determine the difference in means betwen the `Final_Sales_Price` of sellers who posted more than 10 pictures (`Seller_Opted_Into_Treatment`==1) on their auctions, and those who had not.
 - Statistically test whether sellers who posted more than 10 pictures (`Seller_Opted_Into_Treatment`==1) on their WePhone auctions (`Final_Sales_Price`) sold their WePhones at higher prices than sellers who posted 10 or less pictures on their WePhone auctions (`Seller_Opted_Into_Treatment`==0)
 
 *** =hint
 - For the first question, you will need to `subset` the `eGulf` data frame by treatment. 
 - It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
-- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+- Use the `t.test` function and report the p.value to statistically test whether the treatment and control group yielded different sales prices.
 
 *** =pre_exercise_code
 ```{r}
@@ -279,16 +358,29 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 *** =sample_code
 ```{r}
 str(eGulf) #Dataframe
-Solution1<- # Use a t.test to determine whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices
+
+#Before doing statistical tests, it can often be useful to visualize the data graphically. For controlled experiments, boxplots are often useful. The following boxplot shows the relationship between opting into treatment and final sales prices. The middle line represents the median of the values, and the two other lines that complete the "box" represent the upper and lower quartiles of data in the dataset. The "whiskers" at the edge of the plot represent the most extreme datapoints that are not outliers.
+  boxplot(eGulf$Final_Sales_Price~eGulf$Seller_Opted_Into_Treatment)
+
+#From the boxplot, it appears that sellers who opted into treatment (the box on the right), sold their WePhones at slightly higher prices. However, let's make sure of this by computing the mean differences. Subtract the mean sales prices of the control group from the mean sales prices in the treatment group. You may want to subset the treatment and control groups into separate dataframes before completing this next step.
+
+Solution1<- #Determine the means difference between the final sales prices of eGulf sellers by treatment condition
+
+#It seems that sellers in the treatment group sold their Wephones at higher prices. Let's conduct a statistical test to make sure whether this finding is robust. 
+  
+Solution2<- # Report the p.value of a t.test that tests whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices
 ```
 *** =solution
 ```{r}
-Solution1<-t.test(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1],eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0])
+Solution1<-mean(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1])-mean(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0])
+Solution2<-t.test(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1],eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0])$p.value
+
 ```
 *** =sct
 ```{r}
 test_object("Solution1")
-success_msg("Good work! It looks like posting more photos was positively associated with final WePhone sales prices.")
+test_object("Solution2")
+success_msg("Good work! Since the p.value is well below .05, it seems that are finding is robust; like posting more photos was positively associated with final WePhone sales prices.")
 ```
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ad358b17bb
 ## Where the Chapter Will Go From Here
