@@ -73,3 +73,17 @@ success_msg("Good work! Keep in mind, even though there is a correlation between
 ")
 ```
 
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Multiple Choice: Is it a Controlled Experiment?
+As a staunch fiscal conservative, Peter is looking for ways to lower his daily expenses. Peter believes he might be able to lower his costs on car gasoline if he stops using his air conditioner and just opens his window. As an experiment, Peter tracks his gas usage during his commute to work over two days. During the first day, Peter uses his air conditioner. The second day, Peter opens his window. Is this a controlled experiment?
+
+*** =instructions
+- Yes
+- No
+*** =sct
+```{r}
+msg1 = "Can we be sure that that independent variable is the only factor being adjusted in Peter's experiement? Try again."
+msg2 = "Correct! An experiment is considered a 'controlled' experiment when the independent variable is the only factor that is adjusted between the treatment and control. However, Peter's gas usage could be influenced by many factors that are outside of his control, like the traffic or the weather."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
