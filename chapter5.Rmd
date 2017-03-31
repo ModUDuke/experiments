@@ -164,7 +164,7 @@ success_msg("Good work!")
 //player.vimeo.com/video/205124690
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:92568b1f93
 ## Practice identifying heteroskedastic outcomes
 An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains the syntax to produce plots for income's relationship with three different predictors: Education, Age, and City Population. Each dot represents an observation from our sample. Using these graphs, determine which independant variable has the most heteroskedastic relationship with income
 
