@@ -322,9 +322,9 @@ Let's say that you are writing up a report on an experiment, and your mentor ask
 *** =sct
 ```{r}
 msg1 = "This seems like the right answer, but it will mislead your readers to think that your results are more statistically significant than they truly are. Try again."
-msg2 = "This is accurrate, but this response is not to the nearest 100th digit. Try again."
+msg2 = "This is accurate, but this response is not to the nearest 100th digit. Try again."
 msg3 = "Correct! The best answer would be to write p=.06. Even though .05 is closer to the true p-value of your key statistic, this will mislead readers to think that your results are more statistically significant than they truly are."
-msg4 = "This is accurrate, but this response is not to the nearest 100th digit. Try again."
+msg4 = "This is accurate, but this response is not to the nearest 100th digit. Try again."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -344,7 +344,7 @@ A recent study tried to find out who loves their owners more: cats or dogs. The 
 
 Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play. 
 
-What is an accurrate summary of the results of this experiment? 
+What is an accurate summary of the results of this experiment? 
 
 *** =instructions
 -The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for cats** than for dogs, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**. 
