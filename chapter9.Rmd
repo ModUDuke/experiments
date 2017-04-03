@@ -161,7 +161,7 @@ success_msg("Good work!")
 ## Identifying Underlying  Mechanisms 
 Based solely on the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
 *** =instructions
-- Yes, the tables clearly identify why attending preschool leads to lower rates of criminal activity among men and women.
+- Yes, the results support common beliefs about why attending preschool leads to lower rates of criminal activity among men and women.
 - No, we need more information about how preschool education effects individuals before we can definitively identify why preschool leads to reduced criminal activity. 
 *** =sct
 ```{r}
