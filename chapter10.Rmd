@@ -39,9 +39,9 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
 ## Practice Justifying As-If Randomization
-Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments (i.e. with basically random assignment) when they are clearly not, is by stating where their data is balanced. Let's give it a try.
+Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments by stating where their data is balanced (i.e. with basically random assignment) when they clearly are not. Let's give it a try.
 
-The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The scientists who gathered this set of data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, their "natural experiment" of exposure to Katy Perry music is not very balanced. Help them justify their assumption! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
+The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The scientists who gathered this set of data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, their "natural experiment" of exposure to Katy Perry music is not very balanced. Let's pretend to be bad analysts and help them justify their assumption! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
 
 *** =instructions
 - Look through each variable in dataset `KatyPerry`, and name a variable that is balanced between the datasets
@@ -173,7 +173,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
 ## CreditCo Natural Experiment
-A previous exercise using the CreditCo data showed that noncompliance was an issue in the experiment. However, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, there was bad weather for half of the people who received the offer, and, as a result, this group decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
+A previous exercise using the CreditCo data showed that noncompliance was an issue in the experiment. While investigating potential reasons, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, and, as a result, these people decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
 
 First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
 
