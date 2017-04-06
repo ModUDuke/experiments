@@ -45,6 +45,8 @@ n=382
 ```
 *** =sample_code
 ```{r}
+#Remember, the average treatment effect is simply the mean outcome of the treatment group minus the mean outcome of the control group.
+
 Solution1 <- # Average treatment effect
 ```
 *** =solution
@@ -135,6 +137,10 @@ n=382
 ```
 *** =sample_code
 ```{r}
+#Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to consider making a three way table of the results first. The following prints the numbers of men and women who intend to leave work by treatment group. 
+  xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
+#Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. However, let's actually compute the differences in the Average treatment effects among men and women.
+
 Solution1 <- # Average treatment effect among men
 Solution2 <- # Average treatment effect among women
 ```
@@ -218,7 +224,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:3329371fd4
 ## Multiple Choice: Questionable Proxy Variables
-A scientist conducts an experiment that studies how attending church effects one's happiness. Since the scientist was trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness. 
+Hedonism is the ethical theory that pleasure should be the highest aim of people. One hedonist in particular questions whether religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since this hedonist was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness. 
 
 The economist randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income). 
 
@@ -284,15 +290,15 @@ set.seed(1)
 *** =sample_code
 ```{r}
 str(econometrics)
-Solution1<- # Determine whether Happiness is correlated with Income
-Solution2<- # Use a t.test to determine whether Treatment effects Income
-Solution3<- # Use a t.test to determine whether Treatment effects Happiness
+Solution1<- # Use the 'cor' function to determine and report whether Happiness is correlated with Income
+Solution2<- # Use a t.test to determine whether Treatment effects Income, and report its p.value
+Solution3<- # Use a t.test to determine whether Treatment effects Happiness, and report its p.value
 ```
 *** =solution
 ```{r}
 Solution1<-cor(econometrics$Happiness,econometrics$Income)
-Solution2<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])
-Solution3<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])
+Solution2<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
+Solution3<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
 ```
 *** =sct
 ```{r}
@@ -383,8 +389,6 @@ What is an accurate summary of the results of this experiment?
 -The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for dogs** than for cats, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**. 
 -The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical**, but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for dogs** than for cats. 
 -The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs. 
-*** =hint
-- Here is a useful hint: Answer 2 is the right answer
 *** =sct
 ```{r}
 msg1 = "This question is tricky. Read the answers carefully and try again."

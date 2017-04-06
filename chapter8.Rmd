@@ -85,11 +85,11 @@ First, you compute the bounds of average treatment effect of opting into a credi
 ```{r}
 # The dataset `CreditCo` is available in your workspace
 
-print(Solution1<- )# Determine the fraction of opt-in among those offered the increase
+Solution1<- # Determine the fraction of opt-in among those offered the increase
 
-print(Solution2<- )# Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value
+Solution2<- # Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value
 
-print(Solution3<- )# Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value
+Solution3<- # Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value
 
 ```
 

@@ -27,15 +27,72 @@ msg5 = "Assuming Random Compliance is not always applicable, but it still is a c
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## An eGulf and Confidence Interval Refresher
+Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions (the treatment group) had higher sales prices than sellers who only posted 10 pictures of their WePhones (the control group). eGulf wanted to make sure these results were not spurious by conducting their experiment a second time, with a larger sample. The results of this second experiment were visualized as a bar graph, with 95% confidence intervals indicated by error bars. Based on these results, shown in the R workspace, what can we conclude about the average treatment effect (ATE)? 
+
+*** =instructions
+- The ATE is not statistically significant at a 95% confidence interval
+- The ATE is not statistically significant at a 99% confidence interval
+- The ATE is statistically significant at a 95% confidence interval
+- The ATE is statistically significant at a 99% confidence interval
+*** =pre_exercise_code
+```{r}
+# Initialize dataframe
+set.seed(1)
+n <- 1000
+eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
+colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
+# Simulate baseline data
+  # Make seller feedback count
+    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
+  # Make feedback score loosely correlated with feedback count 
+    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(100,1,10),2)
+  # Make seller offered treatment loosely correlated with with feedback count 
+    eGulf$Seller_Offered_Treatment<-rbinom(n,1,.5+eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)/5)
+  # Make seller opted_into_treatment correlated with seller_feedback_score
+    eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
+  # Make final sales price also correlated with seller_feedback_score
+    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
+
+    
+#Prepare data for graphing
+  TreatmentSalesPrices<-eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1]
+  ControlSalesPrices<-eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0]
+  TreatmentMean<-mean(TreatmentSalesPrices)
+  ControlMean<-mean(ControlSalesPrices)
+  TreatmentStandardError<-sd(TreatmentSalesPrices)/sqrt(length(TreatmentSalesPrices))
+  ControlStandardError<-sd(ControlSalesPrices)/sqrt(length(ControlSalesPrices))
+  Means<-c(ControlMean,TreatmentMean)
+  names(Means)<-c("Control Mean","Treatment Mean")
+  CIs<-c(ControlStandardError,TreatmentStandardError)
+
+#Graph results
+  #(cheat to pretend this is a different sample; just use the standard errors rather than true confidence intervals. This makes the differences clearly visible.)
+  bargraph<-barplot(Means,ylim=c(325, 375),col=c(3,5))  
+  arrows(x0=bargraph, y0=Means-(1*CIs), y1=Means+(1*CIs), code=3, angle=90,length=.4)
+
+```
+
+*** =sct
+```{r}
+msg1 = "Do the error bars overlap? Look carefully at the graph and try again"
+msg2 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again"
+msg3 = "Correct! Since the 95% confidence interval error bars do not appear to overlap, we can conclude that the difference is statistically significant."
+msg4 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again"
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
 ## Noncompliance in eGulf
-Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we did not examine whether noncompliance could have confounded our results. Specifically, what if the sellers who chose to post more than 10 pictures of their WePhones were different from those who chose not to post more than 10 pictures? 
+In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we never examined whether noncompliance could have confounded our results. Specifically, what if the sellers who chose to post more than 10 pictures of their WePhones were different from those who chose not to post more than 10 pictures? 
 
 If the experiment's dependent variable is associated with a difference between compliers and noncompliers, its association with the treatment effect may be spurious. Therefore, we should test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
 
 *** =instructions
-- Statistically test whether sellers who were offered treatment (`Seller_Offered_Treatment`) and opted into the treatment (`Seller_Opted_Into_Treatment`==1) had different prior average feedback scores (`Seller_Feedback_Score`) than sellers who were offered treatment but did not opt into treatment. 
-- Test whether sellers' prior average feedback scores (`Seller_Feedback_Score`) were associated with their recent auction's final sales price (`Final_Sales_Price`) using R's correlation (`cor()`) function
+- Test whether sellers who were offered treatment (`Seller_Offered_Treatment`) and opted into the treatment (`Seller_Opted_Into_Treatment`==1) had different prior average feedback scores (`Seller_Feedback_Score`) than sellers who were offered treatment but did not opt into treatment. 
+- Test whether sellers' prior average feedback scores (`Seller_Feedback_Score`) were associated with their recent auction's final sales price (`Final_Sales_Price`)
 
 *** =hint
 - For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
@@ -63,22 +120,31 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 ```
 *** =sample_code
 ```{r}
-str(eGulf) #Dataframe
+#To check for noncompliance in an experiment, we want to just compare individuals were offered treatment. Therefore, it might be useful to first subset the eGulf data.frame to sellers who were offered treatment. 
 
-Solution1<- # Use a t.test to determine whether, among those offered treatment, those who opted into treatment had different seller feedback scores than those who chose not to opt into treatment.
+#Before running a significance test to see whether egulf compliers and non compliers were different, let's summarize the data.
+summary(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==0 & eGulf$Seller_Offered_Treatment==1])
+summary(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1 & eGulf$Seller_Offered_Treatment==1])
 
-Solution2<- # Determine whether seller's feedback scores are associated with final sales prices
+#Those who opted into the treatment seemed to have slightly higher feedback scores than those who did not, but is the difference statistically significant? Use a t.test and look at the 95% confidence interval. Since we are measuring the mean difference between two values, the confidence interval indicates a range of values for the average treatment effect that we would expect to find if we gathered a new sample. If the lower and upper bound of the 95% confidence interval are both positive, we can conclude that there is a positive and statistically significant difference between the two groups. 
+
+Solution1<- "" #Among those offered treatment, did those who opted into treatment have seller feedback scores that were significantly higher than those who did not opt into treatment? Answer with "Yes" or "No"
+
+
+Solution2<- # Estimate the correlation between seller feedback scores and final sales prices
 ```
 *** =solution
 ```{r}
-Solution1<-t.test(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1&eGulf$Seller_Offered_Treatment==1],eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==0 & eGulf$Seller_Offered_Treatment==1])
+Significant<-all(t.test(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1&eGulf$Seller_Offered_Treatment==1],eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==0 & eGulf$Seller_Offered_Treatment==1])$conf.int>0)
+
+Solution1<-ifelse(Significant==T,"Yes","No")
 Solution2<-cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
 ```
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who had not posted more photos. Additionally prior average feedback scores were strongly correlated with final WePhone sales prices. This suggests that the relationship between posting more photos and final sales prices might be spurious")
+success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who had not posted more photos. Additionally prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, the experiment's results might be spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance")
 ```
 
 
@@ -189,13 +255,13 @@ A simulated version of this dataset, `CreditCo`, is available in the workspace. 
 
 *** =sample_code
 ```{r}
-# The dataset `CreditCo` is available in your workspace
+# The dataset `CreditCo` is available in your workspace. You may want to explore it with the structure "str" command before solving the following questions.
 
-print(Solution1<- )# Compute the fraction of people who were offered a higher credit limit
+Solution1<- # Compute the fraction of people who were offered a higher credit limit
 
-print(Solution2<- )# Of the people who were offered, what fraction opted in?
+Solution2<- # Of the people who were offered, what fraction opted in?
 
-print(Solution3<- )# Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered and opted in to the program
+Solution3<- # Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered and opted in to the program
 
 ```
 

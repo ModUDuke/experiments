@@ -2,7 +2,7 @@
 title       : "Experiments 10: Natural Experiments"
 description : "These videos and exercises introduce natural experiments, sometimes called quasi-experiments"
 
-
+W
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:355ed25bc9
 ## The Two Kinds of Natural Experiments
 *** =video_link
@@ -10,7 +10,7 @@ description : "These videos and exercises introduce natural experiments, sometim
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b3e25ee162
 ## As-if Natural experiments
-Which of the following is an accurrate description of an "as if" natural experiment: 
+Which of the following is an accurate description of an "as if" natural experiment: 
 *** =instructions
 - An experiment where treatment was determined by factors outside the control of the investigators. Assignment to the treatment is completely random.
 - An experiment where treatment was determined by factors outside the control of the investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
