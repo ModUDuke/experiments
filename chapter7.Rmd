@@ -27,7 +27,7 @@ msg5 = "Assuming Random Compliance is not always applicable, but it still is a c
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:84487e1a9f
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## An eGulf and Confidence Interval Refresher
 Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions (the treatment group) had higher sales prices than sellers who only posted 10 pictures of their WePhones (the control group). eGulf wanted to make sure these results were not spurious by conducting their experiment a second time, with a larger sample. The results of this second experiment were visualized as a bar graph, with 95% confidence intervals indicated by error bars. Based on these results, shown in the R workspace, what can we conclude about the average treatment effect (ATE)? 
 
@@ -69,8 +69,7 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 
 #Graph results
   #(cheat to pretend this is a different sample; just use the standard errors rather than true confidence intervals. This makes the differences clearly visible.)
-  bargraph<-barplot(Means,ylim=c(325, 375),col=c(3,5))  
-  arrows(x0=bargraph, y0=Means-(1*CIs), y1=Means+(1*CIs), code=3, angle=90,length=.4)
+  arrows(x0=barplot(Means,ylim=c(325, 375),col=c(3,5)), y0=Means-(1*CIs), y1=Means+(1*CIs), code=3, angle=90,length=.4)
 
 ```
 
