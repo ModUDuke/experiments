@@ -358,7 +358,7 @@ The researchers divide a population of preschool-aged children into a treatment 
 |               low income|   $30,000   |  60%     |$50,000              |
 
 
-A government official asks for your opinion about the study, based solely on these results. What would you tell her? (Note: There is more than one correct answer!)
+A government official asks for your opinion about the study, based solely on these results. Of the options below, which one would you NOT tell her?
 
 *** =instructions
 - The long-term CATE (in level terms) is larger for high-income children, so the government should emphasize preschool among high-income families.
@@ -369,11 +369,11 @@ A government official asks for your opinion about the study, based solely on the
 - There are no hints for this exercise. Do your best!
 *** =sct
 ```{r}
-msg1 = "Correct! Focusing the policy among the group that gains the most is a sound way to conduct policy."
-msg2 = "Correct! Because the gains from preschool are highest among the lower-income group, a government that is interested in redistributing income could focus on providing preschool to low-incom children."
-msg3 = "Correct! The results for this particular experiment seem to point to large gains for all groups of children."
-msg4 = "This question is tricky, but there is more than one correct answer. Read the answers carefully and try again."
-test_mc(correct = c(1,2,3), feedback_msgs = c(msg1,msg2,msg3,msg4))
+msg1 = "No, focusing the policy among the group that gains the most is a reasonable policy recommendation."
+msg2 = "Incorrect. Because the gains from preschool are highest among the lower-income group, a government that is interested in redistributing income could focus on providing preschool to low-incom children."
+msg3 = "No, the results for this particular experiment seem to point to large gains for all groups of children, which is an opinion that is supported by this table of data."
+msg4 = "Correct! There **is** enough information to provide an opinion here."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:9118aacf5b
