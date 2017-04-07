@@ -1,4 +1,4 @@
---- 
+---
 title       : "Experiments 9: Long-term Average Treatment Effects"
 description : "This video and exercise discusses how to compute and interpret long-term causal effects"
 
@@ -18,9 +18,9 @@ description : "This video and exercise discusses how to compute and interpret lo
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4ddc3a17bc
 ## Practice identifying heterogeneous outcomes (Part 1)
-The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department. 
+The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department.
 
-To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year (the employees are not allowed to tell others about what they've heard). Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes." 
+To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year (the employees are not allowed to tell others about what they've heard). Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
 
 With the dataframe, `UnterHR`, determine whether there is a negative average treatment effect of reducing the size of Unter's HR department on employee turnover:
 
@@ -62,7 +62,7 @@ success_msg("Good work! It seems that reducing the size of HR reduced Unter empl
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c229f94a13
 ## Practice identifying heterogeneous outcomes (Part 2)
-Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option. 
+Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option.
 
 However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
 
@@ -115,8 +115,8 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`) 
-- Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`) 
+- Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`)
+- Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`)
 *** =hint
 - Remember, you can determine the ATE by subtracting the mean rate of the outcome in the control condition by the mean rate of the outcome in the treatment condition.
 - You will need to use the `mean` and `subset` commands.
@@ -137,7 +137,7 @@ n=382
 ```
 *** =sample_code
 ```{r}
-#Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to consider making a three way table of the results first. The following prints the numbers of men and women who intend to leave work by treatment group. 
+#Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to consider making a three way table of the results first. The following prints the numbers of men and women who intend to leave work by treatment group.
   xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
 #Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. However, let's actually compute the differences in the Average treatment effects among men and women.
 
@@ -164,11 +164,11 @@ success_msg("Good work!")
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2924e39895
-## Identifying Underlying  Mechanisms 
+## Identifying Underlying  Mechanisms
 Based solely on the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
 *** =instructions
 - Yes, the results support common beliefs about why attending preschool leads to lower rates of criminal activity among men and women.
-- No, we need more information about how preschool education effects individuals before we can definitively identify why preschool leads to reduced criminal activity. 
+- No, we need more information about how preschool education effects individuals before we can definitively identify why preschool leads to reduced criminal activity.
 *** =sct
 ```{r}
 msg1 = "Try again"
@@ -203,7 +203,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1913543c45
 ## Multiple Choice: Choosing a Good Proxy Variable
-Business analysts are often interested in learning which business strategies work and which do not. One useful way to study whether a certain business strategy is effective is to examine a large group of nascent businesses over time, and track whether businesses that implemented that strategy were more likely to close down. The difficulty with this research strategy is that it can take many years for nascent businesses to close, delaying one's ability to determine their experiment's results. 
+Business analysts are often interested in learning which business strategies work and which do not. One useful way to study whether a certain business strategy is effective is to examine a large group of nascent businesses over time, and track whether businesses that implemented that strategy were more likely to close down. The difficulty with this research strategy is that it can take many years for nascent businesses to close, delaying one's ability to determine their experiment's results.
 
 To reduce the time it takes to determine how a business strategy affects a business's chance of survival, which of the following would be the most effective and direct proxy variable for business closure?
 
@@ -224,9 +224,9 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:3329371fd4
 ## Multiple Choice: Questionable Proxy Variables
-Hedonism is the ethical theory that pleasure should be the highest aim of people. One hedonist in particular questions whether religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since this hedonist was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness. 
+Hedonism is the ethical theory that pleasure should be the highest aim of people. One hedonist in particular questions whether religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since this hedonist was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness.
 
-The economist randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income). 
+The economist randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income).
 
 Which of the following hypothetical scenarios, if true, would make us question whether income is a good proxy variable for happiness in this experiment?
 
@@ -245,11 +245,11 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
 ## Practice identifying spurious results with bad proxy variables
-The economist from the previous question runs a second experiment, this time measuring the effect of *work hours* on happiness via income as a proxy variable. He helps respondents in his treatment group negotiate to work an additional 10 hours at their primary jobs per week for one year. 
+The economist from the previous question runs a second experiment, this time measuring the effect of *work hours* on happiness via income as a proxy variable. He helps respondents in his treatment group negotiate to work an additional 10 hours at their primary jobs per week for one year.
 
-This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. A more experienced economist replicates the first economist's study, but also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate. 
+This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. A more experienced economist replicates the first economist's study, but also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate.
 
-Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following: 
+Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following:
 
 *** =instructions
 - Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
@@ -257,7 +257,7 @@ Using the dataframe,`econometrics`, determine whether income is a good proxy var
 - Determine whether there is a statistically significant effect of the treatment, `Treatment`, with the true outcome of interest, `Happiness`.
 
 *** =hint
-- For the first question, you will need to `subset` the `econometrics` data frame by treatment. 
+- For the first question, you will need to `subset` the `econometrics` data frame by treatment.
 - Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other, and the `cor` function to determine whether variables are correlated.
 
 *** =pre_exercise_code
@@ -268,14 +268,14 @@ set.seed(1)
       qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
   }
 #Create rounding function that allows to round to numbers above 1
-  mround <- function(x,base){ 
-          base*round(x/base) 
-  } 
+  mround <- function(x,base){
+          base*round(x/base)
+  }
 #Dataframe
   econometrics<-data.frame(Treatment=1:1000,WorkHours=1:1000,Income=1:1000,Happiness=1:1000)
 #Assign treatment
   econometrics$Treatment<-rbinom(1000,1,.45)
-#Vaguely realistic Work hours 
+#Vaguely realistic Work hours
   econometrics$WorkHours<-round(rtnorm(n=1000,mean=40,sd=6,min=0,max=50))
   econometrics$WorkHours<-mround(econometrics$WorkHours,10)
   temp<-rbinom(1000,1,.2)
@@ -346,19 +346,13 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:983026d374
 ## Levels vs. Growth in Long-term Average Treatment Effects
-Suppose that a study similar to the Perry Preschool was interested in how preschool affects future earnings, and in particular how the effects are different by income level. (Recall that Perry Preschool was administered to a heavily low-income population, so this study is slightly different.) 
+Suppose that a study similar to the Perry Preschool was interested in how preschool affects future earnings, and in particular how the effects are different by income level. (Recall that Perry Preschool was administered to a heavily low-income population, so this study is slightly different.)
 
 The researchers divide a population of preschool-aged children into a treatment group and a control group. Importantly, the children in each of the groups come from a variety of income backgrounds.
 
 35 years after the study, the researchers produce the following table, which documents the Conditional Average Treatment effect for each group of students:
 
-| childhood family income | CATE (level)| CATE (%) |control group income |
-|-------------------------|------------:|---------:|--------------------:|
-|              high income|   $36,000   |  40%     |$90,000              |
-|               low income|   $30,000   |  60%     |$50,000              |
-
-
-A government official asks for your opinion about the study, based solely on these results. Of the options below, which one would you NOT tell her?
+A government official asks for your opinion about the study, based solely on these results. What would you tell her? (Note: There is more than one correct answer!)
 
 *** =instructions
 -The long-term CATE (in level terms) is larger for high-income children, so the government should emphasize preschool among high-income families.
@@ -369,26 +363,26 @@ A government official asks for your opinion about the study, based solely on the
 - There are no hints for this exercise. Do your best!
 *** =sct
 ```{r}
-msg1 = "No, focusing the policy among the group that gains the most is a reasonable policy recommendation."
-msg2 = "Incorrect. Because the gains from preschool are highest among the lower-income group, a government that is interested in redistributing income could focus on providing preschool to low-incom children."
-msg3 = "No, the results for this particular experiment seem to point to large gains for all groups of children, which is an opinion that is supported by this table of data."
-msg4 = "Correct! There **is** enough information to provide an opinion here."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+msg1 = "Correct! Focusing the policy among the group that gains the most is a sound way to conduct policy."
+msg2 = "Correct! Because the gains from preschool are highest among the lower-income group, a government that is interested in redistributing income could focus on providing preschool to low-incom children."
+msg3 = "Correct! The results for this particular experiment seem to point to large gains for all groups of children."
+msg4 = "This question is tricky, but there is more than one correct answer. Read the answers carefully and try again."
+test_mc(correct = c(1,2,3), feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:65e3dda974
 ## A Furry Conclusion to Long-term Average Treatment Effects
-A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "love hormone." 
+A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "love hormone."
 
-Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play. 
+Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play.
 
-What is an accurate summary of the results of this experiment? 
+What is an accurate summary of the results of this experiment?
 
 *** =instructions
--The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for cats** than for dogs, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**. 
--The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for dogs** than for cats, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**. 
--The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical**, but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for dogs** than for cats. 
--The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs. 
+-The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for cats** than for dogs, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
+-The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for dogs** than for cats, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
+-The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical**, but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for dogs** than for cats.
+-The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs.
 *** =sct
 ```{r}
 msg1 = "This question is tricky. Read the answers carefully and try again."
