@@ -38,13 +38,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/199856949
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
-## Practice Justifying As-If Randomization
-Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments by stating where their data is balanced (i.e. with basically random assignment) when they clearly are not. Let's give it a try.
+## Practice Justifying As-If Randomization with Katy Perry
+Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments is by just reporting information about variables that are balanced in their datasets (i.e. with basically random assignment), even when the majority of the variables in their datasets are imbalanced. Let's give it a try.
 
-The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The scientists who gathered this set of data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, their "natural experiment" of exposure to Katy Perry music is not very balanced. Let's pretend to be bad analysts and help them justify their assumption! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
+The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The human rights activists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, the control and treatment groups in this "natural experiment" are not very balanced. Let's pretend to be bad analysts and help them justify their assumption that this is an as-if natural experiment! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
 
 *** =instructions
-- Look through each variable in dataset `KatyPerry`, and name a variable that is balanced between the datasets
+- Use what you learned about balance and statistical inference, and look through each variable in the dataset `KatyPerry`. Name a variable that is balanced between the datasets
 
 *** =hint
 - You will need to use the `subset` and `t.test` functions.
@@ -84,7 +84,7 @@ Solution<-names(KatyPerry)[which(p<=.05)+1]
 *** =sct
 ```{r}
 test_object("Solution")
-success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if there is not balance between a treatment and control group in a natural experiment, scientists will try to subset the control group to be balanced with treatment group, and then assess the data.")
+success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if the treatment and control groups in a natural experiment are not balanced, scientists will instead try to subset the control group and treatment groups into balanced groups, and then assess the data.")
 ```
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5dec6afcd9
@@ -115,7 +115,8 @@ SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 ```
 *** =sample_code
 ```{r}
-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) # This was the t.test used by the otter enthusiast to get the results listed above.
+# Below was the t.test used by the otter enthusiast to get the results listed above.
+t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
 
 Test1<- # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
 LowerBound1<- Test1$conf.int[1]
@@ -251,13 +252,13 @@ First, you will test if this is a valid natural experiment. This involves testin
 ```{r}
 # The dataset `CreditCo` is available in your workspace
 
-print(Solution1<- )# Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
+Solution1<- # Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
 
-print(Solution2<- )# Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
+Solution2<- # Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
 
-print(Solution3<- )# Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
+Solution3<- # Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
 
-print(Solution4<- )# Do the same as above, but for post-treatment default rates. Again, use a t-test.
+Solution4<- # Do the same as above, but for post-treatment default rates. Again, use a t-test.
 
 ```
 
@@ -267,7 +268,6 @@ Solution1 <- t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)]
 Solution2 <- t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
 Solution3 <- t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
 Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
-
 ```
 
 *** =sct
@@ -275,6 +275,8 @@ Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_po
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
+test_object("Solution4")
+success_msg("Good work!")
 ```
 
 
