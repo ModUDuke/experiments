@@ -59,11 +59,11 @@ _Video: London Cholera Outbreak: Was it A Natural Experiment?_
 
 
 **New Potential Videos to Film**
-- [ ] New Video on Base Rate Fallacy stuff
+- [ ] ~~New Video on Base Rate Fallacy stuff~~
 - [ ] New Video on Splitting Populations
 - [ ] New Video on p hacking & Philosophy of All Science Everywhere
-- [ ] New Video on Aggregate Effects
-- [ ] More on Standard Errors & a simple equation describing it
+- [ ] ~~New Video on Aggregate Effects~~
+- [ ] ~~More on Standard Errors & a simple equation describing it~~
 
 
 **Video Uploads/Maintenance**
