@@ -12,10 +12,10 @@ description : "These videos and exercises introduce natural experiments, sometim
 ## As-if Natural experiments
 Which of the following is an accurrate description of an "as if" natural experiment: 
 *** =instructions
-- An experiment where treatment was determined by factors outside the control of the investigators. Assignment to the treatment is completely random.
-- An experiment where treatment was determined by factors outside the control of the investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
-- An experiment conducted in a natural setting by investigators. Assignment to the treatment is completely random.
-- An experiment conducted in a natural setting by investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
+- A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment is completely random.
+- A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
+- A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment is completely random.
+- A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment is not literally random, but it is unrelated to variables that effect an outcome
 *** =sct
 ```{r}
 msg1 = "This describes a true natural experiment. Try again."
@@ -39,7 +39,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
 ## Practice Justifying As-If Randomization with Katy Perry
-Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments is by just reporting information about variables that are balanced in their datasets (i.e. with basically random assignment), even when the majority of the variables in their datasets are imbalanced. Let's give it a try.
+Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments is by just reporting information about variables that are balanced in their datasets (i.e. with basically random assignment), ignoring that majority of the variables in their datasets that are imbalanced. Let's give it a try.
 
 The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The human rights activists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, the control and treatment groups in this "natural experiment" are not very balanced. Let's pretend to be bad analysts and help them justify their assumption that this is an as-if natural experiment! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
 
@@ -101,9 +101,9 @@ success_msg("Good work! Identifying balance is crucial to justifying natural exp
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
 ## Manipulating Confidence Intervals - Practice with Sea Otter Diets
-When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the opposite. 
+When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the clams provided the better show. 
 
-To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. They found an average treatment effect that was positive (ATE = 8.33 people).
+To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
 
 Although the results seemed to indicate a positive treatment effect, the results were not statistically significant (95% Confidence Interval = [-0.23, 16.94]). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent of a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
 
