@@ -108,8 +108,7 @@ To determine what price to set at the beginning of her WePhone auctions, Laurel 
     t.test(Treatment$Color=="Black",Control$Color=="Black")$p.value
 # These results show that there is a 0.46 (or 46%) chance that the difference in the means between the number of black phones in the treatment and control groups is equal to 0. In other words, it is fairly likely that the number of black phones in the treatment and control groups are the same. Typically, we only refute the null-hypothesis (in this case, that the phone specifications are imbalanced) when there is less than a 5% chance of it being true. Also, since there are only two different colors in the treatment and control groups, we do not need to test whether they have roughly the same proportion of platinum phones - the results will be identical.  
 
-          
-#Now it's your turn! Use the t.test function to search through the treatment and control groups of each other specification between the phones until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups i less than 5%).
+# Now it's your turn! Use the t.test function to search through the treatment and control groups of each other specification between the phones until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups i less than 5%).
         
 t.test(  )$p.value
       

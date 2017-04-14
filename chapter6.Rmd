@@ -79,3 +79,45 @@ msg3 = "Randomly assigning people to social isolation is incredibly unethical, s
 msg4 = "Correct! Each of the other experiments is not only difficult to create, but could cause substantial harm to an experiment's participants."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Common Issues in Interpretation - Box-and-whisker plots
+Not only are there common issues in experiments, but there are many common ways that people misinterpret statistical results. Box-and-whisker plots (also known as box plots) are a great tool for summarizing data, but can be a source of confusion for new analysts. To refamiliarize yourself with boxplots, You can read our summary of them in the Chapter 5 exercise, "Practice working with eGulf," or on various websites, such as Wikipedia (https://en.wikipedia.org/wiki/Box_plot).
+
+Following an experiment regarding how computer keyboard layouts affect people's typing speed, the principal investigator, Kurt Devorak, compared the hand sizes among respondents in the treatment groups and control groups to make sure his sample was balanced. He plotted the results in two box-and-whiskers plots (illustrated in the R workspace). Which of the following conclusions **cannot** be determined from these boxplots?
+
+*** =instructions
+- The maximum hand size in the treatment group is identical to the maximum hand size in the control group.
+- The third quartile hand size in the treatment group is identical to the third quartile hand size in the control group.
+- The median hand size in the treatment group is identical to the median hand size in the control group.
+- The mean hand size in the treatment group is identical to the mean hand size in the control group.
+
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+}
+options(scipen=1)
+n=100
+Control<-round(rtnorm(n,7.44,sd=.5,min = 6,max=9),2)
+Treatment<-Control
+#increase values between median and third quartile
+  Treatment<-ifelse(Treatment<quantile(Treatment,.74)& Treatment>quantile(Treatment,.51),quantile(Treatment,.74),Treatment)
+#increase values between median and first quartile
+  Treatment<-ifelse(Treatment<quantile(Treatment,.49)& Treatment>quantile(Treatment,.26),quantile(Treatment,.49),Treatment)
+  boxplot(Treatment,Control,names=c("Treatment","Control"),main="Hand Sizes (inches) across Experimental Groups")
+```
+
+*** =sample_code
+```{r}
+  boxplot(Treatment,Control,names=c("Treatment","Control"),main="Hand Sizes (inches) across Experimental Groups")
+```
+*** =sct
+```{r}
+msg1 = "The maximum value in both plots is indicated by the dot above the whiskers. These are identical. Try again"
+msg2 = "The third quartile in both plots is indicated by the top edge of the boxes. These are identical. Try again"
+msg3 = "The median value in both plots is indicated by the thick line within the box. These are identical. Try again"
+msg4 = "Correct! Box-and-whiskers plots do not show the mean values in a sample. Although these two plots have identical quartile distributions, medians, and ranges, the mean values are actually different (7.8 in the treatment and 7.5 in the control)."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
