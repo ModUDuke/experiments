@@ -81,7 +81,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:9ca8c3a544
-## Common Issues in Interpretation - Box-and-whisker plots
+## Common Issues in Interpretation I: Box-and-whisker plots
 Not only are there common issues in experiments, but there are many common ways that people misinterpret statistical results. Box-and-whisker plots (also known as box plots) are a great tool for summarizing data, but can be a source of confusion for new analysts. To refamiliarize yourself with boxplots, You can read our summary of them in the Chapter 5 exercise, "Practice working with eGulf," or on various websites, such as Wikipedia (https://en.wikipedia.org/wiki/Box_plot).
 
 Following an experiment regarding how computer keyboard layouts affect people's typing speed, the principal investigator, Kurt Devorak, compared the hand sizes among respondents in the treatment groups and control groups to make sure his sample was balanced. He plotted the results in two box-and-whiskers plots (illustrated in the R workspace). Which of the following conclusions **cannot** be determined from these boxplots?
@@ -99,7 +99,7 @@ rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
   qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
 }
 options(scipen=1)
-n=100
+n=200
 Control<-round(rtnorm(n,7.44,sd=.5,min = 6,max=9),2)
 Treatment<-Control
 #increase values between median and third quartile
@@ -120,4 +120,65 @@ msg2 = "The third quartile in both plots is indicated by the top edge of the box
 msg3 = "The median value in both plots is indicated by the thick line within the box. These are identical. Try again"
 msg4 = "Correct! Box-and-whiskers plots do not show the mean values in a sample. Although these two plots have identical quartile distributions, medians, and ranges, the mean values are actually different (7.8 in the treatment and 7.5 in the control)."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Common Issues in Interpretation II: Non-normal distributions
+Many statistical models assume that the data is normally distributed like in a bell curve, where a) most observations lie around the mean, b) the frequency of data that falls far from the mean is inversely related with its distance from the mean, and c) the distribution of observations above and below the mean are relatively identical. Often times, results from experiments are non-normal, which can lead to spurious findings. Therefore, data transformations often need to be made to account for such problems.
+
+On the TV show, Kitchen Nightmares, Bordon Hannity tries to revive failing restaurants by offering advice to their management and chefs. To measure the effectiveness of Hannity's efforts, a fan measures the average reviews of one of Hannity's revived restaurants before and after he offers them advice. With these results:
+
+*** =instructions
+- Determine whether the reviews are normally distributed
+- Determine the average treatment effect of Hannity's efforts on restaurant reviews
+
+*** =pre_exercise_code
+```{r}
+Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
+
+Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
+```
+*** =sample_code
+```{r}
+#In previous exercises, we encouraged you to explore the data before running any treatment tests. With the current data, we know that respondents were allowed to leave reviews on a likert-scale from 1-5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. However, let's try to be bad statisticians and dive into the results before we explore the data. What do the means look like?
+  mean(Reviews_Before)
+  mean(Reviews_After)
+#They're identical! Does this mean that Hannity's show had no effect on this restaurant's ratings? Maybe not, let's plot the kernel densities of the reviews in the treatment and control groups to see how they are distributed.
+  plot(density(Reviews_Before))
+  plot(density(Reviews_After))
+  
+Solution1<-" " #Do these these look approximately normally distributed? Answer with "Yes" or "No"
+
+#There are many ways to deal with multimodal data. One strategy when data are multimodally distributed on a likert scale is to collapse the response options. If it is not important to differentiate the level of dislike for a restaurant, we can collapse our scale to measure whether respondents liked or disliked the restaurant at all. In this case, we would want to collapse response options 1 and 2 into a single response option to represent negative opinions, and 4 and 5 into a single response option to represent positive opinions. Let's create a new variable with three parameters, where 1= Negative (1 or 2), 2= Ambivalent (3), and 3= Positive (4 or 5)
+  
+#To do this for the Reviews_Before variable, we can use the ifelse function. The below syntax says, if Reviews_Before==1 or 2, set Reviews_Before to 1, otherwise just return Reviews_Before.
+    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before) 
+    Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
+    Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
+  
+#Now use the above syntax as a guide to rescale the Reviews_After variable.
+    
+#Once you have rescaled the Reviews_After variable, run a t.test between the Reviews_After and Reviews_Before variables, and return the p.value (use t.test()$p.value)
+
+Solution2<- #pvalue of t.test on newly rescaled variables
+```
+*** =solution
+```{r}
+  Solution1<-"No"
+
+    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before) 
+    Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
+    Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
+    Reviews_After<-ifelse(Reviews_After==1 | Reviews_After==2,1,Reviews_After) 
+    Reviews_After<-ifelse(Reviews_After==3,2,Reviews_After) 
+    Reviews_After<-ifelse(Reviews_After==4 | Reviews_After==5,3,Reviews_After)
+
+  Solution2<-t.test(Reviews_After,Reviews_Before)$p.value
+```
+*** =sct
+```{r}
+test_object("Solution1")
+test_object("Solution2")
+success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaninginful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews")
 ```
