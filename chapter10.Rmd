@@ -1,188 +1,23 @@
 --- 
-title       : "Experiments 10: Natural Experiments"
-description : "These videos and exercises introduce natural experiments, sometimes called quasi-experiments"
+title       : "Experiments 10: Bounds Analysis"
+description : "This video and exercise discusses how to form bounds on causal effects in the presence of experimental noncompliance"
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:355ed25bc9
-## The Two Kinds of Natural Experiments
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:25526ab294
+## Bounds Analysis for Missing Data
 *** =video_link
-//player.vimeo.com/video/199856738
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b3e25ee162
-## As-if Natural experiments
-Which of the following is an accurrate description of an "as if" natural experiment: 
-*** =instructions
-- A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment is completely random.
-- A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
-- A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment is completely random.
-- A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment is not literally random, but it is unrelated to variables that effect an outcome
-*** =sct
-```{r}
-msg1 = "This describes a true natural experiment. Try again."
-msg2 = "Well done. Although there might be a pattern to who got treated in an as-if experiment, the pattern should cause no bias in one's outcome of interest."
-msg3 = "This would not even be a natural experiment! Try again."
-msg4 = "This would not even be a natural experiment! Try again."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
+//player.vimeo.com/video/199858153
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9269e44505
-## Public Policy & Other Ways to Find Natural Experiments
-*** =video_link
-//player.vimeo.com/video/209272453
+--- type:NormalExercise lang:r xp:100 skills:1 key:a42175703d
+## Computing bounds under non-compliance
+Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. In this exercise, you decide to look at 2 alternative methods for dealing with the non-compliance issue.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. 
 
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9faee4ebd9
-## Justifying As-If Randomization
-*** =video_link
-//player.vimeo.com/video/199856949
-
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
-## Practice Justifying As-If Randomization with Katy Perry
-Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments is by just reporting information about variables that are balanced in their datasets (i.e. with basically random assignment), ignoring that majority of the variables in their datasets that are imbalanced. Let's give it a try.
-
-The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The human rights activists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, the control and treatment groups in this "natural experiment" are not very balanced. Let's pretend to be bad analysts and help them justify their assumption that this is an as-if natural experiment! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
+First, you compute the bounds of average treatment effect of opting into a credit line increase offer. Second, you calculate what the average treatment effect would be in one of the two other methods (or both, if you want to be complete!).
 
 *** =instructions
-- Use what you learned about balance and statistical inference, and look through each variable in the dataset `KatyPerry`. Name a variable that is balanced between the datasets
-
-*** =hint
-- You will need to use the `subset` and `t.test` functions.
-*** =pre_exercise_code
-```{r}
-set.seed(1)
-rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-}
-#Create rounding function that allows to round to numbers above 1
-mround <- function(x,base){ 
-  base*round(x/base) 
-} 
-#Create variables
-n=6666
-KatyPerry<-data.frame(Treatment=rbinom(n,1,.3))
-KatyPerry$YearsEducation<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=14,sd=2,min=0,max=20),rtnorm(n,mean=12,sd=3,min=0,max=18)))
-KatyPerry$Income<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=45,sd=7,min=0,max=100),rtnorm(n,mean=20,sd=5,min=0,max=100)))*1000
-KatyPerry$HearingProblems<-rbinom(n,1,.1)
-KatyPerry$Age<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=40,sd=10,min=10,max=80),rtnorm(n,mean=25,sd=5,min=10,max=80)))
-```
-*** =sample_code
-```{r}
-Solution<-"" # Name of variable that is balanced between the treatment and control groups
-```
-*** =solution
-```{r}
-treatment<-KatyPerry[KatyPerry$Treatment==1,]
-control<-KatyPerry[KatyPerry$Treatment==0,]
-p<-vector()
-for(i in 2:length(control)){
-  p[i-1]<-t.test(control[,i],treatment[,i])$p.value
-}
-Solution<-names(KatyPerry)[which(p<=.05)+1]
-```
-
-*** =sct
-```{r}
-test_object("Solution")
-success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if the treatment and control groups in a natural experiment are not balanced, scientists will instead try to subset the control group and treatment groups into balanced groups, and then assess the data.")
-```
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5dec6afcd9
-## Analyzing Natural Experiments
-*** =video_link
-//player.vimeo.com/video/199857027
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e3839c7816
-## Analyzing Data from Natural Experiments
-*** =video_link
-//player.vimeo.com/video/199857237
-
-
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
-## Manipulating Confidence Intervals - Practice with Sea Otter Diets
-When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the clams provided the better show. 
-
-To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
-
-Although the results seemed to indicate a positive treatment effect, the results were not statistically significant (95% Confidence Interval = [-0.23, 16.94]). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent of a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
-
-*** =instructions
-- Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`Treatment`) on the size of the sea otters' audiences (`Audience`).
-*** =pre_exercise_code
-```{r}
-SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
-```
-*** =sample_code
-```{r}
-# Below was the t.test used by the otter enthusiast to get the results listed above.
-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
-
-Test1<- # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
-LowerBound1<- Test1$conf.int[1]
-UpperBound1<- #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
-
-Test2<- # Run another t.test, with confidence level = .5, and assign it to the object 'Test2'
-LowerBound2<- #Use the Test2 object to assign the lower bound of the confidence interval.
-UpperBound2<- #Use the Test2 object to assign the upper bound of the confidence interval.
-  
-
-```
-*** =solution
-```{r}
-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) # This was the t.test used by the otter enthusiast to get the results listed above.
-
-Test1<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .99) # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
-LowerBound1<- Test1$conf.int[1]
-UpperBound1<- Test1$conf.int[2] #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
-
-Test2<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .50) # Run another t.test, with confidence level = .50, and assign it to the object 'Test2'
-LowerBound2<-Test2$conf.int[1] #Use the Test2 object to assign the lower bound of the confidence interval.
-UpperBound2<-Test2$conf.int[2] #Use the Test2 object to assign the upper bound of the confidence interval.
-```
-*** =sct
-```{r}
-test_object("UpperBound1")
-test_object("LowerBound2")
-test_object("UpperBound2")
-success_msg("Good work! As you can see, the confidence interval is highly susceptible to what percentage you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
-```
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc685a5444
-## Squatter Property Rights: Effect on Teenage Pregnancy
-*** =video_link
-//player.vimeo.com/video/199857584
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5341ad7e2f
-## Interpreting Results of Natural Experiments
-The effect of the property rights experiment was not statistically significant. If you were going to describe this experiment to a friend, how would you describe the effect of squatters' rights on teenage pregnancy?
-*** =instructions
-- The experiment could not show whether or how property rights affect teenage pregnancy 
-- Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for
-- Property rights did not change the rate of teenage pregnancy at all
-- Property rights caused the rate of teenage pregnancy to go up a little because teens now had a home for their children. 
-*** =sct
-```{r}
-msg1 = "Correct! It's very tempting to tell a story that sounds hopeful or can clearly assign blame, or to make it fit in line with other researchers' findings, but this particular set of data was not able to show whether property rights effected teenage pregnancy positively or negatively, nor whether property rights even affects teenage pregnancy at all.  The researchers gave it a try, but in this particular case, their data didn't work out as well as they hoped."
-msg2 = "This would be over-interpreting the data. Try again."
-msg3 = "This answer is close, but not quite correct. Try again."
-msg4 = "This would be over-interpreting the data. Try again."
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
---- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
-## CreditCo Natural Experiment
-A previous exercise using the CreditCo data showed that noncompliance was an issue in the experiment. While investigating potential reasons, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, and, as a result, these people decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
-
-First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
-
-*** =instructions
-- Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers
-- Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny
-- Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment
-- Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment
+- Compute bounds on the average treatment effect under non-compliant behavior
+- Compare this with the result of another methods of correcting for non-compliance.
 
 *** =hint
 - Remember to be aware of selecting the correct subsample
@@ -224,13 +59,11 @@ First, you will test if this is a valid natural experiment. This involves testin
   CreditCo$balance_pre <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + draw
   CreditCo$balance_pre <- exp(CreditCo$balance_pre)
 
-# Simulate opt-in behavior based on weather
-  draw <- runif(n)
-  draw2 <- runif(n)
-  CreditCo$rainy <- draw>0.5
-  xb   <- 1.5-35*CreditCo$rainy
+# Simulate noncompliance and opt-in behavior
+  draw <- runif(sum(CreditCo$offered))
+  xb   <- 6.75-1.2*CreditCo$FICO/100+.07*(CreditCo$FICO^2)/10000-2.1*CreditCo$female-2*CreditCo$race_white
   p    <- exp(xb)/(1+exp(xb))
-  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw2[CreditCo$offered==1]<p[CreditCo$offered==1])
+  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw<p[CreditCo$offered==1])
 
 # Simulate post outcomes
   draw <- runif(n)
@@ -245,29 +78,27 @@ First, you will test if this is a valid natural experiment. This involves testin
 
 # Remove elements and variables from environment
   rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
-  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post","rainy")]
+  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post")]
 ```
 
 *** =sample_code
 ```{r}
 # The dataset `CreditCo` is available in your workspace
 
-Solution1<- # Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
+Solution1<- # Determine the fraction of opt-in among those offered the increase
 
-Solution2<- # Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
+Solution2<- # Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value
 
-Solution3<- # Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
-
-Solution4<- # Do the same as above, but for post-treatment default rates. Again, use a t-test.
+Solution3<- # Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value
 
 ```
 
 *** =solution
 ```{r}
-Solution1 <- t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
-Solution2 <- t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
-Solution3 <- t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
-Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
+Solution1 <- mean(CreditCo$opt_in[CreditCo$offered==1])
+Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
+
 ```
 
 *** =sct
@@ -275,20 +106,4 @@ Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_po
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
-test_object("Solution4")
-success_msg("Good work!")
 ```
-
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c6894f628a
-## London Cholera Outbreak: Early Data Visualizations
-*** =video_link
-//player.vimeo.com/video/199857705
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3ab612d821
-## London Cholera Outbreak: Was it a Natural Experiment?
-*** =video_link
-//player.vimeo.com/video/199857892
-

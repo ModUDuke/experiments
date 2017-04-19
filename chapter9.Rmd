@@ -1,403 +1,294 @@
----
-title       : "Experiments 9: Long-term Average Treatment Effects"
-description : "This video and exercise discusses how to compute and interpret long-term causal effects"
+--- 
+title       : "Experiments 9: Natural Experiments"
+description : "These videos and exercises introduce natural experiments, sometimes called quasi-experiments"
 
 
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9223675c47
-## Introducing Perry Preschool
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:355ed25bc9
+## The Two Kinds of Natural Experiments
 *** =video_link
-//player.vimeo.com/video/198212111
+//player.vimeo.com/video/199856738
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b3e25ee162
+## As-if Natural experiments
+Which of the following is an accurrate description of an "as if" natural experiment: 
+*** =instructions
+- A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment is completely random.
+- A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
+- A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment is completely random.
+- A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment is not literally random, but it is unrelated to variables that effect an outcome
+*** =sct
+```{r}
+msg1 = "This describes a true natural experiment. Try again."
+msg2 = "Well done. Although there might be a pattern to who got treated in an as-if experiment, the pattern should cause no bias in one's outcome of interest."
+msg3 = "This would not even be a natural experiment! Try again."
+msg4 = "This would not even be a natural experiment! Try again."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c91ef16385
-## Perry Preschool: Comparing Educational Attainment Data
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9269e44505
+## Public Policy & Other Ways to Find Natural Experiments
 *** =video_link
-//player.vimeo.com/video/198212115
+//player.vimeo.com/video/209272453
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4ddc3a17bc
-## Practice identifying heterogeneous outcomes (Part 1)
-The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department.
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9faee4ebd9
+## Justifying As-If Randomization
+*** =video_link
+//player.vimeo.com/video/199856949
 
-To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year (and magically, they don't end up discussing this with each other). Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
+## Practice Justifying As-If Randomization with Katy Perry
+Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments is by just reporting information about variables that are balanced in their datasets (i.e. with basically random assignment), ignoring that majority of the variables in their datasets that are imbalanced. Let's give it a try.
 
-With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover:
+The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The human rights activists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, the control and treatment groups in this "natural experiment" are not very balanced. Let's pretend to be bad analysts and help them justify their assumption that this is an as-if natural experiment! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave the job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
+- Use what you learned about balance and statistical inference, and look through each variable in the dataset `KatyPerry`. Name a variable that is balanced between the datasets
+
 *** =hint
-- You will need to use the `mean` and `subset` commands.
-- Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
+- You will need to use the `subset` and `t.test` functions.
 *** =pre_exercise_code
 ```{r}
 set.seed(1)
-n=382
-#Dataframe
-  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
-#LeaveJob
-  #treatment makes men less likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
-  #treatment makes wommen more likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
+rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+}
+#Create rounding function that allows to round to numbers above 1
+mround <- function(x,base){ 
+  base*round(x/base) 
+} 
+#Create variables
+n=6666
+KatyPerry<-data.frame(Treatment=rbinom(n,1,.3))
+KatyPerry$YearsEducation<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=14,sd=2,min=0,max=20),rtnorm(n,mean=12,sd=3,min=0,max=18)))
+KatyPerry$Income<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=45,sd=7,min=0,max=100),rtnorm(n,mean=20,sd=5,min=0,max=100)))*1000
+KatyPerry$HearingProblems<-rbinom(n,1,.1)
+KatyPerry$Age<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=40,sd=10,min=10,max=80),rtnorm(n,mean=25,sd=5,min=10,max=80)))
 ```
 *** =sample_code
 ```{r}
-#Remember, the average treatment effect is simply the mean outcome of the treatment group minus the mean outcome of the control group.
-
-Solution1 <- # Average treatment effect
+Solution<-"" # Name of variable that is balanced between the treatment and control groups
 ```
 *** =solution
 ```{r}
-Solution1<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
+treatment<-KatyPerry[KatyPerry$Treatment==1,]
+control<-KatyPerry[KatyPerry$Treatment==0,]
+p<-vector()
+for(i in 2:length(control)){
+  p[i-1]<-t.test(control[,i],treatment[,i])$p.value
+}
+Solution<-names(KatyPerry)[which(p<=.05)+1]
 ```
 
 *** =sct
 ```{r}
-test_object("Solution1")
-success_msg("Good work! It seems that reducing the size of HR reduced Unter employee's intention to leave their jobs")
+test_object("Solution")
+success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if the treatment and control groups in a natural experiment are not balanced, scientists will instead try to subset the control group and treatment groups into balanced groups, and then assess the data.")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c229f94a13
-## Practice identifying heterogeneous outcomes (Part 2)
-Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option.
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5dec6afcd9
+## Analyzing Natural Experiments
+*** =video_link
+//player.vimeo.com/video/199857027
 
-However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e3839c7816
+## Analyzing Data from Natural Experiments
+*** =video_link
+//player.vimeo.com/video/199857237
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
+## Manipulating Confidence Intervals - Practice with Sea Otter Diets
+When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the clams provided the better show. 
+
+To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
+
+Although the results seemed to indicate a positive treatment effect, the results were not statistically significant (95% Confidence Interval = [-0.23, 16.94]). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent of a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
 
 *** =instructions
-- While the pooled average treatment effect is slightly negative, and the average treatment effect for men is negative, the average treatment effect for women is positive.
-- While the pooled average treatment effect is slightly positive, and the average treatment effect for men is positive, the average treatment effect for women is negative.
-- While the pooled average treatment effect is slightly negative, and the average treatment effect for men is positive, the average treatment effect for women is negative.
-- While the pooled average treatment effect is slightly positive, and the average treatment effect for men is negative, the average treatment effect for women is positive.
+- Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`Treatment`) on the size of the sea otters' audiences (`Audience`).
 *** =pre_exercise_code
 ```{r}
-set.seed(1)
-n=382
-#Dataframe
-  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
-#LeaveJob
-  #treatment makes men less likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
-  #treatment makes wommen more likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
-    library(ggplot2)
-    library(scales)
-    df<-data.frame(Treatment=c("Control","Control","Treatment","Treatment"),Gender=c("Male","Female","Male","Female"),Value=c(mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])))
-    df<-data.frame(Treatment=c("Control","Control","Control","Treatment","Treatment","Treatment"),Gender=c("Male","Female","Pooled","Male","Female","Pooled"),Value=c(mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1])))
-    df$Gender<-factor(df$Gender, levels = c("Male","Pooled","Female"))
-    df$`Percent Intending to Quit`<-df$Value
-    df$`Control and Treatment Groups`<-df$Treatment
-    p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
-    p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
+SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 ```
-
 *** =sample_code
 ```{r}
-p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
-    p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
+# Below was the t.test used by the otter enthusiast to get the results listed above.
+t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
+
+Test1<- # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
+LowerBound1<- Test1$conf.int[1]
+UpperBound1<- #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
+
+Test2<- # Run another t.test, with confidence level = .5, and assign it to the object 'Test2'
+LowerBound2<- #Use the Test2 object to assign the lower bound of the confidence interval.
+UpperBound2<- #Use the Test2 object to assign the upper bound of the confidence interval.
+  
+
+```
+*** =solution
+```{r}
+t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) # This was the t.test used by the otter enthusiast to get the results listed above.
+
+Test1<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .99) # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
+LowerBound1<- Test1$conf.int[1]
+UpperBound1<- Test1$conf.int[2] #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
+
+Test2<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .50) # Run another t.test, with confidence level = .50, and assign it to the object 'Test2'
+LowerBound2<-Test2$conf.int[1] #Use the Test2 object to assign the lower bound of the confidence interval.
+UpperBound2<-Test2$conf.int[2] #Use the Test2 object to assign the upper bound of the confidence interval.
 ```
 *** =sct
 ```{r}
-msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treatment has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked"
-msg2 = "Almost, try again"
-msg3 = "Almost, try again"
-msg4 = "Almost, try again"
+test_object("UpperBound1")
+test_object("LowerBound2")
+test_object("UpperBound2")
+success_msg("Good work! As you can see, the confidence interval is highly susceptible to what percentage you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
+```
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc685a5444
+## Squatter Property Rights: Effect on Teenage Pregnancy
+*** =video_link
+//player.vimeo.com/video/199857584
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5341ad7e2f
+## Interpreting Results of Natural Experiments
+The effect of the property rights experiment was not statistically significant. If you were going to describe this experiment to a friend, how would you describe the effect of squatters' rights on teenage pregnancy?
+*** =instructions
+- The experiment could not show whether or how property rights affect teenage pregnancy 
+- Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for
+- Property rights did not change the rate of teenage pregnancy at all
+- Property rights caused the rate of teenage pregnancy to go up a little because teens now had a home for their children. 
+*** =sct
+```{r}
+msg1 = "Correct! It's very tempting to tell a story that sounds hopeful or can clearly assign blame, or to make it fit in line with other researchers' findings, but this particular set of data was not able to show whether property rights effected teenage pregnancy positively or negatively, nor whether property rights even affects teenage pregnancy at all.  The researchers gave it a try, but in this particular case, their data didn't work out as well as they hoped."
+msg2 = "This would be over-interpreting the data. Try again."
+msg3 = "This answer is close, but not quite correct. Try again."
+msg4 = "This would be over-interpreting the data. Try again."
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a52ff8b8f4
-## Practice identifying heterogeneous outcomes (Part 3)
-Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
+--- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
+## CreditCo Natural Experiment
+A previous exercise in Chapter 7 using data from CreditCo showed that noncompliance was an issue in the experiment. While investigating potential reasons, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, and, as a result, these people decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
+
+First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`)
-- Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`)
-*** =hint
-- Remember, you can determine the ATE by subtracting the mean rate of the outcome in the control condition by the mean rate of the outcome in the treatment condition.
-- You will need to use the `mean` and `subset` commands.
-- Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
-*** =pre_exercise_code
-```{r}
-set.seed(1)
-n=382
-#Dataframe
-  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
-#LeaveJob
-  #treatment makes men less likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
-  #treatment makes wommen more likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
-```
-*** =sample_code
-```{r}
-#Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to consider making a three way table of the results first. The following prints the numbers of men and women who intend to leave work by treatment group.
-  xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
-#Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. However, let's actually compute the differences in the Average treatment effects among men and women.
-
-Solution1 <- # Average treatment effect among men
-Solution2 <- # Average treatment effect among women
-```
-*** =solution
-```{r}
-Solution1 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0])
-Solution2 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1])
-```
-*** =sct
-```{r}
-test_object("Solution1")
-test_object("Solution2")
-success_msg("Good work!")
-```
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:381790e170
-## Perry Preschool: Calculating the Lifetime Cost of Crime
-*** =video_link
-//player.vimeo.com/video/198212123
-
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2924e39895
-## Identifying Underlying  Mechanisms
-Based solely on the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
-*** =instructions
-- Yes, the results support common beliefs about why attending preschool leads to lower rates of criminal activity among men and women.
-- No, we need more information about how preschool education effects individuals before we can definitively identify why preschool leads to reduced criminal activity.
-*** =sct
-```{r}
-msg1 = "Try again"
-msg2 = "Correct! Although the data suggest that attending preschool leads to reduced rates of criminal behavior, this table does not identify exactly why that might be the case. We can hypothesize several explanations for this relationship (for example, attending preschool might lead to better educational outcomes, which lead to better job outcomes, which reduces people's incentive to commit crimes), but we cannot know for sure without testing them."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
-```
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4a42746de
-## Finding Lifetime Outcomes of Experiments
-*** =video_link
-//player.vimeo.com/video/199856517
-
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8eb0408533
-## Multiple Choice: Proxy Variables
-What is the key reason for why people use proxy variables for their outcomes of interest in experiments?
-
-*** =instructions
-- Because proxy variables are less biased than dependent variables.
-- Because an experiment might yield heterogeneous treatment effects.
-- Because an experiment does not always yield statistically significant results.
-- Because an experiment's true outcome of interest is not always possible to study.
-*** =sct
-```{r}
-msg1 = "The wording on this answer is tricky, but remember that an experiment's dependent variable is the outcome that is being measured. If a proxy variable is used in place of one's outcome of interest, it is an experiment's dependent variable. In actuality, proxy variables tend to be more susceptible to experimental biases than are direct measurements of one's outcome of interest. Try again"
-msg2 = "If anything, using a proxy variable might hide the fact that an experiment yields heterogeneous effects on one's outcome of interest, which is not good. Try again"
-msg3 = "Experiments do not always yield statistically significant results, and this is a poor reason to use a proxy variable if you can measure your outcome of interest directly. Try again"
-msg4 = "Correct! Experimentalists only use proxy variables in place of an experiment's outcome or treatment of interest when it is not viable to test or measure one's outcome or treatment of interest directly."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1913543c45
-## Multiple Choice: Choosing a Good Proxy Variable
-Business analysts are often interested in learning which business strategies work and which do not. One useful way to study whether a certain business strategy is effective is to examine a large group of startups over time, and track whether businesses that implemented that strategy were more likely to close down. The difficulty with this research strategy is that it can take many years for startups to close, delaying one's ability to determine their experiment's results.
-
-To reduce the time it takes to determine how a business strategy affects a business's chance of survival, which of the following would be the most effective and direct proxy variable for business closure?
-
-*** =instructions
-- A business's proportion of online sales to retail sales
-- The number of years that a business has been active
-- A business's annual operating income (i.e. profit)
-- A business's employee turnover rate
-*** =sct
-```{r}
-msg1 = "This is only tangentially related to a business's survival, since the ideal proportion of online sales to retail sales  differs dramatically by industry. Try again"
-msg2 = "This answer might be tempting, but this is basically just an inverse measurement of the time it takes for businesses to close. It does not reduce the time required to gather data. Try again"
-msg3 = "Correct! While it may take many years to see which strategies lead to business closure, a business's profits are highly correlated with, and causal of a business's eventual disbandment"
-msg4 = "This is only indirectly related to a business's survival, and the effect of employee turnover rates on business survival tends to differ dramatically across industries. Try again"
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:3329371fd4
-## Multiple Choice: Questionable Proxy Variables
-Hedonism is the ethical theory that people should maximize their own pleasure in life. One hedonist in particular, Dr. Max Funn, wondered if religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since Mr. Funn was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness.
-
-Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income).
-
-Which of the following hypothetical scenarios, if true, would make us question whether income is a good proxy variable for happiness in this experiment?
-
-*** =instructions
-- If religious attendance were found to have a positive effect on happiness.
-- If, across the population, income were not associated with church attendance
-- If relgious attendance made people sad, and employers were more likely to give raises to employees who seem sad.
-*** =sct
-```{r}
-msg1 = "Since this scenario is consistent with our results, if anything, this would suggest that income is a good proxy variable for happiness. Try again"
-msg2 = "Since we are conducting an experiment, we can directly control who goes to church and who does not. Whether there is an association between income and church attendance among the population is irrelevant to our experimental results. Try again"
-msg3 = "Correct! If this were the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest"
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
-```
-
-
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
-## Practice identifying spurious results with bad proxy variables
-Dr. Max Funn from the previous question then runs a second experiment: this time measuring the effect of *work hours* on happiness, once again using income as a proxy variable. The respondents in his treatment group agree to work an additional 10 hours at their primary jobs per week for one year.
-
-This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. A more experienced economist replicates the study, but in addition, also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate.
-
-Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following:
-
-*** =instructions
-- Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
-- Demonstrate that there is a statistically significant effect of the treatment, `Treatment`, with the proxy variable, `Income`.
-- Determine whether there is a statistically significant effect of the treatment, `Treatment`, with the true outcome of interest, `Happiness`.
+- Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers
+- Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny
+- Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment
+- Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment
 
 *** =hint
-- For the first question, you will need to `subset` the `econometrics` data frame by treatment.
-- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other, and the `cor` function to determine whether variables are correlated.
+- Remember to be aware of selecting the correct subsample
 
 *** =pre_exercise_code
 ```{r}
-set.seed(1)
-#Create rnorm function that allows for min and max
-  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-  }
-#Create rounding function that allows to round to numbers above 1
-  mround <- function(x,base){
-          base*round(x/base)
-  }
-#Dataframe
-  econometrics<-data.frame(Treatment=1:1000,WorkHours=1:1000,Income=1:1000,Happiness=1:1000)
-#Assign treatment
-  econometrics$Treatment<-rbinom(1000,1,.45)
-#Vaguely realistic Work hours
-  econometrics$WorkHours<-round(rtnorm(n=1000,mean=40,sd=6,min=0,max=50))
-  econometrics$WorkHours<-mround(econometrics$WorkHours,10)
-  temp<-rbinom(1000,1,.2)
-  econometrics$WorkHours<-ifelse(temp==1,0,econometrics$WorkHours)
-  econometrics$WorkHours<-ifelse(econometrics$Treatment==1,econometrics$WorkHours+10,econometrics$WorkHours)
-#Happiness
-  econometrics$Happiness<-round(rtnorm(n=1000,mean=4,sd=2,min=0,max=5))
-#Income
-  econometrics$Income<-(10*econometrics$Happiness+econometrics$WorkHours+mround(rtnorm(n=1000,mean=30,sd=10,min=0,max=100),10))/2
-  
+  set.seed(1)
+  n             <- 9e5
+  frac_treated  <- .5
+  frac_female   <- .5656
+  frac_white    <- .688
+
+# Initialize dataframe
+  CreditCo <- as.data.frame(matrix(0, ncol=11,nrow=n))
+  colnames(CreditCo) <- c("id","offered","opt_in","FICO","age","female","race_white","default_pre","default_post","balance_pre","balance_post")
+
+# Simulate baseline data
+  CreditCo$id         <- seq(1,n,1)
+  CreditCo$offered    <- as.integer(runif(n)<frac_treated)
+  CreditCo$opt_in     <- rep.int(0,n)
+  CreditCo$FICO       <- rnorm(n, mean=736, sd=300)
+  CreditCo$age        <- sample(18:55, n, replace=T)
+  CreditCo$female     <- as.integer(runif(n)<frac_female)
+  CreditCo$race_white <- as.integer(runif(n)<frac_white)
+
+# make FICO score intelligible
+  CreditCo$FICO[CreditCo$FICO>850] <- 850
+  CreditCo$FICO[CreditCo$FICO<300] <- 300
+  CreditCo$FICO                    <- round(CreditCo$FICO)
+
+# simulate pre-experiment default rate
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_pre <- as.integer(draw<p)
+
+# simulate pre-experiment balance level
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_pre <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + draw
+  CreditCo$balance_pre <- exp(CreditCo$balance_pre)
+
+# Simulate opt-in behavior based on weather
+  draw <- runif(n)
+  draw2 <- runif(n)
+  CreditCo$rainy <- draw>0.5
+  xb   <- 1.5-35*CreditCo$rainy
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw2[CreditCo$offered==1]<p[CreditCo$offered==1])
+
+# Simulate post outcomes
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white+4*CreditCo$offered*CreditCo$opt_in
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_post <- as.integer(draw<p)
+
+# balance
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_post <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + 1*CreditCo$offered*CreditCo$opt_in + draw
+  CreditCo$balance_post <- exp(CreditCo$balance_post)
+
+# Remove elements and variables from environment
+  rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
+  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post","rainy")]
 ```
+
 *** =sample_code
 ```{r}
-str(econometrics)
-Solution1<- # Use the 'cor' function to determine and report whether Happiness is correlated with Income
-Solution2<- # Use a t.test to determine whether Treatment effects Income, and report its p.value
-Solution3<- # Use a t.test to determine whether Treatment effects Happiness, and report its p.value
+# The dataset `CreditCo` is available in your workspace
+
+Solution1<- # Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
+
+Solution2<- # Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
+
+Solution3<- # Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
+
+Solution4<- # Do the same as above, but for post-treatment default rates. Again, use a t-test.
+
 ```
+
 *** =solution
 ```{r}
-Solution1<-cor(econometrics$Happiness,econometrics$Income)
-Solution2<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
-Solution3<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
+Solution1 <- t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
+Solution2 <- t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
+Solution3 <- t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
+Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
 ```
+
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
-success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
+test_object("Solution4")
+success_msg("Good work!")
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc13ef9f57
-## Issues with Sample Sizes & Extrapolation
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c6894f628a
+## London Cholera Outbreak: Early Data Visualizations
 *** =video_link
-//player.vimeo.com/video/209271673
+//player.vimeo.com/video/199857705
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:80741dce58
-## Reporting Informative Results
-Let's say that you are writing up a report on an experiment, and your mentor asked you to report all results to the nearest hundredth. If the p value for your key statistic were 0.0542, and your field tends to consider any result with p-values of 0.05 or less to be statistically significant and valid, what would be the most informative/least misleading number to write down as the p-value in your report?
-*** =instructions
-- 0.05
-- 0.054
-- 0.06
-- 0.1
-*** =hint
-- Here is a useful hint: Answer 3 is the right answer
-*** =sct
-```{r}
-msg1 = "This seems like the right answer, but it will mislead your readers to think that your results are more statistically significant than they truly are. Try again."
-msg2 = "This is accurate, but this response is not to the nearest hundredth like the question asked. Try again."
-msg3 = "Correct! The best answer would be to write p=.06. Even though .05 is closer to the true p-value of your key statistic, this will mislead readers to think that your results are more statistically significant than they truly are."
-msg4 = "This is accurate, but this response is not to the nearest hundredth like the question asked. Try again."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:209271489
-## Experiment Design & RCTs
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3ab612d821
+## London Cholera Outbreak: Was it a Natural Experiment?
 *** =video_link
-//player.vimeo.com/video/209271489
+//player.vimeo.com/video/199857892
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:72b3a18c1d
-## Other Issues in Experiments (including money & ethics)
-*** =video_link
-//player.vimeo.com/video/209272116
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b301caf4fc
-## Levels vs. Growth in Long-term Average Treatment Effects
-Suppose that a study similar to the Perry Preschool was interested in how preschool affects future earnings, and in particular how the effects are different by income level. (Recall that Perry Preschool was administered to a heavily low-income population, so this study is slightly different.)
-
-The researchers divide a large population of preschool-aged children into a treatment group and a control group. Importantly, the children in each of the groups come from a variety of income backgrounds.
-
-35 years after the study, the researchers produce the following table, which documents the Conditional Average Treatment effect of attending preschool on future earnings for each group of students:
-
-| childhood family income | CATE (level)| CATE (%) |control group income |
-|-------------------------|------------:|---------:|--------------------:|
-|              high income|   $36,000   |  40%     |$90,000              |
-|               low income|   $30,000   |  60%     |$50,000              |
-
-
-A government official asks for your opinion about the study, based solely on these results. Of the options below, which one would you NOT tell her?
-
-*** =instructions
-- The long-term CATE (in level terms) is larger for high-income children, so the government should emphasize preschool among high-income families.
-- The long-term CATE (in percentage terms) is larger for low-income children, so the government should emphasize preschool among low-income families.
-- The long-term CATE (in level terms) is about the same for both income groups, so the government should offer preschool to all families, regardless of income.
-- There is not enough information to provide an opinion.
-*** =hint
-- There are no hints for this exercise. Do your best!
-*** =sct
-```{r}
-msg1 = "No, focusing the policy among the group that gains the most is a reasonable policy recommendation."
-msg2 = "Incorrect. Because the gains from preschool are highest among the lower-income group, a government that is interested in redistributing income could focus on providing preschool to low-incom children."
-msg3 = "No, the results for this particular experiment seem to point to large gains for all groups of children, which is an opinion that is supported by this table of data."
-msg4 = "Correct! There **is** enough information to provide an opinion here."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:9118aacf5b
-## A Furry Conclusion to Long-term Average Treatment Effects
-A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "happy hormone."
-
-Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play.
-
-What is an accurate summary of the results of this experiment?
-
-*** =instructions
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for cats** than for dogs, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for dogs** than for cats, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical**, but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for dogs** than for cats.
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs.
-*** =sct
-```{r}
-msg1 = "This question is tricky. Read the answers carefully and try again."
-msg2 = "Correct! The experiment suggests that playing with a dog might make it love you more than playing with a cat in the short term, but in the long term, both pets love you equally for it."
-msg3 = "This question is tricky. Read the answers carefully and try again."
-msg4 = "This question is tricky. Read the answers carefully and try again."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:2049273381
-## Spillover Effects Among Subjects
-*** =video_link
-//player.vimeo.com/video/199856665
