@@ -121,3 +121,44 @@ msg1 = "Of course you can! The data analysis techniques in all of the sciences a
 msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Multiple Choice: Fishing for a Good Experimental Design
+After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: Rachel spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design.
+
+*** =instructions
+- Rachel's experiment is unethical
+- Rachel's sample is probably too small.
+- Rachel's sample is not likely representative of her target population.
+- Rachel's findings are not intuitive.
+*** =sct
+```{r}
+msg1 = "While a vegetarian might make such an argument, there is a much more direct answer to this question. Try again"
+msg2 = "It's possible that Rachel's sample after two days of fishing would be too small to ascertain statistical significance, but the question did not state how large her sample size was. Try again"
+msg3 = "Correct! The fish one finds near a dock on the Atlantic Ocean are not necessarily (or likely) to be the same size as ones found deeper in the ocean. It's possible that Rachel's fishing spot at the lake is a better spot for catching large fish than her spot at the Atlantic Ocean, but this does not necessarily imply that fish in her lake are larger than fish in the Atlantic Ocean"
+msg4 = "Non intuitive findings can be cause for worry, but aren't necessarily problematic. Try again"
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Problems with Convenience Sampling
+es income cause happiness? It is generally believed that income increases happiness for those who have less money. So a bump in income for a poor person is likely to increase his happiness much more than the same bump in income for a wealthy person. 
+
+Siggy, an academic psychologist, was interested in how one time cash rewards effect happiness. Siggy decided to conduct an experiment by giving people a $10 bill, and measuring whether their happiness at that moment changed. If Siggy only conducted this experiment on college students (a domegraphic that is usually strapped for cash, but an convenient sample for academics to conduct experiment on), how might we expect it to bias his experiment's average treatment effect?
+
+*** =instructions
+- Upward
+- Downard
+
+*** =sct
+```{r}
+msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a higher average treatment effect than an experiment conducted on a random sample of the entire population."
+msg2 = "Whoops! Try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+
