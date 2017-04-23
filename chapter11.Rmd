@@ -2,13 +2,13 @@
 title       : "Experiments 11: Putting it All Together"
 description : "These Exercises Will Wrap up What we have learned about experiments"
   
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a39c1976d4
 ## Bentley Video...
 *** =video_link
 //player.vimeo.com/video/
  
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:5b941b8026
 ## Putting it All Together
 Often times, our experiments don't always go as planned. This question will test what you have learned to resolve a question with realistic problems.
 
