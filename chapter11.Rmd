@@ -2,15 +2,15 @@
 title       : "Experiments 11: Putting it All Together"
 description : "These Exercises Will Wrap up What we have learned about experiments"
   
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a39c1976d4
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Bentley Video...
 *** =video_link
 //player.vimeo.com/video/
  
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:5b941b8026
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2
 ## Putting it All Together
-Often times, our experiments don't always go as planned. This question will test what you have learned to resolve a question with realistic problems.
+Often times, our experiments don't go as planned. This question will test what you have learned to resolve a question with realistic problems.
 
 KittyCatch is a location-based augmented reality game developed by Meowtec. In this game, players use their cell phones' GPS abilities to locate and capture virtual kittens. Although KittyCatch is free to play, Meowtec generates revenue from KittyCatch through pop-up ads, that appear about once for every half mile the player walks while running the game, up to 5 times a day. Since Meowtec's revenue is highly dependent on how far people walk while playing KittyCatch, their primary goal for future updates to KittyCatch is to incentivize play. 
 
@@ -20,7 +20,7 @@ To test this hypothesis, Meowtec constructs an experiment: For a small random sa
 
 *** =instructions
 - Balance the data
-- Deterimine the average treatment effect
+- Determine the average treatment effect
 
 *** =pre_exercise_code
 ```{r}
@@ -79,13 +79,13 @@ n=688
   str(KittyCatch)
 #Now let's examine our outcome of interest, DistanceWalked
   summary(KittyCatch$DistanceWalked)
-#Notice that the maximum value is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t.test results by violating its assumption that the data is normally distributed. See density plot below to observe the wrong right tail in the distribution of DistanceWalked.
+#Notice that the maximum value is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t.test results by violating its assumption that the data is normally distributed. See density plot below to observe the long right tail in the distribution of DistanceWalked.
   plot(density(KittyCatch$DistanceWalked))
 #Since the dataset is relatively small, let's use the `head` and `order` commands to examine the highest DistanceWalked observations in the dataset
   head(KittyCatch[order(KittyCatch$DistanceWalked,decreasing=T),]) #This syntax shows us 6 observations, sorted by the largest value for DistanceWalked
-#Notice that the four largest values for DistanceWalked are more than four times as large as the 5th largest value for DistanceWalked. These are clearly outliers. However, we should also note that all of these values are in the control group, so removing them from our dataset, as we had done with previous outliers, might also bias our estimates by lowering the mean values for the treatment group. Instead, let's top code these values so that they are still the largest values in the dataset, but so that they are not outliers and do not violate our assumptions of normality. Top coding can be arbitrary (and there are better methods for handling outliers), but for this assignment, let's just assign all DistanceWalked observations above a value of 2 to 2
+#Notice that the four largest values for DistanceWalked are more than three times as large as the 5th largest value for DistanceWalked. These are clearly outliers. However, we should also note that all of these values are in the control group, so removing them from our dataset, as we had done with previous outliers, might also bias our estimates by lowering the mean values for the treatment group. Instead, let's top code these values so that they are still the largest values in the dataset, but so that they are not outliers and do not violate our assumptions of normality. Top coding can be arbitrary (and there are better methods for handling outliers), but for this assignment, let's just assign all DistanceWalked observations above a value of 2 to 2
 
-#---- Question 1: Top code DistanceWalked to 1.5 ----#
+#---- Question 1: Top code DistanceWalked to 2 ----#
    KittyCatch$DistanceWalked<- 
 #----------------------------------------------------#
     
@@ -93,7 +93,7 @@ n=688
   plot(density(KittyCatch$DistanceWalked))
 #We'll also want to make sure that our control groups and treatment groups are balanced. Let's compare the age of the control group and treatment group with boxplots
   boxplot(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1],names=c("Control","Treatment"))
-#Notice that the medians and interquartile range are very similar between the treatment and control groups, but that the largest values in the treatment group rest much higher than in the control group. It turns out that this did not happen by chance; by default, KittyCatch only requires respondents to enter their names if they state that they are younger than 18; however, for the experiment, all respondents in the treatment group were required to enter their ages. It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked, which, as demonstrated below, it is.
+#Notice that the medians and interquartile ranges are very similar between the treatment and control groups, but that the largest values in the treatment group rest much higher than in the control group. It turns out that this did not happen by chance; by default, KittyCatch only requires respondents to enter their ages if they state that they are younger than 18; however, for the experiment, all respondents in the treatment group were required to enter their ages. It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked, which, as demonstrated below, it is.
   cor(KittyCatch$Age,KittyCatch$DistanceWalked)
 #This also seems to cause the treatment and control groups to be imbalanced with regard to age.
   t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
@@ -103,13 +103,13 @@ n=688
   KittyCatch<-
 #----------------------------------------------------------------------------#
 
-#If you completed question 2 correctly, Age among the treatment and control groups should be balanced
+#If you completed question 2 correctly, Age among the treatment and control groups should now be balanced
   t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
 #Now, let's look for balance in the last variable we know about the treatment and control groups, TotalHoursPlayed.
   summary(KittyCatch$TotalHoursPlayed)
-#Notice that 96 values are labeled "NA". These cases are missing information, in large part because KittyCatch allows users to opt out of recording how many hours they play. However, as shown below, TotalHours played appears to be correlated with DistanceWalked.
+#Notice that 127 values are labeled "NA". These cases are missing information, in large part because KittyCatch allows users to opt out of recording how many hours they play. However, as shown below, TotalHours played appears to be correlated with DistanceWalked.
   cor(KittyCatch$TotalHoursPlayed,KittyCatch$DistanceWalked,use="complete")
-#Moreover, NA values for TotalHoursPlayed appears at higher rates for respondents in the treatment group, than in the control group
+#Moreover, NA values for TotalHoursPlayed appears at higher rates for respondents in the treatment group than in the control group
   mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]))
   mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]))
 #While total hours played appears balanced among the treatment and control groups for those whose information is available (see t.test below), the fact that its missingness is correlated with DistanceWalked and patterned among the treatment and control groups is cause for concern. Specifically, this could suggest that respondents in the treatment group play more KittyCatch than those in the control group, and are likely to walk further with KittyCatch due to this. A simple solution to this problem then, is listwise deletion; that is, removing respondents from our sample who did not report their total hours played.
@@ -119,7 +119,7 @@ n=688
   KittyCatch<-
 #--------------------------------------------------------------------------------------------#
 
-#Now that we have balanced our data on all known dimension, let's return the average treatment effect, and test whether it is significant
+#Now that we have balanced our data on all known dimensions, let's return the average treatment effect, and test whether it is significant
 
 #---- Question 4: Determine the average treatment effect (mean of treatment - mean of control) ----#
   Solution4<-
