@@ -10,11 +10,11 @@ description : "These Exercises Will Wrap up What we have learned about experimen
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:5b941b8026
 ## Putting it All Together
-Often times, our experiments don't go as planned. This question will test what you have learned to resolve a question with realistic problems.
+Often times, our experiments don't go as planned. This question will test your knowledge in resolving a question with realistic problems.
 
-KittyCatch is a location-based augmented reality game developed by Meowtec. In this game, players use their cell phones' GPS abilities to locate and capture virtual kittens. Although KittyCatch is free to play, Meowtec generates revenue from KittyCatch through pop-up ads, that appear about once for every half mile the player walks while running the game, up to 5 times a day. Since Meowtec's revenue is highly dependent on how far people walk while playing KittyCatch, their primary goal for future updates to KittyCatch is to incentivize play. 
+KittyCatch is a location-based augmented reality game developed by Meowtec. In this game, players use their cell phones' GPS abilities to locate and capture virtual kittens. Although KittyCatch is free to play, Meowtec generates revenue from KittyCatch through pop-up ads, which appear about once for every half-mile the player walks while using the application, up to 5 times a day. Since Meowtec's revenue is highly dependent on how far people walk while playing KittyCatch, their primary goal for future updates to KittyCatch is to incentivize play. 
 
-One strategy to increase user's play time is to increase the distance between KittyCatch's "points of kinterest;" that is, increase the distance that users must travel to capture new kittens. Many players stop their sessions of KittyCatch before they catch a single kitten, and may be turned off by the need to travel farther distances to catch a kitten, but Meowtec believes that the loss of play time for these players would be offset by the many players who consistently travel as far as needed to catch a kitten. 
+One strategy to increase users' play time is to increase the distance between KittyCatch's "points of kinterest"; that is, increase the distance that users must travel to capture new kittens. Many players stop their sessions of KittyCatch before they catch a single kitten, and may be turned off by the need to travel farther distances to catch a kitten. However, Meowtec believes that the loss of play time for these players would be offset by the many players who consistently travel as far as needed to catch a kitten. 
 
 To test this hypothesis, Meowtec constructs an experiment: For a small random sample of players in Springfield, Massachusetts, Meowtec increases the distance that players must walk to reach a point of kinterest (Specifically, from .25 miles to .5 miles). They compare these players to an equal random sample of players in Springfield, Massachusetts that have the default distance between points of kinterest (.25 miles). However, as they explored their data, they found a few problems with their experiment. With the dataset, `KittyCatch`, and the annotations in the R workspace, help Meowtec determine a valid and reliable average treatment effect from their experiment.
 
@@ -70,12 +70,12 @@ n=688
 ```
 *** =sample_code
 ```{r}
-#Let's first take a naive estimate of the average treatment effect, before testing or correcting for balance in the dataset
+#Let's first take a naive estimate of the average treatment effect, before testing or correcting for imbalance in the dataset
   t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
   mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1])- mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
 #It seems that there is substantial negative treatment effect; respondents walked less in the treatment than in the control. But is this finding reliable?
 
-#Let's run the structure command to get a sense of the dataset. DistanceWalked is our outcome of interest, and Treatment is the key independent variable that we care about. TotalHoursPlayed refers to how many hours the user has put into KittyCatch in total.
+#Let's run the structure function to get a sense of the dataset. DistanceWalked is our outcome of interest, and Treatment is the key independent variable that we care about. TotalHoursPlayed refers to how many hours the user has put into KittyCatch in total.
   str(KittyCatch)
 #Now let's examine our outcome of interest, DistanceWalked
   summary(KittyCatch$DistanceWalked)
