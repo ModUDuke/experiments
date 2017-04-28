@@ -144,9 +144,9 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:870135287b
 ## Problems with Convenience Sampling
-es income cause happiness? It is generally believed that income increases happiness for those who have less money. So a bump in income for a poor person is likely to increase his happiness much more than the same bump in income for a wealthy person. 
+Does income cause happiness? It is generally believed that income increases happiness for those who have less money. So a bump in income for a poor person is likely to increase his happiness much more than the same bump in income for a wealthy person. 
 
-Siggy, an academic psychologist, was interested in how one time cash rewards effect happiness. Siggy decided to conduct an experiment by giving people a $10 bill, and measuring whether their happiness at that moment changed. If Siggy only conducted this experiment on college students (a domegraphic that is usually strapped for cash, but an convenient sample for academics to conduct experiment on), how might we expect it to bias his experiment's average treatment effect?
+Siggy, an academic psychologist, was interested in how one-time cash rewards affect happiness. Siggy decided to conduct an experiment by giving people a $10 bill, and then measuring the their corresponding change in happiness at that moment. If Siggy only conducted this experiment on college students (a demographic that is usually strapped for cash, but a convenient sample for academics to conduct experiments on), how might we expect it to bias his experiment's average treatment effect?
 
 *** =instructions
 - Upward
@@ -154,7 +154,7 @@ Siggy, an academic psychologist, was interested in how one time cash rewards eff
 
 *** =sct
 ```{r}
-msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a higher average treatment effect than an experiment conducted on a random sample of the entire population."
+msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a larger average treatment effect than an experiment conducted on a random sample of the entire population."
 msg2 = "Whoops! Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
