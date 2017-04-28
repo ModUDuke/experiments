@@ -166,7 +166,7 @@ success_msg("Good work!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:92568b1f93
 ## Practice identifying heteroskedastic outcomes
-An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains plots for income's relationship with three different predictors: Education, Age, and City Population. You can see each plot by clicking the "Next Plot" and "Previous Plot" buttons below the plot. Within the plots, each dot represents an observation from our sample. Using these plots, determine which independant variable has the most heteroskedastic relationship with income
+An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains plots for income's relationship with three different predictors: Education, Age, and City Population. You can see each plot by clicking the "Next Plot" and "Previous Plot" buttons below the plot. Within the plots, each dot represents an observation from our sample. Using these plots, determine which independant variable which with income is most heteroskedastic.
 
 *** =instructions
 - Education
@@ -213,7 +213,7 @@ plot(Sample$City_Population,Sample$Income)
 msg1 = "Almost, try again"
 msg2 = "Good job! This is an example of a heteroskedastic treatment effect. Among our sample, income was slightly correlated with age, but only varied slightly until respondents reached their late 50s. If we were to ignore this trend while studying the relationship between age and income, it could confound or bias our results."
 msg3 = "Almost, try again"
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
 
