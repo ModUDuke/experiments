@@ -2,11 +2,6 @@
 title       : "Experiments 4: Statistical Inference in Experiments"
 description : "These videos and exercises will help you understand why we need statistical inference in experiments"
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:42e831dde4
-## What is the Point of Statistical Inference?
-*** =video_link
-//player.vimeo.com/video/198212067
-
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
 ## Multiple Choice: Statistical inference
 Under which scenario might an experimenter *not* need to use statistical inference to justify his causal claims?
