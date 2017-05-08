@@ -4,14 +4,14 @@ description : "This chapter will introduce you to regression analysis"
  
  
   
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5c9d6dd3fc
 ## Introduction to Regression Analysis
 *** =video_link
 //player.vimeo.com/video/216023860
  
  
  
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1a2137dd19
 ## Interpreting Regressions
 The popular online auctioneer, eGulf, wants to provide its sellers recommended sales prices for their used WePhones, based on how old the WePhones are. They examine a small sample of 25 WePhones sold in the past week, and run an OLS regression to determine the relationship between WePhone age and sales price to factor into their algorithm. They then plot their results (illustrated in the R workspace). Each point on the plot indicates the age and price that a particular phone sold at, whereas the line shows the results from an OLS regression on this data. What do these results suggest about the relationship of WePhone age and sales prices?
 
@@ -42,7 +42,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
 
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:4b9a40fa01
 ## Reversing Causal Direction
 Causal interpretation of regression models can be tricky. Using the same data in the last example, eGulf decided to run a regression model where age is a function of price sold (i.e. age is the dependent variable in this model). The results of this model are visualized in the R workspace. If this model shows a causal relationship between age and price sold, with age as the dependent variable, what **exactly** would that mean?
 
@@ -73,14 +73,14 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8bb34ee718
 ## Basic Elements of a Regression Table
 *** =video_link
 //player.vimeo.com/video/216023860
 
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:470a340b81
 ## Reading a Bivariate Regression Table
 The following table shows the regression results from our previous question that tested the effect age on the price sold of used WePhones. The coefficient for age matches the slope in the previous line graph. It suggests that for each additional year (or unit of age), the expected sales price of WePhones decreases by $61.99. The coefficient for intercept matches the Y-axis intercept in the previous line graph. It indicates the price for a WePhone that was 0 years old (more generally, it shows the value of the outcome when all other independent variables are at their reference point). To determine the predicted sales price of a WePhone with a given age, one can simply add the coefficient for the intercept with the coefficient for age times the number of year old the WePhone is. What is the predicted price for a WePhone that is exactly two years old ?
 
@@ -106,7 +106,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:9917eaebf2
 ## Reading a Multivariate (Multiple) Regression Table
 In our previous eGulf example, we assumed that age is the only determinant of sales price. Sellers on eGulf also have "feedback scores," ranging from 0-100, that indicate the quality of sellers based on their interactions with previous customers. What if a seller's feedback score had a big impact on a WePhone's sales price, and was negatively correlated with the age of WePhones (i.e. highly rates sellers tend to sell newer WePhones)? This would confound the relationship between sales price and age. 
 
@@ -138,7 +138,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ffa5133d86
 ## The Relationship between Economic Development and Property Rights
 *** =video_link
 //player.vimeo.com/video/216023860
@@ -146,7 +146,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:408e61980c
 ## Multiple Regression Models
 Papers often report several regression models next to each other. This table shows a few truncated models from the example in the video, about the relationship between a country's property rights protections and its GDP. Model 1 shows the coefficient and standard error for the effect of property rights protection on GDP with no controls. Model 2 shows the same effect controlling for the country's latitude, and Model 3 shows the effect controlling for whether the country is in Asia. Why might the effect of property rights protections on GDP decrease as we add more variables to our model?   
 
@@ -173,7 +173,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:631cb11d99
 ## Practice Running a Regression Model
 Dr. Max Funn is interested in understanding the effect of income on happiness. He has a small sample of the General Social Survey (GSS), and plans to use this information to measure the effect of income on happyiness. Although Funn predicts that income increases happiness, he is worried that the relationship between income and happiness might be confounded by their joint relationship with work hours. Specifically, Funn believes that people who work more hours make more money, but that working more hours tends to make people less happy. 
 
@@ -266,14 +266,14 @@ success_msg("Good work! You may have noticed that the coefficient for income inc
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:d75a4ac636
 ## Using Regression to Get Causal Effects: Unconfoundedness
 *** =video_link
 //player.vimeo.com/video/216023860
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:33842f5f9c
 ## Practice Running a Regression Model With Interaction Effects
 An experiment conducted by the transportation network company, Unter Technologies, tried to determine whether downsizing their Human Resources (HR) department would lead to higher employee turnover. Using t.tests, they found that the effect of downsizing their HR department would have different conditional average treatment effects (CATE) on men and women. This was determined by separately studying the average treatment effect (ATE) of downsizing on a sample of men and on a sample of just women. However, slicing data this way can substantially reduce one's statistical power, and becomes unwieldy when a data scientist wants to determine more than a couple of CATEs with a given sample. For example, if race is also and important factor in whether employees plan to leave Unter if Unter reduces their HR department, we would need to slice the data several more times, and run several distinct t.tests on the data.
 
