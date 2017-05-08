@@ -11,7 +11,7 @@ description : "This chapter will introduce you to regression analysis"
  
  
  
- --- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Interpreting Regressions
 The popular online auctioneer, eGulf, wants to provide its sellers recommended sales prices for their used WePhones, based on how old the WePhones are. They examine a small sample of 25 WePhones sold in the past week, and run an OLS regression to determine the relationship between WePhone age and sales price to factor into their algorithm. They then plot their results (illustrated in the R workspace). Each point on the plot indicates the age and price that a particular phone sold at, whereas the line shows the results from an OLS regression on this data. What do these results suggest about the relationship of WePhone age and sales prices?
 
@@ -308,7 +308,7 @@ n=682
 ```
 *** =sample_code
 ```{r}
-
+#TBD
 ```
 *** =solution
 ```{r}
@@ -318,7 +318,7 @@ n=682
 ```
 *** =sct
 ```{r}
-test_object("Solution1")
-test_object("Solution2")
+#test_object("Solution1")
+#test_object("Solution2")
 success_msg("Good work!")
 ```
