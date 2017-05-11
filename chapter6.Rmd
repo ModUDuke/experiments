@@ -9,9 +9,9 @@ description : "These videos and exercises will discuss common issues in carrying
 
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5f5a6d0023
-## Common Issues in Experiments
+## Other Issues in Experiments (Including Money & Ethics)
 *** =video_link
-//player.vimeo.com/video/199856354
+//player.vimeo.com/video/209272116
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e302f4bddd
@@ -55,12 +55,6 @@ msg3 = "Doing some qualitative research to learn The Why behind a behavior chang
 msg4 = "The question assumes the CEO can successfully set prices in his own company, so if that's true, what other answer might still be a design issue we need to worry about?"
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0f5e7a1e15
-## Difficulties in Performing Randomized Experiments
-*** =video_link
-//player.vimeo.com/video/200052274
-
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:7c1f83a32b
 ## Multiple Choice: Ethics in experiments
