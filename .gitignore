@@ -6,3 +6,5 @@
 .RData
 .Rdata
 .rdata
+.pdf
+datasets/*.pdf

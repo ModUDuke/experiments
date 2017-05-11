@@ -1,0 +1,42 @@
+--- 
+title       : "RDD as Causality: Introduction to Regression Discontinuity Design"
+description : "This chapter will introduce you to regression discontinuity design (RDD)"
+ 
+# Notes:
+#--------------
+# Ask MC about what an RD is
+# Ask MC about key variables in RDD's
+# Deciding what constitutes "close" to the cutoff
+#  - want to increase BW to get more data
+#  - want to decrease BW to remove confounding bias
+# Nonparametric (local linear) vs. parametric (separate regressions)
+# Balance checks (McCrary test, etc.)
+# RD as DID
+# Sharp vs. Fuzzy: how do you know it's not fuzzy? outcome variable is either 0 or 1
+
+  
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Regression Discontinuity: Looking at People on the Edge
+*** =video_link
+//player.vimeo.com/video/216023860
+ 
+ 
+ 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:
+## Key variables in an RD design
+
+*** =instructions
+- Outcome variable
+- Control variable
+- Treatment variable
+- Running variable
+*** =sct
+```{r}
+msg1 = "The outcome variable is the variable of interest. Try again"
+msg2 = "Correct! While most RD's use at least one control variable, doing so is not strictly necessary for RD analysis. (i.e. it is possible, but not common, to run an RD without any control variables.)"
+msg3 = "The treatment variable is necessary in order to estimate any kind of causal effect. Try again"
+msg4 = "The running variable is how the researcher divides the sample into treatment and control groups. Try again"
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+

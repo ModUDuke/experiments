@@ -1,0 +1,11 @@
+--- 
+title       : "Introduction to Instrumental Variables"
+description : "This chapter will introduce you to instrumental variables (IV) analysis"
+ 
+  
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## The Logic of Instrumental Variables
+*** =video_link
+//player.vimeo.com/video/216023860
+ 
+ 
