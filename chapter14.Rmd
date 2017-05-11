@@ -24,6 +24,7 @@ description : "This chapter will introduce you to regression discontinuity desig
  
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:
 ## Key variables in an RD design
+Which of the following variables is *not* a key (required) variable in a regression discontinuity design?
 
 *** =instructions
 - Outcome variable
