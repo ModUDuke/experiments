@@ -117,10 +117,6 @@ msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0588056e73
-## Experimental Design & RCTs
-*** =video_link
-//player.vimeo.com/video/209271489
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:01b4c71047
 ## Multiple Choice: Fishing for a Good Experimental Design
