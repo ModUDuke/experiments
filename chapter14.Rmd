@@ -15,14 +15,14 @@ description : "This chapter will introduce you to regression discontinuity desig
 # Sharp vs. Fuzzy: how do you know it's not fuzzy? outcome variable is either 0 or 1
 
   
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:762496c0e6
 ## Regression Discontinuity: Looking at People on the Edge
 *** =video_link
 //player.vimeo.com/video/216023860
  
  
  
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f401e635a5
 ## Key variables in an RD design
 Which of the following variables is *not* a key (required) variable in a regression discontinuity design?
 
