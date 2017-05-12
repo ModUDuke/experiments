@@ -1,4 +1,4 @@
-title            : causalinference
+title            : Causal Inference: Experiments
 instructors      :
  - speckart@duke.edu
  - bentleygcoffey@gmail.com
@@ -7,5 +7,5 @@ instructors      :
  - cooper@duke.edu
 description      : Prototype for Causal Inference methods course
 university       : DataCamp
-difficulty_level : 3
-time_needed      : 4 hours
+difficulty_level : 4
+time_needed      : 20 hours
