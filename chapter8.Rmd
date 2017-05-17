@@ -45,9 +45,11 @@ n=382
 ```
 *** =sample_code
 ```{r}
-#Remember, the average treatment effect is simply the mean outcome of the treatment group minus the mean outcome of the control group.
+# The average treatment effect is simply the mean outcome of the treatment group minus the mean outcome of the control group.
 
-Solution1 <- # Average treatment effect
+#---- Question 1-------------------------------------#
+    Solution1<- 
+#----------------------------------------------------#
 ```
 *** =solution
 ```{r}
@@ -137,12 +139,21 @@ n=382
 ```
 *** =sample_code
 ```{r}
-#Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to consider making a three way table of the results first. The following prints the numbers of men and women who intend to leave work by treatment group.
-  xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
-#Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. However, let's actually compute the differences in the Average treatment effects among men and women.
+# Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to examine a three way table of this relationship first. The following syntax prints the numbers of men and women who intend to leave work by treatment group and gender.
+    xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
 
-Solution1 <- # Average treatment effect among men
-Solution2 <- # Average treatment effect among women
+# Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. But to be sure, let's actually calculate the differences in the average treatment effects among men and women.
+
+# Question 1: Determine the average treatment effect among men
+#---- Question 1-------------------------------------#
+    Solution1<- 
+#----------------------------------------------------#
+
+# Question 2: Determine the average treatment effect among women
+#---- Question 2-------------------------------------#
+    Solution2<- 
+#----------------------------------------------------#
+
 ```
 *** =solution
 ```{r}
@@ -153,7 +164,7 @@ Solution2 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])-me
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-success_msg("Good work!")
+success_msg("Good work! We can see a clear difference in the treatment effect among men and women. This is a clear example of a conditional average treatment effect.")
 ```
 
 
@@ -289,10 +300,24 @@ set.seed(1)
 ```
 *** =sample_code
 ```{r}
-str(econometrics)
-Solution1<- # Use the 'cor' function to determine and report whether Happiness is correlated with Income
-Solution2<- # Use a t.test to determine whether Treatment effects Income, and report its p.value
-Solution3<- # Use a t.test to determine whether Treatment effects Happiness, and report its p.value
+# As usual, we recommend exploring the structure of the data before diving into the questions:
+    str(econometrics)
+
+# Question 1: Use the 'cor' function to determine and report whether Happiness is correlated with Income
+#---- Question 1-------------------------------------#
+    Solution1<- 
+#----------------------------------------------------#
+
+# Question 2: Use a t.test to determine whether Treatment effects Income, and report its p.value
+#---- Question 2-------------------------------------#
+    Solution2<- 
+#----------------------------------------------------#
+
+# Question 3: Use a t.test to determine whether Treatment effects Happiness, and report its p.value
+#---- Question 3-------------------------------------#
+    Solution3<- 
+#----------------------------------------------------#
+
 ```
 *** =solution
 ```{r}

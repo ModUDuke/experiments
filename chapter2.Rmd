@@ -35,19 +35,24 @@ Laurel's video showed that the WePhone 10S was stronger than the Universe S10. L
 - For Solution2. The ratio of a specification between the WePhone 10S and Universe S10 can be calculated by dividing the specification value of the WePhone 10S by the specification value of the Universe S10. Make sure that your answer is not rounded. Use R's syntax to compute (for example, enter `Specification$X[1]/Specification$X[2]` where X is the specification.
 
 
-
 *** =pre_exercise_code
 ```{r}
 PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(190,180),Battery_Capacity=c(4000,3500),Diagonal_Length=c(5.5,5.2),Storage=c(64,64),Luminance=c(800,550))
 ```
 *** =sample_code
 ```{r}
-PhoneSpecifications #Print dataframe to console
+# To begin, let's print the dataframe to the console
+  print(PhoneSpecifications)
 
-Solution1<-    #Write column name of specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character)
+# Now let's answer Question 1: Write the column name of the specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character).
+#---- Question 1-------------------------------------#
+    Solution1<-    
+#----------------------------------------------------#
 
-Solution2<-    #Return quotient of phone specifications selected in Solution1 (do not round!)
-
+# Now let's answer Question 2: Return the quotient of the phone specification selected in Solution1, between the WePhone10S and UniverseS10 (do not round!)   
+#---- Question 2-------------------------------------#
+    Solution2<- 
+#----------------------------------------------------#
 ```
 *** =solution
 ```{r}

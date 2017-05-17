@@ -48,24 +48,24 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 ```
 *** =sample_code
 ```{r}
-# Let's first summarize Donny's commute time to get a sense of what it looks like.
-  summary(Commute) 
-# It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes!
+# Let's first summarize Donny's commute time to get a sense of what the data looks like.
+    summary(Commute) 
 
-# For additional understanding, let's also plot what Donny's commute time looks like on a density curve
-  plot(density(Commute))
-#This is just another way of representing Donny's commute time. The Y axis, marked "density", shows the proportion of times that donny's travel time is a certain length, give by the X-axis. So about .08 or 8% of the time, Donny's travel takes exactly 9 minutes.  
-
+# It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. The Y axis, marked "density", shows the proportion of times that donny's travel time is a certain length, give by the X-axis. So about .08 or 8% of the time, Donny's travel takes exactly 9 minutes.  
+    plot(density(Commute))
   
-#Now for question 1: We need to determine approximately how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. The question did not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset (i.e. the 95th quantile of commute times). There are several ways to get this answer, but we would recommend using the "quantile" function
+# Now for question 1: We need to determine approximately how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. The question did not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset (i.e. the 95th quantile of commute times). There are several ways to get this answer, but we would recommend using the "quantile" function
 
-Solution1<- #95th quantile  
+#---- Question 1-------------------------------------#
+    Solution1<- #95th quantile
+#----------------------------------------------------#
 
+#Question 2 asks us to determine how long Donny should leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence. In other words, what time are we 95% confident that Donny could leave and get to work on time half of the time, given our limited sample? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. For reference, this can be computed with a one sample t.test. The upper bound of a t.test object (i.e. class "htest") can be found in $conf.int[2].
 
-#Question 2 asks us to determine how long Donny should leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence. In other words, what time are we 95% confident that Donny could leave and get to work on time half of the time, given our limited sample? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. This can be computed with a one sample t.test. The upper bound of a t.test object (i.e. class "htest") can be found in $conf.int[2].
+#---- Question 2-------------------------------------#
+    Solution2<- #Upper bound of the confidence interval on the mean
+#----------------------------------------------------#
 
-Solution2<- #Upper bound of the confidence interval on the mean
-  
 
 ```
 *** =solution

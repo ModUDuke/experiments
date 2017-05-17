@@ -80,16 +80,25 @@ rm(OregonHealth)
 ```
 *** =sample_code
 ```{r}
-# Let's print the results from the OregonHealthResults dataframe
-OregonHealthResults 
+# Let's being by printing the results from the OregonHealthResults dataframe
+    print(OregonHealthResults) 
 
-# Now let's practice reading the table identify the following:
+# Now let's practice reading the table to identify the following:
 
-Solution1<- # Write the mean value of positive screening in the control group (do not round)
+# Question 1: Write the mean value of positive screening in the control group (do not round)
+#---- Question 1-------------------------------------#
+    Solution1<-
+#----------------------------------------------------#
 
-Solution2<- # Write the average treatment effect of medicaid coverage on positive screening
+# Question 2: Write the average treatment effect of medicaid coverage on positive screening
+#---- Question 2-------------------------------------#
+    Solution2<- 
+#----------------------------------------------------#
 
-Solution3<-  # Use solution1 and Solution2 to calculate the mean value of positive screening in the treatment group
+# Question 3: Use solution1 and Solution2 to calculate the mean value of positive screening in the treatment group
+#---- Question 3-------------------------------------#
+Solution3<-  
+#----------------------------------------------------#
 
 ```
 
@@ -132,15 +141,20 @@ rm(OregonHealth)
 ```
 *** =sample_code
 ```{r}
-# Let's print the results from the OregonHealthResults dataframe
-OregonHealthResults
+# Let's begin by printing the results from the OregonHealthResults dataframe
+    print(OregonHealthResults)
 
-# Now let's practice reading the table identify the following:
+# Now let's practice reading the table and identify the following:
 
-Solution1<-  # Write the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use Of medication
+# Question 1: Write the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use Of medication
+#---- Question 1-------------------------------------#
+    Solution1<-
+#----------------------------------------------------#
 
-Solution2<-"" # Write name of variable whose average treatment effect was not statistically significant (must be a string)
-
+# Question 2: Write the name of the variable whose average treatment effect was not statistically significant (must be a string)
+#---- Question 2-------------------------------------#
+    Solution2<-""
+#----------------------------------------------------#
 ```
 
 *** =solution
@@ -267,29 +281,41 @@ OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp"
 *** =sample_code
 ```{r}
 # Since the OHIE dataset is fairly big, let's start to get a sense of it by looking at it's structure
-  str(OHIE)
+    str(OHIE)
 
 # Since we are going to run several t.tests, let's make the syntax below simpler by separating the OHIE dataset into treatment and control groups.
-  TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-  ControlGroup <- OHIE[OHIE$treatment==0, ]
+    TreatmentGroup <- OHIE[OHIE$treatment==1, ]
+    ControlGroup <- OHIE[OHIE$treatment==0, ]
 
 # Since we are still early in our unit, we will help you answer the first question. We need to determine whether gender is balanced between the treatment and control groups. This requires a two sample t.test.
-  Solution1a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
+#---- Question 1a------------------------------------#
+    Solution1a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
+#----------------------------------------------------#
 
-# To determine whether the t.test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically 0 (i.e. we cannot be confident that there is a difference between the treatment and control group). Based on the confidence interval in Solution1a, do the results appear statistically significant?
-  Solution1b<-"" # Is gender balanced? Answer with "Yes" or "No" 
+# To determine whether the t.test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically 0 (i.e. we cannot be confident that there is a difference between the treatment and control group). Based on the confidence interval in Solution1a, do the results appear statistically significant? Answer with "Yes" or "No" 
+#---- Question 1b------------------------------------#
+    Solution1b<-""  
+#----------------------------------------------------#
 
-# A more direct way to test for statistical significance is to just look at the p.vale of the t.test. To directly compute the p-value for solution1a, we could have just typed: "Solution1a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)$p.value". Try to use a t.test to determine whether the treatment had a statistically significant effect on systolic blood pressure, and return the p.value in solution 2.
-  Solution2a<-  # Return the p.value of a t.test measuring the average treatment effect on systolic blood pressure 
+# A more direct way to test for statistical significance is to just look at the p.vale of the t.test. To directly compute the p-value for solution1a, we could have just typed: "Solution1a <- t.test(TreatmentGroup$gender_inp, ControlGroup$gender_inp, mu=0)$p.value". For Question 2, use a t.test to determine whether the treatment had a statistically significant effect on systolic blood pressure, and return the p.value.
+#---- Question 2a------------------------------------#
+    Solution2a<-  
+#----------------------------------------------------#
 
-# A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution2a, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure?  
-  Solution2b<-"" # Was there a statistically significant average treatment effect on systolic blood pressure? Answer with "Yes" or "No" 
+# A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution2a, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure? Answer with "Yes" or "No"
+#---- Question 2b------------------------------------#
+    Solution2b<-""  
+#----------------------------------------------------#
 
-# Based on the above, try the last two questions by yourself.
-  Solution3a<-  # Return the p.value of a t.test that measures the average treatment effect on diastolic blood pressure 
+# Question 3a: Return the p.value of a t.test that measures the average treatment effect on diastolic blood pressure 
+#---- Question 3a------------------------------------#
+    Solution3a<-   
+#----------------------------------------------------#
 
-  Solution3b<-""  # Based on your t.test, does the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No" 
-
+# Question 3b: Based on your t.test, does the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No"
+#---- Question 3b------------------------------------#
+    Solution3b<-""   
+#----------------------------------------------------#
 
 
 ```
@@ -357,18 +383,23 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 ```
 *** =sample_code
 ```{r}
-str(eGulf) #Dataframe
+# To begin, let's examine the structure of the dataframe with the str function. 
+    str(eGulf)
 
-#Before doing statistical tests, it can often be useful to visualize the data graphically. For controlled experiments, boxplots are often useful. The following boxplot shows the relationship between opting into treatment and final sales prices. The middle line represents the median of the values, and the two other lines that complete the "box" represent the upper and lower quartiles of data in the dataset. The "whiskers" at the edge of the plot represent the most extreme datapoints that are not outliers.
-  boxplot(eGulf$Final_Sales_Price~eGulf$Seller_Opted_Into_Treatment)
+# To get an even better sense of the data, let's visualize the data graphically. Boxplots are often ideal for studying data in controlled experiments, as they offer a convenient means to compare two groups (the treatment and control). The following boxplots show the relationship between opting into treatment and final sales prices. The boxplot on the left represents data from the control group, whereas the boxplot on the right represents data from the treatment group. Within these boxplots, the bold middle line represents the median of the values within each group. The two lines above and below the median that complete the "box" represent the upper and lower quartiles of data in the dataset. The dots and "whiskers" at the edge of the plot represent the most extreme datapoints in the two datasets.
+    boxplot(eGulf$Final_Sales_Price~eGulf$Seller_Opted_Into_Treatment)
 
-#From the boxplot, it appears that sellers who opted into treatment (the box on the right), sold their WePhones at slightly higher prices. However, let's make sure of this by computing the mean differences. Subtract the mean sales prices of the control group from the mean sales prices in the treatment group. You may want to subset the treatment and control groups into separate dataframes before completing this next step.
+# From the boxplot, it appears that sellers who opted into treatment (the box on the right), sold their WePhones at slightly higher prices. However, let's make sure of this by computing the mean differences. Subtract the mean sales prices of the control group from the mean sales prices in the treatment group. You may want to subset the treatment and control groups into separate dataframes before completing this next step.
+#---- Question 1-------------------------------------#
+    Solution1<-   
+#----------------------------------------------------#
 
-Solution1<- #Determine the means difference between the final sales prices of eGulf sellers by treatment condition
-
-#It seems that sellers in the treatment group sold their Wephones at higher prices. Let's conduct a statistical test to make sure whether this finding is robust. 
+# If you answered Solution1 correctly, it should appear that sellers in the treatment group sold their Wephones at higher prices than sellers in the control group. However, let's conduct a statistical test to make sure whether this finding is robust. Report the p.value of a t.test that tests whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices  
+#---- Question 2-------------------------------------#
+    Solution2<-   
+#----------------------------------------------------#
   
-Solution2<- # Report the p.value of a t.test that tests whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices
+ 
 ```
 *** =solution
 ```{r}

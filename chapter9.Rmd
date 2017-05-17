@@ -116,29 +116,45 @@ SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 *** =sample_code
 ```{r}
 # Below was the t.test used by the otter enthusiast to get the results listed above.
-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
+    t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
 
-Test1<- # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
-LowerBound1<- Test1$conf.int[1]
-UpperBound1<- #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
+# Question 1: Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
+#---- Question 1-------------------------------------#
+    Test1<-
+#----------------------------------------------------#
 
-Test2<- # Run another t.test, with confidence level = .5, and assign it to the object 'Test2'
-LowerBound2<- #Use the Test2 object to assign the lower bound of the confidence interval.
-UpperBound2<- #Use the Test2 object to assign the upper bound of the confidence interval.
-  
+# Question 2: Use the Test1 object to assign the upper bound of the confidence interval. For reference, we assigned the lower bound from Test1 for you below.
+#---- Question 2-------------------------------------#
+    UpperBound1<- 
+#----------------------------------------------------#
+    LowerBound1<- Test1$conf.int[1]  
+
+# Question 3: Run another t.test, with confidence level = .5, and assign it to the object 'Test2'
+#---- Question 3-------------------------------------#
+    Test2<- 
+#----------------------------------------------------#
+
+#Use the Test2 object to assign the lower bound of the confidence interval.
+#---- Question 4-------------------------------------#
+    LowerBound2<- 
+#----------------------------------------------------#
+
+#Use the Test2 object to assign the upper bound of the confidence interval.
+#---- Question 5-------------------------------------#
+    UpperBound2<- 
+#----------------------------------------------------#
+
 
 ```
 *** =solution
 ```{r}
-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) # This was the t.test used by the otter enthusiast to get the results listed above.
+t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95)
 
-Test1<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .99) # Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
-LowerBound1<- Test1$conf.int[1]
-UpperBound1<- Test1$conf.int[2] #Use the Test1 object to assign the upper bound of the confidence interval. Hint - The lower bound is assigned above.
+Test1<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .99) LowerBound1<- Test1$conf.int[1]
+UpperBound1<- Test1$conf.int[2] 
 
-Test2<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .50) # Run another t.test, with confidence level = .50, and assign it to the object 'Test2'
-LowerBound2<-Test2$conf.int[1] #Use the Test2 object to assign the lower bound of the confidence interval.
-UpperBound2<-Test2$conf.int[2] #Use the Test2 object to assign the upper bound of the confidence interval.
+Test2<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .50) LowerBound2<-Test2$conf.int[1] 
+UpperBound2<-Test2$conf.int[2] 
 ```
 *** =sct
 ```{r}
@@ -252,13 +268,25 @@ First, you will test if this is a valid natural experiment. This involves testin
 ```{r}
 # The dataset `CreditCo` is available in your workspace
 
-Solution1<- # Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain
+# Question 1: Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain.
+#---- Question 1-------------------------------------#
+    Solution1<-
+#----------------------------------------------------#
 
-Solution2<- # Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
+# Question 2: Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
+#---- Question 2-------------------------------------#
+    Solution2<-
+#----------------------------------------------------#
 
-Solution3<- # Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
-
-Solution4<- # Do the same as above, but for post-treatment default rates. Again, use a t-test.
+# Question 3: Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
+#---- Question 3-------------------------------------#
+    Solution3<-
+#----------------------------------------------------#
+  
+# Question 4: Do the same as above, but for post-treatment default rates. Again, use a t-test.
+#---- Question 4-------------------------------------#
+    Solution4<-
+#----------------------------------------------------#
 
 ```
 
@@ -278,7 +306,6 @@ test_object("Solution3")
 test_object("Solution4")
 success_msg("Good work!")
 ```
-
 
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c6894f628a
