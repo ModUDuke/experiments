@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 1: Introduction"
-description : "These videos will introduce experiments and briefly discuss correlation and causation"
+description : "These videos introduce experiments and briefly discuss correlation and causation"
   
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4070242f87
 ## Introduction to the Chapter on Experiments
@@ -20,10 +20,10 @@ Rainfall in Sonoma County, California is highly correlated with eBay's total gro
 
 *** =sct
 ```{r}
-msg1 = "This answer is close to correct, but not quite. Remember, eBay sells its goods to people across the world---why would the correlation be so strong with rainfall just in Sonoma County? Try again"
-msg2 = "This is a possible explanation for the correlation between eBay sales and rainfall in Sonoma County, but it is not a causal relationship. Instead it would suggest that this correlation is spurious. Try again"
-msg3 = "This is what it means for there to be a correlation between rainfall in Sonoma County and eBay sales, but it is not a causal explanation for this correlation. Try again"
-msg4 = "Good Job. As ridiculous as this sounds, it is what a causal relationship between rainfall in Sonoma County and eBay sales might suggest. Of course, residents of Sonoma County would have to be providing a huge proportion of all eBay transactions for the correlation to hold."
+msg1 = "This answer is close to correct, but not quite. Remember, eBay sells its goods to people across the world---why would the correlation be so strong with rainfall just in Sonoma County? Try again."
+msg2 = "This is a possible explanation for the correlation between eBay sales and rainfall in Sonoma County, but not one that involves the rainfall causing the sales. Instead it would suggest that this correlation is spurious. Try again."
+msg3 = "This is what it means for there to be a correlation between rainfall in Sonoma County and eBay sales, but it is not a causal explanation for this correlation. Try again."
+msg4 = "Good Job. As ridiculous as this sounds, it is what a causal relationship between rainfall in Sonoma County and eBay sales might suggest. Of course, residents of Sonoma County would have to be providing a huge proportion of all eBay transactions for this to be correct."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
