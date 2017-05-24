@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 5: Practice with Published Experiments - The Oregon Health Insurance Experiment"
-description : "These videos and exercises will allow you to practice skills used in analyzing experimental data"
+description : "These videos and exercises offer practice in skills used in analyzing experimental data"
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:46fda452f0
 ## The Design of the Oregon Health Experiment.
@@ -18,15 +18,15 @@ Why might it be risky to implement a policy that has zero in the confidence inte
 
 *** =instructions
 - Because the confidence interval equation defaults to 0 with large amounts of data.
-- Because having zero in one's confidence interval implies that a treatment effect could have a positive or negative effect on one's outcome of interest.
+- Because having zero in one's confidence interval implies that a treatment effect could have a positive or negative effect on the outcome of interest.
 - Because having zero in one's confidence interval implies that a treatment effect has no effect.
-- I don't really understand why. Maybe there is no reason?
+- It's incorrect to think this would be risky; as long as relationship between the policy and its treatment effect are within the desired range, a confidence interval that includes zero is not a problem.
 *** =sct
 ```{r}
 msg1 = "This is not true. With tremendous sample size (N > 1,000,000), confidence intervals rarely cross 0, even for relatively insignificant treatment effects. Try again."
 msg2 = "Correct! It would be very risky to implement a policy that could potentially have the opposite effect than you intended."
 msg3 = "This is often how such confidence intervals are interpreted, but this is a mistake. A confidence interval that contains zero does is not evidence that there is no treatment effect, but that it is uncertain whether there is a treatment effect. Try again."
-msg4 = "There is a reason! Try again."
+msg4 = "A confidence interval that contains zero is inherently problematic.  Try again."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -35,15 +35,15 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 What is the difference between a statistically significant effect and a clinically (or "substantively") significant effect?
 
 *** =instructions
-- Statistically significant effects are bigger than clinically significant effects
-- Statistically significant effects don't necessarily matter, whereas clinically significant effects do matter
-- Statistically significant effects have smaller confidence intervals than clinically significant effects
-- Statistically significant effects always matter, whereas clinically significant effects sometimes don't matter
+- Statistically significant effects are bigger than clinically significant effects.
+- Statistically significant effects don't necessarily matter, whereas clinically significant effects do matter.
+- Statistically significant effects have smaller confidence intervals than clinically significant effects.
+- Statistically significant effects always matter, whereas clinically significant effects sometimes don't matter.
 *** =sct
 ```{r}
 msg1 = "This might be true in some individual cases, but it's not true in general, so try again"
-msg2 = "Correct! Statistical significance indicates whether an effect is real, but it does not necessarily indicate whether it is meaningful. With enough data, a study might find a statistically significant effect of season on people's preference to buy tissue paper, but the effect might not be important (for example, if people were 0.2% more likely to buy tissue paper in the spring over the fall)."
-msg3 = "This might be true in some individual cases, but it's not true in general, so try again"
+msg2 = "Correct! Statistical significance indicates whether an effect is likely real (probably not observed just by chance), but it does not necessarily indicate whether it is meaningful. With enough data, a study might find a statistically significant effect of season on people's preference to buy tissue paper, but the effect might not be important (for example, if people were 0.2% more likely to buy tissue paper in the spring over the fall)."
+msg3 = "This might be true in some individual cases, but it's not true in general, so try again."
 msg4 = "This is not how you should interpret treatment effects, so look again!"
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
@@ -54,7 +54,7 @@ Now let's practice reading tables from the Oregon Health Experiment. As describe
 
 The dataframe "OregonHealthResults" indicates results from the Oregon Health Experiment (in percentages) pertaining to depression. To get a good sense of how this was affected in the experiment, let's review some of its results and calculate some of the numbers ourselves. 
 
-One of the most interesting results of any experiment is the Average Treatment Effect relative to the mean value of a parameter. Therefore, let's use this dataframe, to look at two basic items: The average positive screen value in the control group, and the Average Treatment Effect of Medicaid on positive screen values. These calculations will give you a deeper sense of the impact of health insurance on basic mental health.
+One of the most interesting results of any experiment is the Average Treatment Effect relative to the mean value of a parameter. Therefore, let's use this dataframe to look at two basic items: The average positive screen value in the control group, and the Average Treatment Effect of Medicaid on positive screen values. These calculations will give you a deeper sense of the impact of health insurance on basic mental health.
 
 
 *** =instructions
@@ -85,17 +85,17 @@ rm(OregonHealth)
 
 # Now let's practice reading the table to identify the following:
 
-# Question 1: Write the mean value of positive screening in the control group (do not round)
+# Question 1: Write the mean value of positive screening in the control group (do not round).
 #---- Question 1-------------------------------------#
     Solution1<-
 #----------------------------------------------------#
 
-# Question 2: Write the average treatment effect of medicaid coverage on positive screening
+# Question 2: Write the average treatment effect of medicaid coverage on positive screening.
 #---- Question 2-------------------------------------#
     Solution2<- 
 #----------------------------------------------------#
 
-# Question 3: Use solution1 and Solution2 to calculate the mean value of positive screening in the treatment group
+# Question 3: Use solution1 and Solution2 to calculate the mean value of positive screening in the treatment group.
 #---- Question 3-------------------------------------#
 Solution3<-  
 #----------------------------------------------------#
@@ -123,8 +123,8 @@ success_msg("Good work!")
 Now that we know how an Average Treatment Effect is related to mean values in the treatment and control groups, we should examine the reliability of these results. Therefore, let's examine the 95% confidence interval lower bound, and statistical significance for one of the table's Average Treatment Effects.
 
 *** =instructions
-- What is the the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use of medication?
-- Which average treatment effect of medicaid coverage on depression was not statistically significant? You can write this out as a line of text.
+- What is the the 95% confidence interval lower bound for the treatment effect of Medicaid coverage on current use of medication?
+- Which average treatment effect of Medicaid coverage on depression was not statistically significant? You can write this out as a line of text.
 
 *** =pre_exercise_code
 ```{r}
@@ -146,12 +146,12 @@ rm(OregonHealth)
 
 # Now let's practice reading the table and identify the following:
 
-# Question 1: Write the 95% confidence interval lower bound for the treatment effect of medicaid coverage on current use Of medication
+# Question 1: Write the 95% confidence interval lower bound for the treatment effect of Medicaid coverage on current use of medication.
 #---- Question 1-------------------------------------#
     Solution1<-
 #----------------------------------------------------#
 
-# Question 2: Write the name of the variable whose average treatment effect was not statistically significant (must be a string)
+# Question 2: Write the name of the variable whose average treatment effect was not statistically significant (must be a string).
 #---- Question 2-------------------------------------#
     Solution2<-""
 #----------------------------------------------------#
@@ -180,7 +180,7 @@ success_msg("Good work!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:92568b1f93
 ## Practice identifying heteroskedastic outcomes
-An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains plots for income's relationship with three different predictors: Education, Age, and City Population. You can see each plot by clicking the "Next Plot" and "Previous Plot" buttons below the plot. Within the plots, each dot represents an observation from our sample. Using these plots, determine which independant variable which with income is most heteroskedastic.
+An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains plots for income's relationship with three different predictors: Education, Age, and City Population. You can see each plot by clicking the "Next Plot" and "Previous Plot" buttons below the plot. Within the plots, each dot represents an observation from our sample. Using these plots, determine the independant variable with which income is most heteroskedastic.
 
 *** =instructions
 - Education
@@ -224,9 +224,9 @@ plot(Sample$City_Population,Sample$Income)
 ```
 *** =sct
 ```{r}
-msg1 = "Almost, try again"
+msg1 = "Almost, try again."
 msg2 = "Good job! This is an example of a heteroskedastic treatment effect. Among our sample, income was slightly correlated with age, but only varied slightly until respondents reached their late 50s. If we were to ignore this trend while studying the relationship between age and income, it could confound or bias our results."
-msg3 = "Almost, try again"
+msg3 = "Almost, try again."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
@@ -243,12 +243,12 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
 ## Multiple Choice: Interpreting effect sizes
 The head of marketing at Bizer, Inc. is trying to decide whether to include a new cholesterol medicine's average treatment effect in the company's advertisements for that medicine. He knows that on average, the medicine reduces cholesterol in respondents by about 1mg/dL and knows that the effect is statistically different from zero. However, he's not sure whether that number is large or small; that is, whether the medicine's average treatment effect is worth advertising. 
 
-If cholesterol is highly variable in the population (about 70% of the population has cholesterol between 160mg/dL and 240mg/dL), does an average treatment effect of 1mg/dL seem relatively small or relatively large? In other words, when an average treatment effect is substantially smaller than the standard error of the mean for a parameter, how would we tyipcally interpret the size of that average treatment effect?
+If cholesterol is highly variable in the population (about 70% of the population has cholesterol between 160mg/dL and 240mg/dL), does an average treatment effect of 1mg/dL seem relatively small or relatively large? In other words, when an average treatment effect is substantially smaller than the standard error of the mean for a parameter, how would we typically interpret the size of that average treatment effect?
 
 
 *** =instructions
-- The average treatment effect is large
-- The average treatment effect is small
+- The average treatment effect is large.
+- The average treatment effect is small.
 *** =sct
 ```{r}
 msg1 = "Although a 1mg/dL reduction in cholesterol is statistically significant and might be substantial for some members of the population, it is not a very large reduction relative to the amount of variance in cholesterol in the population. Try again."
@@ -258,7 +258,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:82150d848b
 ## Practice working with the Oregon Health Experiment
-Let's say you're wondering how much mens' and womens' health differed in the experiment, and what the data says about Medicaid's effects on those differences, so you decide to look at some of the basic health numbers in the data. A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, you make some quick calculations to learn about any differences that might be linked to gender by looking at:
+Let's say you're wondering how much mens' and womens' health differed in the experiment, and what the data says about Medicaid's effects on those differences, so you decide to look at some of the basic health numbers in the data. A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, make some quick calculations to learn about any differences that might be linked to gender by doing the following:
 
 *** =instructions
 - Test if there is a statistically significant difference in gender between the treament and control groups (i.e. whether gender is balanced between the treatment and control group). 
@@ -266,7 +266,7 @@ Let's say you're wondering how much mens' and womens' health differed in the exp
 
 *** =hint
 - For the first question, you will need to `subset` the `OHIE` data frame by treatment. 
-- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
+- It may help to create a new dataframe called `TreatmentGroup` that contains only those selected to be able to receive Medicaid in the treatment group, and a new data frame called `ControlGroup` that contains only those not selected for Medicaid in the control group.
 - For each of the following questions, use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
 
 
@@ -280,39 +280,39 @@ OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp"
 
 *** =sample_code
 ```{r}
-# Since the OHIE dataset is fairly big, let's start to get a sense of it by looking at it's structure
+# Since the OHIE dataset is fairly big, let's start to get a sense of it by looking at its structure
     str(OHIE)
 
-# Since we are going to run several t.tests, let's make the syntax below simpler by separating the OHIE dataset into treatment and control groups.
+# Since we are going to run several t-tests, let's make the syntax below simpler by separating the OHIE dataset into treatment and control groups.
     TreatmentGroup <- OHIE[OHIE$treatment==1, ]
     ControlGroup <- OHIE[OHIE$treatment==0, ]
 
-# Since we are still early in our unit, we will help you answer the first question. We need to determine whether gender is balanced between the treatment and control groups. This requires a two sample t.test.
+# Since we are still early in our unit, we will help you answer the first question. We need to determine whether gender is balanced between the treatment and control groups. This requires a two sample t-test.
 #---- Question 1a------------------------------------#
     Solution1a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
 #----------------------------------------------------#
 
-# To determine whether the t.test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically 0 (i.e. we cannot be confident that there is a difference between the treatment and control group). Based on the confidence interval in Solution1a, do the results appear statistically significant? Answer with "Yes" or "No" 
+# To determine whether the t-test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically significant (i.e. we cannot be confident that there is a difference between the treatment and control group). Based on the confidence interval in Solution 1a, do the results appear statistically significant? Answer with "Yes" or "No." 
 #---- Question 1b------------------------------------#
     Solution1b<-""  
 #----------------------------------------------------#
 
-# A more direct way to test for statistical significance is to just look at the p.vale of the t.test. To directly compute the p-value for solution1a, we could have just typed: "Solution1a <- t.test(TreatmentGroup$gender_inp, ControlGroup$gender_inp, mu=0)$p.value". For Question 2, use a t.test to determine whether the treatment had a statistically significant effect on systolic blood pressure, and return the p.value.
+# A more direct way to test for statistical significance is to just look at the p-value of the t-test. To directly compute the p-value for solution 1a, we could have just typed: "Solution1a <- t.test(TreatmentGroup$gender_inp, ControlGroup$gender_inp, mu=0)$p.value". For Question 2, use a t-test to determine whether the treatment had a statistically significant effect on systolic blood pressure, and return the p-value.
 #---- Question 2a------------------------------------#
     Solution2a<-  
 #----------------------------------------------------#
 
-# A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution2a, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure? Answer with "Yes" or "No"
+# A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution 2a, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure? Answer with "Yes" or "No."
 #---- Question 2b------------------------------------#
     Solution2b<-""  
 #----------------------------------------------------#
 
-# Question 3a: Return the p.value of a t.test that measures the average treatment effect on diastolic blood pressure 
+# Question 3a: Return the p-value of a t-test that measures the average treatment effect on diastolic blood pressure.
 #---- Question 3a------------------------------------#
     Solution3a<-   
 #----------------------------------------------------#
 
-# Question 3b: Based on your t.test, does the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No"
+# Question 3b: Based on your t-test, does the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No."
 #---- Question 3b------------------------------------#
     Solution3b<-""   
 #----------------------------------------------------#
@@ -351,16 +351,16 @@ success_msg("Good work!")
 ## Practice working with eGulf
 To increase their commissions, the popular online auctioneer, eGulf, wants to help its sellers increase the final sales prices of their merchandise. For each auction on eGulf, sellers are allowed to post up to 10 pictures of an item that they are selling. Past studies suggest that customers' appraisals of merchandise (and subsequently, final bids of merchandise) improve when sellers include more pictures of their merchandise; therefore, eGulf considers raising the limit on the number of pictures that a seller can post on an auction's webpage.
 
-To test whether eGulf should allow sellers to post more than 10 pictures of their items, eGulf conducts an experiment: eGulf finds a random sample of dedicated used WePhone sellers that typically post 10 pictures of their used WePhones, and temporarily allows them to post up to 15 pictures for each auction of their WePhones. Using the results of this experiment, listed in dataset `eGulf`, test whether there is an added benefit to posting more than 10 pictures on WePhone auctions. Specifically:
+To test whether eGulf should allow sellers to post more than 10 pictures of their items, eGulf conducts an experiment: eGulf finds a random sample of dedicated used WePhone sellers who typically post 10 pictures of their used WePhones, and temporarily allows them to post up to 15 pictures for each auction of their WePhones. Using the results of this experiment, listed in dataset `eGulf`, test whether there is an added benefit to posting more than 10 pictures on WePhone auctions. Specifically:
 
 *** =instructions
 - Determine the difference in means betwen the `Final_Sales_Price` of sellers who posted more than 10 pictures (`Seller_Opted_Into_Treatment`==1) on their auctions, and those who had not.
-- Statistically test whether sellers who posted more than 10 pictures (`Seller_Opted_Into_Treatment`==1) on their WePhone auctions (`Final_Sales_Price`) sold their WePhones at higher prices than sellers who posted 10 or less pictures on their WePhone auctions (`Seller_Opted_Into_Treatment`==0)
+- Statistically test whether sellers who posted more than 10 pictures (`Seller_Opted_Into_Treatment`==1) on their WePhone auctions (`Final_Sales_Price`) sold their WePhones at higher prices than sellers who posted 10 or fewer pictures on their WePhone auctions (`Seller_Opted_Into_Treatment`==0)
 
 *** =hint
 - For the first question, you will need to `subset` the `eGulf` data frame by treatment. 
-- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the treatment group, and a new data frame called `ControlGroup` that contains only WePhones in the control group.
-- Use the `t.test` function and report the p.value to statistically test whether the treatment and control group yielded different sales prices.
+- It may help to create a new dataframe called `TreatmentGroup` that contains only sellers who posted 11 or more pictures in the treatment group, and a new data frame called `ControlGroup` that contains only sellers who posted fewer than 11 pictures in the control group.
+- Use the `t.test` function and report the p-value to statistically test whether the treatment and control group yielded different sales prices.
 
 *** =pre_exercise_code
 ```{r}
@@ -394,7 +394,7 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
     Solution1<-   
 #----------------------------------------------------#
 
-# If you answered Solution1 correctly, it should appear that sellers in the treatment group sold their Wephones at higher prices than sellers in the control group. However, let's conduct a statistical test to make sure whether this finding is robust. Report the p.value of a t.test that tests whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices  
+# If you answered Solution1 correctly, it should appear that sellers in the treatment group sold their Wephones at higher prices than sellers in the control group. However, let's conduct a statistical test to make sure this finding is robust. Report the p-value of a t-test that tests whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices  
 #---- Question 2-------------------------------------#
     Solution2<-   
 #----------------------------------------------------#
@@ -411,7 +411,7 @@ Solution2<-t.test(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1],
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-success_msg("Good work! Since the p.value is well below .05, it seems that are finding is robust; like posting more photos was positively associated with final WePhone sales prices.")
+success_msg("Good work! Since the p-value is well below .05, it seems that our finding is robust; likely posting more photos was positively associated with final WePhone sales prices.")
 ```
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ad358b17bb
 ## Where the Chapter Will Go From Here
