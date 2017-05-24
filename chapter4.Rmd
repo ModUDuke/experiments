@@ -1,10 +1,10 @@
 --- 
 title       : "Experiments 4: Statistical Inference in Experiments"
-description : "These videos and exercises will help you understand why we need statistical inference in experiments"
+description : "These videos and exercises explain why we need statistical inference in experiments"
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
 ## Multiple Choice: Statistical inference
-Under which scenario might an experimenter *not* need to use statistical inference to justify his causal claims?
+Under which scenario might an experimenter *not* need to use statistical inference to justify causal claims?
 
 *** =instructions
 - When his causal claim is logically sound.
@@ -13,9 +13,9 @@ Under which scenario might an experimenter *not* need to use statistical inferen
 - When he can have his entire population of interest participate in the experiment.
 *** =sct
 ```{r}
-msg1 = "Even if it makes sense, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again"
-msg2 = "Even with a large sample, you still need to use statistical measures to verify the experiment's validity, so try again"
-msg3 = "Even with a well-designed experiment, you still will have just a sample of the possible data to look at, so that's not quite right. Try again"
+msg1 = "Even if it makes sense, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again."
+msg2 = "Even with a large sample, you still need to use statistical measures to verify the experiment's validity, so try again."
+msg3 = "Even with a well-designed experiment, you still will have just a sample of the possible data to look at, so that's not quite right. Try agai.n"
 msg4 = "Correct! The purpose of statistical inference in randomized experiments is to help researchers make valid propositions about a population given a sample. This is unnecessary if the entire population of interest participates in the experiment."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
@@ -51,7 +51,7 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 # Let's first summarize Donny's commute time to get a sense of what the data looks like.
     summary(Commute) 
 
-# It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. The Y axis, marked "density", shows the proportion of times that donny's travel time is a certain length, give by the X-axis. So about .08 or 8% of the time, Donny's travel takes exactly 9 minutes.  
+# It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. The Y axis, marked "density", shows the proportion of times that Donny's travel time is a certain length, give by the x-axis. So about .08 or 8% of the time, Donny's travel takes exactly 9 minutes.  
     plot(density(Commute))
   
 # Now for question 1: We need to determine approximately how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. The question did not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset (i.e. the 95th quantile of commute times). There are several ways to get this answer, but we would recommend using the "quantile" function
@@ -60,7 +60,7 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
     Solution1<- #95th quantile
 #----------------------------------------------------#
 
-#Question 2 asks us to determine how long Donny should leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence. In other words, what time are we 95% confident that Donny could leave and get to work on time half of the time, given our limited sample? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. For reference, this can be computed with a one sample t.test. The upper bound of a t.test object (i.e. class "htest") can be found in $conf.int[2].
+#Question 2 asks us to determine how long Donny should leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence. In other words, at what time are we 95% confident that Donny could leave and get to work on time half of the time, given our limited sample? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. For reference, this can be computed with a one sample t-test. The upper bound of a t-test object (i.e. class "htest") can be found in $conf.int[2].
 
 #---- Question 2-------------------------------------#
     Solution2<- #Upper bound of the confidence interval on the mean
@@ -106,33 +106,33 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e587a26773
 ## Statistical Inference Across Disciplines
-Let's say that you are an economics major.  Is there any reason to think that you can help a chemistry major look at their data?
+Let's say that you are an economics major, and your roommate is a chemistry major.  They're trying to figure out the results from an experiment run in the lab where they work as an RA, and ask you to look at the data because it looks "weird."  Given the differences between your disciplines, is there any point in trying to help?
 *** =instructions
 - Yes
 - No
 *** =sct
 ```{r}
-msg1 = "Of course you can! The data analysis techniques in all of the sciences are much, much more similar than different. While academic fields can create their own algorithms for field-specific problems, they are all joined together by the same basic concepts about finding the best and most quantitative ways to tie causes to effects."
-msg2 = "Try again"
+msg1 = "Of course there is! The data analysis techniques in all of the sciences are much, much more similar than different. While academic fields can create their own algorithms for field-specific problems, they are all joined together by the same basic concepts about finding the best and most quantitative ways to tie causes to effects."
+msg2 = "Try again."
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:01b4c71047
 ## Multiple Choice: Fishing for a Good Experimental Design
-After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: Rachel spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design.
+After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: she spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design.
 
 *** =instructions
-- Rachel's experiment is unethical
+- Rachel's experiment is unethical.
 - Rachel's sample is probably too small.
 - Rachel's sample is not likely representative of her target population.
 - Rachel's findings are not intuitive.
 *** =sct
 ```{r}
-msg1 = "While a vegetarian might make such an argument, there is a much more direct answer to this question. Try again"
-msg2 = "It's possible that Rachel's sample after two days of fishing would be too small to ascertain statistical significance, but the question did not state how large her sample size was. Try again"
-msg3 = "Correct! The fish one finds near a dock on the Atlantic Ocean are not necessarily (or likely) to be the same size as ones found deeper in the ocean. It's possible that Rachel's fishing spot at the lake is a better spot for catching large fish than her spot at the Atlantic Ocean, but this does not necessarily imply that fish in her lake are larger than fish in the Atlantic Ocean"
-msg4 = "Non intuitive findings can be cause for worry, but aren't necessarily problematic. Try again"
+msg1 = "While a vegetarian might make such an argument, there is a much more direct answer to this question. Try again."
+msg2 = "It's possible that Rachel's sample after two days of fishing would be too small to ascertain statistical significance, but the question did not state how large her sample size was. Try again."
+msg3 = "Correct! The fish one finds near a dock on the Atlantic Ocean are not necessarily (or likely) to be the same size as ones found deeper in the ocean. It's possible that Rachel's fishing spot at the lake is a better spot for catching large fish than her spot at the Atlantic Ocean, but this does not necessarily imply that fish in her lake are larger than fish in the Atlantic Ocean."
+msg4 = "Non intuitive findings can be cause for worry, but aren't necessarily problematic. Try again."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -145,12 +145,12 @@ Siggy, an academic psychologist, was interested in how one-time cash rewards aff
 
 *** =instructions
 - Upward
-- Downard
+- Downward
 
 *** =sct
 ```{r}
-msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a larger average treatment effect than an experiment conducted on a random sample of the entire population."
-msg2 = "Whoops! Try again"
+msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a larger average treatment effect than an experiment conducted on a random sample of the entire population)."
+msg2 = "Given that this demographic is, as stated, strapped for cash, this isn't the likely bias. Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
