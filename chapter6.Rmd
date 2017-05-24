@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 6: Common Issues in Experiments"
-description : "These videos and exercises will discuss common issues in carrying out experiments"
+description : "These videos and exercises discuss common issues in carrying out experiments"
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ef7f2e2846
 ## Important Issues in Experiment Design These Modules Ignore
@@ -16,11 +16,11 @@ description : "These videos and exercises will discuss common issues in carrying
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e302f4bddd
 ## Multiple Choice: Drawing conclusions from experiments
-The transportation network company, Unter Technologies, is interested in increasing their revenue. They hypothesize that they would generate substantially greater profits if they lowered their costs and profit margins per each ride. 
+The transportation network company, Unter Technologies, is interested in increasing its revenue. Its CEO hypothesizes that the firm would generate substantially greater profits if it lowered its per-ride costs and profit margins. 
 
 Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% discount for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and profits during the promotional day. 
 
-Seeing the results of his experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
+Seeing the results of this experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
 *** =instructions
 - Unter did not survey its customers to determine if they were enticed by Unter's lower prices.
@@ -29,10 +29,10 @@ Seeing the results of his experiment, Unter's CEO decides that Unter should lowe
 - Unter's experiment didn't address the strategic responses of its competitors.
 *** =sct
 ```{r}
-msg1 = "Doing additional research to learn The Why behind a behavioral change can be helpful, but there's an experiment design issue to address first. Try again"
-msg2 = "This question doesn't say how much data Unter used, but there's another experiment design issue to consider, so try again"
+msg1 = "Doing additional research to learn The Why behind a behavioral change can be helpful, but there's an experimental design issue to address first. Try again"
+msg2 = "This question doesn't say how much data Unter used, but there's another experimental design issue to consider, so try again"
 msg3 = "Correct! Unter's experiment specifically tests the effect on profits of a temporary price reduction in its services, rather than the effect of a permanent price reduction. Profits increased during the promotional period, but there is no evidence that profits would remain higher over a longer period of time."
-msg4 = "While Unter's profits are a function of its competitors' behavior, there is another experiment design issue that is more appropriate. Try again"
+msg4 = "While Unter's profits are impacted by its competitors' behavior, there is another experimental design issue that is more appropriate. Try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -49,16 +49,16 @@ Therefore, to understand how a long-term price drop would affect Unter's profits
 - Unter's experiment did not control for noncompliance.
 *** =sct
 ```{r}
-msg1 = "The company probably does exist in a complex market, but there's something else to worry about without that consideration. Try again"
+msg1 = "The company probably does exist in a complex market, but there's something else to worry about without that consideration. Try again."
 msg2 = "Correct! Unter's experimental results may have been specific to the city that Unter conducted the experiment in. People from other cities may not be as sensitive to price-reductions as the city in Unter's experiment."
-msg3 = "Doing some qualitative research to learn The Why behind a behavior change can be helpful, but there's an experiment design issue to address first. Try again"
+msg3 = "Doing some research to learn The Why behind a behavior change can be helpful, but there's an experiment design issue to address first. Try again."
 msg4 = "The question assumes the CEO can successfully set prices in his own company, so if that's true, what other answer might still be a design issue we need to worry about?"
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:7c1f83a32b
 ## Multiple Choice: Ethics in experiments
-Which of the following causal questions is possible to answer with a randomized experiment (without major ethical concerns)?
+Which of the following causal questions is it possible to answer with a randomized experiment (without major ethical concerns)?
 
 *** =instructions
 - The effect of losing one's job on mental health.
@@ -67,8 +67,8 @@ Which of the following causal questions is possible to answer with a randomized 
 - The effect of financial incentives on athletic performance.
 *** =sct
 ```{r}
-msg1 = "This would definitely cause major ethical concerns because randomly assigning people to lose their job is not allowed.Try again"
-msg2 = "This is a very personal topic to many people, and likely to involve big ethical concerns, so try again"
+msg1 = "This would definitely cause major ethical concerns because randomly assigning people to lose their job is not allowed.Try again."
+msg2 = "This is a very personal topic to many people, and likely to involve big ethical concerns, so try again."
 msg3 = "Randomly assigning people to social isolation is incredibly unethical, so look for a better answer!"
 msg4 = "Correct! Each of the other experiments is not only difficult to create, but could cause substantial harm to an experiment's participants."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
@@ -109,9 +109,9 @@ Treatment<-Control
 ```
 *** =sct
 ```{r}
-msg1 = "The maximum value in both plots is indicated by the dot above the whiskers. These are identical. Try again"
-msg2 = "The third quartile in both plots is indicated by the top edge of the boxes. These are identical. Try again"
-msg3 = "The median value in both plots is indicated by the thick line within the box. These are identical. Try again"
+msg1 = "The maximum value in both plots is indicated by the dot above the whiskers. These are identical. Try again."
+msg2 = "The third quartile in both plots is indicated by the top edge of the boxes. These are identical. Try again."
+msg3 = "The median value in both plots is indicated by the thick line within the box. These are identical. Try again."
 msg4 = "Correct! Box-and-whiskers plots do not show the mean values in a sample. Although these two plots have identical quartile distributions, medians, and ranges, the mean values are actually different (7.8 in the treatment and 7.5 in the control)."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
@@ -119,7 +119,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:008ec0b3c5
 ## Common Issues in Interpretation II: Non-normal distributions
-Many statistical models assume that the data is normally distributed like in a bell curve, where a) most observations lie around the mean, b) the frequency of data that falls far from the mean is inversely related with its distance from the mean, and c) the distribution of observations above and below the mean are relatively identical. Often times, results from experiments are non-normal, which can lead to spurious findings. Therefore, data transformations often need to be made to account for such problems.
+Many statistical models assume that the data is normally distributed like in a bell curve, where a) most observations lie around the mean, b) the frequency of data that falls far from the mean is inversely related with its distance from the mean, and c) the distribution of observations above and below the mean are relatively identical. Often, results from experiments are non-normal, which can lead to spurious findings. Therefore, data transformations often need to be made to account for such problems.
 
 On the TV show, Kitchen Horrors, Bordon Hannity tries to revive failing restaurants by offering advice to their management and chefs. To measure the effectiveness of Hannity's efforts, a fan measures the average reviews of one of Hannity's revived restaurants before and after he offers them advice. With these results:
 
@@ -135,7 +135,7 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```
 *** =sample_code
 ```{r}
-# It is almost always best practice to explore the data before running any treatment tests. However, let's try to be bad statisticians and dive into the results before we explore the data. The two review variables are measured on likert-scales, ranging from 1 to 5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. Let's examine the means of these reviews.
+# It is almost always best practice to explore the data before running any treatment tests. However, let's try to be bad statisticians and dive into the results before we explore the data. The two review variables are measured on Likert scales, ranging from 1 to 5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. Let's examine the means of these reviews.
     mean(Reviews_Before)
     mean(Reviews_After)
     
@@ -143,12 +143,12 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
     plot(density(Reviews_Before))
     plot(density(Reviews_After))
 
-# Question 1: Do these these look approximately normally distributed? Answer with "Yes" or "No"
+# Question 1: Do these these look approximately normally distributed? Answer with "Yes" or "No."
 #---- Question 1-------------------------------------#
     Solution1<-""   
 #----------------------------------------------------#
  
-# There are many ways to deal with data that are multimodal in order to get them to be normally distributed. A common strategy for dealing with data that are ordered on a likert-scale is to collapse the response options. This is feasible if we assume that it is not important to differentiate the degree of positive or negative feelings for a restaurant. In this case, we would want to collapse response options 1 and 2 into a single response option to represent negative opinions, and 4 and 5 into a single response option to represent positive opinions. 
+# There are many ways to deal with data that are multimodal in order to get them to be normally distributed. A common strategy for dealing with data that are ordered on a Likert scale is to collapse the response options. This is feasible if we assume that it is not important to differentiate the degree of positive or negative feelings for a restaurant. In this case, we would want to collapse response options 1 and 2 into a single response option to represent negative opinions, and 4 and 5 into a single response option to represent positive opinions. 
     
 # Let's create a new variable with three parameters, where 1= Negative (1 or 2), 2= Ambivalent (3), and 3= Positive (4 or 5). To do this for the Reviews_Before variable, we can use the ifelse function. The first line of the below syntax says, if Reviews_Before is equal to 1 or 2, set Reviews_Before to 1, otherwise just return Reviews_Before. The following lines can be interpreted similarly.
     Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before) 
@@ -160,7 +160,7 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
     Reviews_Before<-
 #----------------------------------------------------#
     
-# Question 3: Now that you have rescaled the Reviews_After variable, run a t.test between the Reviews_After and Reviews_Before variables, and return the p.value (use t.test()$p.value)
+# Question 3: Now that you have rescaled the Reviews_After variable, run a t-test between the Reviews_After and Reviews_Before variables, and return the p-value (use t.test()$p.value)
 #---- Question 3-------------------------------------#
     Solution3<-
 #----------------------------------------------------#
@@ -183,7 +183,7 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```{r}
 test_object("Solution1")
 test_object("Solution3")
-success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaninginful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews")
+success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaningful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews").
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:12e1bc32a2
@@ -194,7 +194,7 @@ In a previous exercise, we examined an experiment conducted by the popular onlin
 
 *** =instructions
 - Create boxplots of the final sales prices for the treatment and control groups.
-- Identify and remove the outliers from the sample
+- Identify and remove the outliers from the sample.
 - Examine the mean difference between the Treatment and Control group.
 
 *** =pre_exercise_code
@@ -224,15 +224,15 @@ colnames(eGulf) <- c("Seller_Feedback_Count","Seller_Feedback_Score")
 ```
 *** =sample_code
 ```{r}
-# Although it's generally recommended to explore your data before running any statistical tests on it, for the sake of learning, let's naively estimate the average treatment effect on final sales prices with a t.test.
+# Although it's generally recommended to explore your data before running any statistical tests on it, for the sake of learning, let's naively estimate the average treatment effect on final sales prices with a t-test.
     t.test(eGulf$Final_Sales_Price[eGulf$Treatment==1],eGulf$Final_Sales_Price[eGulf$Treatment==0])
 
-# The ATE for the above t.test is almost $36, but the results are not statistically significant. This seems suspicious; usually a large means difference found in a sample of this size would be statically significant. Let's examine the distribution of the treatment and control groups with a box plot. Fill in the box plot with the final sales prices for the treatment and control groups. For reference, the syntax for making this boxplot is identical to that of a t.test.
+# The ATE for the above t-test is almost $36, but the results are not statistically significant. This seems suspicious; usually a large means difference found in a sample of this size would be statically significant. Let's examine the distribution of the treatment and control groups with a box plot. Fill in the box plot with the final sales prices for the treatment and control groups. For reference, the syntax for making this boxplot is identical to that of a t-test.
 #---- Question 1-------------------------------------#
     Solution1<- boxplot()
 #----------------------------------------------------#
     
-# Notice that there are a few dots above each box plot. These dots indicate outliers. The cutoff for outliers in the boxplot is any value that is 1.5 times the interquartile range above the upper quartile or below the lower quartile. Is it possible that these outliers are driving our treatment effect? Let's correct for these extreme outliers. Subset the data to not include any WePhone sales that were above $1500. 
+# Notice that there are a few dots above each box plot. These dots indicate outliers. The cutoff for outliers in the boxplot is any value that is 1.5 times the interquartile range above the upper quartile or below the lower quartile. Is it possible that these outliers are driving our treatment effect? Let's correct for these extreme outliers. Subset the data so that it excludes any WePhone sales that were above $1500. 
 #---- Question 2-------------------------------------#
     eGulf<-eGulf[]
 #----------------------------------------------------#
@@ -254,5 +254,5 @@ Solution3<-mean(eGulf$Final_Sales_Price[eGulf$Treatment==1])-mean(eGulf$Final_Sa
 test_object("Solution1")
 test_object("eGulf")
 test_object("Solution3")
-success_msg("Good work! When you removed the outliers from the data, the mean difference was much smaller between the treatment and control group. This is a problem that comes up often in data analysis")
+success_msg("Good work! When you removed the outliers from the data, the mean difference was much smaller between the treatment and control group. This is a problem that comes up often in data analysis.")
 ```
