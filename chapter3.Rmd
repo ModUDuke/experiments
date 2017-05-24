@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 3: Randomized Experiments"
-description : "These videos and exercises will introduce you to randomized experiments"
+description : "These videos and exercises introduce randomized experiments"
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9e9326a35b
 ## Randomized Experiments
@@ -25,8 +25,8 @@ The Universe S10 was bent about 2 degrees more than the WePhone 10, so Laurel co
 
 *** =sct
 ```{r}
-msg1 = "Not in this case, as all her friends did what she asked. Try again"
-msg2 = "There are probably ethical issues involved with knowingly breaking things in a store, but from a scientific perspective, there's a bigger experiment design issue than that. Try again"
+msg1 = "Not in this case, as all her friends did what she asked. Try again."
+msg2 = "There are probably ethical issues involved with knowingly breaking things in a store, but from a scientific perspective, there's a bigger experiment design issue than that. Try again."
 msg3 = "Correct, Laurel's friends were not randomly assigned to each treatment. Instead, she assigned them based on their own preferences, which could lead to confounded results. For example, what if the Universe S10 testers hated Universe phones, so tried harder to damage them?"
 msg4 = "Sample size is not related to experimental design. We'll talk later about how sample size matters in making inference about experimental results."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
@@ -45,17 +45,17 @@ If Laurel was interested in what proportion of the U.S. population could bend a 
 
 *** =sct
 ```{r}
-msg1 = "One neighborhood is probably not as diverse as the whole country, so try another option"
-msg2 = "This answer may be tempting, but Laurel wants a sample that is reflective of the U.S. population"
-msg3 = "This is closer to the best case, but is unlikely to be as diverse as the whole U.S. Try again"
-msg4 = "Correct. A single neighborhood is unlikely to reflect the diversity of the whole country, and involving people across the world brings in a lot of complicating confounders. People in her town is closer to ideal, but really to get a true representation of the US population, you need to survey strangers across the US"
+msg1 = "One neighborhood is probably not as diverse as the whole country, so try another option."
+msg2 = "This answer may be tempting, but Laurel wants a sample that is reflective of the U.S. population."
+msg3 = "This is close to the best case, but is unlikely to be as diverse as the whole U.S. Try again."
+msg4 = "Correct. A single neighborhood is unlikely to reflect the diversity of the whole country, and involving people across the world brings in a lot of complicating confounders. People in Laurel's town is closer to ideal than those answer options, but really to get a true representation of the US population, you need to survey strangers across the US"
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e97cd6d50d
 ## Practice identifying imbalance
-Laurel has saved all of the wePhones that she has broken and she now wants to auction them off on eBay. However, Laurel is uncertain what base-acution price to set for her broken WePhones. 
+Laurel has saved all of the wePhones that she has broken and she now wants to auction them off on eBay. However, Laurel is uncertain what base-auction price to set for her broken WePhones. 
 
 To determine what price to set at the beginning of her WePhone auctions, Laurel conducts a new experiment: Laurel grabs a random sample of broken WePhones from her closet, and randomly assigns them to a treatment group (WePhones to be base priced at $10), and a control group (WePhones to be base priced at $5). However, before auctioning the WePhones, Laurel discovers that her sample is unbalanced. Using the data frame `WePhones`:
 
@@ -101,15 +101,15 @@ To determine what price to set at the beginning of her WePhone auctions, Laurel 
     mean(Treatment$Color=="Black")
     mean(Control$Color=="Black")
   
-# These numbers look different, but are they? Let's use a t.test to find out. The p.value derived from a t.test function computes the probability that the difference in the means between two sets of numbers (vectors) is equal to 0.
+# These numbers look different, but are they? Let's use a t-test to find out. The p-value derived from a t-test function computes the probability that the difference in the means between two sets of numbers (vectors) is equal to 0.
     t.test(Treatment$Color=="Black",Control$Color=="Black")$p.value
 
-# These results show that there is a 0.46 (or 46%) chance that the difference in the means between the number of black phones in the treatment and control groups is equal to 0. In other words, it is fairly likely that the number of black phones in the treatment and control groups are the same. Typically, we only refute the null-hypothesis (in this case, that the phone specifications are imbalanced) when there is less than a 5% chance of it being true. 
+# These results show that there is a 0.46 (or 46%) chance that the difference in the means between the number of black phones in the treatment and control groups is equal to 0. In other words, it is fairly likely that the number of black phones in the treatment and control groups are the same. Typically, we only refute the null hypothesis (in this case, that the phone specifications are imbalanced) when there is less than a 5% chance of it being true). 
 
-# Now it's your turn! Use the t.test function to search through the treatment and control groups of each other specification between the phones until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups i less than 5%).
+# Now it's your turn! Use the t-test function to search through the treatment and control groups of each other specification between the phones until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups i less than 5%).
     t.test(  )$p.value
       
-# Question 1: Write the name of the unbalanced trait between control and treatment groups (precisely)
+# Question 1: Write the name of the unbalanced trait between control and treatment groups (precisely).
 #---- Question 1-------------------------------------#
     Solution1<-" " 
 #----------------------------------------------------#
