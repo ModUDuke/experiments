@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 2: Controlled Experiments"
-description : "These exercises will introduce you to controlled experiments"
+description : "These exercises introduce controlled experiments"
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4745db858e
 ## Controlled Experiments
@@ -17,7 +17,7 @@ Laurel is in the market for a new phone after cracking the screen on her old one
 *** =sct
 ```{r}
 msg1 = "Correct, only two observations are needed to determine whether there is a causal effect between the treatment (phone type) and outcome (durability) if all experimental conditions between the phones are identical (i.e. If all other factors that could influence the outcome are controlled for). That's assuming you think a crush test is a valid one for determining real-world durability, of course!"
-msg2 = "You might think not, but consider this as the most theoretically ideal case, and try again"
+msg2 = "You might think not, but consider this as the most theoretically ideal case, and try again."
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
