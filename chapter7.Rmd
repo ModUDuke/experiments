@@ -164,14 +164,14 @@ success_msg("Good work! It looks like sellers who posted more photos tended to h
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1557ba9536
 ## Multiple Choice: Quantifying noncompliance concerns
-CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random 50% group of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
+CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random group of 50% of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
 
 Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
 
 *** =instructions
-- No, because people in the treatment group likely used a coin flip to make their opt-in decision
-- Yes, because the opt-in rate is low
-- No, because an opt-in rate of 40% is actually quite high
+- No, because people in the treatment group likely used a coin flip to make their opt-in decision.
+- Yes, because the opt-in rate is low.
+- No, because an opt-in rate of 40% is actually quite high.
 - Yes, because the set of people opting in are probably people with worse spending habits.
 *** =sct
 ```{r}
@@ -191,12 +191,12 @@ Let's continue with the CreditCo dataset described in the previous exercise. The
 A simulated version of this dataset, `CreditCo`, is available in the workspace.  With that data:
 
 *** =instructions
-- See if treatment and control groups are of equal size
-- Compute the fraction of people who opted in to the credit offer
-- Compute a naive average treatment effect
-- The treatment variable is a column in `CreditCo` called `offered`
-- The opt-in variable is a column called `opt_in` 
-- The late-payment variable is called `default_post`
+- See if treatment and control groups are of equal size.
+- Compute the fraction of people who opted in to the credit offer.
+- Compute a naive average treatment effect.
+- The treatment variable is a column in `CreditCo` called `offered.`
+- The opt-in variable is a column called `opt_in.` 
+- The late-payment variable is called `default_post.`
 
 *** =hint
 - Remember to select the appropriate sample when computing the opt-in rate of the credit offer.
