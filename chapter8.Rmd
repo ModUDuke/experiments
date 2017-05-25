@@ -1,6 +1,6 @@
 ---
 title       : "Experiments 8: Long-term Average Treatment Effects"
-description : "This video and exercise discusses how to compute and interpret long-term causal effects"
+description : "This video and exercise discuss how to compute and interpret long-term causal effects"
 
 
 
@@ -25,7 +25,7 @@ To make sure this would not antagonize their workforce, Unter conducts an experi
 With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover:
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave the job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
+- Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave their job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
 *** =hint
 - You will need to use the `mean` and `subset` commands.
 - Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
@@ -59,7 +59,7 @@ Solution1<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[U
 *** =sct
 ```{r}
 test_object("Solution1")
-success_msg("Good work! It seems that reducing the size of HR reduced Unter employee's intention to leave their jobs")
+success_msg("Good work! It seems that reducing the size of HR reduced Unter employees' intentions to leave their jobs")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c229f94a13
@@ -104,10 +104,10 @@ p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`
 ```
 *** =sct
 ```{r}
-msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treatment has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked"
-msg2 = "Almost, try again"
-msg3 = "Almost, try again"
-msg4 = "Almost, try again"
+msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treatment has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked."
+msg2 = "Almost, try again."
+msg3 = "Almost, try again."
+msg4 = "Almost, try again."
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -117,8 +117,8 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`)
-- Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`)
+- Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`).
+- Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`).
 *** =hint
 - Remember, you can determine the ATE by subtracting the mean rate of the outcome in the control condition by the mean rate of the outcome in the treatment condition.
 - You will need to use the `mean` and `subset` commands.
@@ -144,12 +144,12 @@ n=382
 
 # Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. But to be sure, let's actually calculate the differences in the average treatment effects among men and women.
 
-# Question 1: Determine the average treatment effect among men
+# Question 1: Determine the average treatment effect among men.
 #---- Question 1-------------------------------------#
     Solution1<- 
 #----------------------------------------------------#
 
-# Question 2: Determine the average treatment effect among women
+# Question 2: Determine the average treatment effect among women.
 #---- Question 2-------------------------------------#
     Solution2<- 
 #----------------------------------------------------#
