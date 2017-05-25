@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 7: Noncompliance"
-description : "These videos and exercises will discuss the specific issue of noncompliance in experiments"
+description : "These videos and exercises discuss the issue of noncompliance in experiments"
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a5a7d9f747
 ## Noncompliance in Experiments
@@ -9,7 +9,7 @@ description : "These videos and exercises will discuss the specific issue of non
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c896674673
 ## Multiple Choice: Ways to deal with noncompliance
-Which one of the following approaches is *not* an appropriate way to deal with treatment noncompliance?
+Which one of the following approaches is *not* a way to deal with treatment noncompliance?
 
 *** =instructions
 - Bounds Analysis
@@ -19,11 +19,11 @@ Which one of the following approaches is *not* an appropriate way to deal with t
 - Assume Random Compliance
 *** =sct
 ```{r}
-msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
-msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
-msg3 = "Correct! Randomized Control Trials are not a valid way to correct for noncompliance, because they themselves are suscpetible to treatment noncompliance."
+msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again."
+msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again."
+msg3 = "Correct! Randomized Control Trials are not a valid way to correct for noncompliance, because they themselves are susceptible to treatment noncompliance."
 msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
-msg5 = "Assuming Random Compliance is not always applicable, but it still is a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
+msg5 = "Assuming Random Compliance is not always applicable, but it is nonetheless commonly used to deal with noncompliance, so try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
@@ -75,10 +75,10 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 
 *** =sct
 ```{r}
-msg1 = "Do the error bars overlap? Look carefully at the graph and try again"
-msg2 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again"
+msg1 = "Do the error bars overlap? Look carefully at the graph and try again."
+msg2 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
 msg3 = "Correct! Since the 95% confidence interval error bars do not appear to overlap, we can conclude that the difference is statistically significant."
-msg4 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again"
+msg4 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -95,7 +95,7 @@ If the experiment's dependent variable is associated with a difference between c
 
 *** =hint
 - For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
-- It may help to create a new dataframe called `TreatmentGroup` that contains only WePhones in the who were offered and opted into treatment, and a new data frame called `ControlGroup` who were offered but did not opt into treatment.
+- It may help to create a new dataframe called `CompliantTreatmentGroup` that contains only sellers who were offered and opted into treatment, and a new data frame called `NoncompliantTreatmentGroup` who were offered but did not opt into treatment.
 - Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
 
 *** =pre_exercise_code
@@ -125,12 +125,12 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
     summary(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==0 & eGulf$Seller_Offered_Treatment==1])
     summary(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1 & eGulf$Seller_Offered_Treatment==1])
 
-# It appears that those who opted into the treatment have slightly higher feedback scores than those who did not, but is the difference statistically significant? Fill in the t.test syntax below to measure the confidence interval of the mean difference between those who were offered treatment and opted into the treatment and those who were offered treatment but did not opt into treatment.
+# It appears that those who opted into the treatment have slightly higher feedback scores than those who did not, but is the difference statistically significant? Fill in the t-test syntax below to measure the confidence interval of the mean difference between those who were offered treatment and opted into the treatment and those who were offered treatment but did not opt into treatment.
 #---- Question 1-------------------------------------#
     t.test()$conf.int
 #----------------------------------------------------#
     
-# The confidence interval indicates a range of values for the average treatment effect that we would expect to find if we gathered a new sample. If the lower and upper bound of the 95% confidence interval are both positive, we can conclude that there is a positive and statistically significant difference between the two groups. Based on the results from your t.test above, does it appear that those who opted into treatment had seller feedback scores that were significantly higher than those who did not opt into treatment? Answer with "Yes" or "No". 
+# The confidence interval indicates a range of values for the average treatment effect that we would expect to find if we gathered a new sample. If the lower and upper bound of the 95% confidence interval are both positive, we can conclude that there is a positive and statistically significant difference between the two groups. Based on the results from your t-test above, does it appear that those who opted into treatment had seller feedback scores that were significantly higher than those who did not opt into treatment? Answer with "Yes" or "No."
 #---- Question 2-------------------------------------#
     Solution2<- ""
 #----------------------------------------------------#
@@ -152,7 +152,7 @@ Solution3<-cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
 ```{r}
 test_object("Solution2")
 test_object("Solution3")
-success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who had not posted more photos. Additionally prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, the experiment's results might be spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance")
+success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who did not post more photos. Additionally, prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, the experiment's results might be spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance.")
 ```
 
 
