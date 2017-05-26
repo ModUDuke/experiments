@@ -32,10 +32,10 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions (the treatment group) had higher sales prices than sellers who only posted 10 pictures of their WePhones (the control group). eGulf wanted to make sure these results were not spurious by conducting their experiment a second time, with a larger sample. The results of this second experiment were visualized as a bar graph, with 95% confidence intervals indicated by error bars. Based on these results, shown in the R workspace, what can we conclude about the average treatment effect (ATE)? 
 
 *** =instructions
-- The ATE is not statistically significant at a 95% confidence interval
-- The ATE is not statistically significant at a 99% confidence interval
-- The ATE is statistically significant at a 95% confidence interval
-- The ATE is statistically significant at a 99% confidence interval
+- The ATE is not statistically significant at a 95% confidence interval.
+- The ATE is not statistically significant at a 99% confidence interval.
+- The ATE is statistically significant at a 95% confidence interval.
+- The ATE is statistically significant at a 99% confidence interval.
 *** =pre_exercise_code
 ```{r}
 # Initialize dataframe
@@ -91,7 +91,7 @@ If the experiment's dependent variable is associated with a difference between c
 
 *** =instructions
 - Test whether sellers who were offered treatment (`Seller_Offered_Treatment`) and opted into the treatment (`Seller_Opted_Into_Treatment`==1) had different prior average feedback scores (`Seller_Feedback_Score`) than sellers who were offered treatment but did not opt into treatment. 
-- Test whether sellers' prior average feedback scores (`Seller_Feedback_Score`) were associated with their recent auction's final sales price (`Final_Sales_Price`)
+- Test whether sellers' prior average feedback scores (`Seller_Feedback_Score`) were associated with their recent auction's final sales price (`Final_Sales_Price`).
 
 *** =hint
 - For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
