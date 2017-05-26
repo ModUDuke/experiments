@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 11: Putting it All Together"
-description : "These Exercises Will Wrap up What we have learned about experiments"
+description : "This video and exercise wrap up what we have learned about experiments."
   
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a39c1976d4
 ## Bentley Video...
@@ -10,20 +10,20 @@ description : "These Exercises Will Wrap up What we have learned about experimen
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:5b941b8026
 ## Putting it All Together
-Often times, our experiments don't go as planned. This question will test your knowledge in resolving a question with realistic problems.
+Often, our experiments don't go as planned. This question will test your knowledge in resolving a question with realistic problems.
 
 KittyCatch is a location-based augmented reality game developed by Meowtec. In this game, players use their cell phones' GPS abilities to locate and capture virtual kittens. Although KittyCatch is free to play, Meowtec generates revenue from KittyCatch through pop-up ads, which appear about once for every half-mile the player walks while using the application, up to 5 times a day. Since Meowtec's revenue is highly dependent on how far people walk while playing KittyCatch, their primary goal for future updates to KittyCatch is to incentivize play.
 
-One strategy to increase users' play time is to increase the distance between KittyCatch's "points of kinterest"; that is, increase the distance that users must travel to capture new kittens. Many players stop their sessions of KittyCatch before they catch a single kitten, and may be turned off by the need to travel farther distances to catch a kitten. However, Meowtec believes that the loss of play time for these players would be offset by the many players who consistently travel as far as needed to catch a kitten. 
+One strategy to increase users' play time is to increase the distance between KittyCatch's "points of kinterest"; that is, increase the distance that users must travel to capture new kittens. Many players stop their sessions of KittyCatch before they catch a single kitten, and may be turned off by the need to travel farther to catch a kitten. However, Meowtec believes that the loss of play time for these players would be offset by the many other players who consistently travel as far as needed to catch a kitten. 
 
-To test this hypothesis, Meowtec constructs an experiment: For a small random sample of players in Springfield, Massachusetts, Meowtec increases the distance that players must walk to reach a point of kinterest (Specifically, from .25 miles to .5 miles). They compare these players to an equal random sample of players in Springfield, Massachusetts that have the default distance between points of kinterest (.25 miles). However, as they explored their data, they found a few problems with their experiment. 
+To test this hypothesis, Meowtec constructs an experiment: For a small random sample of players in Springfield, Massachusetts, Meowtec increases the distance that players must walk to reach a point of kinterest (specifically, from .25 miles to .5 miles). They compare these players to an equal random sample of players in Springfield, Massachusetts that have the default distance between points of kinterest (.25 miles). However, as they explore their data, they find a few problems with their experiment. 
 
 With the dataset, `KittyCatch`, and the annotations in the R workspace, help Meowtec determine a valid and reliable average treatment effect from their experiment. Specifically, balance the data and correct for any coding errors in the original dataset to estimate a reliable average treatment effect. This question is much longer than previous questions, but also more representative of the types of steps that data scientists use when working with experimental data. 
 
 *** =instructions
-- Balance the data
-- Correct for coding errors in the data
-- Determine the average treatment effect
+- Balance the data.
+- Correct for coding errors in the data.
+- Determine the average treatment effect.
 
 *** =pre_exercise_code
 ```{r}
@@ -73,14 +73,14 @@ n=688
 ```
 *** =sample_code
 ```{r}
-# Although it is bad practice, let's begin this exercise by first taking a naive estimate of the average treatment effect before exploring the dataset. Based on the t.test below, it seems that there is substantial negative treatment effect; respondents walked less in the treatment than in the control. But is this finding reliable?
+# Although it is bad practice, let's begin this exercise by first taking a naive estimate of the average treatment effect before exploring the dataset. Based on the t-test below, it seems that there is substantial negative treatment effect; respondents walked less in the treatment than in the control. But is this finding reliable?
     t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
     mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1]) -  mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
 
 # Let's dig into the data. We first run the structure function to get a sense of the dataset. DistanceWalked is our outcome of interest, and Treatment is the key independent variable that we care about. TotalHoursPlayed refers to how many hours the user has put into KittyCatch in total.
     str(KittyCatch)
   
-# Now let's examine our outcome of interest, DistanceWalked, with the summary function. Notice that the maximum value is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t.test results by violating its assumption that the data is normally distributed. See density plot below to observe the long right tail in the distribution of DistanceWalked.
+# Now let's examine our outcome of interest, DistanceWalked, with the summary function. Notice that the maximum value is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t-test results by violating its assumption that the data is normally distributed. See density plot below to observe the long right tail in the distribution of DistanceWalked.
     summary(KittyCatch$DistanceWalked)
     plot(density(KittyCatch$DistanceWalked))
   
@@ -93,15 +93,15 @@ n=688
      KittyCatch$DistanceWalked<- 
 #----------------------------------------------------#
     
-# If you completed question 1 correctly, the distribution of DistanceWalked should look much more normal
+# If you completed question 1 correctly, the distribution of DistanceWalked should now look much more normal.
   plot(density(KittyCatch$DistanceWalked))
      
-# Next, we'll want to make sure that our control groups and treatment groups are balanced. Let's compare the age of the control group and treatment group with boxplots. Notice that the medians and interquartile ranges are very similar between the treatment and control groups, but that the largest values in the treatment group rest much higher than in the control group. It turns out that this did not happen by chance; by default, KittyCatch only requires respondents to enter their ages if they state that they are younger than 18; however, for the experiment, all respondents in the treatment group were required to enter their ages. It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked, which, as demonstrated below, it is. The t.test below also suggests that the treatment and control groups are imbalanced with regard to age.
+# Next, we'll want to make sure that our control groups and treatment groups are balanced. Let's compare the age of the control group and treatment group with boxplots. Notice that the medians and interquartile ranges are very similar between the treatment and control groups, but that the largest values in the treatment group rest much higher than in the control group. It turns out that this did not happen by chance; by default, KittyCatch only requires respondents to enter their ages if they state that they are younger than 18; however, for the experiment, all respondents in the treatment group were required to enter their ages. It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked, which, as demonstrated below, it is. The t-test below also suggests that the treatment and control groups are imbalanced with regard to age.
     boxplot(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1],names=c("Control","Treatment"))
     cor(KittyCatch$Age,KittyCatch$DistanceWalked)
     t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
     
-# There are two options to deal with this problem. One option is to ignore it, as we know that age was top coded in the control group, and may entirely be the cause of the imbalance between the treatment and control group. However, what if people who opted into the treatment group tended to be older on average? This could bias our results. The best way to deal with this problem is with a different modeling technique (e.g. regression models). However, since we want to continue using t.tests for this module, a good way to deal with this problem is to subset the data to only use observations we can be sure are similarly aged. Since we can only be sure of the age of respondents in the treatment group for those younger than 18, let's subset the dataset to only include respondents who are 17 or younger.
+# There are two options to deal with this problem. One option is to ignore it, as we know that age was top coded in the control group, and may be the entire cause of the imbalance between the treatment and control group. However, what if people who opted into the treatment group tended to be older on average? This could bias our results. The best way to deal with this problem is with a different modeling technique (e.g. regression models). However, since we want to continue using t-tests for this module, a good way to deal with this problem is to subset the data to only use observations we can be sure are similarly aged. Since we can only be sure of the age of respondents in the treatment group for those younger than 18, let's subset the dataset to only include respondents who are 17 or younger.
   
 #---- Question 2: Subset KittyCatch to respondents who are 17 or younger ----#
     KittyCatch<-
@@ -131,7 +131,7 @@ n=688
   Solution4<-
 #--------------------------------------------------------------------------------------------------#
 
-#---- Question 5: Determine the significance of the average treatment effect (via a t.test) -------#
+#---- Question 5: Determine the significance of the average treatment effect (via a t-test) -------#
   Solution5<-t.test()$p.value
 #--------------------------------------------------------------------------------------------------#
   
@@ -148,5 +148,5 @@ n=688
 ```{r}
 test_object("Solution4")
 test_object("Solution5")
-success_msg("Good work! Our naive estimate of the average treatment effect was opposite of our estimate after we tried to balance the data. However, we had to ignore a large fraction of our observations to get to that conclusion. This is the difficulty of computing conditional average treatment effects with t.tests. However, this problem can be sidestepped with regression models. Our next module teaches how to use regression models in detail.")
+success_msg("Good work! Our naive estimate of the average treatment effect was opposite our estimate after we tried to balance the data. However, we had to ignore a large fraction of our observations to get to that conclusion. This is the difficulty of computing conditional average treatment effects with t-tests. However, this problem can be sidestepped with regression models. Our next module teaches how to use regression models in detail.")
 ```
