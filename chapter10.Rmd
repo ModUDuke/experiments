@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 10: Bounds Analysis"
-description : "This video and exercise discusses how to form bounds on causal effects in the presence of experimental noncompliance"
+description : "These videos and a related exercise discuss how to form bounds on causal effects in the presence of experimental noncompliance."
 
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:25526ab294
@@ -11,16 +11,16 @@ description : "This video and exercise discusses how to form bounds on causal ef
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:a42175703d
 ## Computing bounds under non-compliance
-Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. In this exercise, you decide to look at 2 alternative methods for dealing with the non-compliance issue.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. 
+Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. In this exercise, you will look at 2 alternative methods for dealing with the non-compliance issue.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. 
 
 First, you compute the bounds of average treatment effect of opting into a credit line increase offer. Second, you calculate what the average treatment effect would be in one of the two other methods (or both, if you want to be complete!).
 
 *** =instructions
-- Compute bounds on the average treatment effect under non-compliant behavior
+- Compute bounds on the average treatment effect under non-compliant behavior.
 - Compare this with the result of another methods of correcting for non-compliance.
 
 *** =hint
-- Remember to be aware of selecting the correct subsample
+- Remember to be aware of selecting the correct subsample.
 
 *** =pre_exercise_code
 ```{r}
@@ -83,7 +83,7 @@ First, you compute the bounds of average treatment effect of opting into a credi
 
 *** =sample_code
 ```{r}
-# The dataset `CreditCo` is available in your workspace
+# The dataset `CreditCo` is available in your workspace.
 
 # Question 1: Determine the fraction of opt-in among those offered the increase.
 #---- Question 1-------------------------------------#
@@ -95,7 +95,7 @@ First, you compute the bounds of average treatment effect of opting into a credi
     Solution2<-
 #----------------------------------------------------#
 
-# Question 3: Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value
+# Question 3: Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value.
 
 #---- Question 3-------------------------------------#
     Solution3<-
