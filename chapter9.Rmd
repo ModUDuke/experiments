@@ -12,10 +12,10 @@ description : "These videos and exercises introduce natural experiments, sometim
 ## As-if Natural experiments
 Which of the following is an accurrate description of an "as if" natural experiment: 
 *** =instructions
-- A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment is completely random.
-- A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment is not literally random, but it is unrelated to variables that effect an outcome
-- A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment is completely random.
-- A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment is not literally random, but it is unrelated to variables that effect an outcome
+- A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment was completely random.
+- A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment was not literally random, but it was unrelated to variables that affect the outcome.
+- A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment was completely random.
+- A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment was not literally random, but it was unrelated to variables that affect the outcome.
 *** =sct
 ```{r}
 msg1 = "This describes a true natural experiment. Try again."
@@ -44,7 +44,7 @@ Although it is wholly misleading, one way that unethical scientists justify thei
 The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The human rights activists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, the control and treatment groups in this "natural experiment" are not very balanced. Let's pretend to be bad analysts and help them justify their assumption that this is an as-if natural experiment! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
 
 *** =instructions
-- Use what you learned about balance and statistical inference, and look through each variable in the dataset `KatyPerry`. Name a variable that is balanced between the datasets
+- Use what you learned about balance and statistical inference, and look through each variable in the dataset `KatyPerry`. Name a variable that is balanced between the datasets.
 
 *** =hint
 - You will need to use the `subset` and `t.test` functions.
@@ -101,7 +101,7 @@ success_msg("Good work! Identifying balance is crucial to justifying natural exp
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
 ## Manipulating Confidence Intervals - Practice with Sea Otter Diets
-When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the clams provided the better show. 
+When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the sea urchins provided the better show. 
 
 To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
 
@@ -115,10 +115,10 @@ SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 ```
 *** =sample_code
 ```{r}
-# Below was the t.test used by the otter enthusiast to get the results listed above.
+# Below was the t-test used by the otter enthusiast to get the results listed above.
     t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
 
-# Question 1: Run another t.test, with confidence level = .99, and assign it to the object 'Test1'
+# Question 1: Run another t-test, with confidence level = .99, and assign it to the object 'Test1'.
 #---- Question 1-------------------------------------#
     Test1<-
 #----------------------------------------------------#
@@ -129,7 +129,7 @@ SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 #----------------------------------------------------#
     LowerBound1<- Test1$conf.int[1]  
 
-# Question 3: Run another t.test, with confidence level = .5, and assign it to the object 'Test2'
+# Question 3: Run another t-test, with confidence level = .5, and assign it to the object 'Test2'.
 #---- Question 3-------------------------------------#
     Test2<- 
 #----------------------------------------------------#
@@ -163,7 +163,7 @@ UpperBound2<-Test2$conf.int[2]
 test_object("UpperBound1")
 test_object("LowerBound2")
 test_object("UpperBound2")
-success_msg("Good work! As you can see, the confidence interval is highly susceptible to what percentage you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
+success_msg("Good work! As you can see, the confidence interval is highly susceptible to the percentage at which you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
 ```
 
 
@@ -176,31 +176,31 @@ success_msg("Good work! As you can see, the confidence interval is highly suscep
 ## Interpreting Results of Natural Experiments
 The effect of the property rights experiment was not statistically significant. If you were going to describe this experiment to a friend, how would you describe the effect of squatters' rights on teenage pregnancy?
 *** =instructions
-- The experiment could not show whether or how property rights affect teenage pregnancy 
-- Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for
-- Property rights did not change the rate of teenage pregnancy at all
+- The experiment could not show whether or how property rights affect teenage pregnancy.
+- Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for.
+- Property rights did not change the rate of teenage pregnancy at all.
 - Property rights caused the rate of teenage pregnancy to go up a little because teens now had a home for their children. 
 *** =sct
 ```{r}
 msg1 = "Correct! It's very tempting to tell a story that sounds hopeful or can clearly assign blame, or to make it fit in line with other researchers' findings, but this particular set of data was not able to show whether property rights effected teenage pregnancy positively or negatively, nor whether property rights even affects teenage pregnancy at all.  The researchers gave it a try, but in this particular case, their data didn't work out as well as they hoped."
-msg2 = "This would be over-interpreting the data. Try again."
+msg2 = "This would be over-interpreting the data and makes a causal claim they cannot support. Try again."
 msg3 = "This answer is close, but not quite correct. Try again."
-msg4 = "This would be over-interpreting the data. Try again."
+msg4 = "This would be over-interpreting the data and makes a causal claim they cannot support. Try again."
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
 ## CreditCo Natural Experiment
-A previous exercise in Chapter 7 using data from CreditCo showed that noncompliance was an issue in the experiment. While investigating potential reasons, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, and, as a result, these people decided not to take up the offer. The other half of customers experienced sunny weather the day the offer arrived, and because of their good mood, they each took up the offer.
+A previous exercise in Chapter 7 using data from CreditCo showed that noncompliance was an issue in the experiment described there (which involved assigning a treatment group to receive an offer in the mail that allowed recipients to increase their credit limit). While investigating potential reasons, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, while the other half of customers experienced sunny weather the day the offer arrived. You realize this variation in the weather may have created a natural experiment where customers in the rainy zones felt gloomy and decided not to take up the offer. while those in the sunny zones felt cheerful and because of their good mood, took up the offer.
 
 First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
 
 *** =instructions
-- Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers
-- Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny
-- Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment
-- Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment
+- Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers.
+- Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny.
+- Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment.
+- Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment.
 
 *** =hint
 - Remember to be aware of selecting the correct subsample
@@ -268,9 +268,9 @@ First, you will test if this is a valid natural experiment. This involves testin
 
 *** =sample_code
 ```{r}
-# The dataset `CreditCo` is available in your workspace
+# The dataset `CreditCo` is available in your workspace.
 
-# Question 1: Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered and experienced rainy weather (variable "rainy") vs. those who were offered but did not experience rain.
+# Question 1: Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered the increase and experienced rainy weather (variable "rainy") vs. those who were offered the increase but did not experience rain.
 #---- Question 1-------------------------------------#
     Solution1<-
 #----------------------------------------------------#
@@ -280,7 +280,7 @@ First, you will test if this is a valid natural experiment. This involves testin
     Solution2<-
 #----------------------------------------------------#
 
-# Question 3: Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy customers versus sunny customers (regardless of if they were offered the balance increase). Use a t-test to report these results.
+# Question 3: Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy-day customers versus sunny-day customers (regardless of whether they were offered the balance increase). Use a t-test to report these results.
 #---- Question 3-------------------------------------#
     Solution3<-
 #----------------------------------------------------#
