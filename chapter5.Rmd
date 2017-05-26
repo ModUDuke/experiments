@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 5: Practice with Published Experiments - The Oregon Health Insurance Experiment"
-description : "These videos and exercises offer practice in skills used in analyzing experimental data"
+description : "These videos and exercises offer practice in skills used in analyzing experimental data."
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:46fda452f0
 ## The Design of the Oregon Health Experiment.
