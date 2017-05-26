@@ -1,6 +1,6 @@
 ---
 title       : "Experiments 8: Long-term Average Treatment Effects"
-description : "This video and exercise discuss how to compute and interpret long-term causal effects"
+description : "These videos and exercises discuss how to compute and interpret long-term causal effects"
 
 
 
