@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 6: Common Issues in Experiments"
-description : "These videos and exercises discuss common issues in carrying out experiments"
+description : "These videos and exercises discuss common issues in carrying out experiments."
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ef7f2e2846
 ## Important Issues in Experiment Design These Modules Ignore
