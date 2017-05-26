@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 3: Randomized Experiments"
-description : "These videos and exercises introduce randomized experiments"
+description : "These videos and exercises introduce randomized experiments."
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9e9326a35b
 ## Randomized Experiments
