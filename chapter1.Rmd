@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 1: Introduction"
-description : "These videos introduce experiments and briefly discuss correlation and causation"
+description : "These videos introduce experiments and briefly discuss correlation and causation."
   
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4070242f87
 ## Introduction to the Chapter on Experiments
