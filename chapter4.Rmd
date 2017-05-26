@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 4: Statistical Inference in Experiments"
-description : "These videos and exercises explain why we need statistical inference in experiments"
+description : "These videos and exercises explain why we need statistical inference in experiments."
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
 ## Multiple Choice: Statistical inference
