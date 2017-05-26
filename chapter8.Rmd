@@ -105,9 +105,9 @@ p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`
 *** =sct
 ```{r}
 msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treatment has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked."
-msg2 = "Almost, try again."
-msg3 = "Almost, try again."
-msg4 = "Almost, try again."
+msg2 = "Whoa! While you're right that there are different effects for men and for women, it looks like you're confused about which effects are negative and which are positive.  Try again."
+msg3 = "While you're right that the pooled effects are negative and there are different effects for men and for women, it looks like you're confused about which gender-specific effects are negative and which are positive. Look again."
+msg4 = "You're right about the gender-specific effects, but not the pooled effects. Check your results again."
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -179,10 +179,10 @@ success_msg("Good work! We can see a clear difference in the treatment effect am
 Based solely on the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
 *** =instructions
 - Yes, the results support common beliefs about why attending preschool leads to lower rates of criminal activity among men and women.
-- No, we need more information about how preschool education effects individuals before we can definitively identify why preschool leads to reduced criminal activity.
+- No, we need more information about how preschool education affects individuals before we can definitively identify why preschool leads to reduced criminal activity.
 *** =sct
 ```{r}
-msg1 = "Try again"
+msg1 = "Although you may have ideas about why preschool attendance reduces criminal activity later in life, the exact causal connection between these two activities is not apparent from the data presented. Try again."
 msg2 = "Correct! Although the data suggest that attending preschool leads to reduced rates of criminal behavior, this table does not identify exactly why that might be the case. We can hypothesize several explanations for this relationship (for example, attending preschool might lead to better educational outcomes, which lead to better job outcomes, which reduces people's incentive to commit crimes), but we cannot know for sure without testing them."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
@@ -196,7 +196,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8eb0408533
 ## Multiple Choice: Proxy Variables
-What is the key reason for why people use proxy variables for their outcomes of interest in experiments?
+What is the key reason people use proxy variables for their outcomes of interest in experiments?
 
 *** =instructions
 - Because proxy variables are less biased than dependent variables.
@@ -205,9 +205,9 @@ What is the key reason for why people use proxy variables for their outcomes of 
 - Because an experiment's true outcome of interest is not always possible to study.
 *** =sct
 ```{r}
-msg1 = "The wording on this answer is tricky, but remember that an experiment's dependent variable is the outcome that is being measured. If a proxy variable is used in place of one's outcome of interest, it is an experiment's dependent variable. In actuality, proxy variables tend to be more susceptible to experimental biases than are direct measurements of one's outcome of interest. Try again"
-msg2 = "If anything, using a proxy variable might hide the fact that an experiment yields heterogeneous effects on one's outcome of interest, which is not good. Try again"
-msg3 = "Experiments do not always yield statistically significant results, and this is a poor reason to use a proxy variable if you can measure your outcome of interest directly. Try again"
+msg1 = "The wording on this answer is tricky, but remember that an experiment's dependent variable is the outcome that is being measured. If a proxy variable is used in place of one's outcome of interest, it is an experiment's dependent variable. In actuality, proxy variables tend to be more susceptible to experimental biases than are direct measurements of one's outcome of interest. Try again."
+msg2 = "If anything, using a proxy variable might hide the fact that an experiment yields heterogeneous effects on one's outcome of interest, which is not good. Try again."
+msg3 = "It is certainly true that experiments do not always yield statistically significant results, but this is a poor reason to use a proxy variable if you can measure your outcome of interest directly. Try again."
 msg4 = "Correct! Experimentalists only use proxy variables in place of an experiment's outcome or treatment of interest when it is not viable to test or measure one's outcome or treatment of interest directly."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
@@ -225,10 +225,10 @@ To reduce the time it takes to determine how a business strategy affects a busin
 - A business's employee turnover rate
 *** =sct
 ```{r}
-msg1 = "This is only tangentially related to a business's survival, since the ideal proportion of online sales to retail sales  differs dramatically by industry. Try again"
-msg2 = "This answer might be tempting, but this is basically just an inverse measurement of the time it takes for businesses to close. It does not reduce the time required to gather data. Try again"
-msg3 = "Correct! While it may take many years to see which strategies lead to business closure, a business's profits are highly correlated with, and causal of a business's eventual disbandment"
-msg4 = "This is only indirectly related to a business's survival, and the effect of employee turnover rates on business survival tends to differ dramatically across industries. Try again"
+msg1 = "This is only tangentially related to a business's survival, since the ideal proportion of online sales to retail sales differs dramatically by industry. Try again."
+msg2 = "This answer might be tempting, but this is basically just an inverse measurement of the time it takes for businesses to close. It does not reduce the time required to gather data. Try again."
+msg3 = "Correct! While it may take many years to see which strategies lead to business closure, a business's profits are highly correlated with (and causal of) a business's eventual disbandment."
+msg4 = "This is only indirectly related to a business's survival, and the effect of employee turnover rates on business survival tends to differ dramatically across industries. Try again."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -237,19 +237,19 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ## Multiple Choice: Questionable Proxy Variables
 Hedonism is the ethical theory that people should maximize their own pleasure in life. One hedonist in particular, Dr. Max Funn, wondered if religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since Mr. Funn was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness.
 
-Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, to his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income).
+Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, increasing his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income).
 
 Which of the following hypothetical scenarios, if true, would make us question whether income is a good proxy variable for happiness in this experiment?
 
 *** =instructions
 - If religious attendance were found to have a positive effect on happiness.
-- If, across the population, income were not associated with church attendance
-- If relgious attendance made people sad, and employers were more likely to give raises to employees who seem sad.
+- If, across the population, income were not associated with church attendance.
+- If religious attendance made people sad, and employers were more likely to give raises to employees who seem sad.
 *** =sct
 ```{r}
-msg1 = "Since this scenario is consistent with our results, if anything, this would suggest that income is a good proxy variable for happiness. Try again"
-msg2 = "Since we are conducting an experiment, we can directly control who goes to church and who does not. Whether there is an association between income and church attendance among the population is irrelevant to our experimental results. Try again"
-msg3 = "Correct! If this were the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest"
+msg1 = "This scenario is consistent with our results, so if anything, this would suggest that income is a good proxy variable for happiness. Try again."
+msg2 = "Since we are conducting an experiment, we can directly control who goes to church and who does not. Whether there is an association between income and church attendance among the population is irrelevant to our experimental results. Try again."
+msg3 = "Correct! If this were the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest not (as here) negatively correlated."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
@@ -269,7 +269,7 @@ Using the dataframe,`econometrics`, determine whether income is a good proxy var
 
 *** =hint
 - For the first question, you will need to `subset` the `econometrics` data frame by treatment.
-- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other, and the `cor` function to determine whether variables are correlated.
+- Use the `t.test` function where (mu=0) to test whether the treatment and control group are different from each other, and the `cor` function to determine whether variables are correlated.
 
 *** =pre_exercise_code
 ```{r}
@@ -303,17 +303,17 @@ set.seed(1)
 # As usual, we recommend exploring the structure of the data before diving into the questions:
     str(econometrics)
 
-# Question 1: Use the 'cor' function to determine and report whether Happiness is correlated with Income
+# Question 1: Use the 'cor' function to determine and report whether Happiness is correlated with Income.
 #---- Question 1-------------------------------------#
     Solution1<- 
 #----------------------------------------------------#
 
-# Question 2: Use a t.test to determine whether Treatment effects Income, and report its p.value
+# Question 2: Use a t-test to determine whether Treatment affects Income, and report its p-value.
 #---- Question 2-------------------------------------#
     Solution2<- 
 #----------------------------------------------------#
 
-# Question 3: Use a t.test to determine whether Treatment effects Happiness, and report its p.value
+# Question 3: Use a t-test to determine whether Treatment effects Happiness, and report its p-value.
 #---- Question 3-------------------------------------#
     Solution3<- 
 #----------------------------------------------------#
@@ -349,7 +349,7 @@ Let's say that you are writing up a report on an experiment, and your mentor ask
 - 0.06
 - 0.1
 *** =hint
-- Here is a useful hint: Answer 3 is the right answer
+- Here is a useful hint: Bear in mind that you want both to follow your mentor's instructions and to avoid overstating your confidence in the certainty of your findings.
 *** =sct
 ```{r}
 msg1 = "This seems like the right answer, but it will mislead your readers to think that your results are more statistically significant than they truly are. Try again."
@@ -367,7 +367,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b301caf4fc
 ## Levels vs. Growth in Long-term Average Treatment Effects
-Suppose that a study similar to the Perry Preschool was interested in how preschool affects future earnings, and in particular how the effects are different by income level. (Recall that Perry Preschool was administered to a heavily low-income population, so this study is slightly different.)
+Suppose that a study similar to the Perry Preschool was interested in how preschool affects future earnings, and in particular how the effects are different by income level of the preschoolers' families. (Recall that Perry Preschool was administered to a heavily low-income population, so this study is slightly different.)
 
 The researchers divide a large population of preschool-aged children into a treatment group and a control group. Importantly, the children in each of the groups come from a variety of income backgrounds.
 
@@ -387,13 +387,13 @@ A government official asks for your opinion about the study, based solely on the
 - The long-term CATE (in level terms) is about the same for both income groups, so the government should offer preschool to all families, regardless of income.
 - There is not enough information to provide an opinion.
 *** =hint
-- There are no hints for this exercise. Do your best!
+- Remember that you are trying to pick the wrong answer -- the thing you would NOT tell the official who asked for your opinion. Do your best!
 *** =sct
 ```{r}
-msg1 = "No, focusing the policy among the group that gains the most is a reasonable policy recommendation."
-msg2 = "Incorrect. Because the gains from preschool are highest among the lower-income group, a government that is interested in redistributing income could focus on providing preschool to low-incom children."
+msg1 = "No, focusing the policy among the group that gains the most in absolute dollar terms is a reasonable policy recommendation."
+msg2 = "Incorrect. Because the gains from preschool are much higher as a percentage among the lower-income group than the high income group, a government that is interested in redistributing income or concerned about ensuring a minimum standard of living could focus on providing preschool to low-income children."
 msg3 = "No, the results for this particular experiment seem to point to large gains for all groups of children, which is an opinion that is supported by this table of data."
-msg4 = "Correct! There **is** enough information to provide an opinion here."
+msg4 = "Correct! There **is** enough information to provide an opinion here, so not offering one is not a reasonable response."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
@@ -412,10 +412,10 @@ What is an accurate summary of the results of this experiment?
 - The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs.
 *** =sct
 ```{r}
-msg1 = "This question is tricky. Read the answers carefully and try again."
+msg1 = "Incorrect.  You are right that the long-term effects are identical, but review the short-term effects of the experiment carefully and try again."
 msg2 = "Correct! The experiment suggests that playing with a dog might make it love you more than playing with a cat in the short term, but in the long term, both pets love you equally for it."
-msg3 = "This question is tricky. Read the answers carefully and try again."
-msg4 = "This question is tricky. Read the answers carefully and try again."
+msg3 = "Incorrect.  You may be mixing up the long- and short-term effects.  Review the effects of the experiment carefully and try again."
+msg4 = "Incorrect.  You may be mixing up the long- and short-term effects.  Review the effects of the experiment carefully and try again."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:2049273381
