@@ -1,6 +1,6 @@
 --- 
 title       : "Experiments 7: Noncompliance"
-description : "These videos and exercises discuss the issue of noncompliance in experiments"
+description : "These videos and exercises discuss the issue of noncompliance in experiments."
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a5a7d9f747
 ## Noncompliance in Experiments
