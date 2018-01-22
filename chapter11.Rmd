@@ -3,9 +3,9 @@ title       : "Experiments 11: Putting it All Together"
 description : "This video and exercise wrap up what we have learned about experiments."
   
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a39c1976d4
-## Bentley Video...
+## Splitting Samples, Dimensionality, and Big Data
 *** =video_link
-//player.vimeo.com/video/216023860
+//player.vimeo.com/video/230616790
  
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:5b941b8026
