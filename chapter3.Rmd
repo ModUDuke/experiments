@@ -53,7 +53,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:87c93c97ab
 ## Practice identifying imbalance I
 Laurel has saved all of the wePhones that she has broken and she now wants to auction them off on eBay. However, Laurel is uncertain what base-auction price to set for her broken WePhones. 
 
@@ -118,7 +118,7 @@ success_msg("Good work! Exploring your new data before diving into deeper questi
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e97cd6d50d
 ## Practice identifying imbalance
 Now that we are familiar with Laurel's WePhones dataset, let's determine whether Laurel's sample is unbalanced. Using the data frame `WePhones`:
 
