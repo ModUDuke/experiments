@@ -32,7 +32,7 @@ key: f571c52e35
 
 ```
 
-Rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume: 
+As mentioned in the video, rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume: 
 ![](https://assets.datacamp.com/production/repositories/1145/datasets/ee6e345819c757a8245df2b11d8ca6f944b1b9b8/ebayandsonomarainfall.png)
 (image courtesy of tylerveigen.com)
 
