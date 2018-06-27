@@ -1,27 +1,55 @@
---- 
-title       : "Experiments 1: Introduction"
-description : "These videos introduce experiments and briefly discuss correlation and causation."
-  
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4070242f87
-## Introduction to the Chapter on Experiments
-*** =video_link
-//player.vimeo.com/video/205124502
- 
+---
+  title: "Experiments 1: Introduction"
+  description: "These videos introduce experiments and briefly discuss correlation and causation."
+  v2: false
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f571c52e35
+---
+## Introduction to the Chapter on Experiments
+
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 4070242f87
+video_link: //player.vimeo.com/video/205124502
+
+
+```
+
+
+---
 ## Multiple Choice: Rainfall in Sonoma County
+
+```yaml
+type: MultipleChoiceExercise
+lang: r
+xp: 50
+skills: 1
+key: f571c52e35
+
+
+
+```
+
 Rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume: 
 ![](https://assets.datacamp.com/production/repositories/1145/datasets/b248394baacdbb1616f4f88161983db2e2aece91/ebay and sonoma rainfall.png)
-Which of the following answers could support a **causal explanation** for this relationship? 
+Which of the following answers could support a **causal explanation** for this relationship?
 
-*** =instructions
+`@instructions`
 - Across the world, people prefer to buy more eBay products on rainy days.
 - Climate change has caused Sonoma County to have increased rainfall and has encouraged the global population to do more shopping from home.
 - eBay sales and rainfall in Sonoma County have both been increasing at similar rates in recent years
 - Rainfall motivates residents of Sonoma County to buy and sell goods on eBay at extraordinarily high rates
 
-*** =sct
-```{r}
+`@hint`
+
+
+
+
+
+`@sct`
+```{undefined}
 msg1 = "This answer is close to correct, but not quite. Remember, eBay sells its goods to people across the world---why would the correlation be so strong with rainfall just in Sonoma County? Try again."
 msg2 = "This is a possible explanation for the correlation between eBay sales and rainfall in Sonoma County, but not one that involves the rainfall causing the sales. Instead it would suggest that this correlation is spurious. Try again."
 msg3 = "This is what it means for there to be a correlation between rainfall in Sonoma County and eBay sales, but it is not a causal explanation for this correlation. Try again."
@@ -31,18 +59,37 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:caffaa946e
+
+
+
+---
 ## Multiple Choice: Experimental design
+
+```yaml
+type: MultipleChoiceExercise
+lang: r
+xp: 50
+skills: 1
+key: caffaa946e
+
+
+
+```
+
 Annual Apple iPhone sales are highly correlated with annual eBay sales. If this relationship is spurious, what might be causing this high correlation?
 
-*** =instructions
+`@instructions`
 - Most transactions on eBay are for Apple iPhones.
 - Time causes technology sales and technology usage to increase
 - Most people only shop on eBay using the iPhone's eBay app.
 - Buying an iPhone makes people more comfortable with using technology for market transactions.
 
-*** =sct
-```{r}
+
+
+
+
+`@sct`
+```{undefined}
 msg1 = "This would suggest a causal relationship rather than a spurious correlation. Try again"
 msg2 = "Correct! This would cause both iPhone and eBay sales to increase, but has nothing to say about a link between the two."
 msg3 = "This would suggest a causal relationship rather than a spurious correlation. Try again"
@@ -51,7 +98,20 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:764f98ae81
+
+
+
+
+---
 ## A Quick Response
-*** =video_link
-//player.vimeo.com/video/205124567
+
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 764f98ae81
+video_link: //player.vimeo.com/video/205124567
+
+
+```
