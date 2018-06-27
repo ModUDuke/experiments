@@ -10,7 +10,11 @@ description : "These videos introduce experiments and briefly discuss correlatio
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f571c52e35
 ## Multiple Choice: Rainfall in Sonoma County
-Rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume. Which of the following answers could support a **causal explanation** for this relationship? 
+Rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume. 
+
+https://assets.datacamp.com/production/repositories/1145/datasets/800adc2ccb6e574917258dbd15c62cc181a769c0/sonoma.png
+
+Which of the following answers could support a **causal explanation** for this relationship? 
 
 *** =instructions
 - Across the world, people prefer to buy more eBay products on rainy days.
