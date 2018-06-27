@@ -33,8 +33,7 @@ key: f571c52e35
 ```
 
 As mentioned in the video, rainfall in Sonoma County, California is highly correlated with eBay's total gross merchandise volume: 
-![](https://assets.datacamp.com/production/repositories/1145/datasets/ee6e345819c757a8245df2b11d8ca6f944b1b9b8/ebayandsonomarainfall.png)
-(image courtesy of tylerveigen.com)
+![](https://assets.datacamp.com/production/repositories/1145/datasets/b97fef1a9b4ea4e8357ac2b39d04bf4c4e77cb34/ebayandsonomarainfall.png)
 
 Which of the following answers could support a **causal explanation** for this relationship?
 
