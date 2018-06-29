@@ -120,11 +120,18 @@ success_msg("Good work! Exploring your new data before diving into deeper questi
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e97cd6d50d
 ## Practice identifying imbalance, Part 2
-Now that we are familiar with Laurel's WePhones dataset, let's determine whether Laurel's sample is unbalanced. Using the data frame `WePhones`:
+Now that we are familiar with Laurel's WePhones dataset, we need to do some balance checks between the treatment and control groups. To do that, let’s try something clever: let’s start by assuming our variables are balanced across the groups, and then look for any variables that are statistically *unbalanced*. 
+
+We’ll use a t-test to measure the difference in means for a variable between the two groups, and we’ll check if any difference is statistically significant through its p-value. The t-test is useful because it compensates for the variation within groups, and the p-value tells us how likely any difference is due to chance. Let’s use the standard assumption that we’ll believe our result if it has less than a 5% of being randomly generated. ln this case, we declare a variable to be imbalanced if it shows a difference between groups and has a p-value smaller than .05. If there is a difference but the p-value is larger than .05, we’ll say that any imbalance is not statistically significant and we’ll ignore it.
+
+We’ll start by checking to see if the groups are balanced on the colors of the phones, then we’ll explore further in the dataframe. 
+
+Using the data frame `WePhones`:
 
 *** =instructions
 - 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same number of `Black` WePhones.
-- 2) Identify which variable in the Use the `Treatment` and `Control` groups is imbalanced.
+- 2) If that is statistically balanced, examine the data frame to find any variable that is imbalanced between the`Treatment` and `Control` groups.
+
 
 *** =pre_exercise_code
 ```{r}
@@ -163,9 +170,9 @@ Now that we are familiar with Laurel's WePhones dataset, let's determine whether
 # 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same number of `Black` WePhones. Replace the `x` and `y` in the following example with, `Treatment$Color=="Black"` and `Control$Color=="Black"` respectively.
     t.test(Treatment$Color=="Black",Control$Color=="Black")
 
-# Note: The p-value derived from a t-test function computes the probability that the difference in the means between two sets of numbers (vectors) is equal to 0. These results show that there is a 0.46 (or 46%) chance that the difference in the means between the number of black phones in the treatment and control groups is equal to 0. In other words, it is fairly likely that the number of black phones in the treatment and control groups are the same. Typically, we only refute the null hypothesis (in this case, that the phone specifications are imbalanced) when there is less than a 5% chance of it being true). 
+#The t-test shows a difference in the number of black phones in each group, but is that difference statistically significant? Take a look at the p-value. Because the p-value is 0.46, which is well above .05, we can say that the difference is not statistically significant.
 
-# 2) Identify which variable in the Use the `Treatment` and `Control` groups is imbalanced. Specifically, use the `t.test` function to search through each variable in the `Treatment and `Control` groups until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups is less than 5%). Write the name of the unbalanced trait between control and treatment groups into Solution1.
+# 2) So are there any variables that show a statistically significant amount of imbalance? Use the `t.test` function to search through each variable in the `Treatment and `Control` groups until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups is less than 5%). Write the name of the unbalanced trait between control and treatment groups into Solution1.
     t.test(  )
     Solution1<-" " 
 
