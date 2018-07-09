@@ -19,6 +19,8 @@ msg3 = "Even with a well-designed experiment, you still will have just a sample 
 msg4 = "Correct! The purpose of statistical inference in randomized experiments is to help researchers make valid propositions about a population given a sample. This is unnecessary if the entire population of interest participates in the experiment."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
+
+
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:76542ba835
 ## p values, Confidence Intervals, and Hypothesis Tests
 *** =video_link
@@ -26,17 +28,22 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:899e543ffd
-## Getting to work with confidence
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Getting to Work With Confidence, Part 1
 Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time. 
 
 *** =instructions
-- Assuming that Donny's sample is representative of the true distribution of commute times, use the vector `Commute` to determine how much time Donny should leave for his commute if he wants to arrive to work on time at least 95% of the time. 
-- Since Donny's sample is subject to error, determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 50% of the time with 95% confidence. 
+- 1) Summarize the data in table form to see what information we have about Donny's commute.
+- 2) Visualize the data with a density plot to get a better sense for the distribution of his commute times.
 
 
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
 set.seed(1)
 #Create rnorm function that allows for min and max
   rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
@@ -48,25 +55,80 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 ```
 *** =sample_code
 ```{r}
-# Let's first summarize Donny's commute time to get a sense of what the data looks like.
-    summary(Commute) 
+# 1) Let's first summarize Donny's commute time to get a sense of what the data looks like. Use the summary function on the dataframe Commute.
+ 
+#---- Question 1-------------------------------------#
+    Solution1<- 
+#----------------------------------------------------#
 
-# It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. The Y axis, marked "density", shows the proportion of times that Donny's travel time is a certain length, give by the x-axis. So about .08 or 8% of the time, Donny's travel takes exactly 9 minutes.  
-    plot(density(Commute))
+# 2) It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. Use the plot(density()) command on the dataframe Commute.
   
-# Now for question 1: We need to determine approximately how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. The question did not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset (i.e. the 95th quantile of commute times). There are several ways to get this answer, but we would recommend using the "quantile" function
+#---- Question 2-------------------------------------#
+    Solution2<- 
+#----------------------------------------------------#
+
+```
+*** =solution
+```{r}
+Solution1<- summary(Commute)
+Solution2<- plot(density(Commute))
+```
+*** =sct
+```{r}
+test_object("Solution1")
+test_object("Solution2")
+test_function("summary", incorrect_msg = "Did you use the `summary` function?")
+test_function("plot(density())", incorrect_msg = "Did you use the `plot(density())` function?")
+test_error()
+success_msg("Good job!  The Y axis, marked 'density', shows the proportion of times that Donny's travel time is a certain length, given by the x-axis. Based on Donny's previous commutes, about .08 or 8% of the time, Donny's travel takes exactly 9 minutes. Let's continue on this problem by trying to find a reasonable confidence interval that Donny should consider to give himself a safe time margin.")
+```
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Getting to Work With Confidence, Part 2
+Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time. 
+
+*** =instructions
+- 1) Assuming that Donny's sample is representative of the true distribution of commute times, use the vector `Commute` to determine how much time Donny should leave for his commute if he wants to arrive to work on time at least 95% of the time. 
+- 2) Since Donny's sample is subject to error, determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 50% of the time with 95% confidence. 
+
+
+*** =pre_exercise_code
+```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
+set.seed(1)
+#Create rnorm function that allows for min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Dataframe
+
+Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
+```
+
+*** = hint
+- The quartile function syntax is quantile(dataframe, .xx), where .xx is the decimal value of the quantile
+- The upper bound of a t-test function can be displayed directly throught the syntax t.test(dataframe)$conf.int[2]
+
+
+*** =sample_code
+```{r}
+
+# 1) We need to determine approximately how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. The question did not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset (i.e. the 95th quantile of commute times). There are several ways to get this answer, but we would recommend using the "quantile" function.
 
 #---- Question 1-------------------------------------#
     Solution1<- #95th quantile
 #----------------------------------------------------#
 
-#Question 2 asks us to determine how long Donny should leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence. In other words, at what time are we 95% confident that Donny could leave and get to work on time half of the time, given our limited sample? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. For reference, this can be computed with a one sample t-test. The upper bound of a t-test object (i.e. class "htest") can be found in $conf.int[2].
+# 2) How long Donny should leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence? In other words, given our limited sample, at what time are we 95% confident that Donny could leave and get to work on time half of the time? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. For reference, this can be computed with a one sample t-test. The upper bound of a t-test object (i.e. class "htest") can be found in $conf.int[2].
 
 #---- Question 2-------------------------------------#
     Solution2<- #Upper bound of the confidence interval on the mean
 #----------------------------------------------------#
-
-
 ```
 *** =solution
 ```{r}
@@ -77,7 +139,10 @@ Solution2<-t.test(Commute)$conf.int[2] #upper bound
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-success_msg("Good job! Based on Donny's previous commutes, he can be fairly confident that he will get to work at least half the time if he allows himself 10.7 minutes to get there. Of course, if the traffic changes according to when Donny leaves, it would bias our results.")
+test_function("quantile", incorrect_msg = "Did you use the `quantile` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_error()
+success_msg("Good job! Based on Donny's previous commutes, he can be fairly confident that he will get to work at least half the time if he allows himself 10.7 minutes to get there. Of course, this is assuming that the future traffic levels stays the same as the past traffic levels. If the traffic changes according to when Donny leaves, it would bias our results.")
 ```
 
 
