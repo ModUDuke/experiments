@@ -189,6 +189,8 @@ for(i in 2:6){
 *** =sct
 ```{r}
 test_object("Solution1")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_error()
 
 success_msg("Good work! The methods for computing balance in this exercise are very common to experimental research. While we walked you through the steps this time, some of the later problems will be less guided. You may want to return to this exercise and look at how we computed imbalance if you ever get stuck in later ones.")
 ```
