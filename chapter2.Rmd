@@ -26,9 +26,9 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 Laurel's video showed that the WePhone 10S was stronger than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and assumes that whichever specification is most different between the phones is the cause of their different durabilities.
 
 *** =instructions
-- Examine the provided phone specifications in dataframe`PhoneSpecifications` and identify the specification that has the `largest ratio` between the WePhone 10S and the Universe S10
-- Write out the `name` of that specification
-- write out the `size` of this ratio (expressed as a quotient)
+- 1) Examine the provided phone specifications in dataframe`PhoneSpecifications` and identify the specification that has the `largest ratio` between the WePhone 10S and the Universe S10
+- 2) Write out the `name` of that specification
+- 3) Write out the `size` of this ratio (expressed as a quotient)
 
 *** =hint
 - For Solution1, make sure to identify the name of the specification precisely. A trick to doing this without writing it out is to use the `names` function, for example `names(PhoneSpecifications)[X]` where X equals the column of the specification
@@ -37,43 +37,52 @@ Laurel's video showed that the WePhone 10S was stronger than the Universe S10. L
 
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
 PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(190,180),Battery_Capacity=c(4000,3500),Diagonal_Length=c(5.5,5.2),Storage=c(64,64),Luminance=c(800,550))
 ```
 *** =sample_code
 ```{r}
-# To begin, let's print the dataframe to the console
-  print(PhoneSpecifications)
-
-# Now let's answer Question 1: Write the column name of the specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character).
+# 1) To begin, let's print the contents of the dataframe to the console by entering the dataframe name, PhoneSpecifications, into the print() function.
 #---- Question 1-------------------------------------#
-    Solution1<-    
+    Solution1<- 
 #----------------------------------------------------#
 
-# Now let's answer Question 2: Return the quotient of the phone specification selected in Solution1, between the WePhone10S and UniverseS10 (do not round!)   
+# 2) Now write the column name of the specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character).
 #---- Question 2-------------------------------------#
-    Solution2<- 
+    Solution2<-    
+#----------------------------------------------------#
+
+# 3) Now return the ratio between the WePhone10S and UniverseS10 of the phone specification you selected for Question 2 (do not round!).  
+#---- Question 3-------------------------------------#
+    Solution3<- 
 #----------------------------------------------------#
 ```
 *** =solution
 ```{r}
+Solution1<-print(PhoneSpecifications)
+
 #loop through specification ratios to find max ratio
 Ratios<-vector(length=5)
 for(i in 2:length(PhoneSpecifications[1,])){
   Ratios[i-1]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]
 }
-Solution1<-names(PhoneSpecifications)[match(max(Ratios),Ratios)+1]
+Solution2<-names(PhoneSpecifications)[match(max(Ratios),Ratios)+1]
 
-Solution2<-max(Ratios)
+Solution3<-max(Ratios)
 
 ```
 *** =sct
 ```{r}
 
 test_object("Solution1")
-
 test_object("Solution2")
-
-
+test_object("Solution3")
+test_function("print", incorrect_msg = "Did you use the `print` function?")
+test_error()
 success_msg("Good work! Keep in mind, even though there is a correlation between the treatment (luminance) and outcome (durability), this correlation is spurious; in reality, a phone's luminance (brightness) does not have a causal effect on its durability.
 ")
 ```
