@@ -25,7 +25,8 @@ To make sure this would not antagonize their workforce, Unter conducts an experi
 With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover:
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave their job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
+- 1) Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave their job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
+
 *** =hint
 - You will need to use the `mean` and `subset` commands.
 - Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
@@ -117,14 +118,21 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
 
 *** =instructions
-- Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`).
-- Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`).
+- 1) Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`).
+- 2) Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`).
+
 *** =hint
 - Remember, you can determine the ATE by subtracting the mean rate of the outcome in the control condition by the mean rate of the outcome in the treatment condition.
 - You will need to use the `mean` and `subset` commands.
 - Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
+
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
 set.seed(1)
 n=382
 #Dataframe
@@ -137,9 +145,10 @@ n=382
     UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
     UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
 ```
+
 *** =sample_code
 ```{r}
-# Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to examine a three way table of this relationship first. The following syntax prints the numbers of men and women who intend to leave work by treatment group and gender.
+# Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to examine a three way table of this relationship first. The following syntax prints the numbers of men and women who intend to leave work by treatment group and gender. Run this code by selecting it with the cursor and clicking the "Run Code" button, or by typing it into the console:
     xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
 
 # Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. But to be sure, let's actually calculate the differences in the average treatment effects among men and women.
@@ -256,16 +265,17 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
 ## Practice identifying spurious results with bad proxy variables
-Dr. Max Funn from the previous question then runs a second experiment: this time measuring the effect of *work hours* on happiness, once again using income as a proxy variable. The respondents in his treatment group agree to work an additional 10 hours at their primary jobs per week for one year.
+Dr. Max Funn from the previous question then runs a second experiment: this time measuring the effect of *work hours* on happiness, once again using income as a proxy variable. The respondents in his treatment group agree to work an additional 10 hours at their primary jobs per week for one year. This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. 
 
-This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. A more experienced economist replicates the study, but in addition, also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate.
+In this question, we shall see how a more experienced economist replicates the study. In addition to duplicating the newest experiment by Dr. Funn, this economist also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate.
 
 Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following:
 
 *** =instructions
-- Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
-- Demonstrate that there is a statistically significant effect of the treatment, `Treatment`, with the proxy variable, `Income`.
-- Determine whether there is a statistically significant effect of the treatment, `Treatment`, with the true outcome of interest, `Happiness`.
+- 1) Examine the structure of the economist's data.
+- 2) Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
+- 3) Demonstrate that there is a statistically significant effect of the treatment, `Treatment`, with the proxy variable, `Income`.
+- 4) Determine whether there is a statistically significant effect of the treatment, `Treatment`, with the true outcome of interest, `Happiness`.
 
 *** =hint
 - For the first question, you will need to `subset` the `econometrics` data frame by treatment.
@@ -273,6 +283,11 @@ Using the dataframe,`econometrics`, determine whether income is a good proxy var
 
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
 set.seed(1)
 #Create rnorm function that allows for min and max
   rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
@@ -300,20 +315,22 @@ set.seed(1)
 ```
 *** =sample_code
 ```{r}
-# As usual, we recommend exploring the structure of the data before diving into the questions:
-    str(econometrics)
-
-# Question 1: Use the 'cor' function to determine and report whether Happiness is correlated with Income.
+# 1) As usual, we recommend exploring the structure of the data before diving into the questions. Use the str() command on the dataframe `econometrics`:
 #---- Question 1-------------------------------------#
     Solution1<- 
 #----------------------------------------------------#
 
-# Question 2: Use a t-test to determine whether Treatment affects Income, and report its p-value.
+# 2) Use the 'cor' function to determine and report whether Happiness is correlated with Income.
 #---- Question 2-------------------------------------#
     Solution2<- 
 #----------------------------------------------------#
 
-# Question 3: Use a t-test to determine whether Treatment effects Happiness, and report its p-value.
+# 3) Use a t-test to determine whether Treatment affects Income, and report its p-value.
+#---- Question 2-------------------------------------#
+    Solution3<- 
+#----------------------------------------------------#
+
+# 4) Question 3: Use a t-test to determine whether Treatment effects Happiness, and report its p-value.
 #---- Question 3-------------------------------------#
     Solution3<- 
 #----------------------------------------------------#
@@ -321,15 +338,17 @@ set.seed(1)
 ```
 *** =solution
 ```{r}
-Solution1<-cor(econometrics$Happiness,econometrics$Income)
-Solution2<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
-Solution3<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
+Solution1<-str(econometrics)
+Solution2<-cor(econometrics$Happiness,econometrics$Income)
+Solution3<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
+Solution4<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
 ```
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
+test_object("Solution4")
 success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
 ```
 
