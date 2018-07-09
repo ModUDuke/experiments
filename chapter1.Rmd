@@ -77,7 +77,7 @@ key: caffaa946e
 
 ```
 
-Annual Apple iPhone sales are highly correlated with annual eBay sales. If this relationship is spurious, what might be causing this high correlation?
+Annual Apple iPhone sales are highly correlated with annual eBay sales. If this relationship is **spurious** (misleading and false), what might be causing this high correlation?
 
 `@instructions`
 - Most transactions on eBay are for Apple iPhones.
