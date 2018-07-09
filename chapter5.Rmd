@@ -180,7 +180,7 @@ success_msg("Good work!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:92568b1f93
 ## Practice identifying heteroskedastic outcomes
-An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains plots for income's relationship with three different predictors: Education, Age, and City Population. You can see each plot by clicking the "Next Plot" and "Previous Plot" buttons below the plot. Within the plots, each dot represents an observation from our sample. Using these plots, determine the independant variable with which income is most heteroskedastic.
+An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains plots for income's relationship with three different predictors: Education, Age, and City Population. You can see each plot by clicking the "Next Plot" and "Previous Plot" buttons below the plot. Within the plots, each dot represents an observation from our sample. Using these plots, determine the independent variable with which income is most heteroskedastic.
 
 *** =instructions
 - Education
@@ -256,22 +256,27 @@ msg2 = "Correct! When an average treatment effect is small relative to the stand
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:82150d848b
-## Practice working with the Oregon Health Experiment
-Let's say you're wondering how much mens' and womens' health differed in the experiment, and what the data says about Medicaid's effects on those differences, so you decide to look at some of the basic health numbers in the data. A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, make some quick calculations to learn about any differences that might be linked to gender by doing the following:
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice working with the Oregon Health Experiment, Part 1
+Let's say you're wondering how much mens' and womens' health differed in the experiment, and what the data says about Medicaid's effects on those differences, so you decide to look at some of the basic health numbers in the data. A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, wee will make some quick calculations to learn about any differences. The first step is to separate out the treatment and control groups into new dataframes.
 
 *** =instructions
-- Test if there is a statistically significant difference in gender between the treament and control groups (i.e. whether gender is balanced between the treatment and control group). 
-- Determine if the treatment and control groups have significantly different average values for the following health outcomes: systolic blood pressure (variable `bp_sar_inp`), and diastolic blood pressure (variable `bp_dar_inp`).
+- 1) Examine the structure of the `OHIE` dataframe.
+- 2) Use the `subset` function to create a new dataframe called `TreatmentGroup` that contains only those selected to be able to receive Medicaid in the treatment group. 
+- 3) Use the `subset` function to create a new dataframe called `ControlGroup` that contains only those not selected for Medicaid in the control group.
 
 *** =hint
-- For the first question, you will need to `subset` the `OHIE` data frame by treatment. 
-- It may help to create a new dataframe called `TreatmentGroup` that contains only those selected to be able to receive Medicaid in the treatment group, and a new data frame called `ControlGroup` that contains only those not selected for Medicaid in the control group.
-- For each of the following questions, use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
-
+- The treatment group is identified when `treatment` equals 1.
+- You can use the `subset` function on the `OHIE` dataframe based on the treatment value. 
 
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
@@ -280,70 +285,240 @@ OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp"
 
 *** =sample_code
 ```{r}
-# Since the OHIE dataset is fairly big, let's start to get a sense of it by looking at its structure
-    str(OHIE)
-
-# Since we are going to run several t-tests, let's make the syntax below simpler by separating the OHIE dataset into treatment and control groups.
-    TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-    ControlGroup <- OHIE[OHIE$treatment==0, ]
-
-# Since we are still early in our unit, we will help you answer the first question. We need to determine whether gender is balanced between the treatment and control groups. This requires a two sample t-test.
+# 1) Since the OHIE dataset is fairly big, let's start to get a sense of it by looking at its structure. Use the str() command on the dataframe OHIE:
 #---- Question 1a------------------------------------#
-    Solution1a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
+    Solution1a<-""  
 #----------------------------------------------------#
 
-# To determine whether the t-test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically significant (i.e. we cannot be confident that there is a difference between the treatment and control group). Based on the confidence interval in Solution 1a, do the results appear statistically significant? Answer with "Yes" or "No." 
+# 2) Since we are going to run several t-tests, let's make the syntax below simpler by separating the OHIE dataset into treatment and control groups. Based on whether the treatment variable is a 1, subset the OHIE dataframe into a dataframes called TreatmentGroup.
 #---- Question 1b------------------------------------#
     Solution1b<-""  
-#----------------------------------------------------#
-
-# A more direct way to test for statistical significance is to just look at the p-value of the t-test. To directly compute the p-value for solution 1a, we could have just typed: "Solution1a <- t.test(TreatmentGroup$gender_inp, ControlGroup$gender_inp, mu=0)$p.value". For Question 2, use a t-test to determine whether the treatment had a statistically significant effect on systolic blood pressure, and return the p-value.
-#---- Question 2a------------------------------------#
-    Solution2a<-  
-#----------------------------------------------------#
-
-# A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution 2a, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure? Answer with "Yes" or "No."
-#---- Question 2b------------------------------------#
-    Solution2b<-""  
-#----------------------------------------------------#
-
-# Question 3a: Return the p-value of a t-test that measures the average treatment effect on diastolic blood pressure.
-#---- Question 3a------------------------------------#
-    Solution3a<-   
-#----------------------------------------------------#
-
-# Question 3b: Based on your t-test, does the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No."
-#---- Question 3b------------------------------------#
-    Solution3b<-""   
-#----------------------------------------------------#
-
-
+#----------------------------------------------------#   
+    
+# 3) Now, based on whether the treatment variable is a 0, subset the OHIE dataframe into a dataframes called ControlGroup.
+#---- Question 1c------------------------------------#
+    Solution1c<-""  
+#----------------------------------------------------#    
 ```
 
 *** =solution
 ```{r}
-TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-ControlGroup <- OHIE[OHIE$treatment==0, ]
-Solution1a<- t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
-Solution1b<-"Yes"
-Solution2a<- t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp,mu=0)$p.value
-Solution2b<-"No"
-Solution3a<- t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp,mu=0)$p.value
-Solution3b<-"Yes"
-
+solution1a<- str(OHIE)
+solution1b<- TreatmentGroup <- OHIE[OHIE$treatment==1, ]
+solution1c<- ControlGroup <- OHIE[OHIE$treatment==0, ]
 ```
 
 *** =sct
 ```{r}
 test_object("Solution1a")
 test_object("Solution1b")
-test_object("Solution2a")
-test_object("Solution2b")
-test_object("Solution3a")
-test_object("Solution3b")
-
+test_object("Solution1c")
+test_function("str", incorrect_msg = "Did you use the `str` function?")
+test_error()
 success_msg("Good work!")
 ```
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice working with the Oregon Health Experiment, Part 2
+Now that we've created separate dataframes for the treatment and control groups, let's do some balance checks between the groups to see if they are sufficiently balanced to allow for our comparisons.  Run a t-test between the two groups, examine the results, and decide whether the t-test is statistically significant by analyzing its confidence interval. In real analysis, you'll check for statistically significant balance on more than just one variable, but we'll just stick with gender for this set of questions.
+
+A side note: the `mu` value in a t-test is the value of our null hypothesis (i.e. that treatment does nothing), so let's keep that set at 0.
+
+*** =instructions
+- 1) Run a t-test to see if there is a statistically significant difference in gender between the treatment and control groups (i.e. whether gender is balanced between the treatment and control group). 
+- 2) After looking at the confidence interval of the t-test, can we say the t-test results are statistically significant? Answer "yes" or "no".
+
+*** =hint
+- For each of the following questions, use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+- Your answer for the first question should look something like t.test(TreatmentGroup$variable,ControlGroup$variable,mu=0). 
+- If the 95% confidence interval includes 0, we cannot be confident that there is a difference between the treatment and control group, so that t-test result is not statistically significant.
+
+*** =pre_exercise_code
+```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
+set.seed(1)
+load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
+OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
+TreatmentGroup <- OHIE[OHIE$treatment==1, ]
+ControlGroup <- OHIE[OHIE$treatment==0, ]
+```
+
+*** =sample_code
+```{r}
+# 1) Since we are still early in the course, we will help you answer the first question. We need to determine whether gender is balanced between the treatment and control groups. This requires a two sample t-test. In R, the format of the t.test function is t.test(Dataframe1$variable, Dataframe2$variable, mu=0). Try this with the treatment and control groups, and our gender variable gender_inp.
+#---- Question 2a------------------------------------#
+    Solution2a<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
+#----------------------------------------------------#
+
+# 2) To determine whether the t-test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically significant (i.e. we cannot be confident that there is a difference between the treatment and control group). Based on the confidence interval in Solution 1a, do the results appear statistically significant? Answer with "Yes" or "No." 
+#---- Question 2b------------------------------------#
+    Solution2b<-""  
+#----------------------------------------------------#
+```
+
+*** =solution
+```{r}
+Solution2a<- t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp,mu=0)
+Solution2b<-"Yes"
+```
+
+*** =sct
+```{r}
+test_object("Solution2a")
+test_object("Solution2b")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_error()
+success_msg("Good work! It looks like our treatment and control groups are balanced on gender. Let's   We'll find out next")
+```
+
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice working with the Oregon Health Experiment, Part 3
+Now that we've checked for balance between our treatment and control, let's check to see the effect of Medicaid on some of our medical outcomes of interest, like the patients' blood pressure. A person's blood pressure is measured by two numbers, e.g. 114/71, where the first number is the "systolic" blood pressure and the second is the "diastolic" blood pressure. These are counted in the `OHIE` dataframe through two variables: systolic pressure in `bp_sar_inp` and diastolic pressure in `bp_var_inp`. 
+
+Now let's check the treatment effect on the systolic blood pressure values across our treatment and control groups. To check for statistical significance, let's look at p values of the t-test, which is a more direct way than confidence values. Adding $p.value to the end of the t.test function will return that for us. For example, for solution 2a in the previous question, we could have just typed: "Solution2a <- t.test(TreatmentGroup$gender_inp, ControlGroup$gender_inp, mu=0)$p.value".
+
+Let's try this with our systolic blood pressure variables, bp_sar_inp. 
+
+*** =instructions
+- 1) Calculate the average treatment effect on systolic blood pressure with the `mean` command.
+- 2) Determine if the treatment and control groups have significantly different average values for systolic blood pressure (variable `bp_sar_inp`).
+- 3) After looking at the p value of the t-test, can we say the t-test results are statistically significant? Answer "yes" or "no".
+
+*** =hint
+- For each of the following questions, use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+- Your answers for the t-tests should look something like t.test(TreatmentGroup$variable,ControlGroup$variable,mu=0)$p.value. 
+- A p.value of less than .05 is generally considered statistically significant.
+
+*** =pre_exercise_code
+```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
+set.seed(1)
+load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
+OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
+TreatmentGroup <- OHIE[OHIE$treatment==1, ]
+ControlGroup <- OHIE[OHIE$treatment==0, ]
+```
+
+*** =sample_code
+```{r}
+
+#  1) Let's calculate the average treatment effect of Medicaid on the systolic blood pressure of units in the experiment.
+#---- Question 3a------------------------------------#
+    Solution3a<-  
+#----------------------------------------------------#
+
+#  2) For Question 3, use a t-test to determine whether the treatment had a statistically significant effect on systolic blood pressure, and return the p-value.
+#---- Question 3b------------------------------------#
+    Solution3b<-  
+#----------------------------------------------------#
+
+# 3) A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution 3a, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure? Answer with "Yes" or "No."
+#---- Question 3c------------------------------------#
+    Solution3c<-""  
+#----------------------------------------------------#
+
+```
+
+*** =solution
+```{r}
+Solution3a<- mean(TreatmentGroup$bp_sar_inp)-mean(ControlGroup$bp_sar_inp)
+Solution3b<- t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp,mu=0)$p.value
+Solution3c<-"No"
+```
+
+*** =sct
+```{r}
+test_object("Solution3a")
+test_object("Solution3b")
+test_object("Solution3c")
+test_function("mean", incorrect_msg = "Did you use the `mean` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_error()
+success_msg("Good work, although that high p-value means that the estimate is not statistically significant. That's not what we were hoping for, but let's see if that's also true of the treatment effect on diastolic blood pressure.")
+```
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice working with the Oregon Health Experiment, Part 4
+Now let's check the treatment effect on diastolic blood pressure values across our treatment and control groups. Once again, we'll use the values of the t-test to measure statistical significance. As a reminder, adding $p.value to the end of the t.test function will return that for us. For example, for solution 3b in the previous question was "t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp,mu=0)$p.value"
+
+Let's try this with our second blood pressure variable, bp_var_inp. 
+
+*** =instructions
+- 1) Calculate the average treatment effect on diastolic blood pressure.
+- 2) Determine if the treatment and control groups have significantly different average values for diastolic blood pressure (variable `bp_dar_inp`).
+- 3) After looking at the p value of the t-test, can we say the t-test results are statistically significant? Answer "yes" or "no".
+
+*** =hint
+- For each of the following questions, use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+- Your answers for the t-tests should look something like t.test(TreatmentGroup$variable,ControlGroup$variable,mu=0)$p.value. 
+- A p.value of less than .05 is generally considered statistically significant.
+
+*** =pre_exercise_code
+```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
+set.seed(1)
+load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
+OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
+TreatmentGroup <- OHIE[OHIE$treatment==1, ]
+ControlGroup <- OHIE[OHIE$treatment==0, ]
+```
+
+*** =sample_code
+```{r}
+#  1) Let's calculate the average treatment effect of Medicaid on the diastolic blood pressure of units in the experiment.
+#---- Question 4a------------------------------------#
+    Solution4a<-  
+#----------------------------------------------------#
+
+# 2) Return the p-value of a t-test that measures the average treatment effect on diastolic blood pressure.
+#---- Question 4b------------------------------------#
+    Solution4b<-   
+#----------------------------------------------------#
+
+# 3) Based on your t-test, did the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No."
+#---- Question 4c------------------------------------#
+    Solution4c<-""   
+#----------------------------------------------------#
+
+```
+
+*** =solution
+```{r}
+Solution3d<- mean(TreatmentGroup$bp_dar_inp)-mean(ControlGroup$bp_dar_inp)
+Solution3e<- t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp,mu=0)$p.value
+Solution3f<-"Yes"
+```
+
+*** =sct
+```{r}
+test_object("Solution4a")
+test_object("Solution4b")
+test_object("Solution4c")
+test_function("mean", incorrect_msg = "Did you use the `mean` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_error()
+success_msg("Good work. Our estimate of for the treatment effect on diastolic blood pressure had a p value under .05, so we will say it's statistically significant. Because some of our estimates were not statistically significant, and some are, we probably will need to work a little harder to argue for the validity of our results and interpretations on the effect of Medicaid on health results.")
+```
+
+
+
+
 
 
 
