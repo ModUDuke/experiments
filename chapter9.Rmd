@@ -8,14 +8,18 @@ description : "These videos and exercises introduce natural experiments, sometim
 *** =video_link
 //player.vimeo.com/video/199856738
 
+
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b3e25ee162
 ## As-if Natural experiments
-Which of the following is an accurrate description of an "as if" natural experiment: 
+
+Which of the following is an accurate description of an "as-if" natural experiment?
+
 *** =instructions
 - A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment was completely random.
 - A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment was not literally random, but it was unrelated to variables that affect the outcome.
 - A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment was completely random.
 - A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment was not literally random, but it was unrelated to variables that affect the outcome.
+
 *** =sct
 ```{r}
 msg1 = "This describes a true natural experiment. Try again."
@@ -38,18 +42,27 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/199856949
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
-## Practice Justifying As-If Randomization with Katy Perry
-Although it is wholly misleading, one way that unethical scientists justify their assumptions that their studies are "as-if" natural experiments is by just reporting information about variables that are balanced in their datasets (i.e. with basically random assignment), ignoring that majority of the variables in their datasets that are imbalanced. Let's give it a try.
+## A Bad Argument for As-If Randomization with Katie Perrie
+Although it is wholly misleading, one way that unethical scientists justify their arguments that their studies are "as-if" natural experiments is to ignore when the majority of the variables in their datasets that are imbalanced, and instead only report information on the few variables that are balanced in their datasets (i.e. with basically random assignment). That's bad science, but let's give it a try, just one time!
 
-The dataset `KatyPerry` contains covariate data from a natural experiment about how repeated exposure to music performed by Katy Perry (measured as owning a Katy Perry album) is associated with psychopathy. The human rights activists who gathered this data want to publish an article about how Katy Perry's music should be blacklisted, since it appears to be harmful to the public's mental health. However, the control and treatment groups in this "natural experiment" are not very balanced. Let's pretend to be bad analysts and help them justify their assumption that this is an as-if natural experiment! Search through the variables in `KatyPerry` and name one trait where the treatment and control groups are balanced.
+The dataset `KatiePerrie` contains covariate data from a natural experiment about how repeated exposure to music performed by pop star Katie Perrie (measured as owning a Katie Perrie album) is associated with the debilitating psychological disorder called "choreomania." The human rights activists who gathered this data want to publish an article claiming that Katie Perrie's music should be banned since it appears to be harmful to the public's mental health. However, the control and treatment groups in this "natural experiment" are not balanced in most of the key variables, so it's not a valid experiment. 
+
+But let's ignore that and pretend to be bad analysts to help the human rights activists find one variable, any variable, that shows balance so they can incorrectly justify their assumption that this is an as-if natural experiment! Search through the variables in `KatiePerrie` and name one trait where the treatment and control groups are balanced.
 
 *** =instructions
-- Use what you learned about balance and statistical inference, and look through each variable in the dataset `KatyPerry`. Name a variable that is balanced between the datasets.
+- 1) Use what you have learned about balance and statistical inference and look through each variable in the dataset `KatiePerrie`. 
+- 2) Name a single variable that is balanced between the datasets. 
 
 *** =hint
 - You will need to use the `subset` and `t.test` functions.
+
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
 set.seed(1)
 rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
   qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
@@ -60,11 +73,11 @@ mround <- function(x,base){
 } 
 #Create variables
 n=6666
-KatyPerry<-data.frame(Treatment=rbinom(n,1,.3))
-KatyPerry$YearsEducation<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=14,sd=2,min=0,max=20),rtnorm(n,mean=12,sd=3,min=0,max=18)))
-KatyPerry$Income<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=45,sd=7,min=0,max=100),rtnorm(n,mean=20,sd=5,min=0,max=100)))*1000
-KatyPerry$HearingProblems<-rbinom(n,1,.1)
-KatyPerry$Age<-round(ifelse(KatyPerry$Treatment==0,rtnorm(n,mean=40,sd=10,min=10,max=80),rtnorm(n,mean=25,sd=5,min=10,max=80)))
+KatiePerrie<-data.frame(Treatment=rbinom(n,1,.3))
+KatiePerrie$YearsEducation<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=14,sd=2,min=0,max=20),rtnorm(n,mean=12,sd=3,min=0,max=18)))
+KatiePerrie$Income<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=45,sd=7,min=0,max=100),rtnorm(n,mean=20,sd=5,min=0,max=100)))*1000
+KatiePerrie$HearingProblems<-rbinom(n,1,.1)
+KatiePerrie$Age<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=40,sd=10,min=10,max=80),rtnorm(n,mean=25,sd=5,min=10,max=80)))
 ```
 *** =sample_code
 ```{r}
@@ -72,13 +85,13 @@ Solution<-"" # Name of variable that is balanced between the treatment and contr
 ```
 *** =solution
 ```{r}
-treatment<-KatyPerry[KatyPerry$Treatment==1,]
-control<-KatyPerry[KatyPerry$Treatment==0,]
+treatment<-KatiePerrie[KatiePerrie$Treatment==1,]
+control<-KatiePerrie[KatiePerrie$Treatment==0,]
 p<-vector()
 for(i in 2:length(control)){
   p[i-1]<-t.test(control[,i],treatment[,i])$p.value
 }
-Solution<-names(KatyPerry)[which(p<=.05)+1]
+Solution<-names(KatiePerrie)[which(p<=.05)+1]
 ```
 
 *** =sct
@@ -109,37 +122,44 @@ Although the results seemed to indicate a positive treatment effect, the results
 
 *** =instructions
 - Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`Treatment`) on the size of the sea otters' audiences (`Audience`).
+
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
 SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 ```
+
 *** =sample_code
 ```{r}
-# Below was the t-test used by the otter enthusiast to get the results listed above.
+# Below was the t-test used by the otter enthusiast to get the results listed above. Select the text and click on the "Run Code" button to see the results.
     t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
 
-# Question 1: Run another t-test, with confidence level = .99, and assign it to the object 'Test1'.
+# 1) Now run another t-test, with confidence level = .99, and assign it to the object 'Test1'.
 #---- Question 1-------------------------------------#
     Test1<-
 #----------------------------------------------------#
 
-# Question 2: Use the Test1 object to assign the upper bound of the confidence interval. For reference, we assigned the lower bound from Test1 for you below.
+# 2) Use the Test1 object to assign the upper bound of the confidence interval. For reference, we assigned the lower bound from Test1 for you below.
 #---- Question 2-------------------------------------#
     UpperBound1<- 
 #----------------------------------------------------#
     LowerBound1<- Test1$conf.int[1]  
 
-# Question 3: Run another t-test, with confidence level = .5, and assign it to the object 'Test2'.
+# 3) Run another t-test, with confidence level = .5, and assign it to the object 'Test2'.
 #---- Question 3-------------------------------------#
     Test2<- 
 #----------------------------------------------------#
 
-#Use the Test2 object to assign the lower bound of the confidence interval.
+# 4) Use the Test2 object to assign the lower bound of the confidence interval.
 #---- Question 4-------------------------------------#
     LowerBound2<- 
 #----------------------------------------------------#
 
-#Use the Test2 object to assign the upper bound of the confidence interval.
+# 5) Use the Test2 object to assign the upper bound of the confidence interval.
 #---- Question 5-------------------------------------#
     UpperBound2<- 
 #----------------------------------------------------#
@@ -197,16 +217,21 @@ A previous exercise in Chapter 7 using data from CreditCo showed that noncomplia
 First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
 
 *** =instructions
-- Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers.
-- Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny.
-- Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment.
-- Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment.
+- 1) Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers.
+- 2) Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny.
+- 3) Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment.
+- 4) Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment.
 
 *** =hint
 - Remember to be aware of selecting the correct subsample
 
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
   set.seed(1)
   n             <- 9e5
   frac_treated  <- .5
@@ -270,22 +295,22 @@ First, you will test if this is a valid natural experiment. This involves testin
 ```{r}
 # The dataset `CreditCo` is available in your workspace.
 
-# Question 1: Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered the increase and experienced rainy weather (variable "rainy") vs. those who were offered the increase but did not experience rain.
+# 1) Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered the increase and experienced rainy weather (variable "rainy") vs. those who were offered the increase but did not experience rain.
 #---- Question 1-------------------------------------#
     Solution1<-
 #----------------------------------------------------#
 
-# Question 2: Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the sytnax t.test(x,y)$p.value to report only the p-value.
+# 2) Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the syntax `t.test(x,y)$p.value` to report only the p-value.
 #---- Question 2-------------------------------------#
     Solution2<-
 #----------------------------------------------------#
 
-# Question 3: Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy-day customers versus sunny-day customers (regardless of whether they were offered the balance increase). Use a t-test to report these results.
+# 3) Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy-day customers versus sunny-day customers (regardless of whether they were offered the balance increase). Use a t-test to report these results.
 #---- Question 3-------------------------------------#
     Solution3<-
 #----------------------------------------------------#
   
-# Question 4: Do the same as above, but for post-treatment default rates. Again, use a t-test.
+# 4) Do the same as above, but for post-treatment default rates. Again, use a t-test.
 #---- Question 4-------------------------------------#
     Solution4<-
 #----------------------------------------------------#
