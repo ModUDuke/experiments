@@ -181,6 +181,7 @@ UpperBound2<-Test2$conf.int[2]
 *** =sct
 ```{r}
 test_object("UpperBound1")
+test_object("LowerBound1")
 test_object("LowerBound2")
 test_object("UpperBound2")
 success_msg("Good work! As you can see, the confidence interval is highly susceptible to the percentage at which you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
