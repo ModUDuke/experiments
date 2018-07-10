@@ -258,7 +258,23 @@ n=688
 ```
 *** =sct
 ```{r}
+test_object("Solution1")
+test_object("Solution2")
+test_object("Solution3")
 test_object("Solution4")
 test_object("Solution5")
+test_object("Solution6")
+test_object("Solution8")
+test_object("Solution9")
+test_object("Solution10")
+test_object("Solution11")
+test_object("Solution13")
+test_object("Solution14")
+test_object("Solution15")
+test_object("Solution16")
+test_object("Solution17")
+test_object("Solution18")
+test_object("Solution19")
+test_object("Solution20")
 success_msg("Good work! Our naive estimate of the average treatment effect was opposite our estimate after we tried to balance the data. However, we had to ignore a large fraction of our observations to get to that conclusion. This is the difficulty of computing conditional average treatment effects with t-tests. However, this problem can be sidestepped with regression models. Our next module teaches how to use regression models in detail.")
 ```
