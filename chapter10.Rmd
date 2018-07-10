@@ -9,21 +9,30 @@ description : "These videos and a related exercise discuss how to form bounds on
 //player.vimeo.com/video/199858153
 
 
+## THIS QUESTION DID NOT HAVE THE INTENTION-TO-TREAT/RANDOM COMPLIANCE PART, SO I GUESSED AT HOW TO DO IT IN THE LAST QUESTION. I DON'T KNOW HOW TO CHECK SOLUTION4 AND SOLUTION5 FOR COMPLETION WHEN WE DON'T KNOW WHAT THEY'LL TYPE, SO I JUST LEFT THEM AS "".
+
 --- type:NormalExercise lang:r xp:100 skills:1 key:a42175703d
 ## Computing bounds under non-compliance
-Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. In this exercise, you will look at 2 alternative methods for dealing with the non-compliance issue.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. 
+Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. This time, we have provided you with more data to examine, particularly the credit ratings for the individuals in both the treatment and control groups. But goal remains the same as before: does the offer of a higher credit limit decrease the number of late payments (defaults)? 
 
-First, you compute the bounds of average treatment effect of opting into a credit line increase offer. Second, you calculate what the average treatment effect would be in one of the two other methods (or both, if you want to be complete!).
+In this exercise, you will look at 2 alternative methods for dealing with the non-compliance issue.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. First, you compute the bounds of average treatment effect of opting into a credit line increase offer. Second, you calculate what the average treatment effect would be in one of the two other methods (or both, if you want to be complete!).
 
 *** =instructions
-- Compute bounds on the average treatment effect under non-compliant behavior.
-- Compare this with the result of another methods of correcting for non-compliance.
+- 1) Determine the ratio of people who accepted the offer.
+- 2) Compute upper bound on the average treatment effect under non-compliant behavior.
+- 3) Compute lower bound on the average treatment effect under non-compliant behavior.
+- 4) Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
 
 *** =hint
 - Remember to be aware of selecting the correct subsample.
 
 *** =pre_exercise_code
 ```{r}
+
+library (dplyr)
+library (data.table)
+library (purr)
+
   set.seed(1)
   n             <- 9e5
   frac_treated  <- .5
@@ -85,20 +94,32 @@ First, you compute the bounds of average treatment effect of opting into a credi
 ```{r}
 # The dataset `CreditCo` is available in your workspace.
 
-# Question 1: Determine the fraction of opt-in among those offered the increase.
+# 1) Determine the fraction of opt-in among those offered the increase.
 #---- Question 1-------------------------------------#
     Solution1<-
 #----------------------------------------------------#
 
-# Question 2: Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value.
+# 2) Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value.
 #---- Question 2-------------------------------------#
     Solution2<-
 #----------------------------------------------------#
 
-# Question 3: Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value.
+# 3) Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value.
 
 #---- Question 3-------------------------------------#
     Solution3<-
+#----------------------------------------------------#
+
+# 4) Now compare this result with the findings from another method: an intention-to-treat analysis, under random compliance, or both! To calculate the intention-to-treat analysis ATE, compare units who received the offer and those who did not receive the offer. To calculate the ATE under random compliance, simply calculate a "naive ATE" by comparing treatment and control groups . 
+
+#---- Question 4-------------------------------------#
+    Solution4<-
+#----------------------------------------------------#
+
+# 5) Calculate the p values of ATEs from Question 4. How do they compare to the bounds analysis?
+
+#---- Question 5-------------------------------------#
+    Solution5<-
 #----------------------------------------------------#
 
 ```
@@ -108,6 +129,8 @@ First, you compute the bounds of average treatment effect of opting into a credi
 Solution1 <- mean(CreditCo$opt_in[CreditCo$offered==1])
 Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
 Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution4 <- ""
+Solution5 <- ""
 
 ```
 
@@ -116,6 +139,9 @@ Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solu
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
+test_object("Solution4")
+test_object("Solution5")
+success_msg("Nice job! As you can see, we get slightly different answers based on the method we use. What did we learn from this experiment overall? Well, that depended on the technique you used to analyze it. When working with data, usually the best option is to learn the answers from multiple techniques so that you can have a more complete and nuanced interpretation of what really happened.")
 ```
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:0588056e73
