@@ -1,4 +1,3 @@
-
 --- 
 title       : "Experiments 6: Common Issues in Experiments"
 description : "These videos and exercises discuss common issues in carrying out experiments."
