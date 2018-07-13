@@ -116,6 +116,16 @@ msg4 = "Correct! Box-and-whiskers plots do not show the mean values in a sample.
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
+## Let's Code: Common Issues II - Non-normal Distributions
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737678
+```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Common Issues in Interpretation II: Non-normal distributions, part 1
@@ -240,6 +250,16 @@ test_error()
 success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaningful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews").
 ```
 
+---
+## Let's Code: Common Issues III - Outliers
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/
+```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:12e1bc32a2
 ## Common Issues in Interpretation III: Outliers
