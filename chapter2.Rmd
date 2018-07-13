@@ -23,7 +23,6 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 
 ---
 ## Let’s Code: Comparing Ratios
-
 ```yaml
 type: VideoExercise
 lang: r
