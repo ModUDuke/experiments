@@ -82,6 +82,16 @@ msg4 = "The graph does not show error bars for the 99% confidence interval, so n
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
+## Let's Code: Noncompliance in eGulf Data
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737646
+```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
 ## Noncompliance in eGulf
@@ -187,7 +197,16 @@ msg4 = "Correct! In this situation, researchers at CreditCo should be worried ab
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
-
+---
+## Let's Code: Working with Noncompliance
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737627
+```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:a00d1ebc4c
 ## Working with non-compliance
