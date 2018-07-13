@@ -8,11 +8,22 @@ description : "These videos and a related exercise discuss how to form bounds on
 *** =video_link
 //player.vimeo.com/video/199858153
 
+---
+## Let's Code: Computing Bounds Under Noncompliance
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737481
+```
+
 
 ## THIS QUESTION DID NOT HAVE THE INTENTION-TO-TREAT/RANDOM COMPLIANCE PART, SO I GUESSED AT HOW TO DO IT IN THE LAST QUESTION. I DON'T KNOW HOW TO CHECK SOLUTION4 AND SOLUTION5 FOR COMPLETION WHEN WE DON'T KNOW WHAT THEY'LL TYPE, SO I JUST LEFT THEM AS "".
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:a42175703d
-## Computing bounds under non-compliance
+## Computing bounds under noncompliance
 Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. This time, we have provided you with more data to examine, particularly the credit ratings for the individuals in both the treatment and control groups. But goal remains the same as before: does the offer of a higher credit limit decrease the number of late payments (defaults)? 
 
 In this exercise, you will look at 2 alternative methods for dealing with the non-compliance issue.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. First, you compute the bounds of average treatment effect of opting into a credit line increase offer. Second, you calculate what the average treatment effect would be in one of the two other methods (or both, if you want to be complete!).
