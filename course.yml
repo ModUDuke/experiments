@@ -4,7 +4,7 @@ instructors      :
  - bentleygcoffey@gmail.com
  - ransom@ou.edu
  - bdaronson@gmail.com
-  - speckart@duke.edu
+ - speckart@duke.edu
  - cooper@duke.edu
 description      : Welcome to the Causal Inference with R – Experiments, the 2nd of 7 courses on causal inference concepts and methods created by Duke University's Social Sciences Research Institute, with support from eBay, Inc. Designed to teach you about concepts, methods, and how to code in R with realistic data, this course focuses on experiment design, working with data from controlled and natural experiments, and dealing with noncompliance. We’ll stay away from dense statistical math and focus instead on higher level concepts that data scientists need to always consider when examining and making inferences about experimental data.
 university       : DataCamp
