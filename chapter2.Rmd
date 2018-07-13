@@ -21,6 +21,20 @@ msg2 = "You might think not, but consider this as the most theoretically ideal c
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
+---
+## Let’s Code: Comparing Ratios
+
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737801
+
+
+```
+
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e157142b3a
 ## Comparing Ratios
 Laurel's video showed that the WePhone 10S was stronger than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and assumes that whichever specification is most different between the phones is the cause of their different durabilities.
