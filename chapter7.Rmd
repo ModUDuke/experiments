@@ -304,7 +304,7 @@ library (purr)
     Solution2<- 
 #----------------------------------------------------#
 
-# Question 3: Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered and opted in to the program
+# Question 3: Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered **and** opted in to the program
 #---- Question 3-------------------------------------#
     Solution3<- 
 #----------------------------------------------------#
@@ -323,4 +323,5 @@ Solution3<-mean(CreditCo$default_post[CreditCo$opt_in==1])-mean(CreditCo$default
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
+success_msg("Nice job! As you can see, about half of the sample received an offer, but only about 41% of people actually accepted it. For the people who complied, the 'naive' treatment effect is a +26% default rate--the default rate went up for people who accepted the offer! However, while this 'naive' ATE is quick to calculate, it's probably not accurate, as there are likely confounders that we can deal with when we have more time.")
 ```
