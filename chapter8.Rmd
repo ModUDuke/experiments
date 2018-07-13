@@ -15,6 +15,16 @@ description : "These videos and exercises discuss how to compute and interpret l
 *** =video_link
 //player.vimeo.com/video/198212115
 
+---
+## Let's Code: Practice Identifying Heterogenous Outcomes
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737592
+```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4ddc3a17bc
 ## Practice identifying heterogeneous outcomes (Part 1)
@@ -262,6 +272,16 @@ msg3 = "Correct! If this were the case, the effect of religious attendance on in
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
+---
+## Let's Code: Practice Identifying Bad Proxy Variables
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737572
+```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
 ## Practice identifying spurious results with bad proxy variables
