@@ -26,7 +26,19 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 *** =video_link
 //player.vimeo.com/video/205124286
 
+---
+## Let's Code: Getting to Work with Confidence
 
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 
+video_link: //player.vimeo.com/video/279737759
+
+
+```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
 ## Getting to Work With Confidence, Part 1
