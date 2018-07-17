@@ -22,12 +22,12 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 25a258ae54
-video_link: "//player.vimeo.com/video/279737592"
+key: 
+video_link: //player.vimeo.com/video/279737592
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4ddc3a17bc
-## Practice identifying heterogeneous outcomes (Part 1)
+## Unhappiness at Unter: Identifying Heterogeneous Outcomes - ATE
 The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department.
 
 To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year (and magically, they don't end up discussing this with each other). Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
@@ -74,7 +74,7 @@ success_msg("Good work! It seems that reducing the size of HR reduced Unter empl
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c229f94a13
-## Practice identifying heterogeneous outcomes (Part 2)
+## Unhappiness at Unter: Identifying Heterogeneous Outcomes - CATEs
 Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option.
 
 However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
@@ -124,7 +124,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a52ff8b8f4
-## Practice identifying heterogeneous outcomes (Part 3)
+## Unhappiness at Unter: Identifying Heterogenous Outcomes - CATEs (2)
 Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
 
 *** =instructions
@@ -253,7 +253,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:3329371fd4
-## Questionable Proxy Variables
+## Dr. Max Funn: Questionable Proxy Variables
 Hedonism is the ethical theory that people should maximize their own pleasure in life. One hedonist in particular, Dr. Max Funn, wondered if religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since Mr. Funn was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness.
 
 Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, increasing his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income).
@@ -272,19 +272,19 @@ msg3 = "Correct! If this were the case, the effect of religious attendance on in
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
----
+--- key:7faf6d0645
 ## Let's Code: Practice Identifying Bad Proxy Variables
 ```yaml
 type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 7e2e09ed96
-video_link: "//player.vimeo.com/video/279737572"
+key: 
+video_link: //player.vimeo.com/video/279737572
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
-## Practice Identifying Spurious Results with Bad Proxy Vtariables
+## Dr. Max Funn: Identifying Spurious Results with Bad Proxy Variables
 Dr. Max Funn from the previous question then runs a second experiment: this time measuring the effect of *work hours* on happiness, once again using income as a proxy variable. The respondents in his treatment group agree to work an additional 10 hours at their primary jobs per week for one year. This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. 
 
 In this question, we shall see how a more experienced economist replicates the study. In addition to duplicating the newest experiment by Dr. Funn, this economist also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate.
