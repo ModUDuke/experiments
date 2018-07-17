@@ -89,8 +89,8 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 
-video_link: //player.vimeo.com/video/279737646
+key: f309deee16
+video_link: "//player.vimeo.com/video/279737646"
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
