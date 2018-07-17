@@ -3,7 +3,7 @@ title       : "Experiments 4: Statistical Inference in Experiments"
 description : "These videos and exercises explain why we need statistical inference in experiments."
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
-## Statistical inference
+## Statistical Inference
 Under which scenario might an experimenter *not* need to use statistical inference to justify causal claims?
 
 *** =instructions
@@ -22,7 +22,7 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:76542ba835
-## p values, Confidence Intervals, and Hypothesis Tests
+## p Values, Confidence Intervals, and Hypothesis Tests
 *** =video_link
 //player.vimeo.com/video/205124286
 
@@ -37,7 +37,7 @@ key:
 video_link: //player.vimeo.com/video/279737759
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:907fdfb248
 ## Getting to Work With Confidence: Visualize the Data
 Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time. 
 
@@ -93,7 +93,7 @@ success_msg("Good job!  The Y axis, marked 'density', shows the proportion of ti
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:243a4bf8bb
 ## Getting to Work With Confidence: Choosing a Departure Time
 Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work and his commute takes 10 minutes on average, his commute often takes longer than that. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time. 
 
