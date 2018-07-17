@@ -14,12 +14,12 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: f5c9eacfed
-video_link: "//player.vimeo.com/video/279737460"
+key: 
+video_link: //player.vimeo.com/video/279737460
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:5b941b8026
-## Putting it All Together
+## Putting it All Together with KittyCatch
 Often, our experiments don't go as planned. This long and complex exercise will test your knowledge in resolving a question with realistic problems. 
 
 KittyCatch is a location-based augmented reality game developed by Meowtec. In this game, players use their cell phones' GPS abilities to locate and capture virtual kittens. Although KittyCatch is free to play, Meowtec generates revenue from KittyCatch through pop-up ads, which appear about once for every half-mile the player walks while using the application, up to 5 times a day. Since Meowtec's revenue is highly dependent on how far people walk while playing KittyCatch, their primary goal for future updates to KittyCatch is to incentivize play.
@@ -31,9 +31,10 @@ To test this hypothesis, Meowtec constructs an experiment: For a small random sa
 With the dataset, `KittyCatch`, and the annotations in the R workspace, help Meowtec determine a valid and reliable average treatment effect from their experiment. Specifically, balance the data and correct for any coding errors in the original dataset to estimate a reliable average treatment effect. This question is much longer than previous questions, but also more representative of the types of steps that data scientists use when working with experimental data. 
 
 *** =instructions
-- 1-10) Balance the data.
-- 11-13) Correct for coding errors in the data.
-- 14-15) Determine the average treatment effect.
+- 1-8) Explore the data
+- 9-13) Balance the data
+- 14-18) Correct for coding errors in the data
+- 19-20) Calculate the ATE and check for statistical significance
 
 *** =pre_exercise_code
 ```{r}
