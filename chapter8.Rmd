@@ -22,8 +22,8 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 
-video_link: //player.vimeo.com/video/279737592
+key: 25a258ae54
+video_link: "//player.vimeo.com/video/279737592"
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:4ddc3a17bc
@@ -279,8 +279,8 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 
-video_link: //player.vimeo.com/video/279737572
+key: 7e2e09ed96
+video_link: "//player.vimeo.com/video/279737572"
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5465244188
