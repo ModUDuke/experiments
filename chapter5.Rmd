@@ -55,7 +55,7 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: ebb4bd7f43
+key: 0cf6c74c4c
 video_link: "//player.vimeo.com/video/279737733"
 ```
 
