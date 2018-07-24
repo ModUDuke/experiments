@@ -48,8 +48,8 @@ Laurel's video showed that the WePhone 10S was stronger than the Universe S10. L
 
 *** =pre_exercise_code
 ```{r}
-library (dplyr)
-library (data.table)
+library(dplyr)
+library(data.table)
 
 PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(190,180),Battery_Capacity=c(4000,3500),Diagonal_Length=c(5.5,5.2),Storage=c(64,64),Luminance=c(800,550))
 ```
@@ -89,8 +89,6 @@ Solution3<-max(Ratios)
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
-test_function("print", incorrect_msg = "Did you use the `print` function?")
-test_error()
 success_msg("Good work! Keep in mind, even though there is a correlation between the treatment (luminance) and outcome (durability), this correlation is spurious; in reality, a phone's luminance (brightness) does not have a causal effect on its durability.
 ")
 ```
