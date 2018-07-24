@@ -74,7 +74,7 @@ PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(19
 ```{r}
 Solution1<-print(PhoneSpecifications)
 
-#This is how we solve this answer when the data are randomized, but an easy way is to look through these ratios ratios manually
+#This is how we solve this answer when the data are randomized, but an easier way to solve this questions is to look through each variable manually
     Ratios<-vector(length=5)
     for(i in 2:length(PhoneSpecifications[1,])){
       Ratios[i-1]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]

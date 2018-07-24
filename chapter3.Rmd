@@ -76,6 +76,8 @@ To determine what price to set at the beginning of her WePhone auctions, Laurel 
 
 *** =pre_exercise_code
 ```{r}
+library(dplyr)
+library(data.table)
 # Initialize dataframe
     set.seed(1)
     n <- 100
@@ -177,12 +179,12 @@ Using the data frame `WePhones`:
 
 *** =sample_code
 ```{r}
-# 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same number of `Black` WePhones. Replace the `x` and `y` in the following example with, `Treatment$Color=="Black"` and `Control$Color=="Black"` respectively.
-    t.test(Treatment$Color=="Black",Control$Color=="Black")
+# 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same proportion of `Black` WePhones. Replace the `x` and `y` in the following example with, `Treatment$Color=="Black"` and `Control$Color=="Black"` respectively.
+    t.test(x,y)
 
 #The t-test shows a difference in the number of black phones in each group, but is that difference statistically significant? Take a look at the p-value. Because the p-value is 0.46, which is well above .05, we can say that the difference is not statistically significant.
 
-# 2) So are there any variables that show a statistically significant amount of imbalance? Use the `t.test` function to search through each variable in the `Treatment and `Control` groups until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups is less than 5%). Write the name of the unbalanced trait between control and treatment groups into Solution1.
+# 2) So are there any variables that show a statistically significant amount of imbalance? Use the `t.test` function to search through each variable in the `Treatment and `Control` groups until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups is less than 0.05). Write the name of the unbalanced trait between control and treatment groups into Solution1.
     t.test(  )
     Solution1<-" " 
 
@@ -190,7 +192,9 @@ Using the data frame `WePhones`:
 ```
 *** =solution
 ```{r}
-  a<-vector()
+  t.test(Treatment$Color=="Black",Control$Color=="Black")
+#This is how we solve this answer when the data are randomized, but an easier way to solve this questions is to look through each variable manually
+a<-vector()
 for(i in 2:6){
   a[i-1]<-t.test(WePhones[,i][WePhones$Treatment==0]==unique(WePhones[,i])[1],WePhones[,i][WePhones$Treatment==1]==unique(WePhones[,i])[1])$p.value
 }    
