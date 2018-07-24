@@ -48,10 +48,8 @@ Laurel's video showed that the WePhone 10S was stronger than the Universe S10. L
 
 *** =pre_exercise_code
 ```{r}
-
 library (dplyr)
 library (data.table)
-library (purr)
 
 PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(190,180),Battery_Capacity=c(4000,3500),Diagonal_Length=c(5.5,5.2),Storage=c(64,64),Luminance=c(800,550))
 ```
@@ -59,12 +57,12 @@ PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(19
 ```{r}
 # 1) To begin, let's print the contents of the dataframe to the console by entering the dataframe name, PhoneSpecifications, into the print() function.
 #---- Question 1-------------------------------------#
-    Solution1<- 
+    Solution1<- print()
 #----------------------------------------------------#
 
 # 2) Now write the column name of the specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character).
 #---- Question 2-------------------------------------#
-    Solution2<-    
+    Solution2<- ""
 #----------------------------------------------------#
 
 # 3) Now return the ratio between the WePhone10S and UniverseS10 of the phone specification you selected for Question 2 (do not round!).  
@@ -76,19 +74,18 @@ PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(19
 ```{r}
 Solution1<-print(PhoneSpecifications)
 
-#loop through specification ratios to find max ratio
-Ratios<-vector(length=5)
-for(i in 2:length(PhoneSpecifications[1,])){
-  Ratios[i-1]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]
-}
-Solution2<-names(PhoneSpecifications)[match(max(Ratios),Ratios)+1]
+#This is how we solve this answer when the data are randomized, but an easy way is to look through these ratios ratios manually
+    Ratios<-vector(length=5)
+    for(i in 2:length(PhoneSpecifications[1,])){
+      Ratios[i-1]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]
+    }
+    Solution2<-names(PhoneSpecifications)[match(max(Ratios),Ratios)+1]
 
 Solution3<-max(Ratios)
 
 ```
 *** =sct
 ```{r}
-
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
