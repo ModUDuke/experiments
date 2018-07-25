@@ -264,7 +264,6 @@ The head of marketing at Bizer, Inc. is trying to decide whether to include a ne
 
 If cholesterol is highly variable in the population (about 70% of the population has cholesterol between 160mg/dL and 240mg/dL), does an average treatment effect of 1mg/dL seem relatively small or relatively large? In other words, when an average treatment effect is substantially smaller than the standard error of the mean for a parameter, how would we typically interpret the size of that average treatment effect?
 
-
 *** =instructions
 - The average treatment effect is large.
 - The average treatment effect is small.
@@ -274,7 +273,7 @@ msg1 = "Although a 1mg/dL reduction in cholesterol is statistically significant 
 msg2 = "Correct! When an average treatment effect is small relative to the standard error of a sample mean, it suggests that the average treatment effect is small, relative to the amount of variance typically found in that parameter. This thought process is especially helpful when deciding if an estimated effect is clinically significant (even if it is statistically significant)."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
-
+---
 ## Let's Code: Practice with OHIE data
 ```yaml
 type: VideoExercise
