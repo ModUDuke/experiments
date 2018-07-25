@@ -40,10 +40,8 @@ In this exercise, you will look at 2 alternative methods for dealing with the no
 *** =pre_exercise_code
 ```{r}
 
-library (dplyr)
-library (data.table)
-library (purr)
-
+library(data.table)
+library(dplyr)
   set.seed(1)
   n             <- 9e5
   frac_treated  <- .5

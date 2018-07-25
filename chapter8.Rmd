@@ -42,6 +42,8 @@ With the dataframe, `UnterHR`, determine whether there is a negative or positive
 - Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 set.seed(1)
 n=382
 #Dataframe
@@ -86,6 +88,8 @@ However, his chief operating officer (COO) warns him that reducing the size of H
 - While the pooled average treatment effect is slightly positive, and the average treatment effect for men is negative, the average treatment effect for women is positive.
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 set.seed(1)
 n=382
 #Dataframe
@@ -138,10 +142,8 @@ Let's further analyze the heterogeneous effect of the treatment on men vs. women
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 set.seed(1)
 n=382
@@ -303,10 +305,8 @@ Using the dataframe,`econometrics`, determine whether income is a good proxy var
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 set.seed(1)
 #Create rnorm function that allows for min and max

@@ -39,9 +39,8 @@ With the dataset, `KittyCatch`, and the annotations in the R workspace, help Meo
 *** =pre_exercise_code
 ```{r}
 
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 set.seed(1)
 #Create rnorm function that allows for random distribution with min and max

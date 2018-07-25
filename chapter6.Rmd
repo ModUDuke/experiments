@@ -88,6 +88,8 @@ Following an experiment regarding how computer keyboard layouts affect people's 
 
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 set.seed(1)
 rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
   qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
@@ -140,10 +142,8 @@ On the TV show, Kitchen Horrors, Bordon Hannity tries to revive failing restaura
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
 
@@ -201,10 +201,8 @@ We will create for you a new variable that collapses the Reviews_Before 5 point 
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
 
@@ -274,10 +272,8 @@ In a previous exercise, we examined an experiment conducted by the popular onlin
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
   qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)

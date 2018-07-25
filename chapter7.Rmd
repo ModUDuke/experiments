@@ -38,6 +38,8 @@ Let's go back to our experiment with eGulf, the popular online auctioneer. In a 
 - The ATE is statistically significant at a 99% confidence interval.
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 # Initialize dataframe
 set.seed(1)
 n <- 1000
@@ -110,10 +112,8 @@ If the experiment's dependent variable is associated with a difference between c
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 # Initialize dataframe
 set.seed(1)
@@ -228,10 +228,8 @@ A simulated version of this dataset, `CreditCo`, is available in the workspace. 
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
   set.seed(1)
   n             <- 9e5

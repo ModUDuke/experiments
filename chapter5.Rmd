@@ -14,7 +14,7 @@ description : "These videos and exercises offer practice in skills used in analy
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2e74d95e94
 ## Confidence Intervals
-Why might it be risky to implement a policy that has zero in the confidence interval of its average treatment effect?
+Why might it be risky to implement a policy that has an that has average treatment effect with a confidence interval that overlaps with zero?
 
 *** =instructions
 - Because the confidence interval equation defaults to 0 with large amounts of data.
@@ -78,6 +78,8 @@ One of the most interesting results of any experiment is the Average Treatment E
 
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 OregonHealth<-data.frame(c("Blood pressure - Systolic (mm Hg)","Blood pressure - Diastolic (mm Hg)","Blood pressure - Elevated (%)","Hypertension - Diagnosis after lottery (%)","Hypertension - Current use of medication for hypertension (%)","Cholesterol - Total level (mg/dl)","Cholesterol - High total level (%)","Cholesterol - HDL level (mg/dl)","Cholesterol - Low HDL level (%)","Hypercholesterolemia - Diagnosis after lottery (%)","Hypercholesterolemia - Current use of medication for high cholesterol level (%)","Glycated hemoglobin - Level (%)","Glycated hemoglobin - Level ???6.5% (%)","Diabetes - Diagnosis after lottery (%)","Diabetes - Current use of medication for diabetes (%)","Depression - Positive screening result (%)","Depression - Diagnosis after lottery (%)","Depression - Current use of medication for depression (%)","Framingham risk score - Overall","Framingham risk score - High-risk diagnosis","Framingham risk score - Age 50-65 yr"),
               c(119.3,76,16.3,5.6,13.9,204.1,14.1,47.6,28,6.1,8.5,5.3,5.1,1.1,6.4,30,4.8,16.8,8.2,11.6,13.9),
               c(-0.52,-0.81,-1.33,1.76,0.66,2.2,-2.43,0.83,-2.82,2.39,3.8,0.01,-0.93,3.83,5.43,-9.15,3.81,5.49,-0.21,1.63,-0.37),
@@ -108,7 +110,7 @@ rm(OregonHealth)
 
 # Question 3: Use solution1 and Solution2 to calculate the mean value of positive screening in the treatment group.
 #---- Question 3-------------------------------------#
-Solution3<-  
+    Solution3<-  
 #----------------------------------------------------#
 
 ```
@@ -139,6 +141,8 @@ Now that we know how an Average Treatment Effect is related to mean values in th
 
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 OregonHealth<-data.frame(c("Blood pressure - Systolic (mm Hg)","Blood pressure - Diastolic (mm Hg)","Blood pressure - Elevated (%)","Hypertension - Diagnosis after lottery (%)","Hypertension - Current use of medication for hypertension (%)","Cholesterol - Total level (mg/dl)","Cholesterol - High total level (%)","Cholesterol - HDL level (mg/dl)","Cholesterol - Low HDL level (%)","Hypercholesterolemia - Diagnosis after lottery (%)","Hypercholesterolemia - Current use of medication for high cholesterol level (%)","Glycated hemoglobin - Level (%)","Glycated hemoglobin - Level ???6.5% (%)","Diabetes - Diagnosis after lottery (%)","Diabetes - Current use of medication for diabetes (%)","Depression - Positive screening result (%)","Depression - Diagnosis after lottery (%)","Depression - Current use of medication for depression (%)","Framingham risk score - Overall","Framingham risk score - High-risk diagnosis","Framingham risk score - Age 50-65 yr"),
               c(119.3,76,16.3,5.6,13.9,204.1,14.1,47.6,28,6.1,8.5,5.3,5.1,1.1,6.4,30,4.8,16.8,8.2,11.6,13.9),
               c(-0.52,-0.81,-1.33,1.76,0.66,2.2,-2.43,0.83,-2.82,2.39,3.8,0.01,-0.93,3.83,5.43,-9.15,3.81,5.49,-0.21,1.63,-0.37),
@@ -200,6 +204,8 @@ An easy way to identify whether the variability of a dependent variable is unequ
 
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 set.seed(1)
 mround <- function(x,base){ 
   base*round(x/base) 
@@ -293,11 +299,8 @@ Let's say you're wondering how much mens' and womens' health differed in the exp
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
-
+library(data.table)
+library(dplyr)
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
@@ -357,10 +360,8 @@ A side note: the `mu` value in a t-test is the value of our null hypothesis (i.e
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
@@ -419,10 +420,8 @@ Let's try this with our systolic blood pressure variables, bp_sar_inp.
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
@@ -488,10 +487,8 @@ Let's try this with our second blood pressure variable, bp_var_inp.
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 set.seed(1)
 load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
@@ -560,6 +557,8 @@ To test whether eGulf should allow sellers to post more than 10 pictures of thei
 
 *** =pre_exercise_code
 ```{r}
+library(data.table)
+library(dplyr)
 # Initialize dataframe
 set.seed(1)
 n <- 1000

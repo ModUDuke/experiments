@@ -69,10 +69,8 @@ But let's ignore that and pretend to be bad analysts to help the human rights ac
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 set.seed(1)
 rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
@@ -146,10 +144,8 @@ Although the results seemed to indicate a positive treatment effect, the results
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
 SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 ```
@@ -259,10 +255,8 @@ First, you will test if this is a valid natural experiment. This involves testin
 
 *** =pre_exercise_code
 ```{r}
-
-library (dplyr)
-library (data.table)
-library (purr)
+library(data.table)
+library(dplyr)
 
   set.seed(1)
   n             <- 9e5
