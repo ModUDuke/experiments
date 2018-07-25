@@ -182,13 +182,13 @@ Solution2<-OregonHealthResults[OregonHealthResults$P_Value>.05,]$Variable
 
 ```
 
-
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
 success_msg("Good work!")
 ```
+
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:743f5494ef
 ## A Note on Heteroskedasticity
 *** =video_link
@@ -268,6 +268,7 @@ If cholesterol is highly variable in the population (about 70% of the population
 *** =instructions
 - The average treatment effect is large.
 - The average treatment effect is small.
+
 *** =sct
 ```{r}
 msg1 = "Although a 1mg/dL reduction in cholesterol is statistically significant and might be substantial for some members of the population, it is not a very large reduction relative to the amount of variance in cholesterol in the population. Try again."
