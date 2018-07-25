@@ -190,7 +190,9 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:01b4c71047
 ## Fishing for a Good Experimental Design
-After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: she spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design.
+After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: she spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. 
+
+Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design.
 
 *** =instructions
 - Rachel's experiment is unethical.
