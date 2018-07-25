@@ -302,11 +302,11 @@ Let's say you're wondering how much mens' and womens' health differed in the exp
 library(data.table)
 library(dplyr)
 set.seed(1)
-load(url('http://s3.amazonaws.com/assets.datacamp.com/staging/course_1145/datasets/OHIEexperimental.Rda'))
+load(url("http://assets.datacamp.com/production/course_1145/OHIEexperimental.Rda"))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
 
 # load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
-# load(url("http://assets.datacamp.com/production/course_123/my_file.RData"))
+# load(url("http://assets.datacamp.com/production/course_1145/OHIEexperimental.Rda"))
 # "http://s3.amazonaws.com/assets.datacamp.com/staging/course_1145/datasets/iris.csv",
 
 
