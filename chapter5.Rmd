@@ -144,6 +144,7 @@ Now that we know how an Average Treatment Effect is related to mean values in th
 ```{r}
 library(data.table)
 library(dplyr)
+load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
 OregonHealth<-data.frame(c("Blood pressure - Systolic (mm Hg)","Blood pressure - Diastolic (mm Hg)","Blood pressure - Elevated (%)","Hypertension - Diagnosis after lottery (%)","Hypertension - Current use of medication for hypertension (%)","Cholesterol - Total level (mg/dl)","Cholesterol - High total level (%)","Cholesterol - HDL level (mg/dl)","Cholesterol - Low HDL level (%)","Hypercholesterolemia - Diagnosis after lottery (%)","Hypercholesterolemia - Current use of medication for high cholesterol level (%)","Glycated hemoglobin - Level (%)","Glycated hemoglobin - Level ???6.5% (%)","Diabetes - Diagnosis after lottery (%)","Diabetes - Current use of medication for diabetes (%)","Depression - Positive screening result (%)","Depression - Diagnosis after lottery (%)","Depression - Current use of medication for depression (%)","Framingham risk score - Overall","Framingham risk score - High-risk diagnosis","Framingham risk score - Age 50-65 yr"),
               c(119.3,76,16.3,5.6,13.9,204.1,14.1,47.6,28,6.1,8.5,5.3,5.1,1.1,6.4,30,4.8,16.8,8.2,11.6,13.9),
               c(-0.52,-0.81,-1.33,1.76,0.66,2.2,-2.43,0.83,-2.82,2.39,3.8,0.01,-0.93,3.83,5.43,-9.15,3.81,5.49,-0.21,1.63,-0.37),
@@ -303,7 +304,7 @@ Let's say you're wondering how much mens' and womens' health differed in the exp
 library(data.table)
 library(dplyr)
 set.seed(1)
-load(url("http://assets.datacamp.com/production/course_1145/OHIEexperimental.Rda"))
+load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
 
 # load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
@@ -370,7 +371,7 @@ library(data.table)
 library(dplyr)
 
 set.seed(1)
-load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
+load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
 TreatmentGroup <- OHIE[OHIE$treatment==1, ]
 ControlGroup <- OHIE[OHIE$treatment==0, ]
@@ -430,7 +431,7 @@ library(data.table)
 library(dplyr)
 
 set.seed(1)
-load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
+load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
 TreatmentGroup <- OHIE[OHIE$treatment==1, ]
 ControlGroup <- OHIE[OHIE$treatment==0, ]
@@ -497,7 +498,7 @@ library(data.table)
 library(dplyr)
 
 set.seed(1)
-load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
+load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
 TreatmentGroup <- OHIE[OHIE$treatment==1, ]
 ControlGroup <- OHIE[OHIE$treatment==0, ]
