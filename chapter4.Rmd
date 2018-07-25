@@ -115,23 +115,21 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 ```
 
 *** = hint
-- The quantile function syntax is quantile(variable, .xx), where .xx indicates the quantile of the variable you want to find
-- The upper bound of a t-test function can be displayed directly throught the syntax t.test(dataframe)$conf.int[2]
+- 1) This question does not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset. To solve this question, we would recommend using the "quantile" function. The quantile function requires two arguments, a variable (Commute) and a quantile to be returned (.95); that is, quantile(VARIABLE,QUANTILE)
+- 2) Another way of stating the question is: given our limited sample, at what time are we 95% confident that Donny could leave and get to work on time half of the time? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. The confidence interval of a mean is determined with the t.test function; the upper bound can be returned with t.test(VARIABLE)$conf.int[2].
 
 
 *** =sample_code
 ```{r}
+#Note: The following questions are difficult. If stuck, we highly recommend looking at our hints, located below the instructions tab.
+
 # 1) Determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. 
 
-#Note: This question does not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset. To solve this question, we would recommend using the "quantile" function. The quantile function requires two arguments, a variable (Commute) and a quantile to be returned (.95). 
-
 #---- Question 1-------------------------------------#
-    Solution1<- quantile(var,quantile)
+    Solution1<- quantile()
 #----------------------------------------------------#
 
-# 2) How long should Donny leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence? 
-
-#Note: Another way of stating the question is: given our limited sample, at what time are we 95% confident that Donny could leave and get to work on time half of the time? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. The confidence interval of a mean is determined with the t.test function; the upper bound can be returned with t.test(VARIABLE)$conf.int[2].
+# 2) Precisely how long should Donny leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence? 
 
 #---- Question 2-------------------------------------#
     Solution2<- 
