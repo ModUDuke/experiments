@@ -268,7 +268,6 @@ If cholesterol is highly variable in the population (about 70% of the population
 *** =instructions
 - The average treatment effect is large.
 - The average treatment effect is small.
-
 *** =sct
 ```{r}
 msg1 = "Although a 1mg/dL reduction in cholesterol is statistically significant and might be substantial for some members of the population, it is not a very large reduction relative to the amount of variance in cholesterol in the population. Try again."
