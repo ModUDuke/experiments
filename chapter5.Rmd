@@ -276,7 +276,6 @@ msg2 = "Correct! When an average treatment effect is small relative to the stand
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
---- key:8b101fc862
 ## Let's Code: Practice with OHIE data
 ```yaml
 type: VideoExercise
