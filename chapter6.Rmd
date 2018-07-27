@@ -146,7 +146,6 @@ library(data.table)
 library(dplyr)
 
 Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
-
 Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```
 *** =sample_code
@@ -167,8 +166,8 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 *** =solution
 ```{r}
   Solution1a<-mean(Reviews_Before)-mean(Reviews_After)
-  plot(density(Reviews_Before))
-  plot(density(Reviews_After))
+  # plot(density(Reviews_Before))
+  # plot(density(Reviews_After))
   Solution1c<-"No"
 ```
 *** =sct
