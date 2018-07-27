@@ -285,7 +285,7 @@ colnames(eGulf) <- c("Seller_Feedback_Count","Seller_Feedback_Score")
     t.test(eGulf$Final_Sales_Price[eGulf$Treatment==1],eGulf$Final_Sales_Price[eGulf$Treatment==0])
 
 # 1) The ATE for the above t-test is almost $36, but the results are not statistically significant. This seems suspicious; usually a large means difference found in a sample of this size would be statically significant. Let's examine the distribution of the treatment and control groups with a box plot. Fill in the box plot with the final sales prices for the treatment and control groups. For reference, the syntax for making this boxplot is identical to that of a t-test.
-    boxplot()
+    Solution1<-boxplot()
 
 # 2) Notice that there are a few dots above each box plot. These dots indicate outliers. The cutoff for outliers in the boxplot is any value that is 1.5 times the interquartile range above the upper quartile or below the lower quartile. Is it possible that these outliers are driving our treatment effect? Let's correct for these extreme outliers. Subset the data so that it excludes any WePhone sales that were above $1500. 
     eGulf<-
