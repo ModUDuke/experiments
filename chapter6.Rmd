@@ -161,8 +161,8 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
     
 # 3) Use the Previous Plot and Next Plot buttons to cycle between the two graphs. Do these these look approximately normally distributed? Answer with "Yes" or "No."
     Solution1c<-""   
-
 ```
+
 *** =solution
 ```{r}
   Solution1a<-mean(Reviews_Before)-mean(Reviews_After)
@@ -170,12 +170,13 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
   # plot(density(Reviews_After))
   Solution1c<-"No"
 ```
+
 *** =sct
 ```{r}
 test_object("Solution1a")
 test_object("Solution1c")
 test_error()
-success_msg("Good work! This is an easy call in this particular case, but if it's close then you'll want to try some statistical tests too. And it might provoke some healthy discussion with your colleagues!").
+success_msg("Good work! This is an easy call in this particular case, but if it's close then you'll want to try some statistical tests too. And it might provoke some healthy discussion with your colleagues!")
 ```
 
 
@@ -227,14 +228,13 @@ test_error()
 success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaningful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews").
 ```
 
---- key:2cff43ba90
+---
 ## Let's Code: Common Issues III - Outliers
 ```yaml
 type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 
 video_link: //player.vimeo.com/video/
 ```
 
