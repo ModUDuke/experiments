@@ -474,9 +474,7 @@ ControlGroup <- OHIE[OHIE$treatment==0, ]
     t.test()
 
 # 2) Based on your t-test, did the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No."
-#---- Question 4c------------------------------------#
     Solution2<-""   
-#----------------------------------------------------#
 
 ```
 
