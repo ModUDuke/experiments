@@ -479,7 +479,8 @@ ControlGroup <- OHIE[OHIE$treatment==0, ]
 t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp)
 
 #We can computationally determine whether the p-value is lower than .05 with the syntax below
-Solution2<-ifelse(Solution2$p.value<.05,"Yes","No")
+Solution1<-t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp)
+Solution2<-ifelse(Solution1$p.value<.05,"Yes","No")
 ```
 
 *** =sct
