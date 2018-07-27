@@ -290,18 +290,12 @@ library(dplyr)
 set.seed(1)
 load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
 OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
-
-# load(url('http://s3.amazonaws.com/assets.datacamp.com/production/course_1566/datasets/OHIEexperimental.Rda'))
-# load(url("http://assets.datacamp.com/production/course_1145/OHIEexperimental.Rda"))
-# "http://s3.amazonaws.com/assets.datacamp.com/staging/course_1145/datasets/iris.csv",
-
-
 ```
 
 *** =sample_code
 ```{r}
 # 1) Let's get a sense of the OHIE dataframe by looking at its structure with the str() command:
-      str()   
+    str()   
 
 # Note: Since we are going to run several t-tests, we can simplify the syntax in  later steps by separating the OHIE dataset into two dataframes that represent its treatment and control groups. There are several ways to do this in R. We recommend using R's bracket accessor's or dplyr's select function. As an example, below shows how to create a data.frame called "df.gender.0" that only contains respondents with gender equal to 0 with R's bracket syntax.
     df.gender.0<-OHIE[OHIE$gender_inp==0,]
@@ -368,8 +362,9 @@ ControlGroup <- OHIE[OHIE$treatment==0, ]
 ```{r}
 t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp)
 #This is one way to test (without eyes) whether the confidence interval overlaps with 0.
-sign(Solution1$conf.int[1])==sign(Solution1$conf.int[2])
-Solution2<-"No"
+Solution1<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp)
+Solution2<-ifelse(sign(Solution1$conf.int[1])==sign(Solution1$conf.int[2]),"Yes",
+"No")
 ```
 
 *** =sct
