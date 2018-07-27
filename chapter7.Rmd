@@ -189,6 +189,7 @@ Suppose that, of the group that received the mail offer, 40% of people opted in.
 - Yes, because the opt-in rate is low.
 - No, because an opt-in rate of 40% is actually quite high.
 - Yes, because the set of people opting in are probably people with worse spending habits.
+
 *** =sct
 ```{r}
 msg1 = "While this is a possibility, it is unlikely to actually be the case. Try again."
