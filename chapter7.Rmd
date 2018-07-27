@@ -17,12 +17,13 @@ Which one of the following approaches is *not* a way to deal with treatment nonc
 - Randomized Control Trial
 - Intention to Treat Analysis
 - Assume Random Compliance
+
 *** =sct
 ```{r}
-msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again."
-msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is not appropriate, so try again."
+msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is **not** appropriate, so try again."
+msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is **not** appropriate, so try again."
 msg3 = "Correct! Randomized Control Trials are not a valid way to correct for noncompliance, because they themselves are susceptible to treatment noncompliance."
-msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is not appropriate, so try again"
+msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is **not** appropriate, so try again"
 msg5 = "Assuming Random Compliance is not always applicable, but it is nonetheless commonly used to deal with noncompliance, so try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
