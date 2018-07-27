@@ -63,22 +63,16 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 *** =sample_code
 ```{r}
 # 1) Let's first summarize Donny's commute time to get a sense of what the data looks like. Use the summary function on the dataframe Commute.
- 
-#---- Question 1-------------------------------------#
     summary()
-#----------------------------------------------------#
 
 # 2) It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. Use the plot(density()) commands on the dataframe Commute.
-  
-#---- Question 2-------------------------------------#
     plot(density()) 
-#----------------------------------------------------#
 
 ```
 *** =solution
 ```{r}
-Solution1<- summary(Commute)
-Solution2<- plot(density(Commute))
+summary(Commute)
+plot(density(Commute))
 ```
 *** =sct
 ```{r}
@@ -121,19 +115,13 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 
 *** =sample_code
 ```{r}
-#Note: The following questions are difficult. If stuck, we highly recommend looking at our hints, located below the instructions tab.
+# Note: The following questions are difficult. If stuck, we highly recommend looking at our hints, located below the instructions tab.
 
 # 1) Determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. 
-
-#---- Question 1-------------------------------------#
     Solution1<- 
-#----------------------------------------------------#
 
 # 2) Precisely how long should Donny leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence? 
-
-#---- Question 2-------------------------------------#
     Solution2<- 
-#----------------------------------------------------#
 ```
 *** =solution
 ```{r}
@@ -144,8 +132,6 @@ Solution2<-t.test(Commute)$conf.int[2] #upper bound
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-test_function("quantile", incorrect_msg = "Did you use the `quantile` function?")
-test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 test_error()
 success_msg("Good job! Based on Donny's previous commutes, he can be fairly confident that he will get to work at least half the time if he allows himself 10.7 minutes to get there. Of course, this is assuming that the future traffic levels stays the same as the past traffic levels. If the traffic changes according to when Donny leaves, it would bias our results.")
 ```

@@ -56,19 +56,13 @@ PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(19
 *** =sample_code
 ```{r}
 # 1) To begin, let's print the contents of the dataframe to the console by entering the dataframe name, PhoneSpecifications, into the print() function.
-#---- Question 1-------------------------------------#
     Solution1<- print()
-#----------------------------------------------------#
 
 # 2) Now write the column name of the specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character).
-#---- Question 2-------------------------------------#
     Solution2<- ""
-#----------------------------------------------------#
 
 # 3) Now return the ratio between the WePhone10S and UniverseS10 of the phone specification you selected for Question 2 (do not round!).  
-#---- Question 3-------------------------------------#
     Solution3<- 
-#----------------------------------------------------#
 ```
 *** =solution
 ```{r}
