@@ -136,8 +136,8 @@ Many statistical models assume that the data is normally distributed like in a b
 On the TV show, Kitchen Horrors, Bordon Hannity tries to revive failing restaurants by offering advice to their management and chefs. To measure the effectiveness of Hannity's efforts, a fan measures the average reviews of one of Hannity's revived restaurants before and after he offers them advice. With these results:
 
 *** =instructions
-- 1) Find the means of the reviews before and after Bordon Hannity's advice.
-- 2) Run kernal density plots of the reviews with the function plot and lines.
+- 1) Find the mean difference of the reviews before (`Reviews_Before`) and after (`Reviews_After`) Bordon Hannity's advice.
+- 2) Produce kernal density plots of the reviews with the functions `plot` and `density`.
 - 3) Determine whether the reviews are normally distributed
 
 *** =pre_exercise_code
@@ -151,39 +151,33 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```
 *** =sample_code
 ```{r}
-# 1) It is almost always best practice to explore the data before running any treatment tests. However, let's try to be bad statisticians and dive into the results before we explore the data. The two review variables are measured on Likert scales, ranging from 1 to 5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. Let's examine the means of these reviews. Use the mean command to find the averages of the variables Reviews_Before and Reviews_After.
+# Note: It is best practice to explore your data before running any significance tests. However, let's be bad statisticians and dive into the results before we explore the data. The two review variables are measured on Likert scales, ranging from 1 to 5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. 
 
-#---- Question 1a-------------------------------------#
+# 1) Estimate the mean difference in reviews; that is, the mean of Reviews_Before minus the mean of Reviews_After.
     Solution1a<-
-#----------------------------------------------------#
 
 # 2) The mean reviews before and after treatment are identical! But does this mean that Hannity's show had no effect on this restaurant's ratings? Not necessarily. To illustrate, let's plot the kernel densities of the reviews in the treatment and control groups to see how they are distributed. Use the plot(density()) functions on the variables Reviews_Before and Reviews_After.
-
-#---- Question 1b-------------------------------------#
-    Solution1b<-
-#----------------------------------------------------#
-
-# 3) Use the Previous Plot and Next Plot buttons to cycle between the two graps. Do these these look approximately normally distributed? Answer with "Yes" or "No."
-#---- Question 1c-------------------------------------#
+    plot(density())
+    plot(density())
+    
+# 3) Use the Previous Plot and Next Plot buttons to cycle between the two graphs. Do these these look approximately normally distributed? Answer with "Yes" or "No."
     Solution1c<-""   
-#----------------------------------------------------#
- 
+
 ```
 *** =solution
 ```{r}
-  Solution1a<-mean(Reviews_Before)
-              mean(Reviews_After)
-  Solution1b<-plot(density(Reviews_Before))
-              plot(density(Reviews_After))
+  Solution1a<-mean(Reviews_Before)-mean(Reviews_After)
+  plot(density(Reviews_Before))
+  plot(density(Reviews_After))
   Solution1c<-"No"
 ```
 *** =sct
 ```{r}
 test_object("Solution1a")
-test_object("Solution1b")
 test_object("Solution1c")
-test_function("mean", incorrect_msg = "Did you use the `mean` function?")
-test_function("plot(density())", incorrect_msg = "Did you use the `plot(density())` function?")
+test_function("plot", incorrect_msg = "Did you use the `plot` function?")
+test_function("density", incorrect_msg = "Did you use the `density` function?")
+
 test_error()
 success_msg("Good work! This is an easy call in this particular case, but if it's close then you'll want to try some statistical tests too. And it might provoke some healthy discussion with your colleagues!").
 ```
@@ -191,9 +185,7 @@ success_msg("Good work! This is an easy call in this particular case, but if it'
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5b26b74b8c
 ## Common Issues in Interpretation II: Non-Normal Distributions (2)
-There are many ways to deal with data that are multimodal in order to get them to be normally distributed. A common strategy for dealing with data that are ordered on a Likert scale is to collapse the response options. This is feasible if we assume that it is not important to differentiate the degree of positive or negative feelings for a restaurant. In this case, we would want to collapse response options 1 and 2 into a single response option to represent negative opinions, and 4 and 5 into a single response option to represent positive opinions. 
-
-We will create for you a new variable that collapses the Reviews_Before 5 point response scale into 3 points: negative, ambivalent, and positive, and you will do 
+There are many ways to deal with data that are multimodal in order to get them to be normally distributed. A common strategy for dealing with data that are ordered on a Likert scale is to collapse the response options. This is feasible if we assume that it is not important to differentiate the degree of positive or negative feelings for a restaurant. In this case, we will want to collapse response options 1 and 2 into a single response option to represent negative opinions, and 4 and 5 into a single response option to represent positive opinions. 
 
 *** =instructions
 - 1) Create a new variable that collapses Reviews_After variable into 3 points: negative, ambivalent, and positive.
@@ -210,39 +202,30 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```
 *** =sample_code
 ```{r}
-# Let's create a new variable with three parameters, where 1= Negative (1 or 2), 2= Ambivalent (3), and 3= Positive (4 or 5). To do this for the Reviews_Before variable, we can use the ifelse function. The first line of the below syntax says, if Reviews_Before is equal to 1 or 2, set Reviews_Before to 1, otherwise just return Reviews_Before. The following lines can be interpreted similarly.
-    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before) 
+# Note: We want to create a new variable with three parameters, where 1= Negative (1 or 2), 2= Ambivalent (3), and 3= Positive (4 or 5). To do this for the Reviews_Before variable, we can use the ifelse function. The first line of the below syntax says, if Reviews_Before is equal to 1 or 2, set Reviews_Before to 1, otherwise just return Reviews_Before. The following lines can be interpreted similarly.
+    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before)
     Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
     Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
   
 # 1) Use the above syntax as a guide to rescale the Reviews_After variable, so that Reviews_After is coded as 1 if it previously was coded as 1 or 2, 2 if it was previously coded as 3, and 3 if it was previously coded as 4 or 5.
-#---- Question 2a-------------------------------------#
     Reviews_After<-
-#----------------------------------------------------#
-    
-# 2): Now that you have rescaled the Reviews_After variable, run a t-test between the Reviews_After and Reviews_Before variables, and return the p-value (use t.test()$p.value)
-#---- Question 2b-------------------------------------#
-    Solution2b<-
-#----------------------------------------------------#
+
+# 2): Now that you have rescaled the Reviews_After variable, run a t-test between the Reviews_After and Reviews_Before variables.
+    t.test()
 
 ```
 *** =solution
 ```{r}
-  Solution2a<-
-    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before) 
+    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before)
     Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
     Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
     Reviews_After<-ifelse(Reviews_After==1 | Reviews_After==2,1,Reviews_After) 
     Reviews_After<-ifelse(Reviews_After==3,2,Reviews_After) 
     Reviews_After<-ifelse(Reviews_After==4 | Reviews_After==5,3,Reviews_After)
-
-  Solution2b<-t.test(Reviews_After,Reviews_Before)$p.value
+    t.test(Reviews_After,Reviews_Before)
 ```
 *** =sct
 ```{r}
-test_object("Solution2a")
-test_object("Solution2b")
-test_function("ifelse", incorrect_msg = "Did you use the `ifelse` function?")
 test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 test_error()
 success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaningful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews").
@@ -300,23 +283,17 @@ colnames(eGulf) <- c("Seller_Feedback_Count","Seller_Feedback_Score")
 ```
 *** =sample_code
 ```{r}
-# Although it's generally recommended to explore your data before running any statistical tests on it, for the sake of learning, let's naively estimate the average treatment effect on final sales prices with a t-test.
+# Note: Although it's generally recommended to explore your data before running any statistical tests on it, for the sake of learning, let's naively estimate the average treatment effect on final sales prices with a t-test.
     t.test(eGulf$Final_Sales_Price[eGulf$Treatment==1],eGulf$Final_Sales_Price[eGulf$Treatment==0])
 
-# The ATE for the above t-test is almost $36, but the results are not statistically significant. This seems suspicious; usually a large means difference found in a sample of this size would be statically significant. Let's examine the distribution of the treatment and control groups with a box plot. Fill in the box plot with the final sales prices for the treatment and control groups. For reference, the syntax for making this boxplot is identical to that of a t-test.
-#---- Question 1-------------------------------------#
-    Solution1<- boxplot()
-#----------------------------------------------------#
-    
-# Notice that there are a few dots above each box plot. These dots indicate outliers. The cutoff for outliers in the boxplot is any value that is 1.5 times the interquartile range above the upper quartile or below the lower quartile. Is it possible that these outliers are driving our treatment effect? Let's correct for these extreme outliers. Subset the data so that it excludes any WePhone sales that were above $1500. 
-#---- Question 2-------------------------------------#
-    eGulf<-eGulf[]
-#----------------------------------------------------#
+# 1) The ATE for the above t-test is almost $36, but the results are not statistically significant. This seems suspicious; usually a large means difference found in a sample of this size would be statically significant. Let's examine the distribution of the treatment and control groups with a box plot. Fill in the box plot with the final sales prices for the treatment and control groups. For reference, the syntax for making this boxplot is identical to that of a t-test.
+    boxplot()
 
-# Question 3: Now that you have subsetted the data, calculate the mean difference in final sales prices between the treatment and control groups.
-#---- Question 3-------------------------------------#
+# 2) Notice that there are a few dots above each box plot. These dots indicate outliers. The cutoff for outliers in the boxplot is any value that is 1.5 times the interquartile range above the upper quartile or below the lower quartile. Is it possible that these outliers are driving our treatment effect? Let's correct for these extreme outliers. Subset the data so that it excludes any WePhone sales that were above $1500. 
+    eGulf<-
+
+# 3) Now that you have subsetted the data, calculate the mean difference in final sales prices between the treatment and control groups (i.e. mean of treatment 0 mean of control).
     Solution3<-
-#----------------------------------------------------#
 
 ```
 *** =solution
@@ -328,7 +305,6 @@ Solution3<-mean(eGulf$Final_Sales_Price[eGulf$Treatment==1])-mean(eGulf$Final_Sa
 *** =sct
 ```{r}
 test_object("Solution1")
-test_object("eGulf")
 test_object("Solution3")
 success_msg("Good work! When you removed the outliers from the data, the mean difference was much smaller between the treatment and control group. This is a problem that comes up often in data analysis.")
 ```
