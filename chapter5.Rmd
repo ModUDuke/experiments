@@ -425,6 +425,7 @@ mean(TreatmentGroup$bp_sar_inp)-mean(ControlGroup$bp_sar_inp)
 t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp)
 
 #We can computationally determine whether the p-value is lower than .05 with the syntax below
+Solution2<-t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp)
 Solution3<-ifelse(Solution2$p.value<.05,"Yes","No")
 
 ```
