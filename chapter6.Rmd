@@ -111,7 +111,7 @@ Treatment<-Control
 ```
 *** =sct
 ```{r}
-msg1 = "The maximum value in both plots is indicated by the dot above the whiskers. These are identical. Try again."
+msg1 = "The maximum value in both plots is indicated by the line above the whiskers. These are identical. Try again."
 msg2 = "The third quartile in both plots is indicated by the top edge of the boxes. These are identical. Try again."
 msg3 = "The median value in both plots is indicated by the thick line within the box. These are identical. Try again."
 msg4 = "Correct! Box-and-whiskers plots do not show the mean values in a sample. Although these two plots have identical quartile distributions, medians, and ranges, the mean values are actually different (7.8 in the treatment and 7.5 in the control)."
@@ -148,6 +148,7 @@ library(dplyr)
 Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
 Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```
+
 *** =sample_code
 ```{r}
 # Note: It is best practice to explore your data before running any significance tests. However, let's be bad statisticians and dive into the results before we explore the data. The two review variables are measured on Likert scales, ranging from 1 to 5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. 
