@@ -175,9 +175,6 @@ Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```{r}
 test_object("Solution1a")
 test_object("Solution1c")
-test_function("plot", incorrect_msg = "Did you use the `plot` function?")
-test_function("density", incorrect_msg = "Did you use the `density` function?")
-
 test_error()
 success_msg("Good work! This is an easy call in this particular case, but if it's close then you'll want to try some statistical tests too. And it might provoke some healthy discussion with your colleagues!").
 ```
