@@ -93,19 +93,19 @@ n=688
 
 # 1) Let's dig into the data. We first run the structure function, str(), to get a sense of the dataset. DistanceWalked is our outcome of interest, and Treatment is the key independent variable that we care about. TotalHoursPlayed refers to how many hours the user has put into KittyCatch in total.
 
-#---- Question 1:------#
+#----------------------#
      Solution1<- 
 #-----------------------#
 
 # 2) Although it is bad practice, let's begin this exercise by first taking a naive estimate of the average treatment effect on DistanceWalked before exploring the dataset. Subtract the mean of the control group from the mean of the treatment group.
 
-#---- Question 2: ------#
+#----------------------#
      Solution2<- 
 #-----------------------#
 
 # 3) Now let's do that again, but with a t-test.  
     
-#---- Question 3: ------#
+#----------------------#
      Solution3<- 
 #-----------------------#
 
@@ -113,7 +113,7 @@ n=688
 
 # 4) Now let's examine our outcome of interest, DistanceWalked, with the summary function. 
 
-#---- Question 4: ------#
+#----------------------#
      Solution4<- 
 #-----------------------#
 
@@ -121,25 +121,25 @@ n=688
 
 # 5) Run a density plot on DistanceWalked to observe the long right tail in the distribution of our outcome of interest.
 
-#---- Question 5: ------#
+#----------------------#
      Solution5<- 
 #-----------------------#
   
 # 6) Since the dataset is relatively small, let's use the `head` and `order` commands to examine the highest DistanceWalked observations in the dataset. The following syntax will order the top results by the outcome of interest, so use it as a guide: head(Dataframe[order(Dataframe$Variable,decreasing=T),])
 
-#---- Question 6: ------#
+#----------------------#
      Solution6<- 
 #-----------------------#
 
 # 7) Notice that the four largest values for DistanceWalked are more than three times as large as the 5th largest value for DistanceWalked. These are clearly outliers. However, we should also note that all of these values are in the control group, so removing them from our dataset, as we had done with previous outliers, might also bias our estimates by lowering the mean values for the treatment group. Instead, let's say that our maximum distance we will allow is 2. This is known as top coding, and we'll top code these values so that they are still the largest values in the dataset, but so that they are not outliers and do not violate our assumptions of a normal distribution. Top coding can be arbitrary (and there are better methods for handling outliers), but for this assignment, use the following syntax as a model to create an ifelse statement that says that any value of DistanceWalked over 2 will be changed to equal 2: dataframe$variable<-ifelse(dataframe$variable>x,y,dataframe$variable). Note: x is the current value of the variable, and y is the final value we want.
 
-#---- Question 7: ------#
+#----------------------#
      KittyCatch$DistanceWalked<-
 #-----------------------#
     
 # 8) If you completed question 7 correctly, the distribution of DistanceWalked should now look much more normal. Create a new density plot of DistanceWalked to see if that is true.
 
-#---- Question 8: ------#
+#----------------------#
      Solution8<- 
 #-----------------------#
 
@@ -150,7 +150,7 @@ n=688
 
 # 9) Next, we'll want to make sure that our control groups and treatment groups are balanced. Let's compare the age of the control group and treatment group with boxplots. The model syntax for creating this boxplot is: boxplot(dataframe$variable[dataframe$Treatment==0], dataframe$variable[dataframe$Treatment==1], names=c("Control","Treatment")) 
 
-#---- Question 9: ------#
+#----------------------#
      Solution9<- 
 #-----------------------#
 
@@ -158,13 +158,13 @@ n=688
 
 #10) It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked. Run a cor() function between Age and DistanceWalked to see if they are indeed correlated. The syntax for this will be cor(dataframe$variable1, dataframe$variable2):
 
-#---- Question 10: ------#
+#----------------------#
      Solution10<- 
 #-----------------------#
 
 # 11) Are the treatment and control groups balanced on Age, or are they imbalanced? Let's run a t-test to see.  The syntax for this will be: t.test(dataframe$variable[dataframe$Treatment==0],dataframe$variable[dataframe$Treatment==1])
 
-#---- Question 11: ------#
+#----------------------#
      Solution11<- 
 #-----------------------#
 
@@ -172,13 +172,13 @@ n=688
 
 # 12) There are two options to deal with this problem. One option is to ignore it, as we know that age was top coded in the control group, and may be the entire cause of the imbalance between the treatment and control group. However, what if people who opted into the treatment group tended to be older on average? This could bias our results. The best way to deal with this problem is with a different modeling technique (e.g. regression models). However, since we want to continue using t-tests for this module, a good way to deal with this problem is to subset the data to only use observations we can be sure are similarly aged. Since we can only be sure of the age of respondents in the treatment group for those younger than 18, let's subset the dataset to only include respondents who are 17 or younger. The syntax for this will be dataframe[dataframe$variable<=17,].
   
-#---- Question 12: Subset KittyCatch to respondents who are 17 or younger ----#
+#----------------------#
     KittyCatch<-
-#----------------------------------------------------------------------------#
+#----------------------#
 
 # 13) If you completed question 12 correctly, Age among the treatment and control groups should now be balanced. Run the t-test from Question 11 again to see if the two groups are now balanced on Age.
 
-#---- Question 13: ------#
+#----------------------#
      Solution13<- 
 #-----------------------#
 
@@ -189,13 +189,13 @@ n=688
     
 # 14) Now let's look for balance in the last variable we know about the treatment and control groups, TotalHoursPlayed. Run the summary function on the variable TotalHoursPlayed.  Moreover, as the correlation function below shows, TotalHours played appears to be correlated with DistanceWalked. 
 
-#---- Question 14: ------#
+#----------------------#
      Solution14<- 
 #-----------------------#
 
-# 15) Notice from the summary function that 127 values are labeled "NA". These cases are missing information, in large part because KittyCatch allows users to opt out of recording how many hours they play. This could be very problematic, as it indicates that we only have distance walked information for respondents who selected to do so. Let's find the correlation between TotalHoursPlayed and DistanceWalked the entire sample population. The syntax for this will be: cor(dataframe$variable1, dataframe$variable2, use="complete").
+# 15) Notice from the summary function that 96 values are labeled "NA". These cases are missing information, in large part because KittyCatch allows users to opt out of recording how many hours they play. This could be very problematic, as it indicates that we only have distance walked information for respondents who selected to do so. Let's find the correlation between TotalHoursPlayed and DistanceWalked the entire sample population. The syntax for this will be: cor(dataframe$variable1, dataframe$variable2, use="complete").
 
-#---- Question 15: ------#
+#----------------------#
      Solution15<- 
 #-----------------------#
 
@@ -203,13 +203,13 @@ n=688
     
 # 16) Even more worrisome, the NA values for TotalHoursPlayed appear at higher rates for respondents in the treatment group than in the control group. Check the average values ofTotalHoursPlayed in both treatment and control groups, in separate lines, using the mean(is.na(dataframe$variable)) function. Remember that you can select units within a dataframe by their Treatment value with the syntax variable[dataframe$Treatment==x]. 
 
-#---- Question 16: ------#
+#----------------------#
      Solution16<- 
 #-----------------------#
 
 # 17) This isn't the end for our analysis, though. Let's look for some good news about our data within TotalHoursPlayed. One simple thing we can do is see if that variable is balanced across the treatment and control groups for the units that we actually do have information for, so run a t-test between the treatment and control groups on the variable TotalHoursPlayed.
 
-#---- Question 17: ------#
+#----------------------#
      Solution17<- 
 #-----------------------#
 
@@ -217,9 +217,9 @@ n=688
   
 # 18) A simple, albeit imperfect, solution to this problem is listwise deletion; that is, removing respondents from our sample who did not report their total hours played. Subset KittyCatch to respondents who reported their total hours played. The syntax for this will be: dataframe<-KittyCatch[!is.na(dataframe$variable),].
 
-#---- Question 18: Subset KittyCatch to respondents who reported their total hours played ----#
+#----------------------#
   KittyCatch<-
-#--------------------------------------------------------------------------------------------#
+#----------------------#
 
 # Whew! We've explored the data, dealt with the issues, and now we can finally calculate the treatment effect of our experiment!
 
@@ -228,17 +228,17 @@ n=688
 
 # 19) Now that we have balanced our data on all known dimensions, let's return the average treatment effect of walking farther on time spent playing KittyCatch by subtracting the means of our control group from our treatment group:
 
-#---- Question 19: ----#
+#----------------------#
   Solution19<-
-#--------------------------------------------------------------------------------------------------#
+#----------------------#
 
 # Great job. But is that value statistically significant? We don't want to get too excited about it until we know that as well.
 
 # 20) Finally, let's test if the ATE is significant by finding out if the p value of a t-test is less than .05, which we will use as our standard of significance:
 
-#---- Question 20 -------#
+#----------------------#
   Solution20<-
-#--------------------------------------------------------------------------------------------------#
+#------------------------#
   
 ```
 *** =solution
