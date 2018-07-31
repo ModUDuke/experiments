@@ -9,7 +9,7 @@ description : "These videos and exercises discuss the issue of noncompliance in 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c896674673
 ## Ways to Deal with Noncompliance
-Which one of the following approaches is *not* a way to deal with treatment noncompliance?
+Which one of the following approaches is *NOT* a way to deal with treatment noncompliance?
 
 *** =instructions
 - Bounds Analysis
@@ -20,17 +20,19 @@ Which one of the following approaches is *not* a way to deal with treatment nonc
 
 *** =sct
 ```{r}
-msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is **not** appropriate, so try again."
-msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is **not** appropriate, so try again."
+msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again."
+msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again."
 msg3 = "Correct! Randomized Control Trials are not a valid way to correct for noncompliance, because they themselves are susceptible to treatment noncompliance."
-msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is **not** appropriate, so try again"
+msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again"
 msg5 = "Assuming Random Compliance is not always applicable, but it is nonetheless commonly used to deal with noncompliance, so try again"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:84487e1a9f
 ## A Refresher on eGulf Auctions Experiment and Confidence Intervals 
-Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions (the treatment group) had higher sales prices than sellers who only posted 10 pictures of their WePhones (the control group). eGulf wanted to make sure these results were not spurious by conducting their experiment a second time, with a larger sample. The results of this second experiment were visualized as a bar graph, with 95% confidence intervals indicated by error bars. Based on these results, shown in the R workspace, what can we conclude about the average treatment effect (ATE)? 
+Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions (the treatment group) had higher sales prices than sellers who only posted 10 pictures of their WePhones (the control group). eGulf wanted to make sure these results were not spurious by conducting their experiment a second time, now with a larger sample. 
+
+The results of this second experiment were visualized as a bar graph, with 95% confidence intervals indicated by error bars. Based on these results, shown in the R workspace, what can we conclude about the Average Treatment Effect (ATE)? 
 
 *** =instructions
 - The ATE is not statistically significant at a 95% confidence interval.
@@ -80,7 +82,7 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 ```{r}
 msg1 = "Do the error bars overlap? Look carefully at the graph and try again."
 msg2 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
-msg3 = "Correct! Since the 95% confidence interval error bars do not appear to overlap, we can conclude that the difference is statistically significant."
+msg3 = "Correct! Since the 95% confidence interval error bars do not appear to overlap, we can conclude that the difference is statistically significant at the 95% confidence level."
 msg4 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
@@ -98,13 +100,13 @@ video_link: "//player.vimeo.com/video/279737646"
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
 ## eGulf Auctions Experiment: Noncompliance
-In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we never examined whether noncompliance could have confounded our results. Specifically, what if the sellers who chose to post more than 10 pictures of their WePhones were different from those who chose not to post more than 10 pictures? 
+In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we never examined whether noncompliance could have confounded our results. Specifically, was there some systematic difference between the sellers who chose to post more than 10 pictures of their WePhones and those who chose to post less than 10 pictures? 
 
-If the experiment's dependent variable is associated with a difference between compliers and noncompliers, its association with the treatment effect may be spurious. Therefore, we should test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
+If the values of an experiment's outcome variable are associated with a systematic difference between compliers and noncompliers, its association with the treatment effect may be spurious. Therefore, we should test our data to see whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
 
 *** =instructions
-- 1) Test whether sellers who were offered treatment (`Seller_Offered_Treatment`) and opted into the treatment (`Seller_Opted_Into_Treatment`==1) had different prior average feedback scores (`Seller_Feedback_Score`) than sellers who were offered treatment but did not opt into treatment. 
-- 2) Test whether sellers' prior average feedback scores (`Seller_Feedback_Score`) were associated with their recent auction's final sales price (`Final_Sales_Price`).
+- 1) Test whether sellers who were offered treatment *and** opted into the treatment had different prior average feedback scores than sellers who were offered treatment but did *not** opt into treatment (tracked with `Seller_Offered_Treatment`, `Seller_Opted_Into_Treatment`, and `Seller_Feedback_Score`)
+- 2) Test whether sellers' prior average feedback scores were associated with their recent auction's final sales price (`Final_Sales_Price`).
 
 *** =hint
 - For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
@@ -121,6 +123,7 @@ set.seed(1)
 n <- 1000
 eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
 colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
+
 # Simulate baseline data
   # Make seller feedback count
     eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
@@ -133,15 +136,16 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
   # Make final sales price also correlated with seller_feedback_score
     eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
 ```
+
 *** =sample_code
 ```{r}
 # 1) To check for noncompliance in an experiment, we will only want to compare individuals that were offered treatment. Therefore, it might make the problems below easier if you first subset the eGulf data.frame to sellers who were offered treatment. However, we will leave that choice up to you. 
 
-# 2) Before running a significance test to see whether egulf compliers and noncompliers were different, let's summarize the data.
+# 2) Before running a significance test to see whether compliers and noncompliers were different, let's summarize the data. Select the following code and hit the "Run Code" button to see the results:
     summary(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==0 & eGulf$Seller_Offered_Treatment==1])
     summary(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1 & eGulf$Seller_Offered_Treatment==1])
 
-# 3) It appears that those who opted into the treatment have slightly higher feedback scores than those who did not, but is the difference statistically significant? Fill in the t-test syntax below to measure the confidence interval of the mean difference between those who were offered treatment and opted into the treatment and those who were offered treatment but did not opt into treatment.
+# 3) It appears that those who opted into the treatment have slightly higher feedback scores than those who did not, but is the difference statistically significant? Fill in the t-test syntax below to measure the confidence interval of the mean difference between those who were offered treatment **and** opted into the treatment and those who were offered treatment but did **not** opt into treatment.
 #---- Question 1-------------------------------------#
     t.test()$conf.int
 #----------------------------------------------------#
@@ -157,6 +161,7 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 #----------------------------------------------------#
 
 ```
+
 *** =solution
 ```{r}
 Significant<-all(t.test(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1&eGulf$Seller_Offered_Treatment==1],eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==0 & eGulf$Seller_Offered_Treatment==1])$conf.int>0)
@@ -164,6 +169,7 @@ Significant<-all(t.test(eGulf$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Trea
 Solution2<-ifelse(Significant==T,"Yes","No")
 Solution3<-cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
 ```
+
 *** =sct
 ```{r}
 test_object("Solution2")
@@ -178,7 +184,7 @@ success_msg("Good work! It looks like sellers who posted more photos tended to h
 //player.vimeo.com/video/198212102
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1557ba9536
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:
 ## Offering a Higher Credit Card Limit: Quantifying Noncompliance Concerns
 CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random group of 50% of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
 
@@ -212,7 +218,7 @@ key:
 video_link: //player.vimeo.com/video/279737627
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 key:a00d1ebc4c
+--- type:NormalExercise lang:r xp:100 skills:1 key:
 ## Offering a Higher Credit Card Limit: Working with Noncompliance
 Let's continue with the CreditCo dataset described in the previous exercise. The CFO has assigned you to figure out the average treatment effect of taking a credit line increase offer on late payments (defaults), and he wants to see something before lunch. You realize that you can give him a simple result: you just need to do some quick checks for balance in your samples and compute a "naive" average treatment effect to get the analysis started.
 
@@ -296,17 +302,17 @@ library(dplyr)
 ```{r}
 # The dataset `CreditCo` is available in your workspace. You may want to explore it with the structure "str" command before solving the following questions.
 
-# Question 1: Compute the fraction of people who were offered a higher credit limit
+# 1) Compute the fraction of people who were offered a higher credit limit.
 #---- Question 1-------------------------------------#
     Solution1<- 
 #----------------------------------------------------#
 
-# Question 2: Of the people who were offered, what fraction opted in?
+# 2) Of the people who were offered, what fraction opted in?
 #---- Question 2-------------------------------------#
     Solution2<- 
 #----------------------------------------------------#
 
-# Question 3: Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered **and** opted in to the program
+# 3) Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered **and** opted in to the program
 #---- Question 3-------------------------------------#
     Solution3<- 
 #----------------------------------------------------#
