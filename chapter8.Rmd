@@ -30,16 +30,19 @@ video_link: "//player.vimeo.com/video/279737592"
 ## Unhappiness at Unter: Identifying Heterogeneous Outcomes - ATE
 The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department.
 
-To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and a control group that the HR Department will remain the same size in the following year (and magically, they don't end up discussing this with each other). Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
+To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and tells a control group that the HR Department will remain the same size in the following year. And magically, these two groups don't end up discussing this with each other. Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
 
 With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover:
 
 *** =instructions
-- 1) Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave their job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
+- 1) Find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) 
+- 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
+- 3) Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave their job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
 
 *** =hint
-- You will need to use the `mean` and `subset` commands.
-- Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
+- To make things a bit simpler to understand, subset the treatment and control groups into new dataframes based on their values of the `Treatment` variable.  
+- You will need to use the `mean` command.
+
 *** =pre_exercise_code
 ```{r}
 library(data.table)
@@ -56,23 +59,44 @@ n=382
     UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
     UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
 ```
+
 *** =sample_code
 ```{r}
-# The average treatment effect is simply the mean outcome of the treatment group minus the mean outcome of the control group.
+# 1)  Calculate the mean rate of `LeaveJob`in the control condition (`Treatment=0`)
 
 #---- Question 1-------------------------------------#
     Solution1<- 
 #----------------------------------------------------#
+
+  
+# 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
+
+#---- Question 2-------------------------------------#
+    Solution2<- 
+#----------------------------------------------------#
+  
+  
+# 3) The average treatment effect is simply the mean outcome of the treatment group minus the mean outcome of the control group.
+
+#---- Question 3-------------------------------------#
+    Solution3<- 
+#----------------------------------------------------#
 ```
+
 *** =solution
 ```{r}
-Solution1<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
+Solution1<-mean(UnterHR$LeaveJob[UnterHR$Treatment==1])
+Solution2<-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
+Solution3<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
 ```
 
 *** =sct
 ```{r}
 test_object("Solution1")
-success_msg("Good work! It seems that reducing the size of HR reduced Unter employees' intentions to leave their jobs")
+test_object("Solution2")
+test_object("Solution3")
+test_error()
+success_msg("Good work! It seems that reducing the size of HR also reduced Unter employees' intentions to leave their jobs by about 7%.")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c229f94a13
@@ -86,6 +110,7 @@ However, his chief operating officer (COO) warns him that reducing the size of H
 - While the pooled average treatment effect is slightly positive, and the average treatment effect for men is positive, the average treatment effect for women is negative.
 - While the pooled average treatment effect is slightly negative, and the average treatment effect for men is positive, the average treatment effect for women is negative.
 - While the pooled average treatment effect is slightly positive, and the average treatment effect for men is negative, the average treatment effect for women is positive.
+
 *** =pre_exercise_code
 ```{r}
 library(data.table)
@@ -117,6 +142,7 @@ n=382
 p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
     p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
 ```
+
 *** =sct
 ```{r}
 msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treatment has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked."
@@ -163,28 +189,38 @@ n=382
 # Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to examine a three way table of this relationship first. The following syntax prints the numbers of men and women who intend to leave work by treatment group and gender. Run this code by selecting it with the cursor and clicking the "Run Code" button, or by typing it into the console:
     xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
 
-# Since the treatment and control groups among women are of relatively similar sizes, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. But to be sure, let's actually calculate the differences in the average treatment effects among men and women.
+# So let's look at the balance in raw numbers of units between the treatment and control groups. Among men, there are 214 (141+73) in the control group and 122 (98+24) in the treatment group.  Among women, there are 27 (19+8) in the control group, and 19 (5+14) in the treatment group.  We have a lot more men than women in our samples. 
+# So how many men and women want to stay, and how many want to leave? Among men in both treatment and control groups, 239 (141+98) say they want to stay at Unter and 97 (23+74) say they plan to leave. Among women in both groups, 24 (19+5) say they plan to stay, and another 24 (6+18) say that they plan to leave.
 
-# Question 1: Determine the average treatment effect among men.
+# Since the numbers in the leave and and stay groups among women are equal, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. But to be sure, let's actually calculate the differences in the average treatment effects among men and women.
+
+# 1)Determine the average treatment effect among men. How big is it? Is it positive or negative?
 #---- Question 1-------------------------------------#
     Solution1<- 
 #----------------------------------------------------#
+      
+# How big is it? Is it positive or negative?      
 
-# Question 2: Determine the average treatment effect among women.
+# 2) Determine the average treatment effect among women.
 #---- Question 2-------------------------------------#
     Solution2<- 
 #----------------------------------------------------#
 
+# How big is it? Is it positive or negative?   
+
 ```
+
 *** =solution
 ```{r}
 Solution1 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0])
 Solution2 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1])
 ```
+
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
+test_error()
 success_msg("Good work! We can see a clear difference in the treatment effect among men and women. This is a clear example of a conditional average treatment effect.")
 ```
 
@@ -201,6 +237,7 @@ Based solely on the information shown in the table of the previous video, can yo
 *** =instructions
 - Yes, the results support common beliefs about why attending preschool leads to lower rates of criminal activity among men and women.
 - No, we need more information about how preschool education affects individuals before we can definitively identify why preschool leads to reduced criminal activity.
+
 *** =sct
 ```{r}
 msg1 = "Although you may have ideas about why preschool attendance reduces criminal activity later in life, the exact causal connection between these two activities is not apparent from the data presented. Try again."
@@ -224,6 +261,7 @@ What is the key reason people use proxy variables for their outcomes of interest
 - Because an experiment might yield heterogeneous treatment effects.
 - Because an experiment does not always yield statistically significant results.
 - Because an experiment's true outcome of interest is not always possible to study.
+
 *** =sct
 ```{r}
 msg1 = "The wording on this answer is tricky, but remember that an experiment's dependent variable is the outcome that is being measured. If a proxy variable is used in place of one's outcome of interest, it is an experiment's dependent variable. In actuality, proxy variables tend to be more susceptible to experimental biases than are direct measurements of one's outcome of interest. Try again."
@@ -244,6 +282,7 @@ To reduce the time it takes to determine how a business strategy affects a busin
 - The number of years that a business has been active
 - A business's annual operating income (i.e. profit)
 - A business's employee turnover rate
+
 *** =sct
 ```{r}
 msg1 = "This is only tangentially related to a business's survival, since the ideal proportion of online sales to retail sales differs dramatically by industry. Try again."
@@ -258,7 +297,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ## Dr. Max Funn: Questionable Proxy Variables
 Hedonism is the ethical theory that people should maximize their own pleasure in life. One hedonist in particular, Dr. Max Funn, wondered if religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since Mr. Funn was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness.
 
-Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and, increasing his own happiness, finds a statistically significant average treatment effect of religious attendance on happiness (measured as income).
+Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and finds a statistically significant average treatment effect of religious attendance on happiness (measured as income). This result increases Dr. Funn's own happiness.
 
 Which of the following hypothetical scenarios, if true, would make us question whether income is a good proxy variable for happiness in this experiment?
 
@@ -266,6 +305,7 @@ Which of the following hypothetical scenarios, if true, would make us question w
 - If religious attendance were found to have a positive effect on happiness.
 - If, across the population, income were not associated with church attendance.
 - If religious attendance made people sad, and employers were more likely to give raises to employees who seem sad.
+
 *** =sct
 ```{r}
 msg1 = "This scenario is consistent with our results, so if anything, this would suggest that income is a good proxy variable for happiness. Try again."
@@ -333,6 +373,7 @@ set.seed(1)
   econometrics$Income<-(10*econometrics$Happiness+econometrics$WorkHours+mround(rtnorm(n=1000,mean=30,sd=10,min=0,max=100),10))/2
   
 ```
+
 *** =sample_code
 ```{r}
 # 1) As usual, we recommend exploring the structure of the data before diving into the questions. Use the str() command on the dataframe `econometrics`:
@@ -356,6 +397,7 @@ set.seed(1)
 #----------------------------------------------------#
 
 ```
+
 *** =solution
 ```{r}
 Solution1<-str(econometrics)
@@ -363,12 +405,14 @@ Solution2<-cor(econometrics$Happiness,econometrics$Income)
 Solution3<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
 Solution4<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
 ```
+
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
 test_object("Solution4")
+test_error()
 success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
 ```
 
@@ -382,13 +426,16 @@ success_msg("Good work! While proxy variables can be an extremely useful tool fo
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:80741dce58
 ## Reporting Informative Results
 Let's say that you are writing up a report on an experiment, and your mentor asked you to report all results to the nearest hundredth. If the p value for your key statistic were 0.0542, and your field tends to consider any result with p-values of 0.05 or less to be statistically significant and valid, what would be the most informative/least misleading number to write down as the p-value in your report?
+
 *** =instructions
 - 0.05
 - 0.054
 - 0.06
 - 0.1
+
 *** =hint
 - Here is a useful hint: Bear in mind that you want both to follow your mentor's instructions and to avoid overstating your confidence in the certainty of your findings.
+
 *** =sct
 ```{r}
 msg1 = "This seems like the right answer, but it will mislead your readers to think that your results are more statistically significant than they truly are. Try again."
@@ -425,8 +472,10 @@ A government official asks for your opinion about the study, based solely on the
 - The long-term CATE (in percentage terms) is larger for low-income children, so the government should emphasize preschool among low-income families.
 - The long-term CATE (in level terms) is about the same for both income groups, so the government should offer preschool to all families, regardless of income.
 - There is not enough information to provide an opinion.
+
 *** =hint
 - Remember that you are trying to pick the wrong answer -- the thing you would NOT tell the official who asked for your opinion. Do your best!
+
 *** =sct
 ```{r}
 msg1 = "No, focusing the policy among the group that gains the most in absolute dollar terms is a reasonable policy recommendation."
@@ -449,6 +498,7 @@ What is an accurate summary of the results of this experiment?
 - The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for dogs** than for cats, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
 - The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical**, but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for dogs** than for cats.
 - The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs.
+
 *** =sct
 ```{r}
 msg1 = "Incorrect.  You are right that the long-term effects are identical, but review the short-term effects of the experiment carefully and try again."
