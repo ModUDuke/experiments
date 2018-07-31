@@ -174,6 +174,7 @@ Solution3<-cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
 ```{r}
 test_object("Solution2")
 test_object("Solution3")
+test_error()
 success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who did not post more photos. Additionally, prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, the experiment's results might be spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance.")
 ```
 
@@ -331,5 +332,6 @@ Solution3<-mean(CreditCo$default_post[CreditCo$opt_in==1])-mean(CreditCo$default
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
+test_error()
 success_msg("Nice job! As you can see, about half of the sample received an offer, but only about 41% of people actually accepted it. For the people who complied, the 'naive' treatment effect is a +26% default rate--the default rate went up for people who accepted the offer! However, while this 'naive' ATE is quick to calculate, it's probably not accurate, as there are likely confounders that we can deal with when we have more time.")
 ```
