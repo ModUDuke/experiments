@@ -35,6 +35,7 @@ In this exercise, you will look at 2 alternative methods for dealing with the no
 - 4) Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
 
 *** =hint
+- When the values of a variable are binary (0 or 1), you can calculate the proportion of 1s by simply taking the mean of the variable.
 - Remember to be aware of selecting the correct subsample.
 
 *** =pre_exercise_code
@@ -104,42 +105,29 @@ library(dplyr)
 # The dataset `CreditCo` is available in your workspace.
 
 # 1) Determine the fraction of opt-in among those offered the increase.
-#---- Question 1-------------------------------------#
-    Solution1<-
-#----------------------------------------------------#
+
 
 # 2) Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value.
-#---- Question 2-------------------------------------#
-    Solution2<-
-#----------------------------------------------------#
+
+    Solution1<-
 
 # 3) Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value.
 
-#---- Question 3-------------------------------------#
-    Solution3<-
-#----------------------------------------------------#
+    Solution2<-
 
 # 4) Now compare this result with the findings from another method: an intention-to-treat analysis, under random compliance, or both! To calculate the intention-to-treat analysis ATE, compare units who received the offer and those who did not receive the offer. To calculate the ATE under random compliance, simply calculate a "naive ATE" by comparing treatment and control groups . 
 
-#---- Question 4-------------------------------------#
-    Solution4<-
-#----------------------------------------------------#
 
 # 5) Calculate the p values of ATEs from Question 4. How do they compare to the bounds analysis?
 
-#---- Question 5-------------------------------------#
-    Solution5<-
-#----------------------------------------------------#
 
 ```
 
 *** =solution
 ```{r}
-Solution1 <- mean(CreditCo$opt_in[CreditCo$offered==1])
-Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
-Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
-Solution4 <- ""
-Solution5 <- ""
+mean(CreditCo$opt_in[CreditCo$offered==1])
+Solution1 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
 
 ```
 
@@ -148,8 +136,7 @@ Solution5 <- ""
 test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
-test_object("Solution4")
-test_object("Solution5")
+
 success_msg("Nice job! As you can see, we get slightly different answers based on the method we use. What did we learn from this experiment overall? Well, that depended on the technique you used to analyze it. When working with data, usually the best option is to learn the answers from multiple techniques so that you can have a more complete and nuanced interpretation of what really happened.")
 ```
 
