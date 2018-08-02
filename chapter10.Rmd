@@ -20,8 +20,6 @@ video_link: "//player.vimeo.com/video/279737481"
 ```
 
 
-## THIS QUESTION DID NOT HAVE THE INTENTION-TO-TREAT/RANDOM COMPLIANCE PART, SO I GUESSED AT HOW TO DO IT IN THE LAST QUESTION. I DON'T KNOW HOW TO CHECK SOLUTION4 AND SOLUTION5 FOR COMPLETION WHEN WE DON'T KNOW WHAT THEY'LL TYPE, SO I JUST LEFT THEM AS "".
-
 --- type:NormalExercise lang:r xp:100 skills:1 key:a42175703d
 ## Offering a Higher Credit Card Limit: Computing Bounds Under Noncompliance
 Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. This time, we have provided you with more data to examine, particularly the credit ratings for the individuals in both the treatment and control groups. But goal remains the same as before: does the offer of a higher credit limit decrease the number of late payments (defaults)? 
