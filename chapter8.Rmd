@@ -64,29 +64,22 @@ n=382
 ```{r}
 # 1)  Calculate the mean rate of `LeaveJob`in the control condition (`Treatment=0`)
 
-#---- Question 1-------------------------------------#
-    Solution1<- 
-#----------------------------------------------------#
 
-  
+
 # 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
 
-#---- Question 2-------------------------------------#
-    Solution2<- 
-#----------------------------------------------------#
-  
-  
-# 3) The average treatment effect is simply the mean outcome of the treatment group minus the mean outcome of the control group.
 
-#---- Question 3-------------------------------------#
+ 
+# 3) Calculate the average treatment effect, which is is simply the mean outcome of the treatment group minus the mean outcome of the control group.
+
     Solution3<- 
-#----------------------------------------------------#
+
 ```
 
 *** =solution
 ```{r}
-Solution1<-mean(UnterHR$LeaveJob[UnterHR$Treatment==1])
-Solution2<-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
+mean(UnterHR$LeaveJob[UnterHR$Treatment==1])
+mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
 Solution3<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
 ```
 
@@ -194,17 +187,15 @@ n=382
 
 # Since the numbers in the leave and and stay groups among women are equal, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. But to be sure, let's actually calculate the differences in the average treatment effects among men and women.
 
-# 1)Determine the average treatment effect among men. How big is it? Is it positive or negative?
-#---- Question 1-------------------------------------#
+# 1)Determine the average treatment effect among men. 
+
     Solution1<- 
-#----------------------------------------------------#
-      
+
 # How big is it? Is it positive or negative?      
 
 # 2) Determine the average treatment effect among women.
-#---- Question 2-------------------------------------#
+
     Solution2<- 
-#----------------------------------------------------#
 
 # How big is it? Is it positive or negative?   
 
@@ -377,41 +368,37 @@ set.seed(1)
 *** =sample_code
 ```{r}
 # 1) As usual, we recommend exploring the structure of the data before diving into the questions. Use the str() command on the dataframe `econometrics`:
-#---- Question 1-------------------------------------#
-    Solution1<- 
-#----------------------------------------------------#
+
+
 
 # 2) Use the 'cor' function to determine and report whether Happiness is correlated with Income.
-#---- Question 2-------------------------------------#
-    Solution2<- 
-#----------------------------------------------------#
+
+
 
 # 3) Use a t-test to determine whether Treatment affects Income, and report its p-value.
-#---- Question 2-------------------------------------#
-    Solution3<- 
-#----------------------------------------------------#
+
+    Solution1<- 
+
 
 # 4) Question 3: Use a t-test to determine whether Treatment effects Happiness, and report its p-value.
-#---- Question 3-------------------------------------#
-    Solution3<- 
-#----------------------------------------------------#
+
+    Solution2<- 
+
 
 ```
 
 *** =solution
 ```{r}
-Solution1<-str(econometrics)
-Solution2<-cor(econometrics$Happiness,econometrics$Income)
-Solution3<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
-Solution4<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
+str(econometrics)
+cor(econometrics$Happiness,econometrics$Income)
+Solution1<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
+Solution2<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
 ```
 
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-test_object("Solution3")
-test_object("Solution4")
 test_error()
 success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
 ```
