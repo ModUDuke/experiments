@@ -100,11 +100,13 @@ p<-vector()
 for(i in 2:length(control)){
   p[i-1]<-t.test(control[,i],treatment[,i])$p.value
 }
+
 Solution<-names(KatiePerrie)[which(p<=.05)+1]
 ```
 
 *** =sct
 ```{r}
+test_error()
 test_object("Solution")
 success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if the treatment and control groups in a natural experiment are not balanced, scientists will instead try to subset the control group and treatment groups into balanced groups, and then assess the data.")
 ```
@@ -162,30 +164,26 @@ SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
     t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
 
 # 1) Now run another t-test, with confidence level = .99, and assign it to the object 'Test1'.
-#---- Question 1-------------------------------------#
+
     Test1<-
-#----------------------------------------------------#
+
 
 # 2) Use the Test1 object to assign the upper bound of the confidence interval. For reference, we assigned the lower bound from Test1 for you below.
-#---- Question 2-------------------------------------#
+   
+   LowerBound1<- Test1$conf.int[1]  
     UpperBound1<- 
-#----------------------------------------------------#
-    LowerBound1<- Test1$conf.int[1]  
 
 # 3) Run another t-test, with confidence level = .5, and assign it to the object 'Test2'.
-#---- Question 3-------------------------------------#
+
     Test2<- 
-#----------------------------------------------------#
 
 # 4) Use the Test2 object to assign the lower bound of the confidence interval.
-#---- Question 4-------------------------------------#
+
     LowerBound2<- 
-#----------------------------------------------------#
 
 # 5) Use the Test2 object to assign the upper bound of the confidence interval.
-#---- Question 5-------------------------------------#
+
     UpperBound2<- 
-#----------------------------------------------------#
 
 
 ```
@@ -207,6 +205,7 @@ test_object("UpperBound1")
 test_object("LowerBound1")
 test_object("LowerBound2")
 test_object("UpperBound2")
+test_error()
 success_msg("Good work! As you can see, the confidence interval is highly susceptible to the percentage at which you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
 ```
 
@@ -325,44 +324,35 @@ library(dplyr)
 
 *** =sample_code
 ```{r}
-# The dataset `CreditCo` is available in your workspace.
+# The dataset `CreditCo` is available in your workspace. You may want to remind yourself of its structure with the str() command.
 
 # 1) Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered the increase and experienced rainy weather (variable "rainy") vs. those who were offered the increase but did not experience rain.
-#---- Question 1-------------------------------------#
-    Solution1<-
-#----------------------------------------------------#
+
 
 # 2) Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the syntax `t.test(x,y)$p.value` to report only the p-value.
-#---- Question 2-------------------------------------#
-    Solution2<-
-#----------------------------------------------------#
+
 
 # 3) Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy-day customers versus sunny-day customers (regardless of whether they were offered the balance increase). Use a t-test to report these results.
-#---- Question 3-------------------------------------#
-    Solution3<-
-#----------------------------------------------------#
-  
-# 4) Do the same as above, but for post-treatment default rates. Again, use a t-test.
-#---- Question 4-------------------------------------#
-    Solution4<-
-#----------------------------------------------------#
 
+
+# 4) Now let's see if the rain had an effect on post-treatment default rates, which is our outcome of interest. Again, use a t-test.
+
+    Solution1<-
+    
 ```
 
 *** =solution
 ```{r}
-Solution1 <- t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
-Solution2 <- t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
-Solution3 <- t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
-Solution4 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
+t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
+t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
+t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
+Solution1 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
 ```
 
 *** =sct
 ```{r}
+test_error()
 test_object("Solution1")
-test_object("Solution2")
-test_object("Solution3")
-test_object("Solution4")
 success_msg("Good work!")
 ```
 
