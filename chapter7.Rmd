@@ -157,6 +157,8 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
 
 *** =solution
 ```{r}
+eGulf2<-eGulf[eGulf$Seller_Offered_Treatment==1,]
+
 #1
 t.test(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0],eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==1])
 
