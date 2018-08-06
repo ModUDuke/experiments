@@ -87,31 +87,96 @@ msg4 = "The graph does not show error bars for the 99% confidence interval, so n
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
+## Let's Code: Noncompliance in eGulf Data
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: f309deee16
+video_link: "//player.vimeo.com/video/279737646"
+```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
-## Survey Noncompliance
-*** =video_link
-//player.vimeo.com/video/198212102
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
+## eGulf Auctions Experiment: Noncompliance
+In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we never examined whether noncompliance could have confounded our results. Specifically, was there some systematic difference between the sellers who chose to post more than 10 pictures of their WePhones and those who chose to post less than 10 pictures? 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
-## Offering a Higher Credit Card Limit: Quantifying Noncompliance Concerns
-CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random group of 50% of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
-
-Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
+If an outcome variable is associated with systematic difference between compliers and noncompliers, our observed treatment effect may be spurious. Therefore, let's test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
 
 *** =instructions
-- No, because people in the treatment group likely used a coin flip to make their opt-in decision.
-- Yes, because the opt-in rate is low.
-- No, because an opt-in rate of 40% is actually quite high.
-- Yes, because the set of people opting in are probably people with worse spending habits.
+- 1) Test whether sellers who were offered treatment *and* opted into the treatment had different prior average feedback scores than sellers who were offered treatment but did *not* opt into treatment (tracked with `Seller_Offered_Treatment`, `Seller_Opted_Into_Treatment`, and `Seller_Feedback_Score`)
+- 2) Estimate how sellers' prior average feedback scores were correlated with their recent auction's final sales price (`Final_Sales_Price`).
+
+*** =hint
+- For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
+- It may help to create a new dataframe called `CompliantTreatmentGroup` that contains only sellers who were offered and opted into treatment, and a new data frame called `NoncompliantTreatmentGroup` who were offered but did not opt into treatment.
+- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+
+*** =pre_exercise_code
+```{r}
+library(data.table)
+library(dplyr)
+
+# Initialize dataframe
+set.seed(1)
+n <- 1000
+eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
+colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
+
+# Simulate baseline data
+  # Make seller feedback count
+    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
+  # Make feedback score loosely correlated with feedback count 
+    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(100,1,10),2)
+  # Make seller offered treatment loosely correlated with with feedback count 
+    eGulf$Seller_Offered_Treatment<-rbinom(n,1,.5+eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)/5)
+  # Make seller opted_into_treatment correlated with seller_feedback_score
+    eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
+  # Make final sales price also correlated with seller_feedback_score
+    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
+```
+
+*** =sample_code
+```{r}
+# Note: To check for noncompliance in an experiment, we will only want to examine individuals that were offered treatment. It might make the following questions easier if you first subset the eGulf data.frame to sellers who were offered treatment as we did in eGulf2. Additionally, before running a significance test to see whether compliers and noncompliers were different, we recommend running the code below to summarize the data. 
+    eGulf2<-eGulf[eGulf$Seller_Offered_Treatment==1,]
+    summary(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0])
+    summary(eGulf2$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1])
+
+# 1) It appears that those who opted into the treatment have slightly higher feedback scores than those who did not, but is the difference statistically significant? Test whether sellers who were offered treatment *and* opted into the treatment had different prior average feedback scores than sellers who were offered treatment but did *not* opt into treatment
+    t.test()
+
+# 2) The confidence interval indicates a range of values for the average treatment effect that we would expect to find if we gathered a new sample. If the lower and upper bound of the 95% confidence interval are both negative, we can conclude that there is a negative and statistically significant difference between the two groups. Based on the results from your t-test above, does it appear that those who opted into treatment had seller feedback scores that were significantly higher than those who did not opt into treatment? Answer with "Yes" or "No".
+    Solution2<- ""
+
+# 3) For a fuller understanding of the potential bias produced by noncompliance, estimate the correlation between seller feedback scores and final sales prices within the *entire sample*.
+    cor()
+
+```
+
+*** =solution
+```{r}
+eGulf2<-eGulf[eGulf$Seller_Offered_Treatment==1,]
+
+#1
+t.test(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0],eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==1])
+
+#2
+temp<-t.test(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0],eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==1])
+Significant<-sign(temp$conf.int[1])==sign(temp$conf.int[2])
+Solution2<-ifelse(Significant==T,"Yes","No")
+
+#3
+cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
+```
 
 *** =sct
 ```{r}
-msg1 = "While this is a possibility, it is unlikely to actually be the case. Try again."
-msg2 = "This is partially correct. A low compliance rate is one symptom of a noncompliance problem."
-msg3 = "While high compliance rates indicate a lower noncompliance problem, the rate of 40% in this situation is likely to be problematic."
-msg4 = "Correct! In this situation, researchers at CreditCo should be worried about the spending habits of those who opted in to the offer."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_function("cor", incorrect_msg = "Did you use the `cor` function?")
+test_object("Solution2")
+test_error()
+success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who did not post more photos. Additionally, prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, we have more reason to worry that the experiment's results were spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance.")
 ```
-
 
