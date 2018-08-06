@@ -252,16 +252,6 @@ library(dplyr)
 # Initialize dataframe
   CreditCo <- as.data.frame(matrix(0, ncol=11,nrow=n))
   colnames(CreditCo) <- c("id","offered","opt_in","FICO","age","female","race_white","default_pre","default_post","balance_pre","balance_post")
-
-# Simulate baseline data
-  CreditCo$id<- seq(1,n,1)
-  CreditCo$offered<- as.integer(runif(n)<frac_treated)
-  CreditCo$opt_in<- rep.int(0,n)
-  CreditCo$FICO<- rnorm(n, mean=736, sd=300)
-  CreditCo$age<- sample(18:55, n, replace=T)
-  CreditCo$female<- as.integer(runif(n)<frac_female)
-  CreditCo$race_white<-as.integer(runif(n)<frac_white)
-
 ```
 
 *** =sample_code
