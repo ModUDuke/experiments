@@ -42,7 +42,7 @@ In this exercise, you will look at 2 alternative methods for dealing with the no
 library(data.table)
 library(dplyr)
   set.seed(1)
-  n             <- 9e5
+  n             <- 9e3
   frac_treated  <- .5
   frac_female   <- .5656
   frac_white    <- .688
