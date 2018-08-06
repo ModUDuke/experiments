@@ -182,3 +182,30 @@ success_msg("Good work! It looks like sellers who posted more photos tended to h
 
 
 
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:db0bf3e371
+## Survey Noncompliance
+*** =video_link
+//player.vimeo.com/video/198212102
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:
+## Offering a Higher Credit Card Limit: Quantifying Noncompliance Concerns
+CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random group of 50% of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
+
+Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
+
+*** =instructions
+- No, because people in the treatment group likely used a coin flip to make their opt-in decision.
+- Yes, because the opt-in rate is low.
+- No, because an opt-in rate of 40% is actually quite high.
+- Yes, because the set of people opting in are probably people with worse spending habits.
+
+*** =sct
+```{r}
+msg1 = "While this is a possibility, it is unlikely to actually be the case. Try again."
+msg2 = "This is partially correct. A low compliance rate is one symptom of a noncompliance problem."
+msg3 = "While high compliance rates indicate a lower noncompliance problem, the rate of 40% in this situation is likely to be problematic."
+msg4 = "Correct! In this situation, researchers at CreditCo should be worried about the spending habits of those who opted in to the offer."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
