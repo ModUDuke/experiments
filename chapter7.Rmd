@@ -98,7 +98,7 @@ key: f309deee16
 video_link: "//player.vimeo.com/video/279737646"
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Offering a Higher Credit Card Limit: Quantifying Noncompliance Concerns
 CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random group of 50% of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
 
