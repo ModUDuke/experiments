@@ -87,14 +87,16 @@ msg4 = "The graph does not show error bars for the 99% confidence interval, so n
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f309deee16
+---
 ## Let's Code: Noncompliance in eGulf Data
-*** =video_link
-//player.vimeo.com/video/279737646
-
-
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: f309deee16
+video_link: "//player.vimeo.com/video/279737646"
+```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:ac78544021
 ## eGulf Auctions Experiment: Noncompliance
