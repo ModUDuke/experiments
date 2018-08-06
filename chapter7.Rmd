@@ -178,10 +178,7 @@ test_error()
 success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who did not post more photos. Additionally, prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, we have more reason to worry that the experiment's results were spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance.")
 ```
 
-
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Survey Noncompliance
 *** =video_link
 //player.vimeo.com/video/198212102
