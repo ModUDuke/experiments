@@ -314,8 +314,8 @@ Using the dataframe,`econometrics`, determine whether income is a good proxy var
 *** =instructions
 - 1) Examine the structure of the economist's data.
 - 2) Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
-- 3) Demonstrate that there is a statistically significant effect of the treatment, `Treatment`, with the proxy variable, `Income`.
-- 4) Determine whether there is a statistically significant effect of the treatment, `Treatment`, with the true outcome of interest, `Happiness`.
+- 3) Run a t-test to determine the average treatment affect of the experiment (`Treatment`) on `Income`.
+- 4) Run a t-test to determine the average treatment affect of the experiment (`Treatment`) on `Happiness`.
 
 *** =hint
 - For the first question, you will need to `subset` the `econometrics` data frame by treatment.
@@ -355,22 +355,16 @@ set.seed(1)
 *** =sample_code
 ```{r}
 # 1) As usual, we recommend exploring the structure of the data before diving into the questions. Use the str() command on the dataframe `econometrics`:
-
-
+    str()
 
 # 2) Use the 'cor' function to determine and report whether Happiness is correlated with Income.
+    cor()
 
+# 3) Run a t-test to determine the average treatment affect of the experiment on Income.
+    t.test()
 
-
-# 3) Use a t-test to determine whether Treatment affects Income, and report its p-value.
-
-    Solution1<- 
-
-
-# 4) Question 3: Use a t-test to determine whether Treatment effects Happiness, and report its p-value.
-
-    Solution2<- 
-
+# 4) Run a t-test to determine the average treatment affect of the experiment on Happiness
+    t.test()
 
 ```
 
@@ -378,14 +372,19 @@ set.seed(1)
 ```{r}
 str(econometrics)
 cor(econometrics$Happiness,econometrics$Income)
-Solution1<-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])$p.value
-Solution2<-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])$p.value
+t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])
+t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])
 ```
 
 *** =sct
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
+
+test_function("str", incorrect_msg = "Did you use the `str` function?")
+test_function("cor", incorrect_msg = "Did you use the `cor` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+
 test_error()
 success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
 ```
