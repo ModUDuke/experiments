@@ -82,8 +82,7 @@ Solution3<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[U
 
 *** =sct
 ```{r}
-test_object("Solution1")
-test_object("Solution2")
+test_function("mean", incorrect_msg = "Did you use the `mean` function?")
 test_object("Solution3")
 test_error()
 success_msg("Good work! It seems that reducing the size of HR also reduced Unter employees' intentions to leave their jobs by about 7%.")
