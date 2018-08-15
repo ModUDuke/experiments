@@ -18,7 +18,7 @@ key: 9a2307ad3e
 video_link: "//player.vimeo.com/video/279737460"
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:20e9735e18
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:a39c1976d4
 ## Putting it All Together with KittyCatch: Part 1 - Explore the Data
 Often, our experiments don't go as planned. This long and complex exercise will test your knowledge in resolving a question with realistic problems. 
 
@@ -88,55 +88,44 @@ n=688
 ```
 *** =sample_code
 ```{r}
-
 # 1) Let's dig into the data. We first run the structure function, str(), to get a sense of the dataset. DistanceWalked is our outcome of interest, and Treatment is the key independent variable that we care about. TotalHoursPlayed refers to how many hours the user has put into KittyCatch in total.
+    str()
 
-#----------------------#
-     Solution1<- 
-#-----------------------#
-
-# 2) Although it is bad practice, let's begin this exercise by first taking a naive estimate of the average treatment effect on DistanceWalked before exploring the dataset. Subtract the mean of the control group from the mean of the treatment group.
-
-#----------------------#
-     Solution2<- 
-#-----------------------#
+# 2) Although it is bad practice, let's begin this exercise by first taking a naive estimate of the average treatment effect on DistanceWalked before exploring the dataset. Subtract the mean of the control group from the mean of the treatment group and assign this to Solution2.
+    Solution2<- 
 
 # 3) Now let's do that again, but with a t-test.  
-    
-#----------------------#
-     Solution3<- 
-#-----------------------#
+    t.test()
 
 # You will see that, based on the t-test results, it seems that there is substantial negative treatment effect; respondents walked less in the treatment than in the control. But is this finding reliable?
 
 # 4) Now let's examine our outcome of interest, DistanceWalked, with the summary function. 
-
-#----------------------#
-     Solution4<- 
-#-----------------------#
-
+    summary()
 
 ```
 *** =solution
 ```{r}
-  Solution1<- str(KittyCatch)
-  Solution2<- mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1]) -  mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
-  Solution3<- t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
-  Solution4<- summary(KittyCatch$DistanceWalked)
+#1
+str(KittyCatch)
+#2
+Solution2<- mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1]) -  mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+#3
+t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+#4
+summary(KittyCatch$DistanceWalked)
 
 ```
 *** =sct
 ```{r}
-test_object("Solution1")
+test_function("str", incorrect_msg = "Did you use the `str` function?")
 test_object("Solution2")
-test_object("Solution3")
-test_object("Solution4")
+test_function("mean", incorrect_msg = "Did you use the `mean` function?")
+test_function("summary", incorrect_msg = "Did you use the `summary` function?")
 
-
-success_msg("Great Job! Notice that the maximum value is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t-test results by violating its assumption that the data is normally distributed. ")
+success_msg("Great Job! Notice that the maximum value is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t-test results by violating its assumption that the data is normally distributed.")
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:ac094f96a3
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:a39c1976d4
 ## Putting it All Together with KittyCatch: Part 2 - Use Graphs to Understand the Outcome
 As we saw in the previous exercise, the maximum value for our outcome of interest - the distance users walked - is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t-test results by violating its assumption that the data is normally distributed, so we need to deal with outliers for this variable. Let's create some charts to see the current distribution of `DistanceWalked`, and then let's try a method to deal with the outliers and make another chart to see if our method makes our data look more like a normal distribution.
 
@@ -242,7 +231,7 @@ test_object("Solution4")
 success_msg("Nice work so far.")
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:9a3e134b3c
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:a39c1976d4
 ## Putting it All Together with KittyCatch: Part 3 - Balance the Data
 So we've looked at our dataframe structure, run some "naive" treatment effect calculations, and identified and corrected for some outliers on our outcome of interest, the distance our users walked while playing KittyCatch during the experiment. Now we are ready to check our treatment and control groups for balance across several variables, and deal with tricky problems that might come up.
 
@@ -361,7 +350,7 @@ success_msg("Great! We've made a lot of progress, so let's look further at the q
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:b2aadb37f4
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:a39c1976d4
 ## Putting it All Together with KittyCatch: Part 4 - Missing Data Problems
 Let's continue our look at our data by checking for balance on our treatment variable and outcome variable, and looking to see how correlated they are. One common problem in data science is missing data: empty gaps in the values of some variables that will throw off our results. If we find any in our key variables, we will need to deal with them.
 
@@ -485,7 +474,7 @@ success_msg("Whew! We've explored the data, dealt with the issues, and now we ca
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:9ceed1a402
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:a39c1976d4
 ## Putting it All Together with KittyCatch: Part 5 - Calculate ATE
 We've examined our data, checked for balance, and dealt with outliers and missing data. Now it's time to calculate the average treatment effect of making KittyCatch users walk farther to their next Point of Kinterest, and see if that effect is statistically significant.
 
