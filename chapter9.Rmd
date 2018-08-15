@@ -138,8 +138,8 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 2663cac0f2
-video_link: "//player.vimeo.com/video/279737522"
+key: 
+video_link: //player.vimeo.com/video/279737522
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
@@ -242,15 +242,14 @@ video_link: //player.vimeo.com/video/279737505
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
 ## Offering a Higher Credit Card Limit: a Natural Experiment
-A previous exercise in Chapter 7 using data from CreditCo showed that noncompliance was an issue in the experiment described there (which involved assigning a treatment group to receive an offer in the mail that allowed recipients to increase their credit limit). While investigating potential reasons, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, while the other half of customers experienced sunny weather the day the offer arrived. You realize this variation in the weather may have created a natural experiment where customers in the rainy zones felt gloomy and decided not to take up the offer. while those in the sunny zones felt cheerful and because of their good mood, took up the offer.
+A previous exercise in Chapter 7 studied an experiment by a company named `CreditCo` that involved sending mail offers for recipients to increase their credit limit. While thinking about this experiment, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, while the other half of customers experienced sunny weather the day the offer arrived. You realize this variation in the weather may have created a natural experiment where customers in the rainy zones felt gloomy and decided not to take up the offer, while those in the sunny zones felt cheerful and because of their good mood, took up the offer.
 
-First, you will test if this is a valid natural experiment. This involves testing that rain is correlated with take-up, and that pre-offer outcomes were balanced across the rainy and sunny customers. Second, you will calculate the treatment effect of the offer on the outcomes of interest, credit balance and default.
+Let's test this hypothesis, specifically:
 
 *** =instructions
-- 1) Compute the average difference in take-up rates (among those offered) for rained-out customers vs. sunny customers.
-- 2) Report the p-value from a t-test that checks balance in pre-offer credit balances of those whose weather was rainy vs. sunny.
-- 3) Compute the treatment effect of the offer on post-offer credit balances, using rain as a natural experiment.
-- 4) Compute the treatment effect of the offer on post-offer default, using rain as a natural experiment.
+- 1) Compute the average difference in take-up rates (`opt_in`) among those offered (`offered`) for rained-out customers vs. sunny customers (`rainy`).
+- 2) Run a t-test to check if balance in pre-offer credit (`balance_pre`) is balanced among those whose weather was rainy vs. sunny (`rainy`).
+- 3) Run a t-test to estimate the average treatment effect of rain (`rainy`) on post-offer credit balances (`balance_post`), regardless of whether they were offered the balance increase.
 
 *** =hint
 - Remember to be aware of selecting the correct subsample
@@ -323,34 +322,30 @@ library(dplyr)
 ```{r}
 # The dataset `CreditCo` is available in your workspace. You may want to remind yourself of its structure with the str() command.
 
-# 1) Using a t-test, assess the validity of this natural experiment by comparing the take-up rate of those who were offered the increase and experienced rainy weather (variable "rainy") vs. those who were offered the increase but did not experience rain.
 
+# 1) Compute the average difference in take-up rates (`opt_in`) among those offered (`offered`) for rained-out customers vs. sunny customers (`rainy`).
+    t.test()
 
-# 2) Further test the validity of the natural experiment by doing a balance check on the pre-treatment level of credit balance. Report the p-value of a t-test. Hint: use the syntax `t.test(x,y)$p.value` to report only the p-value.
+# 2) Run a t-test to check if balance in pre-offer credit (`balance_pre`) is balanced among those whose weather was rainy vs. sunny (`rainy`).
+    t.test()
 
+# 3) Run a t-test to estimate the average treatment effect of rain (`rainy`) on post-offer credit balances (`balance_post`), regardless of whether they were offered the balance increase.
+    t.test()
 
-# 3) Compute the treatment effect of the offer by calculating the average post-treatment balance level for rainy-day customers versus sunny-day customers (regardless of whether they were offered the balance increase). Use a t-test to report these results.
-
-
-# 4) Now let's see if the rain had an effect on post-treatment default rates, which is our outcome of interest. Again, use a t-test.
-
-    Solution1<-
-    
 ```
 
 *** =solution
 ```{r}
 t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
-t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])$p.value
+t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])
 t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
-Solution1 <- t.test(CreditCo$default_post[CreditCo$rainy==1],CreditCo$default_post[CreditCo$rainy==0])
 ```
 
 *** =sct
 ```{r}
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 test_error()
-test_object("Solution1")
-success_msg("Good work!")
+success_msg("Good work! It looks like rain may have influenced whether customers decided to take up CreditCo's offer to increase their credit limit.")
 ```
 
 
