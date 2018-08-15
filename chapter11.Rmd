@@ -285,56 +285,44 @@ n=688
 ```
 *** =sample_code
 ```{r}
-# 1) Next, we'll want to make sure that our control groups and treatment groups are balanced. Let's compare the age of the control group and treatment group with boxplots. The model syntax for creating this boxplot is: boxplot(dataframe$variable[dataframe$Treatment==0], dataframe$variable[dataframe$Treatment==1], names=c("Control","Treatment")) 
+# 1) Next, we'll want to make sure that our control groups and treatment groups are balanced. Let's compare the age of the control group and treatment group with boxplots. Replace the variable names below for creating this boxplot: 
+    boxplot(dataframe$variable[dataframe$Treatment==0], dataframe$variable[dataframe$Treatment==1], names=c("Control","Treatment")) 
 
-#----------------------#
-     Solution1<- 
-#-----------------------#
+# Note: Notice that the medians and interquartile ranges are very similar between the treatment and control groups, but that the largest values in the treatment group rest much higher than in the control group. It turns out that this did not happen by chance; by default, KittyCatch only requires respondents to enter their ages if they state that they are younger than 18; however, for the experiment, all respondents in the treatment group were required to enter their ages. 
 
-# Notice that the medians and interquartile ranges are very similar between the treatment and control groups, but that the largest values in the treatment group rest much higher than in the control group. It turns out that this did not happen by chance; by default, KittyCatch only requires respondents to enter their ages if they state that they are younger than 18; however, for the experiment, all respondents in the treatment group were required to enter their ages. 
+# 2) It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked. Run a cor() function between Age and DistanceWalked to see if they are indeed correlated. Replace the variable names in the following  syntax:
+    cor(dataframe$variable1, dataframe$variable2):
 
-# 2) It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked. Run a cor() function between Age and DistanceWalked to see if they are indeed correlated. The syntax for this will be cor(dataframe$variable1, dataframe$variable2):
+# 3) Are the treatment and control groups balanced on Age, or are they imbalanced? Let's run a t-test to see. As a reminder, the syntax for this is:
+    t.test(dataframe$variable[dataframe$Treatment==0],dataframe$variable[dataframe$Treatment==1])
 
-#----------------------#
-     Solution2<- 
-#-----------------------#
-
-# 3) Are the treatment and control groups balanced on Age, or are they imbalanced? Let's run a t-test to see.  The syntax for this will be: t.test(dataframe$variable[dataframe$Treatment==0],dataframe$variable[dataframe$Treatment==1])
-
-#----------------------#
-     Solution3<- 
-#-----------------------#
-
-# As you can see, they are imbalanced. 
-
-# 4) There are two options to deal with this problem. One option is to ignore it, as we know that age was top coded in the control group, and may be the entire cause of the imbalance between the treatment and control group. However, what if people who opted into the treatment group tended to be older on average? This could bias our results. The best way to deal with this problem is with a different modeling technique (e.g. regression models). However, since we want to continue using t-tests for this module, a good way to deal with this problem is to subset the data to only use observations we can be sure are similarly aged. Since we can only be sure of the age of respondents in the treatment group for those younger than 18, let's subset the dataset to only include respondents who are 17 or younger. The syntax for this will be dataframe[dataframe$variable<=17,].
+# 4) As you can see, they are imbalanced. There are two options to deal with this problem. One option is to ignore it, as we know that age was top-coded in the control group, and may be the entire cause of the imbalance between the treatment and control group. However, what if people who opted into the treatment group tended to be older on average? This could bias our results. The best way to deal with this problem is with a different modeling technique (e.g. regression models). However, since we want to continue using t-tests for this module, a good way to deal with this problem is to subset the data to only use observations we can be sure are similarly aged. Since we can only be sure of the age of respondents in the treatment group for those younger than 18, let's subset the dataset to only include respondents who are 17 or younger. Correct the syntax below to accomplish this: 
+    KittyCatch<-dataframe[dataframe$variable<=17,].
   
-#----------------------#
-    KittyCatch<-
-#----------------------#
-
-# 5) If you completed question 12 correctly, Age among the treatment and control groups should now be balanced. Run the t-test from Question 11 again to see if the two groups are now balanced on Age.
-
-#----------------------#
-     Solution5<- 
-#-----------------------#
+# 5) If you completed question 4 correctly, Age among the treatment and control groups should now be balanced. Run the t-test from Question 3 again to see if the two groups are now balanced on Age.
+    t.test()
 
 ```
 *** =solution
 ```{r}
-
-  Solution1<- boxplot(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1],names=c("Control","Treatment"))
-  Solution2<-cor(KittyCatch$Age,KittyCatch$DistanceWalked)
-  Solution3<- t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
-  Solution5<- t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
+#1
+boxplot(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1],names=c("Control","Treatment"))
+#2
+cor(KittyCatch$Age,KittyCatch$DistanceWalked)
+#3
+t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
+#4
+KittyCatch<-KittyCatch[KittyCatch$Age<=17,]
+#5
+t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
   
+
 ```
 *** =sct
 ```{r}
-test_object("Solution1")
-test_object("Solution2")
-test_object("Solution3")
-test_object("Solution5")
+test_function("boxplot", incorrect_msg = "Did you use the `boxplot` function?")
+test_function("cor", incorrect_msg = "Did you use the `cor` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 
 success_msg("Great! We've made a lot of progress, so let's look further at the quality of our data.")
 ```
