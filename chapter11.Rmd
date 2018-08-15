@@ -342,7 +342,6 @@ Let's continue our look at our data by checking for balance on our treatment var
 
 *** =pre_exercise_code
 ```{r}
-
 library(data.table)
 library(dplyr)
 
@@ -394,59 +393,47 @@ n=688
 *** =sample_code
 ```{r}
 # 1) Now let's look for balance in the last variable we know about the treatment and control groups, TotalHoursPlayed. Run the summary function on the variable TotalHoursPlayed.  
+    summary()
 
-#-----------------------#
-     Solution1<- 
-#-----------------------#
-
-# 2) Notice from the summary function that 96 values are labeled "NA". These cases are missing information, in large part because KittyCatch allows users to opt out of recording how many hours they play. This could be very problematic, as it indicates that we only have distance walked information for respondents who selected to do so. Let's find the correlation between TotalHoursPlayed and DistanceWalked the entire sample population. The syntax for this will be: cor(dataframe$variable1, dataframe$variable2, use="complete").
-
-#----------------------#
-     Solution2<- 
-#-----------------------#
+# 2) Notice from the summary function that 96 values are labeled "NA". These cases are missing information, in large part because KittyCatch allows users to opt out of recording how many hours they play. This could be very problematic, as it indicates that we only have distance walked information for respondents who selected to do so. Let's find the correlation between TotalHoursPlayed and DistanceWalked the entire sample population. Replace the variables in the following syntax: 
+    cor(dataframe$variable1, dataframe$variable2, use="complete").
 
 # That doesn't look too good.
     
-# 3) Even more worrisome, the NA values for TotalHoursPlayed appear at higher rates for respondents in the treatment group than in the control group. Check the average values ofTotalHoursPlayed in both treatment and control groups, in separate lines, using the mean(is.na(dataframe$variable)) function. Remember that you can select units within a dataframe by their Treatment value with the syntax variable[dataframe$Treatment==x]. 
-
-#----------------------#
-     Solution3<- 
-#-----------------------#
+# 3) Even more worrisome, the NA values for TotalHoursPlayed appear at higher rates for respondents in the treatment group than in the control group. Check the average values of TotalHoursPlayed in both treatment and control groups, in separate lines, using the syntax: mean(is.na(dataframe$variable)) Also remember that you can select units within a dataframe by their Treatment value with the syntax variable[dataframe$Treatment==x]. 
+    mean()
+    mean()
 
 # 4) This isn't the end for our analysis, though. Let's look for some good news about our data within TotalHoursPlayed. One simple thing we can do is see if that variable is balanced across the treatment and control groups for the units that we actually do have information for, so run a t-test between the treatment and control groups on the variable TotalHoursPlayed.
+    t.test()
 
-#----------------------#
-     Solution4<- 
-#-----------------------#
-
-# While total hours played appears balanced among the treatment and control groups for those whose information is available, the fact that its missingness is correlated with DistanceWalked and is also patterned among the treatment and control groups is cause for concern. Specifically, this could suggest that respondents in the treatment group play more KittyCatch than those in the control group, and are likely to walk further with KittyCatch due to this. 
+# Note: While total hours played appears balanced among the treatment and control groups for those whose information is available, the fact that its missingness is correlated with DistanceWalked and is also patterned among the treatment and control groups is cause for concern. Specifically, this could suggest that respondents in the treatment group play more KittyCatch than those in the control group, and are likely to walk further with KittyCatch due to this. 
   
-# 5) A simple, albeit imperfect, solution to this problem is listwise deletion; that is, removing respondents from our sample who did not report their total hours played. Subset KittyCatch to respondents who reported their total hours played. The syntax for this will be: dataframe<-KittyCatch[!is.na(dataframe$variable),].
+# 5) A simple, albeit imperfect, solution to this problem is listwise deletion; that is, removing respondents from our sample who did not report their total hours played. Subset KittyCatch to respondents who reported their total hours played. The syntax for this will be:
+    KittyCatch<-dataframe[!is.na(dataframe$variable),].
 
-#----------------------#
-  KittyCatch<-
-#----------------------#
-
-
-
-  
 ```
 *** =solution
 ```{r}
-
-  Solution1<- summary(KittyCatch$TotalHoursPlayed)
-  Solution2<- cor(KittyCatch$TotalHoursPlayed,KittyCatch$DistanceWalked,use="complete")
-  Solution3<-     mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]))
-    mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]))
-  Solution4<-  t.test(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1],KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
-    KittyCatch<-KittyCatch[!is.na(KittyCatch$TotalHoursPlayed),]
+#1
+summary(KittyCatch$TotalHoursPlayed)
+#2
+cor(KittyCatch$TotalHoursPlayed,KittyCatch$DistanceWalked,use="complete")
+#3
+mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]))
+mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]))
+#4
+t.test(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1],KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
+#5
+KittyCatch<-KittyCatch[!is.na(KittyCatch$TotalHoursPlayed),]
 ```
 *** =sct
 ```{r}
-test_object("Solution1")
-test_object("Solution2")
-test_object("Solution3")
-test_object("Solution4")
+test_function("summary", incorrect_msg = "Did you use the `summary` function?")
+test_function("cor", incorrect_msg = "Did you use the `cor` function?")
+test_function("is.na", incorrect_msg = "Did you use the `is.na` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+
 success_msg("Whew! We've explored the data, dealt with the issues, and now we can finally calculate the treatment effect of our experiment!")
 ```
 
