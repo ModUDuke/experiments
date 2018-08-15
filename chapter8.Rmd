@@ -378,9 +378,6 @@ t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[
 
 *** =sct
 ```{r}
-test_object("Solution1")
-test_object("Solution2")
-
 test_function("str", incorrect_msg = "Did you use the `str` function?")
 test_function("cor", incorrect_msg = "Did you use the `cor` function?")
 test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
