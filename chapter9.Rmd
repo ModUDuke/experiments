@@ -138,8 +138,8 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 15bd6a6acf
-video_link: "//player.vimeo.com/video/279737522"
+key: 
+video_link: //player.vimeo.com/video/279737522
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
@@ -229,14 +229,14 @@ msg4 = "This would be over-interpreting the data and makes a causal claim they c
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- key:21fe78f4b4
+---
 ## Let's Code: Practice with a Natural Experiment
 ```yaml
 type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 
+key: 21fe78f4b4
 video_link: //player.vimeo.com/video/279737505
 ```
 
