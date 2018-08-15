@@ -138,20 +138,20 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 7c97b8a417
-video_link: "//player.vimeo.com/video/279737522"
+key: 
+video_link: //player.vimeo.com/video/279737522
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
 ## Manipulating Confidence Intervals: Practice with Sea Otter Diets
 When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the sea urchins provided the better show. 
 
-To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams versus when they were fed sea urchins. They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
+To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams (`treatment==1`) versus when they were fed sea urchins (`treatment==0`). They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
 
 Although the results seemed to indicate a positive treatment effect, the results were not statistically significant (95% Confidence Interval = [-0.23, 16.94]). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent of a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
 
 *** =instructions
-- Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`Treatment`) on the size of the sea otters' audiences (`Audience`).
+- Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`treatment`) on the size of the sea otters' audiences (`Audience`).
 
 *** =pre_exercise_code
 ```{r}
@@ -163,30 +163,24 @@ SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 
 *** =sample_code
 ```{r}
-# Below was the t-test used by the otter enthusiast to get the results listed above. Select the text and click on the "Run Code" button to see the results.
+# Below was the t-test used by the otter enthusiast to get the results listed above. As a reminder, you can select the text and click on the "Run Code" button to see the results.
     t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
 
 # 1) Now run another t-test, with confidence level = .99, and assign it to the object 'Test1'.
-
     Test1<-
 
-
-# 2) Use the Test1 object to assign the upper bound of the confidence interval. For reference, we assigned the lower bound from Test1 for you below.
-   
-   LowerBound1<- Test1$conf.int[1]  
-    UpperBound1<- 
+# 2) Use the Test1 object to find the upper bound of the confidence interval. For reference, we assigned the lower bound from Test1 for you below.
+    LowerBound1<-Test1$conf.int[1]  
+    UpperBound1<-
 
 # 3) Run another t-test, with confidence level = .5, and assign it to the object 'Test2'.
-
-    Test2<- 
-
+    Test2<-
+      
 # 4) Use the Test2 object to assign the lower bound of the confidence interval.
-
-    LowerBound2<- 
+    LowerBound2<-
 
 # 5) Use the Test2 object to assign the upper bound of the confidence interval.
-
-    UpperBound2<- 
+    UpperBound2<-
 
 
 ```
