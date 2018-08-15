@@ -133,7 +133,7 @@ As we saw in the previous exercise, the maximum value for our outcome of interes
 - 1) Chart the values of our outcome of interest.
 - 2) Examine the highest distances that our sample users walked.
 - 3) Use top coding to help us handle outlier values of DistanceWalked.
-- 4) Create a new chart to see if Step 7 helps make our values look more normal.
+- 4) Create a new chart to see if Step 3 helps make our values look more normal.
 
 *** =pre_exercise_code
 ```{r}
@@ -187,48 +187,39 @@ n=688
 ```
 *** =sample_code
 ```{r}
-
 # 1) Run a density plot on DistanceWalked to observe the long right tail in the distribution of our outcome of interest.
+     plot(density())
 
-#----------------------#
-     Solution1<- 
-#-----------------------#
-  
-# 2) Since the dataset is relatively small, let's use the `head` and `order` commands to examine the highest DistanceWalked observations in the dataset. The following syntax will order the top results by the outcome of interest, so use it as a guide: head(Dataframe[order(Dataframe$Variable,decreasing=T),])
+# 2) Since the dataset is relatively small, let's use the `head` and `order` commands to examine the highest DistanceWalked observations in the dataset. The following syntax will order the top results by the outcome of interest. Use it as a guide; replace the dataframe and variable names to those we care about:
+    head(Dataframe[order(Dataframe$Variable,decreasing=T),])
 
-#----------------------#
-     Solution2<- 
-#-----------------------#
+# Note: Notice that the four largest values for DistanceWalked are more than three times as large as the 5th largest value for DistanceWalked. These are clearly outliers. However, we should also note that all of these values are in the control group, so removing them from our dataset, as we had done with previous outliers, might also bias our estimates by lowering the mean values for the treatment group. Instead, let's say that our maximum distance we will allow is 2. This is known as top-coding. We will top-code these values so that they are still the largest values in the dataset, but so that they are not outliers and do not violate our assumptions of a normal distribution. 
 
-# 3) Notice that the four largest values for DistanceWalked are more than three times as large as the 5th largest value for DistanceWalked. These are clearly outliers. However, we should also note that all of these values are in the control group, so removing them from our dataset, as we had done with previous outliers, might also bias our estimates by lowering the mean values for the treatment group. Instead, let's say that our maximum distance we will allow is 2. This is known as top coding, and we'll top code these values so that they are still the largest values in the dataset, but so that they are not outliers and do not violate our assumptions of a normal distribution. 
-  
-# Top coding can be arbitrary (and there are better methods for handling outliers), but for this assignment, use the following syntax as a model to create an ifelse statement that says that any value of DistanceWalked over 2 will be changed to equal 2: dataframe$variable<-ifelse(dataframe$variable>x,y,dataframe$variable). Note: x is the current value of the variable, and y is the final value we want.
+# 3) Top coding can be arbitrary (and there are better methods for handling outliers), but for this assignment, use the following syntax as a model to create an ifelse statement that says that any value of DistanceWalked over 2 will be changed to equal 2:
+    dataframe$variable<-ifelse(dataframe$variable>x,y,dataframe$variable). #Note: x is the current value of the variable, and y is the final value we want.
 
-#----------------------#
-     KittyCatch$DistanceWalked<-
-#-----------------------#
-    
-# 4) If you completed question 7 correctly, the distribution of DistanceWalked should now look much more normal. Create a new density plot of DistanceWalked to see if that is true.
-
-#----------------------#
-     Solution4<- 
-#-----------------------#
-
+# 4) If you completed question 3 correctly, the distribution of DistanceWalked should now look much more normal. Create a new density plot of DistanceWalked to see if that is true.
+    plot(density())
 
 ```
 *** =solution
 ```{r}
-  Solution1<- plot(density(KittyCatch$DistanceWalked))
-  Solution2<- head(KittyCatch[order(KittyCatch$DistanceWalked,decreasing=T),])
-  KittyCatch$DistanceWalked<-ifelse(KittyCatch$DistanceWalked>2,2,KittyCatch$DistanceWalked)
-  Solution4<- plot(density(KittyCatch$DistanceWalked))
+#1  
+plot(density(KittyCatch$DistanceWalked))
+#2
+head(KittyCatch[order(KittyCatch$DistanceWalked,decreasing=T),])
+#3
+KittyCatch$DistanceWalked<-ifelse(KittyCatch$DistanceWalked>2,2,KittyCatch$DistanceWalked)
+#4
+plot(density(KittyCatch$DistanceWalked))
 ```
 *** =sct
 ```{r}
-test_object("Solution1")
-test_object("Solution2")
-test_object("Solution4")
-success_msg("Nice work so far.")
+test_function("plot", incorrect_msg = "Did you use the `plot` function?")
+test_function("head", incorrect_msg = "Did you use the `head` function?")
+test_function("ifelse", incorrect_msg = "Did you use the `ifelse` function?")
+
+success_msg("Nice work so far!")
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:100 skills:2 key:a39c1976d4
