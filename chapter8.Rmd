@@ -292,14 +292,14 @@ msg3 = "Correct! If this were the case, the effect of religious attendance on in
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
---- key:7faf6d0645
+---
 ## Let's Code: Practice Identifying Bad Proxy Variables
 ```yaml
 type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: 
+key: 7faf6d0645
 video_link: //player.vimeo.com/video/279737572
 ```
 
