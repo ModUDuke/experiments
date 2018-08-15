@@ -110,6 +110,8 @@ library(dplyr)
 # 3) Compute lower bound on the average treatment effect under non-compliant behavior and assign this to Solution3.
 
 
+# Bonus: Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
+
 ```
 
 *** =solution
