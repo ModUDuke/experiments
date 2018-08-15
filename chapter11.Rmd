@@ -445,8 +445,9 @@ success_msg("Whew! We've explored the data, dealt with the issues, and now we ca
 We've examined our data, checked for balance, and dealt with outliers and missing data. Now it's time to calculate the average treatment effect of making KittyCatch users walk farther to their next Point of Kinterest, and see if that effect is statistically significant.
 
 *** =instructions
-- 1) Calculate the average treatment effect.
-- 2) Check the statistical significance of that result.
+- 1) Calculate the average treatment effect of the `Treatment` on `DistanceWalked`.
+- 2) Run a t.test to estimate the statistical significance of that result.
+- 3) Based on question 2), indicate whether the above t.test is statistically significant with `Yes` or `No`.
 
 *** =pre_exercise_code
 ```{r}
@@ -502,32 +503,28 @@ n=688
 ```
 *** =sample_code
 ```{r}
-
-# 1) Now that we have balanced our data on all known dimensions, let's return the average treatment effect of walking farther on time spent playing KittyCatch by subtracting the means of our control group from our treatment group:
-
-#----------------------#
-  Solution1<-
-#----------------------#
+# 1) Now that we have balanced our data on all known dimensions, let's return the average treatment effect of being in the treatment group with distance walked playing KittyCatch by subtracting the mean DistanceWalked of our control group from the mean DistanceWalked of our treatment group. Assign this answer to Solution1.
+    Solution1<-
 
 # Great job. But is that value statistically significant? We don't want to get too excited about it until we know that as well.
 
-# 2) Finally, let's test if the ATE is significant by finding out if the p value of a t-test is less than .05, which we will use as our standard of significance:
+# 2) Finally, let's test if the ATE is significant by running a t.test.
+    t.test()
 
-#----------------------#
-  Solution2<-
-#------------------------#
-  
+# 3) Is the p-value of a t-test less than .05? We will use as our standard of significance. Assign Solution3 with "Yes" or "No".
+    Solution3<-
+
 ```
 *** =solution
 ```{r}
-  Solution1<- mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1])-mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
-  Solution2<-t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])$p.value
+  Solution1<-mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1])-mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+  t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+  Solution3<-"Yes"
 ```
 *** =sct
 ```{r}
-
 test_object("Solution1")
-test_object("Solution2")
-success_msg("Good work! Our naive estimate of the average treatment effect was opposite our estimate after we tried to balance the data. However, we had to ignore a large fraction of our observations to get to that conclusion. This is the difficulty of computing conditional average treatment effects with t-tests. However, this problem can be sidestepped with regression models. Our next module teaches how to use regression models in detail.")
+test_object("Solution3")
+success_msg("Good work! Hooray!! Our naive estimate of the average treatment effect was opposite our estimate after we tried to balance the data. However, we had to ignore a large fraction of our observations to get to that conclusion. This is the difficulty of computing conditional average treatment effects with t-tests. However, this problem can be sidestepped with regression models. Our next module teaches how to use regression models in detail.")
 ```
 
