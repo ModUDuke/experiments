@@ -30,9 +30,9 @@ video_link: "//player.vimeo.com/video/279737592"
 ## Unhappiness at Unter: Identifying Heterogeneous Outcomes - ATE
 The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department.
 
-To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and tells a control group that the HR Department will remain the same size in the following year. And magically, these two groups don't end up discussing this with each other. Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
+To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and tells a control group that the HR Department will remain the same size in the following year. Miraculously, these two groups don't end up discussing this with each other. Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
 
-With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover:
+With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover. Specifically:
 
 *** =instructions
 - 1) Find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) 
@@ -63,15 +63,12 @@ n=382
 *** =sample_code
 ```{r}
 # 1)  Calculate the mean rate of `LeaveJob`in the control condition (`Treatment=0`)
-
-
+    mean()
 
 # 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
+    mean()
 
-
- 
-# 3) Calculate the average treatment effect, which is is simply the mean outcome of the treatment group minus the mean outcome of the control group.
-
+# 3) Calculate the average treatment effect, which is is simply the mean outcome of the treatment group minus the mean outcome of the control group. Assign this to Solution3
     Solution3<- 
 
 ```
