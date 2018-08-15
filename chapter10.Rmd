@@ -24,13 +24,13 @@ video_link: "//player.vimeo.com/video/279737481"
 ## Offering a Higher Credit Card Limit: Computing Bounds Under Noncompliance
 Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. This time, we have provided you with more data to examine, particularly the credit ratings for the individuals in both the treatment and control groups. But goal remains the same as before: does the offer of a higher credit limit decrease the number of late payments (defaults)? 
 
-In this exercise, you will look at 2 alternative methods for dealing with the non-compliance issue.  One method will be a bounds analysis, and the other will be either 1) assuming random compliance, or 2) an Intention-to-Treat analysis. First, you compute the bounds of average treatment effect of opting into a credit line increase offer. Second, you calculate what the average treatment effect would be in one of the two other methods (or both, if you want to be complete!).
+Let's try a different approach in this exercise. Specifically, compute the bounds of the average treatment effect of opting into a credit line offer. This question is tricky. To accomplish this task, you may want to refer to the video at the beginning of the chapter.
 
 *** =instructions
 - 1) Determine the ratio of people who accepted the offer.
 - 2) Compute upper bound on the average treatment effect under non-compliant behavior.
 - 3) Compute lower bound on the average treatment effect under non-compliant behavior.
-- 4) Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
+- Bonus: Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
 
 *** =hint
 - When the values of a variable are binary (0 or 1), you can calculate the proportion of 1s by simply taking the mean of the variable.
@@ -100,32 +100,23 @@ library(dplyr)
 
 *** =sample_code
 ```{r}
-# The dataset `CreditCo` is available in your workspace.
 
-# 1) Determine the fraction of opt-in among those offered the increase.
+# 1) Determine the ratio of people who accepted the offer and assign this to Solution1
+    Solution1<-mean()
 
-
-# 2) Calculate the upper bound of the ATE by assuming that all non-opt-in customers have a late payment, and subtract the non-offered average from this value.
-
-    Solution1<-
-
-# 3) Calculate the lower bound of the ATE by assuming that all non-opt-in customers don't have a late payment, and subtract the non-offered average from this value.
-
-    Solution2<-
-
-# 4) Now compare this result with the findings from another method: an intention-to-treat analysis, under random compliance, or both! To calculate the intention-to-treat analysis ATE, compare units who received the offer and those who did not receive the offer. To calculate the ATE under random compliance, simply calculate a "naive ATE" by comparing treatment and control groups . 
+# 2) Compute upper bound on the average treatment effect under non-compliant behavior and assign this to Solution2.
 
 
-# 5) Calculate the p values of ATEs from Question 4. How do they compare to the bounds analysis?
+# 3) Compute lower bound on the average treatment effect under non-compliant behavior and assign this to Solution3.
 
 
 ```
 
 *** =solution
 ```{r}
-mean(CreditCo$opt_in[CreditCo$offered==1])
-Solution1 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
-Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution1 <- mean(CreditCo$opt_in[CreditCo$offered==1])
+Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
 
 ```
 
