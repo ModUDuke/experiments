@@ -212,21 +212,23 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 //player.vimeo.com/video/279737627
 
 
+
+
+
+
 --- type:NormalExercise lang:r xp:100 skills:1 key:a00d1ebc4c
 ## Offering a Higher Credit Card Limit: Working with Noncompliance
-Let's continue with the CreditCo dataset described in the previous exercise. The CFO has assigned you to figure out the average treatment effect of taking a credit line increase offer on late payments (defaults), and he wants to see something before lunch. You realize that you can give him a simple result: you just need to do some quick checks for balance in your samples and compute a "naive" average treatment effect to get the analysis started.
+Let's continue with the CreditCo dataset described in the previous exercise. The CFO has assigned you to figure out the average treatment effect of taking a credit line increase offer on late payments (`default_post`), and he wants to see something before lunch. You realize that you can give him a simple result: you just need to do some quick checks for balance in your samples and compute a "naive" average treatment effect to get the analysis started.
 
 A simulated version of this dataset, `CreditCo`, is available in the workspace.  With that data:
 
 *** =instructions
-- 1) See if treatment and control groups are of equal size.
-- 2) Compute the fraction of people who opted in to the credit offer.
-- 3) Compute a naive average treatment effect.
-- The treatment variable is a column in `CreditCo` called `offered.`
-- The opt-in variable is a column called `opt_in.` 
-- The late-payment variable is called `default_post.`
+- 1) See if treatment and control groups (`offered`) are of equal size.
+- 2) Compute the fraction of people who opted in (`opt_in`) to the credit offer.
+- 3) Compute a naive average treatment effect on late payments (`default_post`).
 
 *** =hint
+- When a variable's values are binary (0 or 1), you can compute the proportion of 1s by simply taking the mean of the variable.
 - Remember to select the appropriate sample when computing the opt-in rate of the credit offer.
 
 
@@ -236,7 +238,7 @@ library(data.table)
 library(dplyr)
 
   set.seed(1)
-  n             <- 9e5
+  n             <- 9e3
   frac_treated  <- .5
   frac_female   <- .5656
   frac_white    <- .688
@@ -296,34 +298,31 @@ library(dplyr)
 ```{r}
 # The dataset `CreditCo` is available in your workspace. You may want to explore it with the structure "str" command before solving the following questions.
 
-# Question 1: Compute the fraction of people who were offered a higher credit limit
-#---- Question 1-------------------------------------#
-    Solution1<- 
-#----------------------------------------------------#
+# 1) Using the mean command, compute the percentage of people who were offered a higher credit limit. 
+    mean()
 
-# Question 2: Of the people who were offered, what fraction opted in?
-#---- Question 2-------------------------------------#
-    Solution2<- 
-#----------------------------------------------------#
+# 2) Of the people who were offered, what percentage opted in? 
+    Solution2<- mean()
 
-# Question 3: Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered **and** opted in to the program
-#---- Question 3-------------------------------------#
-    Solution3<- 
-#----------------------------------------------------#
+# 3) Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered **and** opted in to the program. 
+    Solution3<- mean()
 
 ```
 
 *** =solution
 ```{r}
-Solution1<-mean(CreditCo$offered)
-Solution2<-mean(CreditCo$opt_in[CreditCo$offered==1])
-Solution3<-mean(CreditCo$default_post[CreditCo$opt_in==1])-mean(CreditCo$default_post[CreditCo$offered==0])
+#1
+  mean(CreditCo$offered)
+#2
+  Solution2<-mean(CreditCo$opt_in[CreditCo$offered==1])
+#3
+  Solution3<-mean(CreditCo$default_post[CreditCo$opt_in==1])-mean(CreditCo$default_post[CreditCo$offered==0])
 ```
 
 *** =sct
 ```{r}
-test_object("Solution1")
 test_object("Solution2")
 test_object("Solution3")
+test_error()
 success_msg("Nice job! As you can see, about half of the sample received an offer, but only about 41% of people actually accepted it. For the people who complied, the 'naive' treatment effect is a +26% default rate--the default rate went up for people who accepted the offer! However, while this 'naive' ATE is quick to calculate, it's probably not accurate, as there are likely confounders that we can deal with when we have more time.")
 ```
