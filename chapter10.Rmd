@@ -105,10 +105,10 @@ library(dplyr)
     Solution1<-mean()
 
 # 2) Compute upper bound on the average treatment effect under non-compliant behavior and assign this to Solution2.
-
+    Solution2<-
 
 # 3) Compute lower bound on the average treatment effect under non-compliant behavior and assign this to Solution3.
-
+    Solution3<-
 
 # Bonus: Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
 
