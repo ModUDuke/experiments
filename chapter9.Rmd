@@ -61,7 +61,7 @@ The dataset `KatiePerrie` contains covariate data from a natural experiment abou
 However, the control and treatment groups in this "natural experiment" are not balanced across most key variables, so it's not a valid experiment. Nonetheless, let's ignore that and help the human rights activists find one variable, any variable, that shows balance so they can incorrectly justify their assumption that this is an as-if natural experiment:
 
 *** =instructions
-- 1) Use what you have learned about balance and statistical inference and look through each variable in the dataset `KatiePerrie`. Name a single variable that is balanced between the datasets. 
+- 1) Use what you have learned about balance and statistical inference and look through each variable in the dataset `KatiePerrie`. Name the variable that is balanced between the datasets. 
 
 *** =hint
 - You will need to use the `subset` and `t.test` functions.
@@ -89,7 +89,11 @@ KatiePerrie$Age<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=40,sd=10,mi
 ```
 *** =sample_code
 ```{r}
-Solution<-"" # Name of variable that is balanced between the treatment and control groups
+# Note: As we often recommend, let's manually examine the first few lines of the dataset.
+    head(KatiePerrie)
+
+# 1) Name the variable that is balanced between the treatment and control groups and assign it to Solution1
+    Solution1<-"" 
 ```
 *** =solution
 ```{r}
@@ -134,8 +138,8 @@ type: VideoExercise
 lang: r
 xp: 50
 skills: 1
-key: a08bee7a48
-video_link: "//player.vimeo.com/video/279737522"
+key: 
+video_link: //player.vimeo.com/video/279737522
 ```
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
