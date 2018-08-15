@@ -152,7 +152,7 @@ Let's further analyze the heterogeneous effect of the treatment on men vs. women
 
 *** =hint
 - Remember, you can determine the ATE by subtracting the mean rate of the outcome in the control condition by the mean rate of the outcome in the treatment condition.
-- You will need to use the `mean` and `subset` commands.
+- You will need to use the `mean` function and R's `subset` syntax.
 - Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
 
 *** =pre_exercise_code
@@ -175,25 +175,16 @@ n=382
 
 *** =sample_code
 ```{r}
-# Since we are interested in understanding the rates of intention to leave by treatment and gender, we might want to examine a three way table of this relationship first. The following syntax prints the numbers of men and women who intend to leave work by treatment group and gender. Run this code by selecting it with the cursor and clicking the "Run Code" button, or by typing it into the console:
+# Note: We want to determine the CATE of Unter's HR reduction on intention to leave by gender, but it may be useful to examine a table of this relationship first. The following syntax prints two tables showing the number of respondents who intend to leave work by treatment group and gender.
     xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
 
-# So let's look at the balance in raw numbers of units between the treatment and control groups. Among men, there are 214 (141+73) in the control group and 122 (98+24) in the treatment group.  Among women, there are 27 (19+8) in the control group, and 19 (5+14) in the treatment group.  We have a lot more men than women in our samples. 
-# So how many men and women want to stay, and how many want to leave? Among men in both treatment and control groups, 239 (141+98) say they want to stay at Unter and 97 (23+74) say they plan to leave. Among women in both groups, 24 (19+5) say they plan to stay, and another 24 (6+18) say that they plan to leave.
+# Note: From the tables produced above, it looks like we have a lot more men than women in our samples. Within the upper table, it appears that relatively few men om either experimental group want to leave. However, the lower table indicates that the majority of women in the treatment group want to leave, whereas the majority of women in the control group do not. To be sure, let's actually calculate the differences in the average treatment effects among men and women.
 
-# Since the numbers in the leave and and stay groups among women are equal, it is fairly easy to get a sense of how treatment affects women's intention to leave Unter; the majority of women in the treatment group appear to want to leave, whereas the majority of women in the control group do not. But to be sure, let's actually calculate the differences in the average treatment effects among men and women.
-
-# 1)Determine the average treatment effect among men. 
-
+# 1) Determine the average treatment effect among men. Assign this number to Solution1
     Solution1<- 
 
-# How big is it? Is it positive or negative?      
-
-# 2) Determine the average treatment effect among women.
-
+# 2) Determine the average treatment effect among women. Assign this number to Solution1
     Solution2<- 
-
-# How big is it? Is it positive or negative?   
 
 ```
 
