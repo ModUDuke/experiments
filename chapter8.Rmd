@@ -631,7 +631,7 @@ You are scheduled to discuss your findings with Gumville's mayor. The mayor want
 msg1 = "Maybe, but income-per-capita is based on all households in a town. Is this really the best option?"
 msg2 = "This is factually incorrect. It is likely that the CATE as a **proportion of income** in low-income families is larger than that for high-income families, but we only reported the CATE in absolute terms."
 msg3 = "Correct! There **is probably** enough information to provide an opinion here, and the data suggests that providing preschool increases the income of all families
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))"
 ```
 
 ---
