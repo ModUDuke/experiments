@@ -611,9 +611,9 @@ You are scheduled to discuss your findings with Gumville's mayor. The mayor want
 
 
 `@instructions`
-- The long-term CATE is larger for high-income children, so the government should emphasize preschool among high-income families.
-- The long-term CATE is larger for low-income children, so the government should emphasize preschool among low-income families.
-- The long-term CATE is positive for both income groups, so the government should offer preschool to all families, regardless of income.
+- The long-term CATE is larger for high-income children, so the government should offer books to high-income families.
+- The long-term CATE is larger for low-income children, so the government should offer books to low-income families.
+- The long-term CATE is positive for both income groups, so the government should offer books to all families, regardless of income.
 
 `@hint`
 
@@ -630,7 +630,7 @@ You are scheduled to discuss your findings with Gumville's mayor. The mayor want
 ```{r}
 msg1 = "Maybe, but income-per-capita is based on all households in a town. Is this really the best option?"
 msg2 = "This is factually incorrect. It is likely that the CATE as a **proportion of income** in low-income families is larger than that for high-income families, but we only reported the CATE in absolute terms."
-msg3 = "Correct! There **is probably** enough information to provide an opinion here, and the data suggests that providing preschool increases the income of all families"
+msg3 = "Correct! There **is probably** enough information to provide an opinion here, and the data suggests that providing books increases the income of all families"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
