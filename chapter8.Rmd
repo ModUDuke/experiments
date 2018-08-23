@@ -636,6 +636,46 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 
 ---
 
+## Following Up with Gumville Book Drop Experiment
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key:    
+```
+
+It turns out that the results of the Gumville Book Drop Experiment were not statistically significant. What does this imply?
+
+
+`@instructions`
+- The increase in income does not have a significant impact on people's lives.
+- Free books do not improve income.
+- We do not have enough evidence to determine whether our hypothesis was correct or not.
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+
+```{r}
+
+```
+
+
+`@sct`
+
+```{r}
+msg1 = "We don't have any data on the real-world changes that happen because of this experiment, so we don't know if this is true. Try again"
+msg2 = "This is not a correct interpretation. This answer requires a statistically significant and negative ATE, but we have neither. Try again."
+msg3 = "Correct! It means that we just don't have enough data to tell us either way. Gumville either needs to try again, or a bigger city should give it a shot."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
+```
+
+---
+
 ## A Furry Conclusion to Long-term Average Treatment Effects
 
 ```yaml
