@@ -639,11 +639,11 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ## Following Up with Gumville Book Drop Experiment
 
 ```yaml
-type: MultipleChoiceExercise 
+type: MultipleChoiceExercise
 lang: r
-xp: 50 
+xp: 50
 skills: 1
-key:    
+key: 56ccbb72f1
 ```
 
 It turns out that the results of the Gumville Book Drop Experiment were not statistically significant. What does this imply?
