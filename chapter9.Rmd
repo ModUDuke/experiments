@@ -1,26 +1,43 @@
---- 
-title       : "Experiments 9: Natural Experiments"
-description : "These videos and exercises introduce natural experiments, sometimes called quasi-experiments."
+---
+title: 'Experiments 9: Natural Experiments'
+description: 'These videos and exercises introduce natural experiments, sometimes called quasi-experiments.'
+---
 
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:355ed25bc9
 ## The Two Kinds of Natural Experiments
-*** =video_link
-//player.vimeo.com/video/199856738
 
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 355ed25bc9 
+video_link: //player.vimeo.com/video/199856738  
+```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b3e25ee162
+---
+
 ## As-if Natural experiments
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: b3e25ee162   
+```
+
 
 Which of the following is an accurate description of an "as-if" natural experiment?
 
-*** =instructions
+
+`@instructions`
 - A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment was completely random.
 - A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment was not literally random, but it was unrelated to variables that affect the outcome.
 - A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment was completely random.
 - A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment was not literally random, but it was unrelated to variables that affect the outcome.
 
-*** =sct
+`@sct`
+
 ```{r}
 msg1 = "This describes a true natural experiment. Try again."
 msg2 = "Well done. Although there might be a pattern to who got treated in an as-if experiment, the pattern should cause no bias in one's outcome of interest."
@@ -30,43 +47,73 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9269e44505
-## Public Policy & Other Ways to Find Natural Experiments
-*** =video_link
-//player.vimeo.com/video/209272453
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9faee4ebd9
-## Justifying As-If Randomization
-*** =video_link
-//player.vimeo.com/video/199856949
-
 ---
-## Let's Code: A Bad Justification for As-If Randomization
+
+## Public Policy & Other Ways to Find Natural Experiments
+
 ```yaml
-type: VideoExercise
+type: VideoExercise 
 lang: r
-xp: 50
+xp: 50 
 skills: 1
-key: d8de59d6fa
-video_link: "//player.vimeo.com/video/279737546"
+key: 9269e44505 
+video_link: //player.vimeo.com/video/209272453  
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:a4e0df7635
+---
+
+## Justifying As-If Randomization
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 9faee4ebd9 
+video_link: //player.vimeo.com/video/199856949  
+```
+
+---
+
+## Let's Code: A Bad Justification for As-If Randomization
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: d8de59d6fa 
+video_link: //player.vimeo.com/video/279737546  
+```
+
+---
+
 ## A Bad Argument for As-If Randomization with Katie Perrie
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: a4e0df7635   
+```
+
+
 Although it is wholly misleading, one way that unethical scientists justify their arguments that their studies are "as-if" natural experiments is to only report descriptive information about variables in their datasets that are balanced (i.e. with basically random assignment). That's bad science, but let's give it a try, just one time!
 
 The dataset `KatiePerrie` contains covariate data from a natural experiment about how repeated exposure to music performed by pop star Katie Perrie (measured as owning a Katie Perrie album) is associated with the debilitating psychological disorder called "choreomania." The human rights activists who gathered this data want to publish an article claiming that Katie Perrie's music should be banned since it appears to be harmful to the public's mental health. 
 
 However, the control and treatment groups in this "natural experiment" are not balanced across most key variables, so it's not a valid experiment. Nonetheless, let's ignore that and help the human rights activists find one variable, any variable, that shows balance so they can incorrectly justify their assumption that this is an as-if natural experiment:
 
-*** =instructions
-- 1) Use what you have learned about balance and statistical inference and look through each variable in the dataset `KatiePerrie`. Name the variable that is balanced between the datasets. 
 
-*** =hint
+`@instructions`
+- 1) Use what you have learned about balance and statistical inference and look through each variable in the dataset `KatiePerrie`. Name the variable that is balanced between the datasets.
+
+`@hint`
 - You will need to use the `subset` and `t.test` functions.
 
-*** =pre_exercise_code
+`@pre_exercise_code`
+
 ```{r}
 library(data.table)
 library(dplyr)
@@ -87,15 +134,21 @@ KatiePerrie$Income<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=45,sd=7,
 KatiePerrie$HearingProblems<-rbinom(n,1,.1)
 KatiePerrie$Age<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=40,sd=10,min=10,max=80),rtnorm(n,mean=25,sd=5,min=10,max=80)))
 ```
-*** =sample_code
+
+
+`@sample_code`
+
 ```{r}
 # Note: As we often recommend, let's manually examine the first few lines of the dataset.
     head(KatiePerrie)
 
 # 1) Name the variable that is balanced between the treatment and control groups and assign it to Solution1
-    Solution1<-"" 
+    Solution1<-""
 ```
-*** =solution
+
+
+`@solution`
+
 ```{r}
 treatment<-KatiePerrie[KatiePerrie$Treatment==1,]
 control<-KatiePerrie[KatiePerrie$Treatment==0,]
@@ -107,53 +160,67 @@ for(i in 2:length(control)){
 Solution<-names(KatiePerrie)[which(p>=.05)+1]
 ```
 
-*** =sct
+
+`@sct`
+
 ```{r}
 test_error()
 test_object("Solution")
 success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if the treatment and control groups in a natural experiment are not balanced, scientists will instead try to subset the control group and treatment groups into balanced groups, and then assess the data.")
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5dec6afcd9
-## Analyzing Natural Experiments
-*** =video_link
-//player.vimeo.com/video/199857027
-
 
 ---
+
+## Analyzing Natural Experiments
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 5dec6afcd9 
+video_link: //player.vimeo.com/video/199857027  
+```
+
+---
+
 ## Analyzing Data from Natural Experiments
+
 ```yaml
-type: VideoExercise
+type: VideoExercise 
 lang: r
-xp: 50
+xp: 50 
 skills: 1
-key: d8de59d6fa
-video_link: "//player.vimeo.com/video/199857237"
+key: 201eb1093a 
+video_link: //player.vimeo.com/video/279737522  
 ```
 
---- key:670d1ef5cd
-## Let's Code: Manipulating Confidence Intervals
-```yaml
-type: VideoExercise
-lang: r
-xp: 50
-skills: 1
-key: 201eb1093a
-video_link: "//player.vimeo.com/video/279737522"
-```
+---
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:56b8de7778
 ## Manipulating Confidence Intervals: Practice with Sea Otter Diets
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 56b8de7778   
+```
+
+
 When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the sea urchins provided the better show. 
 
 To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams (`treatment==1`) versus when they were fed sea urchins (`treatment==0`). They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
 
 Although the results seemed to indicate a positive treatment effect, the results were not statistically significant (95% Confidence Interval = [-0.23, 16.94]). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent of a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
 
-*** =instructions
+
+`@instructions`
 - Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`treatment`) on the size of the sea otters' audiences (`Audience`).
 
-*** =pre_exercise_code
+`@pre_exercise_code`
+
 ```{r}
 library(data.table)
 library(dplyr)
@@ -161,7 +228,9 @@ library(dplyr)
 SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 ```
 
-*** =sample_code
+
+`@sample_code`
+
 ```{r}
 # Below was the t-test used by the otter enthusiast to get the results listed above. As a reminder, you can select the text and click on the "Run Code" button to see the results.
     t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
@@ -181,10 +250,11 @@ SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
 
 # 5) Use the Test2 object to assign the upper bound of the confidence interval.
     UpperBound2<-
-
-
 ```
-*** =solution
+
+
+`@solution`
+
 ```{r}
 t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95)
 
@@ -194,9 +264,12 @@ UpperBound1<- Test1$conf.int[2]
 
 Test2<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .50)
 LowerBound2<-Test2$conf.int[1] 
-UpperBound2<-Test2$conf.int[2] 
+UpperBound2<-Test2$conf.int[2]
 ```
-*** =sct
+
+
+`@sct`
+
 ```{r}
 test_object("UpperBound1")
 test_object("LowerBound1")
@@ -207,20 +280,43 @@ success_msg("Good work! As you can see, the confidence interval is highly suscep
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:dc685a5444
-## Squatter Property Rights: Effect on Teenage Pregnancy
-*** =video_link
-//player.vimeo.com/video/199857584
+---
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5341ad7e2f
+## Squatter Property Rights: Effect on Teenage Pregnancy
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: dc685a5444 
+video_link: //player.vimeo.com/video/199857584  
+```
+
+---
+
 ## Interpreting the Results of Natural Experiments
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 5341ad7e2f   
+```
+
+
 The effect of the property rights experiment was not statistically significant. If you were going to describe this experiment to a friend, how would you describe the effect of squatters' rights on teenage pregnancy?
-*** =instructions
+
+
+`@instructions`
 - The experiment could not show whether or how property rights affect teenage pregnancy.
 - Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for.
 - Property rights did not change the rate of teenage pregnancy at all.
-- Property rights caused the rate of teenage pregnancy to go up a little because teens now had a home for their children. 
-*** =sct
+- Property rights caused the rate of teenage pregnancy to go up a little because teens now had a home for their children.
+
+`@sct`
+
 ```{r}
 msg1 = "Correct! It's very tempting to tell a story that sounds hopeful or can clearly assign blame, or to make it fit in line with other researchers' findings, but this particular set of data was not able to show whether property rights effected teenage pregnancy positively or negatively, nor whether property rights even affects teenage pregnancy at all.  The researchers gave it a try, but in this particular case, their data didn't work out as well as they hoped."
 msg2 = "This would be over-interpreting the data and makes a causal claim they cannot support. Try again."
@@ -229,32 +325,48 @@ msg4 = "This would be over-interpreting the data and makes a causal claim they c
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+
 ---
+
 ## Let's Code: Practice with a Natural Experiment
+
 ```yaml
-type: VideoExercise
+type: VideoExercise 
 lang: r
-xp: 50
+xp: 50 
 skills: 1
-key: 21fe78f4b4
-video_link: //player.vimeo.com/video/279737505
+key: 21fe78f4b4 
+video_link: //player.vimeo.com/video/279737505  
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 key:2d95aa10c6
+---
+
 ## Offering a Higher Credit Card Limit: a Natural Experiment
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 2d95aa10c6   
+```
+
+
 A previous exercise in Chapter 7 studied an experiment by a company named `CreditCo` that involved sending mail offers for recipients to increase their credit limit. While thinking about this experiment, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, while the other half of customers experienced sunny weather the day the offer arrived. You realize this variation in the weather may have created a natural experiment where customers in the rainy zones felt gloomy and decided not to take up the offer, while those in the sunny zones felt cheerful and because of their good mood, took up the offer.
 
 Let's test this hypothesis, specifically:
 
-*** =instructions
+
+`@instructions`
 - 1) Compute the average difference in take-up rates (`opt_in`) among those offered (`offered`) for rained-out customers vs. sunny customers (`rainy`).
 - 2) Run a t-test to check if balance in pre-offer credit (`balance_pre`) is balanced among those whose weather was rainy vs. sunny (`rainy`).
 - 3) Run a t-test to estimate the average treatment effect of rain (`rainy`) on post-offer credit balances (`balance_post`), regardless of whether they were offered the balance increase.
 
-*** =hint
+`@hint`
 - Remember to be aware of selecting the correct subsample
 
-*** =pre_exercise_code
+`@pre_exercise_code`
+
 ```{r}
 library(data.table)
 library(dplyr)
@@ -318,7 +430,9 @@ library(dplyr)
   CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post","rainy")]
 ```
 
-*** =sample_code
+
+`@sample_code`
+
 ```{r}
 # Note: The dataset `CreditCo` is available in your workspace. You may want to remind yourself of its structure with the str() command.
 
@@ -330,17 +444,20 @@ library(dplyr)
 
 # 3) Run a t-test to estimate the average treatment effect of rain (`rainy`) on post-offer credit balances (`balance_post`), regardless of whether they were offered the balance increase.
     t.test()
-
 ```
 
-*** =solution
+
+`@solution`
+
 ```{r}
 t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
 t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])
 t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
 ```
 
-*** =sct
+
+`@sct`
+
 ```{r}
 test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 test_error()
@@ -348,14 +465,29 @@ success_msg("Good work! It looks like rain may have influenced whether customers
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c6894f628a
+---
+
 ## London Cholera Outbreak: Early Data Visualizations
-*** =video_link
-//player.vimeo.com/video/199857705
 
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: c6894f628a 
+video_link: //player.vimeo.com/video/199857705  
+```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3ab612d821
+---
+
 ## London Cholera Outbreak: Was it a Natural Experiment?
-*** =video_link
-//player.vimeo.com/video/199857892
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 3ab612d821 
+video_link: //player.vimeo.com/video/199857892  
+```
 

@@ -1,6 +1,6 @@
 ---
-  title: "Experiments 8: Long-term Average Treatment Effects"
-  description: "These videos and exercises discuss how to compute and interpret long-term causal effects."
+title: 'Experiments 8: Long-term Average Treatment Effects'
+description: 'These videos and exercises discuss how to compute and interpret long-term causal effects.'
 ---
 
 ## Introducing Perry Preschool
@@ -87,6 +87,7 @@ n=382
     UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
 ```
 
+
 `@sample_code`
 
 ```{r}
@@ -100,6 +101,7 @@ n=382
     Solution3<-
 ```
 
+
 `@solution`
 
 ```{r}
@@ -107,6 +109,7 @@ mean(UnterHR$LeaveJob[UnterHR$Treatment==1])
 mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
 Solution3<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
 ```
+
 
 `@sct`
 
@@ -116,6 +119,7 @@ test_object("Solution3")
 test_error()
 success_msg("Good work! It seems that reducing the size of HR also reduced Unter employees' intentions to leave their jobs by about 7%.")
 ```
+
 
 ---
 
@@ -168,12 +172,14 @@ n=382
     p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
 ```
 
+
 `@sample_code`
 
 ```{r}
 p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
     p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
 ```
+
 
 `@sct`
 
@@ -184,6 +190,7 @@ msg3 = "While you're right that the pooled effects are negative and there are di
 msg4 = "You're right about the gender-specific effects, but not the pooled effects. Check your results again."
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
+
 
 ---
 
@@ -229,6 +236,7 @@ n=382
     UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
 ```
 
+
 `@sample_code`
 
 ```{r}
@@ -244,12 +252,14 @@ n=382
     Solution2<-
 ```
 
+
 `@solution`
 
 ```{r}
 Solution1 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0])
 Solution2 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1])
 ```
+
 
 `@sct`
 
@@ -259,6 +269,7 @@ test_object("Solution2")
 test_error()
 success_msg("Good work! We can see a clear difference in the treatment effect among men and women. This is a clear example of a conditional average treatment effect.")
 ```
+
 
 ---
 
@@ -300,6 +311,7 @@ msg1 = "Although you may have ideas about why preschool attendance reduces crimi
 msg2 = "Correct! Although the data suggest that attending preschool leads to reduced rates of criminal behavior, this table does not identify exactly why that might be the case. We can hypothesize several explanations for this relationship (for example, attending preschool might lead to better educational outcomes, which lead to better job outcomes, which reduces people's incentive to commit crimes), but we cannot know for sure without testing them."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
+
 
 ---
 
@@ -346,6 +358,7 @@ msg4 = "Correct! Experimentalists only use proxy variables in place of an experi
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+
 ---
 
 ## Choosing a Good Proxy Variable
@@ -380,6 +393,7 @@ msg4 = "This is only indirectly related to a business's survival, and the effect
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+
 ---
 
 ## Dr. Max Funn: Questionable Proxy Variables
@@ -413,6 +427,7 @@ msg2 = "Since we are conducting an experiment, we can directly control who goes 
 msg3 = "Correct! If this were the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest not (as here) negatively correlated."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
+
 
 ---
 
@@ -488,6 +503,7 @@ set.seed(1)
   econometrics$Income<-(10*econometrics$Happiness+econometrics$WorkHours+mround(rtnorm(n=1000,mean=30,sd=10,min=0,max=100),10))/2
 ```
 
+
 `@sample_code`
 
 ```{r}
@@ -504,6 +520,7 @@ set.seed(1)
     t.test()
 ```
 
+
 `@solution`
 
 ```{r}
@@ -512,6 +529,7 @@ cor(econometrics$Happiness,econometrics$Income)
 t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])
 t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])
 ```
+
 
 `@sct`
 
@@ -523,6 +541,7 @@ test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 test_error()
 success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
 ```
+
 
 ---
 
@@ -571,6 +590,7 @@ msg3 = "Correct! The best answer would be to write p=.06. Even though .05 is clo
 msg4 = "This is accurate, but this response is not to the nearest hundredth like the question asked. Try again."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
+
 
 ---
 
@@ -634,17 +654,19 @@ msg3 = "Correct! There **is probably** enough information to provide an opinion 
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
+
 ---
 
 ## Following Up with Gumville Book Drop Experiment
 
 ```yaml
-type: MultipleChoiceExercise
+type: MultipleChoiceExercise 
 lang: r
-xp: 50
+xp: 50 
 skills: 1
-key: 56ccbb72f1
+key: 56ccbb72f1   
 ```
+
 
 It turns out that the results of the Gumville Book Drop Experiment were not statistically significant. What does this imply?
 
@@ -653,7 +675,6 @@ It turns out that the results of the Gumville Book Drop Experiment were not stat
 - The increase in income does not have a significant impact on people's lives.
 - Free books do not improve income.
 - We do not have enough evidence to determine whether our hypothesis was correct or not.
-
 
 `@hint`
 
@@ -673,6 +694,7 @@ msg2 = "This is not a correct interpretation. This answer requires a statistical
 msg3 = "Correct! It means that we just don't have enough data to tell us either way. Gumville either needs to try again, or a bigger city should give it a shot."
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
 ```
+
 
 ---
 
@@ -710,6 +732,7 @@ msg4 = "Incorrect.  You may be mixing up the long- and short-term effects.  Revi
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+
 ---
 
 ## Spillover Effects Among Subjects
@@ -722,3 +745,4 @@ skills: 1
 key: 2049273381 
 video_link: //player.vimeo.com/video/199856665  
 ```
+

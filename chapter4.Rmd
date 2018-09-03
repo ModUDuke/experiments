@@ -1,17 +1,30 @@
---- 
-title       : "Experiments 4: Statistical Inference in Experiments"
-description : "These videos and exercises explain why we need statistical inference in experiments."
+---
+title: 'Experiments 4: Statistical Inference in Experiments'
+description: 'These videos and exercises explain why we need statistical inference in experiments.'
+---
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6ae426b824
 ## Statistical Inference
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 6ae426b824   
+```
+
+
 Under which scenario might an experimenter *not* need to use statistical inference to justify causal claims?
 
-*** =instructions
+
+`@instructions`
 - When his causal claim is logically sound.
 - When his sample is large.
 - When his experiment is well-designed.
 - When he can have his entire population of interest participate in the experiment.
-*** =sct
+
+`@sct`
+
 ```{r}
 msg1 = "Even if it makes sense, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again."
 msg2 = "Even with a large sample, you still need to use statistical measures to verify the experiment's validity, so try again."
@@ -21,32 +34,54 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:76542ba835
-## p Values, Confidence Intervals, and Hypothesis Tests
-*** =video_link
-//player.vimeo.com/video/205124286
-
 ---
-## Let's Code: Getting to Work with Confidence
+
+## p Values, Confidence Intervals, and Hypothesis Tests
+
 ```yaml
-type: VideoExercise
+type: VideoExercise 
 lang: r
-xp: 50
+xp: 50 
 skills: 1
-key: 39b057a682
-video_link: "//player.vimeo.com/video/279737759"
+key: 76542ba835 
+video_link: //player.vimeo.com/video/205124286  
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:907fdfb248
-## Getting to Work With Confidence: Visualize the Data
-Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time. 
+---
 
-*** =instructions
+## Let's Code: Getting to Work with Confidence
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 39b057a682 
+video_link: //player.vimeo.com/video/279737759  
+```
+
+---
+
+## Getting to Work With Confidence: Visualize the Data
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 907fdfb248   
+```
+
+
+Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time.
+
+
+`@instructions`
 - 1) Summarize the data in table form to see what information we have about Donny's commute.
 - 2) Visualize the data with a density plot to get a better sense for the distribution of his commute times.
 
+`@pre_exercise_code`
 
-*** =pre_exercise_code
 ```{r}
 library(dplyr)
 library(data.table)
@@ -60,21 +95,29 @@ set.seed(1)
 
 Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 ```
-*** =sample_code
+
+
+`@sample_code`
+
 ```{r}
 # 1) Let's first summarize Donny's commute time to get a sense of what the data looks like. Use the summary function on the dataframe Commute.
     summary()
 
 # 2) It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. Use the plot(density()) commands on the dataframe Commute.
-    plot(density()) 
-
+    plot(density())
 ```
-*** =solution
+
+
+`@solution`
+
 ```{r}
 summary(Commute)
 plot(density(Commute))
 ```
-*** =sct
+
+
+`@sct`
+
 ```{r}
 test_function("summary", incorrect_msg = "Did you use the `summary` function?")
 test_function("plot", incorrect_msg = "Did you use the `plot` function?")
@@ -84,16 +127,32 @@ success_msg("Good job!  The Y axis, marked 'density', shows the proportion of ti
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:243a4bf8bb
+---
+
 ## Getting to Work With Confidence: Choosing a Departure Time
-Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work and his commute takes 10 minutes on average, his commute often takes longer than that. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time. 
 
-*** =instructions
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 243a4bf8bb   
+```
+
+
+Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work and his commute takes 10 minutes on average, his commute often takes longer than that. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time.
+
+
+`@instructions`
 - 1) Assuming that Donny's sample is representative of the true distribution of commute times, use the vector `Commute` to determine how much time Donny should leave for his commute if he wants to arrive to work on time at least 95% of the time. 
-- 2) Since Donny's sample is subject to error, determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 50% of the time with 95% confidence. 
+- 2) Since Donny's sample is subject to error, determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 50% of the time with 95% confidence.
 
+`@hint`
+- 1) This question does not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset. To solve this question, we would recommend using the "quantile" function. The quantile function requires two arguments, a variable (Commute) and a quantile to be returned (.95); that is, quantile(VARIABLE,QUANTILE)
+- 2) Another way of stating the question is: given our limited sample, at what time are we 95% confident that Donny could leave and get to work on time half of the time? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. The confidence interval of a mean is determined with the t.test function; the upper bound can be returned with t.test(VARIABLE)$conf.int[2].
 
-*** =pre_exercise_code
+`@pre_exercise_code`
+
 ```{r}
 library(dplyr)
 library(data.table)
@@ -108,12 +167,9 @@ set.seed(1)
 Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 ```
 
-*** = hint
-- 1) This question does not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset. To solve this question, we would recommend using the "quantile" function. The quantile function requires two arguments, a variable (Commute) and a quantile to be returned (.95); that is, quantile(VARIABLE,QUANTILE)
-- 2) Another way of stating the question is: given our limited sample, at what time are we 95% confident that Donny could leave and get to work on time half of the time? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. The confidence interval of a mean is determined with the t.test function; the upper bound can be returned with t.test(VARIABLE)$conf.int[2].
 
+`@sample_code`
 
-*** =sample_code
 ```{r}
 # Note: The following questions are difficult. If stuck, we highly recommend looking at our hints, located below the instructions tab.
 
@@ -121,14 +177,20 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
     Solution1<- 
 
 # 2) Precisely how long should Donny leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence? 
-    Solution2<- 
+    Solution2<-
 ```
-*** =solution
+
+
+`@solution`
+
 ```{r}
 Solution1<- quantile(Commute,.95) #95th quantile  
 Solution2<-t.test(Commute)$conf.int[2] #upper bound
 ```
-*** =sct
+
+
+`@sct`
+
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
@@ -137,20 +199,32 @@ success_msg("Good job! Based on Donny's previous commutes, he can be fairly conf
 ```
 
 
+---
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2fc3d44de
 ## Sample Size
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: d2fc3d44de   
+```
+
+
 A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. 
 
 All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was 5/5 - 2/5 = 3/5, or 60%. Why might the professor want to get a larger sample before publishing these results?
 
-*** =instructions
+
+`@instructions`
 - To please his reviewers.
 - To control for non-compliance.
 - To make sure that the observed average treatment effect did not occur by chance.
 - To control for confounding variables.
 
-*** =sct
+`@sct`
+
 ```{r}
 msg1 = "While this might feel like the most immediate reason, what other reason do you think his reviewers mentioned? Try again"
 msg2 = "Noncompliance isn't mentioned as an issue in this case, so it's not the key issue we're looking for. Try again"
@@ -160,13 +234,28 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:e587a26773
+---
+
 ## Statistical Inference Across Disciplines
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: e587a26773   
+```
+
+
 Let's say that you are an economics major, and your roommate is a chemistry major.  They're trying to figure out the results from an experiment run in the lab where they work as an RA, and ask you to look at the data because it looks "weird."  Given the differences between your disciplines, is there any point in trying to help?
-*** =instructions
+
+
+`@instructions`
 - Yes
 - No
-*** =sct
+
+`@sct`
+
 ```{r}
 msg1 = "Of course there is! The data analysis techniques in all of the sciences are much, much more similar than different. While academic fields can create their own algorithms for field-specific problems, they are all joined together by the same basic concepts about finding the best and most quantitative ways to tie causes to effects."
 msg2 = "Try again."
@@ -174,18 +263,32 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:01b4c71047
+---
+
 ## Fishing for a Good Experimental Design
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 01b4c71047   
+```
+
+
 After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: she spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. 
 
 Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design?
 
-*** =instructions
+
+`@instructions`
 - Rachel's experiment is unethical.
 - Rachel's sample is probably too small.
 - Rachel's sample is not likely representative of her target population.
 - Rachel's findings are not intuitive.
-*** =sct
+
+`@sct`
+
 ```{r}
 msg1 = "While a vegetarian might make such an argument, there is a much more direct answer to this question. Try again."
 msg2 = "It's possible that Rachel's sample after two days of fishing would be too small to ascertain statistical significance, but the question did not state how large her sample size was. Try again."
@@ -195,23 +298,34 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:870135287b
+---
+
 ## Problems with Convenience Sampling
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 870135287b   
+```
+
+
 Does income cause happiness? It is generally believed that income increases happiness for those who have less money. So a bump in income for a poor person is likely to increase his happiness much more than the same bump in income for a wealthy person. 
 
 Siggy, an academic psychologist, was interested in how one-time cash rewards affect happiness. Siggy decided to conduct an experiment by giving people a $10 bill, and then measuring the their corresponding change in happiness at that moment. If Siggy only conducted this experiment on college students (a demographic that is usually strapped for cash, but a convenient sample for academics to conduct experiments on), how might we expect it to bias his experiment's average treatment effect?
 
-*** =instructions
+
+`@instructions`
 - Upward
 - Downward
 
-*** =sct
+`@sct`
+
 ```{r}
 msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a larger average treatment effect than an experiment conducted on a random sample of the entire population)."
 msg2 = "Given that this demographic is, as stated, strapped for cash, this isn't the likely bias. Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
-
-
 
 

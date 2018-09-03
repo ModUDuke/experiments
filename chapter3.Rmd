@@ -1,15 +1,32 @@
---- 
-title       : "Experiments 3: Randomized Experiments"
-description : "These videos and exercises introduce randomized experiments."
+---
+title: 'Experiments 3: Randomized Experiments'
+description: 'These videos and exercises introduce randomized experiments.'
+---
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9e9326a35b
 ## Randomized Experiments
-*** =video_link
-//player.vimeo.com/video/198212082
 
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 9e9326a35b 
+video_link: //player.vimeo.com/video/198212082  
+```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:243af9a90f
+---
+
 ## Buying a New Phone: Experimental design
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 243af9a90f   
+```
+
+
 Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends to join her at an electronics store and bend one of the two phones for a duration of 1 minute each. 
 
 Two of her friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, and her other two friends try bending the WePhone 10S. 
@@ -17,13 +34,14 @@ Two of her friends really want to try to bend the Universe S10, so Laurel assign
 The Universe S10 was bent about 2 degrees more than the WePhone 10, so Laurel concludes that the average treatment effect of the WePhone 10S on bendability is -2 degrees. Of the following, which is the most problematic design error in this experiment?
 
 
-*** =instructions
+`@instructions`
 - Noncompliance
 - Ethics
 - Random assignment
 - Not enough data
 
-*** =sct
+`@sct`
+
 ```{r}
 msg1 = "Not in this case, as all her friends did what she asked. Try again."
 msg2 = "There are probably ethical issues involved with knowingly breaking things in a store, but from a scientific perspective, there's a bigger experiment design issue than that. Try again."
@@ -32,18 +50,31 @@ msg4 = "Sample size is not related to experimental design. We'll talk later abou
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1c689745b7
+
+---
+
 ## Buying a New Phone: Sampling
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 1c689745b7   
+```
+
+
 If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S at least 1 degree with their hands, which group would serve as a better sample?
 
 
-*** =instructions
+`@instructions`
 - Perfect strangers in Laurel's neighborhood
 - Perfect strangers across the world
 - Perfect strangers in Laurel's town
 - Perfect strangers across the U.S.
 
-*** =sct
+`@sct`
+
 ```{r}
 msg1 = "One neighborhood is probably not as diverse as the whole country, so try another option."
 msg2 = "This answer may be tempting, but Laurel wants a sample that is reflective of the U.S. population."
@@ -52,29 +83,45 @@ msg4 = "Correct. A single neighborhood is unlikely to reflect the diversity of t
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+
 ---
+
 ## Let’s Code: Practice Identifying Imbalance
+
 ```yaml
-type: VideoExercise
+type: VideoExercise 
 lang: r
-xp: 50
+xp: 50 
 skills: 1
-key: 212a7368fd
-video_link: "//player.vimeo.com/video/279737786"
+key: 212a7368fd 
+video_link: //player.vimeo.com/video/279737786  
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:87c93c97ab
+---
+
 ## Selling Old Phones: Looking for Balance
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 87c93c97ab   
+```
+
+
 Laurel has saved all of the wePhones that she has broken and she now wants to auction them off on eBay. However, Laurel is uncertain what base-auction price to set for her broken WePhones. 
 
 To determine what price to set at the beginning of her WePhone auctions, Laurel conducts a new experiment: Laurel grabs a random sample of broken WePhones from her closet, and randomly assigns them to a treatment group (WePhones to be base priced at $10), and a control group (WePhones to be base priced at $5). Laurel's end goal is to determine whether her sample is unbalanced. Using the dataframe `WePhones`:
 
-*** =instructions
+
+`@instructions`
 - 1) Take a look at the structure of dataframe `WePhones` with the "str" function.
 - 2) Subset the WePhones dataframe into two new dataframes, one for `WePhones` in the treatment, titled `Treatment` and one for WePhones in the control titled `Control`.
 - 3) Calculate the percent of phones in the treatment group and control group that are "Black" with the mean function.
 
-*** =pre_exercise_code
+`@pre_exercise_code`
+
 ```{r}
 library(dplyr)
 library(data.table)
@@ -102,7 +149,10 @@ library(data.table)
     WePhones$Network<-as.factor(ifelse(WePhones$Network==1,"Mendizon","Trot"))
     WePhones$Condition<-as.factor(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
 ```
-*** =sample_code
+
+
+`@sample_code`
+
 ```{r}
 # 1) Let's practice identifying whether the treatment and control are different for Color. First, take a look at the structure of the dataframe with the "str" function. Insert the word `WePhones` inbetween the structure function
     str() 
@@ -112,15 +162,20 @@ library(data.table)
 
 # 3) Now, let's calculate the percent of phones in the treatment group and control group that are "Black". We provide an example of how to do this for the Treatment group.
     mean(Treatment$Color=="Black")
-
 ```
-*** =solution
+
+
+`@solution`
+
 ```{r}
-    str(WePhones) 
+str(WePhones) 
     Control<-WePhones[WePhones$Treatment==0,]
     mean(Control$Color=="Black")
 ```
-*** =sct
+
+
+`@sct`
+
 ```{r}
 test_function("str", incorrect_msg = "Did you use the `str` function?")
 test_function("mean", incorrect_msg = "Did you use the `mean` function?")
@@ -130,8 +185,19 @@ success_msg("Good work! Exploring your new data before diving into deeper questi
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e97cd6d50d
-## Selling Old Phones: Identifying Imbalance 
+---
+
+## Selling Old Phones: Identifying Imbalance
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: e97cd6d50d   
+```
+
+
 Now that we are familiar with Laurel's WePhones dataset, we need to do some balance checks between the treatment and control groups. To do that, let’s try something clever: let’s start by assuming our variables are balanced across the groups, and then look for any variables that are statistically *unbalanced*. 
 
 We’ll use a t-test to measure the difference in means for a variable between the two groups, and we’ll check if any difference is statistically significant through its p-value. The t-test is useful because it compensates for the variation within groups, and the p-value tells us how likely any difference is due to chance. Let’s use the standard assumption that we’ll believe our result if it has less than a 5% of being randomly generated. ln this case, we declare a variable to be imbalanced if it shows a difference between groups and has a p-value smaller than .05. If there is a difference but the p-value is larger than .05, we’ll say that any imbalance is not statistically significant and we’ll ignore it.
@@ -140,12 +206,13 @@ We’ll start by checking to see if the groups are balanced on the colors of the
 
 Using the data frame `WePhones`:
 
-*** =instructions
+
+`@instructions`
 - 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same number of `Black` WePhones.
 - 2) If that is statistically balanced, examine the data frame to find any variable that is imbalanced between the`Treatment` and `Control` groups.
 
+`@pre_exercise_code`
 
-*** =pre_exercise_code
 ```{r}
 library(dplyr)
 library(data.table)
@@ -179,7 +246,9 @@ library(data.table)
     mean(Control$Color=="Black")
 ```
 
-*** =sample_code
+
+`@sample_code`
+
 ```{r}
 # 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same proportion of `Black` WePhones. Replace the `x` and `y` in the following example with, `Treatment$Color=="Black"` and `Control$Color=="Black"` respectively.
     t.test(x,y)
@@ -188,13 +257,14 @@ library(data.table)
 
 # 2) So are there any variables that show a statistically significant amount of imbalance? Use the `t.test` function to search through each variable in the `Treatment and `Control` groups until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups is less than 0.05). Write the name of the unbalanced trait between control and treatment groups into Solution1.
     t.test(  )
-    Solution1<-"" 
-
-
+    Solution1<-""
 ```
-*** =solution
+
+
+`@solution`
+
 ```{r}
-  t.test(Treatment$Color=="Black",Control$Color=="Black")
+t.test(Treatment$Color=="Black",Control$Color=="Black")
 #This is how we solve this answer when the data are randomized, but an easier way to solve this questions is to look through each variable manually
 a<-vector()
 for(i in 2:6){
@@ -202,7 +272,10 @@ for(i in 2:6){
 }    
   Solution1<-names(WePhones)[match(a[a<.05],a)+1]
 ```
-*** =sct
+
+
+`@sct`
+
 ```{r}
 test_object("Solution1")
 test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
@@ -210,3 +283,5 @@ test_error()
 
 success_msg("Good work! The methods for computing balance in this exercise are very common to experimental research. While we walked you through the steps this time, some of the later problems will be less guided. You may want to return to this exercise and look at how we computed imbalance if you ever get stuck in later ones.")
 ```
+
+
