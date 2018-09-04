@@ -317,12 +317,12 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ## A Bayesian Primer and ATEs
 
 ```yaml
-type: VideoExercise 
+type: VideoExercise
 lang: r
-xp: 50 
+xp: 50
 skills: 1
-key: c91ef16385 
-video_link: //player.vimeo.com/video/230617297 
+key: 553340889c
+video_link: "//player.vimeo.com/video/230617297"
 ```
 
 ---
