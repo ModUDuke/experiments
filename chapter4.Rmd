@@ -171,7 +171,7 @@ Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 `@sample_code`
 
 ```{r}
-# Note: The following questions are difficult. If stuck, we highly recommend looking at our hints, located below the instructions tab.
+# Note: The following questions are difficult. If you get stuck, we highly recommend looking at our hints, located below the instructions tab.
 
 # 1) Determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. 
     Solution1<- 
