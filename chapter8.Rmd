@@ -1,5 +1,5 @@
 ---
-title: 'Bounds Analysis & Putting It All Together'
+title: 'Bounds Analysis and Putting It All Together'
 description: 'This chapter discusses how to form bounds on causal effects in the presence of experimental noncompliance, and we wrap up the course with a bigger exercise to review what we've learned.'
 ---
 
