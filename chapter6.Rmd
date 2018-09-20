@@ -1,160 +1,73 @@
 ---
-title: 'Experiments 6: Common Issues in Experiments'
-description: 'These videos and exercises discuss common issues in carrying out experiments.'
+title: 'Long-term Average Treatment Effects'
+description: 'These videos and exercises discuss how to compute and interpret long-term causal effects.'
 ---
 
-## Important Issues in Experiment Design These Modules Ignore
+## Introducing Perry Preschool
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: ef7f2e2846 
-video_link: //player.vimeo.com/video/198212060  
+key: 9223675c47 
+video_link: //player.vimeo.com/video/198212111  
 ```
 
 ---
 
-## Other Issues in Experiments (Including Money & Ethics)
+## Perry Preschool: Comparing Educational Attainment Data
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 5f5a6d0023 
-video_link: //player.vimeo.com/video/209272116  
+key: c91ef16385 
+video_link: //player.vimeo.com/video/198212115  
 ```
 
 ---
 
-## Drawing Conclusions from Experiments
+## Let's Code: Practice Identifying Heterogenous Outcomes
 
 ```yaml
-type: MultipleChoiceExercise 
+type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: e302f4bddd   
+key: 95080b34c4 
+video_link: //player.vimeo.com/video/279737592  
 ```
-
-
-The transportation network company, Unter Technologies, is interested in increasing its revenue. Its CEO hypothesizes that the firm would generate substantially greater profits if it lowered its per-ride costs and profit margins. 
-
-Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% discount for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and profits during the promotional day. 
-
-Seeing the results of this experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
-
-
-`@instructions`
-- Unter did not survey its customers to determine if they were enticed by Unter's lower prices.
-- Unter does not have enough data to test the statistical significance of its findings.
-- The treatment in Unter's experiment might not have the same effect as the treatment in their policy proposal.
-- Unter's experiment didn't address the strategic responses of its competitors.
-
-`@sct`
-
-```{r}
-msg1 = "Doing additional research to learn The Why behind a behavioral change can be helpful, but there's an experimental design issue to address first. Try again"
-msg2 = "This question doesn't say how much data Unter used, but there's another experimental design issue to consider, so try again"
-msg3 = "Correct! Unter's experiment specifically tests the effect on profits of a temporary price reduction in its services, rather than the effect of a permanent price reduction. Profits increased during the promotional period, but there is no evidence that profits would remain higher over a longer period of time."
-msg4 = "While Unter's profits are impacted by its competitors' behavior, there is another experimental design issue that is more appropriate. Try again"
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
 
 ---
 
-## Generalizing Experimental Results
+## Unhappiness at Unter: Identifying Heterogeneous Outcomes - ATE
 
 ```yaml
-type: MultipleChoiceExercise 
+type: NormalExercise 
 lang: r
-xp: 50 
+xp: 100 
 skills: 1
-key: fa050e19b1   
+key: 4ddc3a17bc   
 ```
 
 
-Unter's CEO is still convinced that lowering the prices of their services might increase the company's profits. He is hesitant to lower Unter's prices for a longer period, since the company would risk losing a great deal of income if the price-drop did not substantially increase revenue. 
+The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department.
 
-Therefore, to understand how a long-term price drop would affect Unter's profits, the CEO of Unter decides to drop the prices of their services in one city. Over the course of a year, Unter's profits in that city rose substantially. Unter's CEO is now convinced that he should drop Unter's prices nation-wide. Why might this conclusion still be too hasty?
+To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and tells a control group that the HR Department will remain the same size in the following year. Miraculously, these two groups don't end up discussing this with each other. Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
+
+With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover. Specifically:
 
 
 `@instructions`
-- Unter's experiment did not pay attention to how its changes affected its competitors.
-- The context in Unter's experiment might not generalize to other contexts affected by Unter's policy proposal.
-- Unter's experiment did not specify why people might be enticed by lower prices.
-- Unter's experiment did not control for noncompliance.
+- 1) Find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) 
+- 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
+- 3) Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave their job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
 
-`@sct`
-
-```{r}
-msg1 = "The company probably does exist in a complex market, but there's something else to worry about without that consideration. Try again."
-msg2 = "Correct! Unter's experimental results may have been specific to the city that Unter conducted the experiment in. People from other cities may not be as sensitive to price-reductions as the city in Unter's experiment."
-msg3 = "Doing some research to learn The Why behind a behavior change can be helpful, but there's an experiment design issue to address first. Try again."
-msg4 = "The question assumes the CEO can successfully set prices in his own company, so if that's true, what other answer might still be a design issue we need to worry about?"
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Ethics in experiments
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 7c1f83a32b   
-```
-
-
-Which of the following causal questions is it possible to answer with a randomized experiment (without major ethical concerns)?
-
-
-`@instructions`
-- The effect of losing one's job on mental health.
-- The effect of religion on financial well-being.
-- The effect of social isolation on academic performance.
-- The effect of financial incentives on athletic performance.
-
-`@sct`
-
-```{r}
-msg1 = "This would definitely cause major ethical concerns because randomly assigning people to lose their job is not allowed.Try again."
-msg2 = "This is a very personal topic to many people, and likely to involve big ethical concerns, so try again."
-msg3 = "Randomly assigning people to social isolation is incredibly unethical, so look for a better answer!"
-msg4 = "Correct! Each of the other experiments is not only difficult to create, but could cause substantial harm to an experiment's participants."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Common Issues in Interpretation I: Box-and-Whisker Plots
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 9ca8c3a544   
-```
-
-
-Not only are there common issues in experiments, but there are many common ways that people misinterpret statistical results. Box-and-whisker plots (also known as box plots) are a great tool for summarizing data, but can be a source of confusion for new analysts. To refamiliarize yourself with boxplots, You can read our summary of them in the Chapter 5 exercise, "Practice working with eGulf," or on various websites, such as Wikipedia (https://en.wikipedia.org/wiki/Box_plot).
-
-Following an experiment regarding how computer keyboard layouts affect people's typing speed, the principal investigator, Kurt Devorak, compared the hand sizes among respondents in the treatment group and control group to make sure his sample was balanced. He plotted the results in two box-and-whiskers plots (illustrated in the R workspace). Which of the following conclusions **cannot** be determined from these boxplots (or almost any boxplot)?
-
-
-`@instructions`
-- The maximum hand size in the treatment group is identical to the maximum hand size in the control group.
-- The third quartile hand size in the treatment group is identical to the third quartile hand size in the control group.
-- The median hand size in the treatment group is identical to the median hand size in the control group.
-- The mean hand size in the treatment group is identical to the mean hand size in the control group.
+`@hint`
+- To make things a bit simpler to understand, subset the treatment and control groups into new dataframes based on their values of the `Treatment` variable.  
+- You will need to use the `mean` command.
 
 `@pre_exercise_code`
 
@@ -162,272 +75,32 @@ Following an experiment regarding how computer keyboard layouts affect people's 
 library(data.table)
 library(dplyr)
 set.seed(1)
-rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-}
-options(scipen=1)
-n=200
-Control<-round(rtnorm(n,7.44,sd=.5,min = 6,max=9),2)
-Treatment<-Control
-#increase values between median and third quartile
-  Treatment<-ifelse(Treatment<quantile(Treatment,.74)& Treatment>quantile(Treatment,.51),quantile(Treatment,.74),Treatment)
-#increase values between median and first quartile
-  Treatment<-ifelse(Treatment<quantile(Treatment,.49)& Treatment>quantile(Treatment,.26),quantile(Treatment,.49),Treatment)
-  boxplot(Treatment,Control,names=c("Treatment","Control"),main="Hand Sizes (inches) across Experimental Groups")
+n=382
+#Dataframe
+  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
+#LeaveJob
+  #treatment makes men less likely to leave
+    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
+    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
+  #treatment makes wommen more likely to leave
+    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
+    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
 ```
 
 
 `@sample_code`
 
 ```{r}
-boxplot(Treatment,Control,names=c("Treatment","Control"),main="Hand Sizes (inches) across Experimental Groups")
-```
+# 1)  Calculate the mean rate of `LeaveJob`in the control condition (`Treatment=0`)
 
+    mean()
 
-`@sct`
+# 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
 
-```{r}
-msg1 = "The maximum value in both plots is indicated by the line above the whiskers. These are identical. Try again."
-msg2 = "The third quartile in both plots is indicated by the top edge of the boxes. These are identical. Try again."
-msg3 = "The median value in both plots is indicated by the thick line within the box. These are identical. Try again."
-msg4 = "Correct! Box-and-whiskers plots do not show the mean values in a sample. Although these two plots have identical quartile distributions, medians, and ranges, the mean values are actually different (7.8 in the treatment and 7.5 in the control)."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
+    mean()
 
-
----
-
-## Let's Code: Common Issues II - Non-Normal Distributions
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 83164453d5 
-video_link: //player.vimeo.com/video/279737678  
-```
-
----
-
-## Common Issues in Interpretation II: Non-Normal Distributions
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: d411db8160   
-```
-
-
-Many statistical models assume that the data is normally distributed like in a bell curve, where a) most observations lie around the mean, b) the frequency of data that falls far from the mean is inversely related with its distance from the mean, and c) the distribution of observations above and below the mean are relatively identical. Often, results from experiments are non-normal, which can lead to spurious findings. Therefore, data transformations often need to be made to account for such problems.
-
-On the TV show, Kitchen Horrors, Bordon Hannity tries to revive failing restaurants by offering advice to their management and chefs. To measure the effectiveness of Hannity's efforts, a fan measures the average reviews of one of Hannity's revived restaurants before and after he offers them advice. With these results:
-
-
-`@instructions`
-- 1) Find the mean difference of the reviews before (`Reviews_Before`) and after (`Reviews_After`) Bordon Hannity's advice.
-- 2) Produce kernal density plots of the reviews with the functions `plot` and `density`.
-- 3) Determine whether the reviews are normally distributed
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-
-Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
-Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
-```
-
-
-`@sample_code`
-
-```{r}
-# Note: It is best practice to explore your data before running any significance tests. However, let's be bad statisticians and dive into the results before we explore the data. The two review variables are measured on Likert scales, ranging from 1 to 5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. 
-
-# 1) Estimate the mean difference in reviews; that is, the mean of Reviews_Before minus the mean of Reviews_After.
-    Solution1a<-
-
-# 2) The mean reviews before and after treatment are identical! But does this mean that Hannity's show had no effect on this restaurant's ratings? Not necessarily. To illustrate, let's plot the kernel densities of the reviews in the treatment and control groups to see how they are distributed. Use the plot(density()) functions on the variables Reviews_Before and Reviews_After.
-    plot(density())
-    plot(density())
+# 3) Calculate the average treatment effect, which is is simply the mean outcome of the treatment group minus the mean outcome of the control group. Assign this to Solution3.
     
-# 3) Use the Previous Plot and Next Plot buttons to cycle between the two graphs. Do these these look approximately normally distributed? Answer with "Yes" or "No."
-    Solution1c<-""
-```
-
-
-`@solution`
-
-```{r}
-Solution1a<-mean(Reviews_Before)-mean(Reviews_After)
-  plot(density(Reviews_Before))
-  plot(density(Reviews_After))
-  Solution1c<-"No"
-```
-
-
-`@sct`
-
-```{r}
-test_object("Solution1a")
-test_object("Solution1c")
-test_error()
-success_msg("Good work! This is an easy call in this particular case, but if it's close then you'll want to try some statistical tests too. And it might provoke some healthy discussion with your colleagues!")
-```
-
-
----
-
-## Common Issues in Interpretation II: Non-Normal Distributions (2)
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 5b26b74b8c   
-```
-
-
-There are many ways to deal with data that are multimodal in order to get them to be normally distributed. A common strategy for dealing with data that are ordered on a Likert scale is to collapse the response options. This is feasible if we assume that it is not important to differentiate the degree of positive or negative feelings for a restaurant. In this case, we will want to collapse response options 1 and 2 into a single response option to represent negative opinions, and 4 and 5 into a single response option to represent positive opinions.
-
-
-`@instructions`
-- 1) Create a new variable that collapses Reviews_After variable into 3 points: negative, ambivalent, and positive.
-- 2) Run a t-test that compares the treatment and control with the new ratings scale, and look at the p value.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-
-Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
-
-Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
-```
-
-
-`@sample_code`
-
-```{r}
-# Note: We want to create a new variable with three parameters, where 1= Negative (1 or 2), 2= Ambivalent (3), and 3= Positive (4 or 5). To do this for the Reviews_Before variable, we can use the ifelse function. The first line of the below syntax says, if Reviews_Before is equal to 1 or 2, set Reviews_Before to 1, otherwise just return Reviews_Before. The following lines can be interpreted similarly.
-    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before)
-    Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
-    Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
-  
-# 1) Use the above syntax as a guide to rescale the Reviews_After variable, so that Reviews_After is coded as 1 if it previously was coded as 1 or 2, 2 if it was previously coded as 3, and 3 if it was previously coded as 4 or 5.
-    Reviews_After<-
-
-# 2): Now that you have rescaled the Reviews_After variable, run a t-test between the Reviews_After and Reviews_Before variables.
-    t.test()
-```
-
-
-`@solution`
-
-```{r}
-Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before)
-    Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
-    Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
-    Reviews_After<-ifelse(Reviews_After==1 | Reviews_After==2,1,Reviews_After) 
-    Reviews_After<-ifelse(Reviews_After==3,2,Reviews_After) 
-    Reviews_After<-ifelse(Reviews_After==4 | Reviews_After==5,3,Reviews_After)
-    t.test(Reviews_After,Reviews_Before)
-```
-
-
-`@sct`
-
-```{r}
-test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
-test_error()
-success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaningful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews")
-```
-
-
----
-
-## Let's Code: Common Issues III - Outliers
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 970feae737 
-video_link: //player.vimeo.com/video/279737696  
-```
-
----
-
-## Common Issues in Interpretation III: Outliers
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 12e1bc32a2   
-```
-
-
-Outliers are another common source of causal misinpretation that often confound results. An outlier is an observation that has a very distant parameter or outcome from other observations. In this question, we will learn how to identify and handle outliers. 
-
-In a previous exercise, we examined an experiment conducted by the popular online auctioneer, eGulf, where a random sample of dedicated sellers of used WePhones was drawn. This sample only included eGulf sellers who typically post 10 pictures of their used WePhones. As an experimental treatment, eGulf temporarily allowed some of these sellers to post up to 15 pictures for each auction of their WePhones, and measured whether posting more than 10 pictures affected final WePhone sales prices. In this exercise, eGulf conducted their experiment again. Their sample size seems sufficiently large (N=350), and the mean sales prices of users in the treatment group also seem substantially higher than in the control group. But are they? Follow the code in the workspace to identify and correct for outliers.
-
-
-`@instructions`
-- Create boxplots of the final sales prices for the treatment and control groups.
-- Identify and remove the outliers from the sample.
-- Examine the mean difference between the Treatment and Control group.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-
-rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-}
-set.seed(1)
-n <- 350
-eGulf <- as.data.frame(matrix(0, ncol=2,nrow=n))
-colnames(eGulf) <- c("Seller_Feedback_Count","Seller_Feedback_Score")
-# Simulate baseline data
-  # Make seller feedback count
-    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
-  # Make feedback score loosely correlated with feedback count 
-    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(n,1,10),2)
-  # Make final sales price also correlated with seller_feedback_score
-    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
-  # Add parameters for new problem
-    eGulf$Treatment<-rbinom(n,1,.5)
-    eGulf$temp<-rnorm(n)
-  #Create 3 outliers
-    eGulf$Treatment[1:3]<-1
-    eGulf$Final_Sales_Price[1:3]<-round(rtnorm(3,mean=2000,sd=200,min=1500,max=2500))
-    eGulf<-eGulf[order(eGulf$temp),]
-```
-
-
-`@sample_code`
-
-```{r}
-# Note: Although it's generally recommended to explore your data before running any statistical tests on it, for the sake of learning, let's naively estimate the average treatment effect on final sales prices with a t-test.
-    t.test(eGulf$Final_Sales_Price[eGulf$Treatment==1],eGulf$Final_Sales_Price[eGulf$Treatment==0])
-
-# 1) The ATE for the above t-test is almost $36, but the results are not statistically significant. This seems suspicious; usually a large means difference found in a sample of this size would be statically significant. Let's examine the distribution of the treatment and control groups with a box plot. Fill in the box plot with the final sales prices for the treatment and control groups. For reference, the syntax for making this boxplot is identical to that of a t-test.
-    Solution1<-boxplot()
-
-# 2) Notice that there are a few dots above each box plot. These dots indicate outliers. The cutoff for outliers in the boxplot is any value that is 1.5 times the interquartile range above the upper quartile or below the lower quartile. Is it possible that these outliers are driving our treatment effect? Let's correct for these extreme outliers. Subset the data so that it excludes any WePhone sales that were above $1500. 
-    eGulf<-
-
-# 3) Now that you have subsetted the data, calculate the mean difference in final sales prices between the treatment and control groups (i.e. mean of treatment 0 mean of control).
     Solution3<-
 ```
 
@@ -435,9 +108,162 @@ colnames(eGulf) <- c("Seller_Feedback_Count","Seller_Feedback_Score")
 `@solution`
 
 ```{r}
-Solution1<- boxplot(eGulf$Final_Sales_Price[eGulf$Treatment==1],eGulf$Final_Sales_Price[eGulf$Treatment==0])
-eGulf<-eGulf[eGulf$Final_Sales_Price<=1500,]
-Solution3<-mean(eGulf$Final_Sales_Price[eGulf$Treatment==1])-mean(eGulf$Final_Sales_Price[eGulf$Treatment==0])
+mean(UnterHR$LeaveJob[UnterHR$Treatment==1])
+mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
+Solution3<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
+```
+
+
+`@sct`
+
+```{r}
+test_function("mean", incorrect_msg = "Did you use the `mean` function?")
+test_object("Solution3")
+test_error()
+success_msg("Good work! It seems that reducing the size of HR also reduced Unter employees' intentions to leave their jobs by about 7%.")
+```
+
+
+---
+
+## Unhappiness at Unter: Identifying Heterogeneous Outcomes - CATEs
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: c229f94a13   
+```
+
+
+Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option.
+
+However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
+
+
+`@instructions`
+- While the pooled average treatment effect is slightly negative, and the average treatment effect for men is negative, the average treatment effect for women is positive.
+- While the pooled average treatment effect is slightly positive, and the average treatment effect for men is positive, the average treatment effect for women is negative.
+- While the pooled average treatment effect is slightly negative, and the average treatment effect for men is positive, the average treatment effect for women is negative.
+- While the pooled average treatment effect is slightly positive, and the average treatment effect for men is negative, the average treatment effect for women is positive.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+set.seed(1)
+n=382
+#Dataframe
+  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
+#LeaveJob
+  #treatment makes men less likely to leave
+    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
+    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
+  #treatment makes wommen more likely to leave
+    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
+    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
+    library(ggplot2)
+    library(scales)
+    df<-data.frame(Treatment=c("Control","Control","Treatment","Treatment"),Gender=c("Male","Female","Male","Female"),Value=c(mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])))
+    df<-data.frame(Treatment=c("Control","Control","Control","Treatment","Treatment","Treatment"),Gender=c("Male","Female","Pooled","Male","Female","Pooled"),Value=c(mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1])))
+    df$Gender<-factor(df$Gender, levels = c("Male","Pooled","Female"))
+    df$`Percent Intending to Quit`<-df$Value
+    df$`Control and Treatment Groups`<-df$Treatment
+    p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
+    p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
+```
+
+
+`@sample_code`
+
+```{r}
+p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
+    p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
+```
+
+
+`@sct`
+
+```{r}
+msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treatment has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked."
+msg2 = "Whoa! While you're right that there are different effects for men and for women, it looks like you're confused about which effects are negative and which are positive.  Try again."
+msg3 = "While you're right that the pooled effects are negative and there are different effects for men and for women, it looks like you're confused about which gender-specific effects are negative and which are positive. Look again."
+msg4 = "You're right about the gender-specific effects, but not the pooled effects. Check your results again."
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Unhappiness at Unter: Identifying Heterogenous Outcomes - CATEs (2)
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: a52ff8b8f4   
+```
+
+
+Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
+
+
+`@instructions`
+- 1) Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`).
+- 2) Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`).
+
+`@hint`
+- Remember, you can determine the ATE by subtracting the mean rate of the outcome in the control condition by the mean rate of the outcome in the treatment condition.
+- You will need to use the `mean` function and R's `subset` syntax.
+- Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+set.seed(1)
+n=382
+#Dataframe
+  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
+#LeaveJob
+  #treatment makes men less likely to leave
+    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
+    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
+  #treatment makes wommen more likely to leave
+    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
+    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
+```
+
+
+`@sample_code`
+
+```{r}
+# Note: We want to determine the CATE of Unter's HR reduction on intention to leave by gender, but it may be useful to examine a table of this relationship first. The following syntax prints two tables showing the number of respondents who intend to leave work by treatment group and gender.
+
+    xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
+
+# Note: From the tables produced above, it looks like we have a lot more men than women in our samples. Within the upper table, it appears that relatively few men om either experimental group want to leave. However, the lower table indicates that the majority of women in the treatment group want to leave, whereas the majority of women in the control group do not. To be sure, let's actually calculate the differences in the average treatment effects among men and women.
+
+# 1) Determine the average treatment effect among men. Assign this number to Solution1.
+
+    Solution1<- 
+
+# 2) Determine the average treatment effect among women. Assign this number to Solution1.
+      
+    Solution2<-
+```
+
+
+`@solution`
+
+```{r}
+Solution1 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0])
+Solution2 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1])
 ```
 
 
@@ -445,8 +271,500 @@ Solution3<-mean(eGulf$Final_Sales_Price[eGulf$Treatment==1])-mean(eGulf$Final_Sa
 
 ```{r}
 test_object("Solution1")
-test_object("Solution3")
-success_msg("Good work! When you removed the outliers from the data, the mean difference was much smaller between the treatment and control group. This is a problem that comes up often in data analysis.")
+test_object("Solution2")
+test_error()
+success_msg("Good work! We can see a clear difference in the treatment effect among men and women. This is a clear example of a conditional average treatment effect.")
 ```
 
+
+---
+
+## Perry Preschool: Calculating the Lifetime Cost of Crime
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 381790e170 
+video_link: //player.vimeo.com/video/198212123  
+```
+
+---
+
+## Identifying Underlying Mechanisms
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 2924e39895   
+```
+
+
+Based solely on the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
+
+
+`@instructions`
+- Yes, the results support common beliefs about why attending preschool leads to lower rates of criminal activity among men and women.
+- No, we need more information about how preschool education affects individuals before we can definitively identify why preschool leads to reduced criminal activity.
+
+`@sct`
+
+```{r}
+msg1 = "Although you may have ideas about why preschool attendance reduces criminal activity later in life, the exact causal connection between these two activities is not apparent from the data presented. Try again."
+msg2 = "Correct! Although the data suggest that attending preschool leads to reduced rates of criminal behavior, this table does not identify exactly why that might be the case. We can hypothesize several explanations for this relationship (for example, attending preschool might lead to better educational outcomes, which lead to better job outcomes, which reduces people's incentive to commit crimes), but we cannot know for sure without testing them."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+---
+
+## A Bayesian Primer and ATEs
+
+```yaml
+type: VideoExercise
+lang: r
+xp: 50
+skills: 1
+key: 553340889c
+video_link: "//player.vimeo.com/video/230617297"
+```
+
+---
+
+## Finding Lifetime Outcomes of Experiments
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: a4a42746de 
+video_link: //player.vimeo.com/video/199856517  
+```
+
+---
+
+## Reasons to Use Proxy Variables
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 8eb0408533   
+```
+
+
+What is the key reason people use proxy variables for their outcomes of interest in experiments?
+
+
+`@instructions`
+- Because proxy variables are less biased than dependent variables.
+- Because an experiment might yield heterogeneous treatment effects.
+- Because an experiment does not always yield statistically significant results.
+- Because an experiment's true outcome of interest is not always possible to study.
+
+`@sct`
+
+```{r}
+msg1 = "The wording on this answer is tricky, but remember that an experiment's dependent variable is the outcome that is being measured. If a proxy variable is used in place of one's outcome of interest, it is an experiment's dependent variable. In actuality, proxy variables tend to be more susceptible to experimental biases than are direct measurements of one's outcome of interest. Try again."
+msg2 = "If anything, using a proxy variable might hide the fact that an experiment yields heterogeneous effects on one's outcome of interest, which is not good. Try again."
+msg3 = "It is certainly true that experiments do not always yield statistically significant results, but this is a poor reason to use a proxy variable if you can measure your outcome of interest directly. Try again."
+msg4 = "Correct! Experimentalists only use proxy variables in place of an experiment's outcome or treatment of interest when it is not viable to test or measure one's outcome or treatment of interest directly."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Choosing a Good Proxy Variable
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 1913543c45   
+```
+
+
+Business analysts are often interested in learning which business strategies work and which do not. One useful way to study whether a certain business strategy is effective is to examine a large group of startups over time, and track whether businesses that implemented that strategy were more likely to close down. The difficulty with this research strategy is that it can take many years for startups to close, delaying one's ability to determine their experiment's results.
+
+To reduce the time it takes to determine how a business strategy affects a business's chance of survival, which of the following would be the most effective and direct proxy variable for business closure?
+
+
+`@instructions`
+- A business's proportion of online sales to retail sales
+- The number of years that a business has been active
+- A business's annual operating income (i.e. profit)
+- A business's employee turnover rate
+
+`@sct`
+
+```{r}
+msg1 = "This is only tangentially related to a business's survival, since the ideal proportion of online sales to retail sales differs dramatically by industry. Try again."
+msg2 = "This answer might be tempting, but this is basically just an inverse measurement of the time it takes for businesses to close. It does not reduce the time required to gather data. Try again."
+msg3 = "Correct! While it may take many years to see which strategies lead to business closure, a business's profits are highly correlated with (and causal of) a business's eventual disbandment."
+msg4 = "This is only indirectly related to a business's survival, and the effect of employee turnover rates on business survival tends to differ dramatically across industries. Try again."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Dr. Max Funn: Questionable Proxy Variables
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 3329371fd4   
+```
+
+
+Hedonism is the ethical theory that people should maximize their own pleasure in life. One hedonist in particular, Dr. Max Funn, wondered if religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since Mr. Funn was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness.
+
+Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and finds a statistically significant average treatment effect of religious attendance on happiness (measured as income). This result increases Dr. Funn's own happiness.
+
+Which of the following hypothetical scenarios, if true, would make us question whether income is a good proxy variable for happiness in this experiment?
+
+
+`@instructions`
+- If religious attendance were found to have a positive effect on happiness.
+- If, across the population, income were not associated with church attendance.
+- If religious attendance made people sad, and employers were more likely to give raises to employees who seem sad.
+
+`@sct`
+
+```{r}
+msg1 = "This scenario is consistent with our results, so if anything, this would suggest that income is a good proxy variable for happiness. Try again."
+msg2 = "Since we are conducting an experiment, we can directly control who goes to church and who does not. Whether there is an association between income and church attendance among the population is irrelevant to our experimental results. Try again."
+msg3 = "Correct! If this were the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest not (as here) negatively correlated."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
+```
+
+
+---
+
+## Let's Code: Practice Identifying Bad Proxy Variables
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 7faf6d0645 
+video_link: //player.vimeo.com/video/279737572  
+```
+
+---
+
+## Dr. Max Funn: Identifying Spurious Results with Bad Proxy Variables
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 5465244188   
+```
+
+
+Dr. Max Funn from the previous question then runs a second experiment: this time measuring the effect of *work hours* on happiness, once again using income as a proxy variable. The respondents in his treatment group agree to work an additional 10 hours at their primary jobs per week for one year. This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. 
+
+In this question, we shall see how a more experienced economist replicates the study. In addition to duplicating the newest experiment by Dr. Funn, this economist also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate.
+
+Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following:
+
+
+`@instructions`
+- 1) Examine the structure of the economist's data.
+- 2) Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
+- 3) Run a t-test to determine the average treatment affect of the experiment (`Treatment`) on `Income`.
+- 4) Run a t-test to determine the average treatment affect of the experiment (`Treatment`) on `Happiness`.
+
+`@hint`
+- For the first question, you will need to `subset` the `econometrics` data frame by treatment.
+- Use the `t.test` function where (mu=0) to test whether the treatment and control group are different from each other, and the `cor` function to determine whether variables are correlated.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+set.seed(1)
+#Create rnorm function that allows for min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Create rounding function that allows to round to numbers above 1
+  mround <- function(x,base){
+          base*round(x/base)
+  }
+#Dataframe
+  econometrics<-data.frame(Treatment=1:1000,WorkHours=1:1000,Income=1:1000,Happiness=1:1000)
+#Assign treatment
+  econometrics$Treatment<-rbinom(1000,1,.45)
+#Vaguely realistic Work hours
+  econometrics$WorkHours<-round(rtnorm(n=1000,mean=40,sd=6,min=0,max=50))
+  econometrics$WorkHours<-mround(econometrics$WorkHours,10)
+  temp<-rbinom(1000,1,.2)
+  econometrics$WorkHours<-ifelse(temp==1,0,econometrics$WorkHours)
+  econometrics$WorkHours<-ifelse(econometrics$Treatment==1,econometrics$WorkHours+10,econometrics$WorkHours)
+#Happiness
+  econometrics$Happiness<-round(rtnorm(n=1000,mean=4,sd=2,min=0,max=5))
+#Income
+  econometrics$Income<-(10*econometrics$Happiness+econometrics$WorkHours+mround(rtnorm(n=1000,mean=30,sd=10,min=0,max=100),10))/2
+```
+
+
+`@sample_code`
+
+```{r}
+# 1) As usual, we recommend exploring the structure of the data before diving into the questions. Use the str() command on the dataframe `econometrics`:
+
+    str()
+
+# 2) Use the 'cor' function to determine and report whether Happiness is correlated with Income.
+
+    cor()
+
+# 3) Run a t-test to determine the average treatment affect of the experiment on Income.
+    
+    t.test()
+
+# 4) Run a t-test to determine the average treatment affect of the experiment on Happiness.
+    
+    t.test()
+```
+
+
+`@solution`
+
+```{r}
+str(econometrics)
+cor(econometrics$Happiness,econometrics$Income)
+t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])
+t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])
+```
+
+
+`@sct`
+
+```{r}
+test_function("str", incorrect_msg = "Did you use the `str` function?")
+test_function("cor", incorrect_msg = "Did you use the `cor` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+
+test_error()
+success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
+```
+
+
+---
+
+## Issues with Sample Sizes & Extrapolation
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: dc13ef9f57 
+video_link: //player.vimeo.com/video/209271673  
+```
+
+---
+
+## Reporting Informative Results
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 80741dce58   
+```
+
+
+Let's say that you are writing up a report on an experiment, and your mentor asked you to report all results to the nearest hundredth. If the p value for your key statistic were 0.0542, and your field tends to consider any result with p-values of 0.05 or less to be statistically significant and valid, what would be the most informative/least misleading number to write down as the p-value in your report?
+
+
+`@instructions`
+- 0.05
+- 0.054
+- 0.06
+- 0.1
+
+`@hint`
+- Here is a useful hint: Bear in mind that you want both to follow your mentor's instructions and to avoid overstating your confidence in the certainty of your findings.
+
+`@sct`
+
+```{r}
+msg1 = "This seems like the right answer, but it will mislead your readers to think that your results are more statistically significant than they truly are. Try again."
+msg2 = "This is accurate, but this response is not to the nearest hundredth like the question asked. Try again."
+msg3 = "Correct! The best answer would be to write p=.06. Even though .05 is closer to the true p-value of your key statistic, this will mislead readers to think that your results are more statistically significant than they truly are."
+msg4 = "This is accurate, but this response is not to the nearest hundredth like the question asked. Try again."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Experiment Design & RCTs
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 209271489 
+video_link: //player.vimeo.com/video/209271489  
+```
+
+---
+
+## Levels vs. Percentages in Long-term Average Treatment Effects
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: b301caf4fc   
+```
+
+
+Suppose that the Greater Gumville School District started a free book program back in 1976 that delivered free books to half of the children in Gumville. These books were dropped from a hot air balloon and landed randomly across town, so they had perfect balance between the children who got a book (treatment) and the children who did not (control).
+
+Now Gumville wants to see the long-term impact of this experiment on a key statistic: did the kids with free books earn more money as adults? Because they know that rich kids tend to become rich adults, they decide to split their sample into high income and low income groups. The CATEs for each income group are below, listed in the absolute level increase (in $) in their annual salaries 30 year later:
+
+| childhood family income | CATE |
+|-------------------------|-----------:|
+|              high income|   $6,000   |
+|               low income|   $3,000   |
+
+You are scheduled to discuss your findings with Gumville's mayor. The mayor wants to know the best way to improve Gumville's per-capita-income (mean income). Of the options below, which one would you recommend based on the data provided?
+
+
+`@instructions`
+- The long-term CATE is larger for high-income children, so the government should offer books to high-income families.
+- The long-term CATE is smaller for low-income children, so the government should not offer books to low-income families.
+- The long-term CATE is positive for both income groups, so the government should offer books to all families, regardless of income.
+
+`@hint`
+
+
+`@pre_exercise_code`
+
+```{r}
+
+```
+
+
+`@sct`
+
+```{r}
+msg1 = "Maybe, but income-per-capita is based on all households in a town. Is this really the best option?"
+msg2 = "While the CATE for low-income families is smaller in absolute terms, it is likely that the CATE as a **proportion of income** in low-income families is larger than that for high-income families, and both seem large and positive. There must be a better option."
+msg3 = "Correct! There **is probably** enough information to provide an opinion here, and the data suggests that providing books increases the income of all families"
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
+```
+
+
+---
+
+## Following Up with Gumville Book Drop Experiment
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 56ccbb72f1   
+```
+
+
+It turns out that the results of the Gumville Book Drop Experiment were not statistically significant. What does this imply?
+
+
+`@instructions`
+- The increase in income does not have a significant impact on people's lives.
+- Free books do not improve income.
+- We do not have enough evidence to determine whether our hypothesis was correct or not.
+
+`@hint`
+
+
+`@pre_exercise_code`
+
+```{r}
+
+```
+
+
+`@sct`
+
+```{r}
+msg1 = "We don't have any data on the real-world changes that happen because of this experiment, so we don't know if this is true. Try again"
+msg2 = "This is not a correct interpretation. This answer requires a statistically significant and negative ATE, but we have neither. Try again."
+msg3 = "Correct! It means that we just don't have enough data to tell us either way. Gumville either needs to try again, or a bigger city should give it a shot."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
+```
+
+
+---
+
+## A Furry Conclusion to Long-term Average Treatment Effects
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 9118aacf5b   
+```
+
+
+A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "happy hormone."
+
+Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play.
+
+What is an accurate summary of the results of this experiment?
+
+
+`@instructions`
+- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for cats** than for dogs, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
+- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for dogs** than for cats, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
+- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical**, but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for dogs** than for cats.
+- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs.
+
+`@sct`
+
+```{r}
+msg1 = "Incorrect.  You are right that the long-term effects are identical, but review the short-term effects of the experiment carefully and try again."
+msg2 = "Correct! The experiment suggests that playing with a dog might make it love you more than playing with a cat in the short term, but in the long term, both pets love you equally for it."
+msg3 = "Incorrect.  You may be mixing up the long- and short-term effects.  Review the effects of the experiment carefully and try again."
+msg4 = "Incorrect.  You may be mixing up the long- and short-term effects.  Review the effects of the experiment carefully and try again."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Spillover Effects Among Subjects
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 2049273381 
+video_link: //player.vimeo.com/video/199856665  
+```
 
