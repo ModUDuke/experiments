@@ -4,11 +4,10 @@ programming_language: r
 instructors      :
  - matt.masten@duke.edu
  - bentleygcoffey@gmail.com
- - ransom@ou.edu
- - bdaronson@gmail.com
  - speckart@duke.edu
+ - bdaronson@gmail.com
+ - ransom@ou.edu
  - cooper@duke.edu
- - zhen.gu@duke.edu
 university       : DataCamp
 difficulty_level : 4
 time_needed      : 20 hours
