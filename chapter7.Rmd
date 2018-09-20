@@ -1,168 +1,116 @@
 ---
-title: 'Experiments 7: Noncompliance'
-description: 'These videos and exercises discuss the issue of noncompliance in experiments.'
+title: 'Natural Experiments'
+description: 'These videos and exercises introduce natural experiments, sometimes called quasi-experiments.'
 ---
 
-## Noncompliance in Experiments
+## The Two Kinds of Natural Experiments
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: a5a7d9f747 
-video_link: //player.vimeo.com/video/198212091  
+key: 355ed25bc9 
+video_link: //player.vimeo.com/video/199856738  
 ```
 
 ---
 
-## Ways to Deal with Noncompliance
+## As-if Natural experiments
 
 ```yaml
 type: MultipleChoiceExercise 
 lang: r
 xp: 50 
 skills: 1
-key: c896674673   
+key: b3e25ee162   
 ```
 
 
-Which one of the following approaches is *NOT* a way to deal with treatment noncompliance?
+Which of the following is an accurate description of an "as-if" natural experiment?
 
 
 `@instructions`
-- Bounds Analysis
-- Instrumental Variables
-- Randomized Control Trial
-- Intention to Treat Analysis
-- Assume Random Compliance
+- A political study where treatment assignment was determined by factors outside the control of the investigators. Assignment to the treatment was completely random.
+- A business experiment where assignment to treatment was determined by factors outside the control of the investigators. Assignment to the treatment was not literally random, but it was unrelated to variables that affect the outcome.
+- A psychology study conducted in a naturalistic setting by investigators. Assignment to the treatment was completely random.
+- A zoological experiment conducted in a naturalistic setting by investigators. Treatment assignment was not literally random, but it was unrelated to variables that affect the outcome.
 
 `@sct`
 
 ```{r}
-msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again."
-msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again."
-msg3 = "Correct! Randomized Control Trials are not a valid way to correct for noncompliance, because they themselves are susceptible to treatment noncompliance."
-msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again"
-msg5 = "Assuming Random Compliance is not always applicable, but it is nonetheless commonly used to deal with noncompliance, so try again"
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
+msg1 = "This describes a true natural experiment. Try again."
+msg2 = "Well done. Although there might be a pattern to who got treated in an as-if experiment, the pattern should cause no bias in one's outcome of interest."
+msg3 = "This would not even be a natural experiment! Try again."
+msg4 = "This would not even be a natural experiment! Try again."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
 ---
 
-## A Refresher on eGulf Auctions Experiment and Confidence Intervals
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 84487e1a9f   
-```
-
-
-Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions (the treatment group) had higher sales prices than sellers who only posted 10 pictures of their WePhones (the control group). eGulf wanted to make sure these results were not spurious by conducting their experiment a second time, now with a larger sample. 
-
-The results of this second experiment were visualized as a bar graph, with 95% confidence intervals indicated by error bars. Based on these results, shown in the R workspace, what can we conclude about the Average Treatment Effect (ATE)?
-
-
-`@instructions`
-- The ATE is not statistically significant at a 95% confidence interval.
-- The ATE is not statistically significant at a 99% confidence interval.
-- The ATE is statistically significant at a 95% confidence interval.
-- The ATE is statistically significant at a 99% confidence interval.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-# Initialize dataframe
-set.seed(1)
-n <- 1000
-eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
-colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
-# Simulate baseline data
-  # Make seller feedback count
-    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
-  # Make feedback score loosely correlated with feedback count 
-    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(100,1,10),2)
-  # Make seller offered treatment loosely correlated with with feedback count 
-    eGulf$Seller_Offered_Treatment<-rbinom(n,1,.5+eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)/5)
-  # Make seller opted_into_treatment correlated with seller_feedback_score
-    eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
-  # Make final sales price also correlated with seller_feedback_score
-    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
-
-    
-#Prepare data for graphing
-  TreatmentSalesPrices<-eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1]
-  ControlSalesPrices<-eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0]
-  TreatmentMean<-mean(TreatmentSalesPrices)
-  ControlMean<-mean(ControlSalesPrices)
-  TreatmentStandardError<-sd(TreatmentSalesPrices)/sqrt(length(TreatmentSalesPrices))
-  ControlStandardError<-sd(ControlSalesPrices)/sqrt(length(ControlSalesPrices))
-  Means<-c(ControlMean,TreatmentMean)
-  names(Means)<-c("Control Mean","Treatment Mean")
-  CIs<-c(ControlStandardError,TreatmentStandardError)
-
-#Graph results
-  #(cheat to pretend this is a different sample; just use the standard errors rather than true confidence intervals. This makes the differences clearly visible.)
-  arrows(x0=barplot(Means,ylim=c(325, 375),col=c(3,5)), y0=Means-(1*CIs), y1=Means+(1*CIs), code=3, angle=90,length=.4)
-```
-
-
-`@sct`
-
-```{r}
-msg1 = "Do the error bars overlap? Look carefully at the graph and try again."
-msg2 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
-msg3 = "Correct! Since the 95% confidence interval error bars do not appear to overlap, we can conclude that the difference is statistically significant at the 95% confidence level."
-msg4 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Let's Code: Noncompliance in eGulf Data
+## Public Policy & Other Ways to Find Natural Experiments
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: f309deee16 
-video_link: //player.vimeo.com/video/279737646  
+key: 9269e44505 
+video_link: //player.vimeo.com/video/209272453  
 ```
 
 ---
 
-## eGulf Auctions Experiment: Noncompliance
+## Justifying As-If Randomization
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 9faee4ebd9 
+video_link: //player.vimeo.com/video/199856949  
+```
+
+---
+
+## Let's Code: A Bad Justification for As-If Randomization
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: d8de59d6fa 
+video_link: //player.vimeo.com/video/279737546  
+```
+
+---
+
+## A Bad Argument for As-If Randomization with Katie Perrie
 
 ```yaml
 type: NormalExercise 
 lang: r
 xp: 100 
 skills: 1
-key: ac78544021   
+key: a4e0df7635   
 ```
 
 
-In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we never examined whether noncompliance could have confounded our results. Specifically, was there some systematic difference between the sellers who chose to post more than 10 pictures of their WePhones and those who chose to post less than 10 pictures? 
+Although it is wholly misleading, one way that unethical scientists justify their arguments that their studies are "as-if" natural experiments is to only report descriptive information about variables in their datasets that are balanced (i.e. with basically random assignment). That's bad science, but let's give it a try, just one time!
 
-If an outcome variable is associated with systematic difference between compliers and noncompliers, our observed treatment effect may be spurious. Therefore, let's test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
+The dataset `KatiePerrie` contains covariate data from a natural experiment about how repeated exposure to music performed by pop star Katie Perrie (measured as owning a Katie Perrie album) is associated with the debilitating psychological disorder called "choreomania." The human rights activists who gathered this data want to publish an article claiming that Katie Perrie's music should be banned since it appears to be harmful to the public's mental health. 
+
+However, the control and treatment groups in this "natural experiment" are not balanced across most key variables, so it's not a valid experiment. Nonetheless, let's ignore that and help the human rights activists find one variable, any variable, that shows balance so they can incorrectly justify their assumption that this is an as-if natural experiment:
 
 
 `@instructions`
-- 1) Test whether sellers who were offered treatment *and* opted into the treatment had different prior average feedback scores than sellers who were offered treatment but did *not* opt into treatment (tracked with `Seller_Offered_Treatment`, `Seller_Opted_Into_Treatment`, and `Seller_Feedback_Score`)
-- 2) Estimate how sellers' prior average feedback scores were correlated with their recent auction's final sales price (`Final_Sales_Price`).
+- 1) Use what you have learned about balance and statistical inference and look through each variable in the dataset `KatiePerrie`. Name the variable that is balanced between the datasets.
 
 `@hint`
-- For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
-- It may help to create a new dataframe called `CompliantTreatmentGroup` that contains only sellers who were offered and opted into treatment, and a new data frame called `NoncompliantTreatmentGroup` who were offered but did not opt into treatment.
-- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+- You will need to use the `subset` and `t.test` functions.
 
 `@pre_exercise_code`
 
@@ -170,161 +118,263 @@ If an outcome variable is associated with systematic difference between complier
 library(data.table)
 library(dplyr)
 
-# Initialize dataframe
 set.seed(1)
-n <- 1000
-eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
-colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
-
-# Simulate baseline data
-  # Make seller feedback count
-    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
-  # Make feedback score loosely correlated with feedback count 
-    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(100,1,10),2)
-  # Make seller offered treatment loosely correlated with with feedback count 
-    eGulf$Seller_Offered_Treatment<-rbinom(n,1,.5+eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)/5)
-  # Make seller opted_into_treatment correlated with seller_feedback_score
-    eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
-  # Make final sales price also correlated with seller_feedback_score
-    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
+rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+}
+#Create rounding function that allows to round to numbers above 1
+mround <- function(x,base){ 
+  base*round(x/base) 
+} 
+#Create variables
+n=6666
+KatiePerrie<-data.frame(Treatment=rbinom(n,1,.3))
+KatiePerrie$YearsEducation<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=14,sd=2,min=0,max=20),rtnorm(n,mean=12,sd=3,min=0,max=18)))
+KatiePerrie$Income<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=45,sd=7,min=0,max=100),rtnorm(n,mean=20,sd=5,min=0,max=100)))*1000
+KatiePerrie$HearingProblems<-rbinom(n,1,.1)
+KatiePerrie$Age<-round(ifelse(KatiePerrie$Treatment==0,rtnorm(n,mean=40,sd=10,min=10,max=80),rtnorm(n,mean=25,sd=5,min=10,max=80)))
 ```
 
 
 `@sample_code`
 
 ```{r}
-# Note: To check for noncompliance in an experiment, we will only want to examine individuals that were offered treatment. It might make the following questions easier if you first subset the eGulf data.frame to sellers who were offered treatment as we did in eGulf2. Additionally, before running a significance test to see whether compliers and noncompliers were different, we recommend running the code below to summarize the data. 
-    eGulf2<-eGulf[eGulf$Seller_Offered_Treatment==1,]
-    summary(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0])
-    summary(eGulf2$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1])
+# 1) As we often recommend, let's manually examine the first few lines of the dataset.
 
-# 1) It appears that those who opted into the treatment have slightly higher feedback scores than those who did not, but is the difference statistically significant? Test whether sellers who were offered treatment *and* opted into the treatment had different prior average feedback scores than sellers who were offered treatment but did *not* opt into treatment
-    t.test()
+    head(KatiePerrie)
 
-# 2) The confidence interval indicates a range of values for the average treatment effect that we would expect to find if we gathered a new sample. If the lower and upper bound of the 95% confidence interval are both negative, we can conclude that there is a negative and statistically significant difference between the two groups. Based on the results from your t-test above, does it appear that those who opted into treatment had seller feedback scores that were significantly higher than those who did not opt into treatment? Answer with "Yes" or "No".
-    Solution2<- ""
+# 2) Now that we know the variable names, subset the data into treatment and control groups, and use the t.test function to test the balance of each variable across both groups.
 
-# 3) For a fuller understanding of the potential bias produced by noncompliance, estimate the correlation between seller feedback scores and final sales prices within the *entire sample*.
-    cor()
+
+
+# 3) Now it's time to be a terrible scientist and base all of our claims on a single balanced variable: name the single variable that is balanced between the treatment and control groups and assign it to Solution. 
+
+    Solution<-""
 ```
 
 
 `@solution`
 
 ```{r}
-eGulf2<-eGulf[eGulf$Seller_Offered_Treatment==1,]
-
-#1
-t.test(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0],eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==1])
-
-#2
-temp<-t.test(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0],eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==1])
-Significant<-sign(temp$conf.int[1])==sign(temp$conf.int[2])
-Solution2<-ifelse(Significant==T,"Yes","No")
-
-#3
-cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
+treatment<-KatiePerrie[KatiePerrie$Treatment==1,]
+control<-KatiePerrie[KatiePerrie$Treatment==0,]
+p<-vector()
+for(i in 2:length(control)){
+  p[i-1]<-t.test(control[,i],treatment[,i])$p.value
+}
+Solution<-names(KatiePerrie)[which(p>=.05)+1]
 ```
 
 
 `@sct`
 
 ```{r}
-test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
-test_function("cor", incorrect_msg = "Did you use the `cor` function?")
-test_object("Solution2")
 test_error()
-success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who did not post more photos. Additionally, prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, we have more reason to worry that the experiment's results were spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance.")
+test_object("Solution")
+success_msg("Good work! Identifying balance is crucial to justifying natural experiments. Typically, if the treatment and control groups in a natural experiment are not balanced, scientists will instead try to subset the control group and treatment groups into balanced groups, and then assess the data.")
 ```
 
 
 ---
 
-## Survey Noncompliance
+## Analyzing Natural Experiments
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: db0bf3e371 
-video_link: //player.vimeo.com/video/198212102  
+key: 5dec6afcd9 
+video_link: //player.vimeo.com/video/199857027  
 ```
 
 ---
 
-## Offering a Higher Credit Card Limit: Quantifying Noncompliance Concerns
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 1557ba9536   
-```
-
-
-CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random group of 50% of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
-
-Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
-
-
-`@instructions`
-- No, because people in the treatment group likely used a coin flip to make their opt-in decision.
-- Yes, because the opt-in rate is low.
-- No, because an opt-in rate of 40% is actually quite high.
-- Yes, because the set of people opting in are probably people with worse spending habits.
-
-`@sct`
-
-```{r}
-msg1 = "While this is a possibility, it is unlikely to actually be the case. Try again."
-msg2 = "This is partially correct. A low compliance rate is one symptom of a noncompliance problem."
-msg3 = "While high compliance rates indicate a lower noncompliance problem, the rate of 40% in this situation is likely to be problematic."
-msg4 = "Correct! In this situation, researchers at CreditCo should be worried about the spending habits of those who opted in to the offer."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Let's Code: Working with Noncompliance
+## Analyzing Data from Natural Experiments
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: f6472f88d4 
-video_link: //player.vimeo.com/video/279737627  
+key: 201eb1093a 
+video_link: //player.vimeo.com/video/279737522  
 ```
 
 ---
 
-## Offering a Higher Credit Card Limit: Working with Noncompliance
+## Manipulating Confidence Intervals: Practice with Sea Otter Diets
 
 ```yaml
 type: NormalExercise 
 lang: r
 xp: 100 
 skills: 1
-key: a00d1ebc4c   
+key: 56b8de7778   
 ```
 
 
-Let's continue with the CreditCo dataset described in the previous exercise. The CFO has assigned you to figure out the average treatment effect of taking a credit line increase offer on late payments (`default_post`), and he wants to see something before lunch. You realize that you can give him a simple result: you just need to do some quick checks for balance in your samples and compute a "naive" average treatment effect to get the analysis started.
+When visiting a zoo, a sea otter enthusiast and his associate got into a heated debate regarding which is more amusing to watch: a sea otter eating either clams or sea urchins. Despite how strange sea urchins appear, the sea otter enthusiast was convinced that it is more amusing to watch sea otters place clams on their bellies and use stones to crack them open prior to eating, whereas his associate believed the sea urchins provided the better show. 
 
-A simulated version of this dataset, `CreditCo`, is available in the workspace.  With that data:
+To resolve this contentious and *highly consequential* debate, the two friends visited the zoo during feeding hours several times, and counted how many people watched the sea otters when they were fed clams (`treatment==1`) versus when they were fed sea urchins (`treatment==0`). They found an average treatment effect that was positive (ATE = 8.33 people) for clams.
+
+Although the results seemed to indicate a positive treatment effect, the results were not statistically significant (95% Confidence Interval = [-0.23, 16.94]). However, the sea otter enthusiast believes that a 95% confidence interval is too stringent of a standard for determining statistical significance, and his associate believed that a 95% confidence interval was not stringent enough. Using the dataset `SeaOtter`:
 
 
 `@instructions`
-- 1) See if treatment and control groups (`offered`) are of equal size.
-- 2) Compute the fraction of people who opted in (`opt_in`) to the credit offer.
-- 3) Compute a naive average treatment effect on late payments (`default_post`).
+- Follow the annotations in the sample code to determine the 50% and 99% confidence intervals for eating clams rather than sea urchins (`treatment`) on the size of the sea otters' audiences (`Audience`).
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+SeaOtter<-data.frame(treatment=c(0,1,0,1,0,1),audience=c(20,30,14,24,22,27))
+```
+
+
+`@sample_code`
+
+```{r}
+# Below was the t-test used by the otter enthusiast to get the results listed above. As a reminder, you can select the text and click on the "Run Code" button to see the results.
+
+    t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95) 
+
+# 1) Now run another t-test, with confidence level = .99, and assign it to the object 'Test1'.
+
+    Test1<-
+
+# 2) Use the Test1 object to find the upper bound of the confidence interval. For reference, we assigned the lower bound from Test1 for you below.
+      
+    LowerBound1<-Test1$conf.int[1]  
+    UpperBound1<-
+
+# 3) Run another t-test, with confidence level = .5, and assign it to the object 'Test2'.
+      
+    Test2<-
+      
+# 4) Use the Test2 object to assign the lower bound of the confidence interval.
+      
+    LowerBound2<-
+
+# 5) Use the Test2 object to assign the upper bound of the confidence interval.
+      
+    UpperBound2<-
+```
+
+
+`@solution`
+
+```{r}
+t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .95)
+
+Test1<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .99)
+LowerBound1<- Test1$conf.int[1]
+UpperBound1<- Test1$conf.int[2] 
+
+Test2<-t.test(SeaOtter$audience[SeaOtter$treatment==1],SeaOtter$audience[SeaOtter$treatment==0],conf.level = .50)
+LowerBound2<-Test2$conf.int[1] 
+UpperBound2<-Test2$conf.int[2]
+```
+
+
+`@sct`
+
+```{r}
+test_object("UpperBound1")
+test_object("LowerBound1")
+test_object("LowerBound2")
+test_object("UpperBound2")
+test_error()
+success_msg("Good work! As you can see, the confidence interval is highly susceptible to the percentage at which you set the confidence level. A low confidence level will often yield smaller confidence intervals, but changing the confidence level does not truly change the statistical significance. If a finding is only 'significant' at a 50% confidence level, the finding does not have strong empirical support.")
+```
+
+
+---
+
+## Squatter Property Rights: Effect on Teenage Pregnancy
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: dc685a5444 
+video_link: //player.vimeo.com/video/199857584  
+```
+
+---
+
+## Interpreting the Results of Natural Experiments
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 5341ad7e2f   
+```
+
+
+The effect of the property rights experiment was not statistically significant. If you were going to describe this experiment to a friend, how would you describe the effect of squatters' rights on teenage pregnancy?
+
+
+`@instructions`
+- The experiment could not show whether or how property rights affect teenage pregnancy.
+- Property rights caused the rate of teenage pregnancy to go down a lot because property rights made teens realize they had more to live for.
+- Property rights did not change the rate of teenage pregnancy at all.
+- Property rights caused the rate of teenage pregnancy to go up a little because teens now had a home for their children.
+
+`@sct`
+
+```{r}
+msg1 = "Correct! It's very tempting to tell a story that sounds hopeful or can clearly assign blame, or to make it fit in line with other researchers' findings, but this particular set of data was not able to show whether property rights effected teenage pregnancy positively or negatively, nor whether property rights even affects teenage pregnancy at all.  The researchers gave it a try, but in this particular case, their data didn't work out as well as they hoped."
+msg2 = "This would be over-interpreting the data and makes a causal claim they cannot support. Try again."
+msg3 = "This answer is close, but not quite correct. Try again."
+msg4 = "This would be over-interpreting the data and makes a causal claim they cannot support. Try again."
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Let's Code: Practice with a Natural Experiment
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 21fe78f4b4 
+video_link: //player.vimeo.com/video/279737505  
+```
+
+---
+
+## Offering a Higher Credit Card Limit: a Natural Experiment
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 2d95aa10c6   
+```
+
+
+A previous exercise in Chapter 7 studied an experiment by a company named `CreditCo` that involved sending mail offers for recipients to increase their credit limit. While thinking about this experiment, you realized that the weather was different for different customers on the day the offers arrived in customers' mailboxes. Specifically, you realized that heavy storms across the country hit half the zipcodes in the treatment group, while the other half of customers experienced sunny weather the day the offer arrived. You realize this variation in the weather may have created a natural experiment where customers in the rainy zones felt gloomy and decided not to take up the offer, while those in the sunny zones felt cheerful and because of their good mood, took up the offer.
+
+Let's test this hypothesis, specifically:
+
+
+`@instructions`
+- 1) Compute the average difference in take-up rates (`opt_in`) among those offered (`offered`) for rained-out customers vs. sunny customers (`rainy`).
+- 2) Run a t-test to check if balance in pre-offer credit (`balance_pre`) is balanced among those whose weather was rainy vs. sunny (`rainy`).
+- 3) Run a t-test to estimate the average treatment effect of rain (`rainy`) on post-offer credit balances (`balance_post`), regardless of whether they were offered the balance increase.
 
 `@hint`
-- When a variable's values are binary (0 or 1), you can compute the proportion of 1s by simply taking the mean of the variable.
-- Remember to select the appropriate sample when computing the opt-in rate of the credit offer.
+- Remember to be aware of selecting the correct subsample
 
 `@pre_exercise_code`
 
@@ -367,11 +417,13 @@ library(dplyr)
   CreditCo$balance_pre <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + draw
   CreditCo$balance_pre <- exp(CreditCo$balance_pre)
 
-# Simulate noncompliance and opt-in behavior
-  draw <- runif(sum(CreditCo$offered))
-  xb   <- 6.75-1.2*CreditCo$FICO/100+.07*(CreditCo$FICO^2)/10000-2.1*CreditCo$female-2*CreditCo$race_white
+# Simulate opt-in behavior based on weather
+  draw <- runif(n)
+  draw2 <- runif(n)
+  CreditCo$rainy <- draw>0.5
+  xb   <- 1.5-35*CreditCo$rainy
   p    <- exp(xb)/(1+exp(xb))
-  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw<p[CreditCo$offered==1])
+  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw2[CreditCo$offered==1]<p[CreditCo$offered==1])
 
 # Simulate post outcomes
   draw <- runif(n)
@@ -386,45 +438,71 @@ library(dplyr)
 
 # Remove elements and variables from environment
   rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
-  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post")]
+  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post","rainy")]
 ```
 
 
 `@sample_code`
 
 ```{r}
-# The dataset `CreditCo` is available in your workspace. You may want to explore it with the structure "str" command before solving the following questions.
+# Note: The dataset `CreditCo` is available in your workspace. You may want to remind yourself of its structure with the str() command.
 
-# 1) Using the mean command, compute the percentage of people who were offered a higher credit limit. 
-    mean()
 
-# 2) Of the people who were offered, what percentage opted in? 
-    Solution2<- mean()
+# 1) Compute the average difference in take-up rates (`opt_in`) among those offered (`offered`) for rained-out customers vs. sunny customers (`rainy`).
 
-# 3) Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered **and** opted in to the program. 
-    Solution3<- mean()
+    t.test()
+
+# 2) Run a t-test to check if balance in pre-offer credit (`balance_pre`) is balanced among those whose weather was rainy vs. sunny (`rainy`).
+
+    t.test()
+
+# 3) Run a t-test to estimate the average treatment effect of rain (`rainy`) on post-offer credit balances (`balance_post`), regardless of whether they were offered the balance increase.
+    
+    t.test()
 ```
 
 
 `@solution`
 
 ```{r}
-#1
-  mean(CreditCo$offered)
-#2
-  Solution2<-mean(CreditCo$opt_in[CreditCo$offered==1])
-#3
-  Solution3<-mean(CreditCo$default_post[CreditCo$opt_in==1])-mean(CreditCo$default_post[CreditCo$offered==0])
+t.test(CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==1)],CreditCo$opt_in[(CreditCo$offered==1) & (CreditCo$rainy==0)])
+t.test(CreditCo$balance_pre[CreditCo$rainy==1],CreditCo$balance_pre[CreditCo$rainy==0])
+t.test(CreditCo$balance_post[CreditCo$rainy==1],CreditCo$balance_post[CreditCo$rainy==0])
 ```
 
 
 `@sct`
 
 ```{r}
-test_object("Solution2")
-test_object("Solution3")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 test_error()
-success_msg("Nice job! As you can see, about half of the sample received an offer, but only about 41% of people actually accepted it. For the people who complied, the 'naive' treatment effect is a +26% default rate--the default rate went up for people who accepted the offer! However, while this 'naive' ATE is quick to calculate, it's probably not accurate, as there are likely confounders that we can deal with when we have more time.")
+success_msg("Good work! It looks like rain may have influenced whether customers decided to take up CreditCo's offer to increase their credit limit.")
 ```
 
+
+---
+
+## London Cholera Outbreak: Early Data Visualizations
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: c6894f628a 
+video_link: //player.vimeo.com/video/199857705  
+```
+
+---
+
+## London Cholera Outbreak: Was it a Natural Experiment?
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 3ab612d821 
+video_link: //player.vimeo.com/video/199857892  
+```
 
