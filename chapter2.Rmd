@@ -1,85 +1,375 @@
 ---
-title: 'Experiments 2: Controlled Experiments'
-description: 'These videos and exercises introduce controlled experiments.'
+title: 'Randomized Experiments & Statistical Inference'
+description: 'These videos and exercises introduce randomized experiments, and explain why we need statistical inference in experiments.'
 ---
 
-## Controlled Experiments
+## Randomized Experiments
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 4745db858e 
-video_link: //player.vimeo.com/video/198212077  
+key: 9e9326a35b 
+video_link: //player.vimeo.com/video/198212082  
 ```
 
 ---
 
-## Buying a New Phone: Controlled experiments
+## Buying a New Phone: Experimental design
 
 ```yaml
 type: MultipleChoiceExercise 
 lang: r
 xp: 50 
 skills: 1
-key: ebe90c9c16   
+key: 243af9a90f   
 ```
 
 
-Laurel is in the market for a new phone after cracking the screen on her old one. Her next phone choice will be based on which is more durable: the WePhone 10S or the Universe S10. She looks at a YouTube channel video where the host buys one of each phone and tests how much force is needed to crush each phone with a hydraulic press. If every WePhone or Universe from the factory is truly identical and if the phones are tested under exactly the same condition, then is just one crushing test enough to determine durability?
+Laurel is wondering if it would be more realistic to test phone durability through a bending test rather than a crushing test. To find out, she convinces four of her friends to join her at an electronics store and bend one of the two phones for a duration of 1 minute each. 
+
+Two of her friends really want to try to bend the Universe S10, so Laurel assigns those two friends to bend the Universe S10, and her other two friends try bending the WePhone 10S. 
+
+The Universe S10 was bent about 2 degrees more than the WePhone 10, so Laurel concludes that the average treatment effect of the WePhone 10S on bendability is -2 degrees. Of the following, which is the most problematic design error in this experiment?
 
 
 `@instructions`
-- Yes
-- No
+- Noncompliance
+- Ethics
+- Random assignment
+- Not enough data
 
 `@sct`
 
 ```{r}
-msg1 = "Correct, only two observations are needed to determine whether there is a causal effect between the treatment (phone type) and outcome (durability) if all experimental conditions between the phones are identical (i.e. If all other factors that could influence the outcome are controlled for). That's assuming you think a crush test is a valid one for determining real-world durability, of course!"
-msg2 = "You might think not, but consider this as the most theoretically ideal case, and try again."
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
+msg1 = "Not in this case, as all her friends did what she asked. Try again."
+msg2 = "There are probably ethical issues involved with knowingly breaking things in a store, but from a scientific perspective, there's a bigger experiment design issue than that. Try again."
+msg3 = "Correct, Laurel's friends were not randomly assigned to each treatment. Instead, she assigned them based on their own preferences, which could lead to confounded results. For example, what if the Universe S10 testers hated Universe phones, so tried harder to damage them?"
+msg4 = "Sample size is not related to experimental design. We'll talk later about how sample size matters in making inference about experimental results."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
 ---
 
-## Let’s Code: Comparing Ratios
+## Buying a New Phone: Sampling
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 1c689745b7   
+```
+
+
+If Laurel was interested in what proportion of the U.S. population could bend a WePhone 10S at least 1 degree with their hands, which group would serve as a better sample?
+
+
+`@instructions`
+- Perfect strangers in Laurel's neighborhood
+- Perfect strangers across the world
+- Perfect strangers in Laurel's town
+- Perfect strangers across the U.S.
+
+`@sct`
+
+```{r}
+msg1 = "One neighborhood is probably not as diverse as the whole country, so try another option."
+msg2 = "This answer may be tempting, but Laurel wants a sample that is reflective of the U.S. population."
+msg3 = "This is close to the best case, but is unlikely to be as diverse as the whole U.S. Try again."
+msg4 = "Correct. A single neighborhood is unlikely to reflect the diversity of the whole country, and involving people across the world brings in a lot of complicating confounders. People in Laurel's town is closer to ideal than those answer options, but really to get a true representation of the US population, you need to survey strangers across the US"
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Let’s Code: Practice Identifying Imbalance
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 75688f61ad 
-video_link: //player.vimeo.com/video/279737801  
+key: 212a7368fd 
+video_link: //player.vimeo.com/video/279737786  
 ```
 
 ---
 
-## Buying a New Phone: Comparing Ratios
+## Selling Old Phones: Looking for Balance
 
 ```yaml
 type: NormalExercise 
 lang: r
 xp: 100 
 skills: 1
-key: e157142b3a   
+key: 87c93c97ab   
 ```
 
 
-Laurel's video showed that the WePhone 10S was stronger than the Universe S10. Laurel is now interested in what factors caused the WePhone 10S to be more durable than the Universe S10. Laurel examines the model specifications of each phone, and assumes that whichever specification is most different between the phones is the cause of their different durabilities.
+Laurel has saved all of the wePhones that she has broken and she now wants to auction them off on eBay. However, Laurel is uncertain what base-auction price to set for her broken WePhones. 
+
+To determine what price to set at the beginning of her WePhone auctions, Laurel conducts a new experiment: Laurel grabs a random sample of broken WePhones from her closet, and randomly assigns them to a treatment group (WePhones to be base priced at $10), and a control group (WePhones to be base priced at $5). Laurel's end goal is to determine whether her sample is unbalanced. Using the dataframe `WePhones`:
 
 
 `@instructions`
-- 1) Examine the provided phone specifications in dataframe`PhoneSpecifications` and identify the specification that has the `largest ratio` between the WePhone 10S and the Universe S10
-- 2) Write out the `name` of that specification
-- 3) Write out the `size` of this ratio (expressed as a quotient)
+- 1) Take a look at the structure of dataframe `WePhones` with the "str" function.
+- 2) Subset the WePhones dataframe into two new dataframes, one for `WePhones` in the treatment, titled `Treatment` and one for WePhones in the control titled `Control`.
+- 3) Calculate the percent of phones in the treatment group and control group that are "Black" with the mean function.
 
-`@hint`
-- For Solution1, make sure to identify the name of the specification precisely. A trick to doing this without writing it out is to use the `names` function, for example `names(PhoneSpecifications)[X]` where X equals the column of the specification
-- For Solution2. The ratio of a specification between the WePhone 10S and Universe S10 can be calculated by dividing the specification value of the WePhone 10S by the specification value of the Universe S10. Make sure that your answer is not rounded. Use R's syntax to compute (for example, enter `Specification$X[1]/Specification$X[2]` where X is the specification.
+`@pre_exercise_code`
+
+```{r}
+library(dplyr)
+library(data.table)
+# Initialize dataframe
+    set.seed(1)
+    n <- 100
+    WePhones <- as.data.frame(matrix(0, ncol=6,nrow=n))
+    colnames(WePhones) <- c("Treatment","Color","Hard_Drive_Capacity","Model","Condition","Network")
+# Simulate baseline data
+    WePhones$Treatment<-rbinom(n,1,.5)
+    WePhones$Color<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Hard_Drive_Capacity<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Model<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Network<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Condition<-rbinom(n,1,runif(1,.2,.8))
+# Simulate unbalanced data
+  # probability baseline
+      p<-runif(1,.1,.7)
+  # Randomly assign unbalanced variable
+      WePhones[,sample(2:6,1)]<-ifelse(WePhones$Treatment==1,rbinom(n,1,p),rbinom(n,1,p+.2))
+# Transform into character variables
+    WePhones$Color<-as.factor(ifelse(WePhones$Color==1,"Platinum","Black"))
+    WePhones$Hard_Drive_Capacity<-as.factor(ifelse(WePhones$Hard_Drive_Capacity==1,"64gb","32gb"))
+    WePhones$Model<-as.factor(ifelse(WePhones$Model==1,"8","7"))
+    WePhones$Network<-as.factor(ifelse(WePhones$Network==1,"Mendizon","Trot"))
+    WePhones$Condition<-as.factor(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
+```
+
+
+`@sample_code`
+
+```{r}
+# 1) Let's practice identifying whether the treatment and control are different for Color. First, take a look at the structure of the dataframe with the "str" function. Insert the word `WePhones` inbetween the structure function
+
+    str() 
+
+# 2) Notice that each variable is a factor with two levels. For ease of computation, let's subset the WePhones dataframe into two new dataframes, one for WePhones in the treatment, and one for WePhones in the control. We provide syntax for creating how to make a dataframe of just the treatment group. Use this example to create a dataframe for just the control titled `Control`
+
+    Treatment<-WePhones[WePhones$Treatment==1,]
+
+# 3) Now, let's calculate the percent of phones in the treatment group and control group that are "Black". We provide an example of how to do this for the Treatment group.
+    
+    mean(Treatment$Color=="Black")
+    
+```
+
+
+`@solution`
+
+```{r}
+str(WePhones) 
+    Control<-WePhones[WePhones$Treatment==0,]
+    mean(Control$Color=="Black")
+```
+
+
+`@sct`
+
+```{r}
+test_function("str", incorrect_msg = "Did you use the `str` function?")
+test_function("mean", incorrect_msg = "Did you use the `mean` function?")
+test_error()
+
+success_msg("Good work! Exploring your new data before diving into deeper questions is a critical step for conducting statistical analyses. The number of Black and White WePhones in the previous question looked different, but are they? Let's do the next question to find out!")
+```
+
+
+---
+
+## Selling Old Phones: Identifying Imbalance
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: e97cd6d50d   
+```
+
+
+Now that we are familiar with Laurel's WePhones dataset, we need to do some balance checks between the treatment and control groups. To do that, let’s try something clever: let’s start by assuming our variables are balanced across the groups, and then look for any variables that are statistically *unbalanced*. 
+
+We’ll use a t-test to measure the difference in means for a variable between the two groups, and we’ll check if any difference is statistically significant through its p-value. The t-test is useful because it compensates for the variation within groups, and the p-value tells us how likely any difference is due to chance. Let’s use the standard assumption that we’ll believe our result if it has less than a 5% of being randomly generated. ln this case, we declare a variable to be imbalanced if it shows a difference between groups and has a p-value smaller than .05. If there is a difference but the p-value is larger than .05, we’ll say that any imbalance is not statistically significant and we’ll ignore it.
+
+We’ll start by checking to see if the groups are balanced on the colors of the phones, then we’ll explore further in the dataframe. 
+
+Using the data frame `WePhones`:
+
+
+`@instructions`
+- 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same number of `Black` WePhones.
+- 2) If that is statistically balanced, examine the data frame to find any variable that is imbalanced between the`Treatment` and `Control` groups.
+
+`@pre_exercise_code`
+
+```{r}
+library(dplyr)
+library(data.table)
+# Initialize dataframe
+    set.seed(1)
+    n <- 100
+    WePhones <- as.data.frame(matrix(0, ncol=6,nrow=n))
+    colnames(WePhones) <- c("Treatment","Color","Hard_Drive_Capacity","Model","Condition","Network")
+# Simulate baseline data
+    WePhones$Treatment<-rbinom(n,1,.5)
+    WePhones$Color<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Hard_Drive_Capacity<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Model<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Network<-rbinom(n,1,runif(1,.2,.8))
+    WePhones$Condition<-rbinom(n,1,runif(1,.2,.8))
+# Simulate unbalanced data
+  # probability baseline
+      p<-runif(1,.1,.7)
+  # Randomly assign unbalanced variable
+      WePhones[,sample(2:6,1)]<-ifelse(WePhones$Treatment==1,rbinom(n,1,p),rbinom(n,1,p+.2))
+# Transform into character variables
+    WePhones$Color<-as.factor(ifelse(WePhones$Color==1,"Platinum","Black"))
+    WePhones$Hard_Drive_Capacity<-as.factor(ifelse(WePhones$Hard_Drive_Capacity==1,"64gb","32gb"))
+    WePhones$Model<-as.factor(ifelse(WePhones$Model==1,"8","7"))
+    WePhones$Network<-as.factor(ifelse(WePhones$Network==1,"Mendizon","Trot"))
+    WePhones$Condition<-as.factor(ifelse(WePhones$Condition==1,"Broken","In_Pieces"))
+
+    Treatment<-WePhones[WePhones$Treatment==1,]
+    Control<-WePhones[WePhones$Treatment==0,]
+    mean(Treatment$Color=="Black")
+    mean(Control$Color=="Black")
+```
+
+
+`@sample_code`
+
+```{r}
+# 1) Use the `t.test` function to find out if the `Treatment` and `Control` groups have the same proportion of `Black` WePhones. Replace the `x` and `y` in the following example with, `Treatment$Color=="Black"` and `Control$Color=="Black"` respectively.
+
+    t.test(x,y)
+
+# Note: The t-test shows a difference in the number of black phones in each group, but is that difference statistically significant? Take a look at the p-value. Because the p-value is 0.46, which is well above .05, we can say that the difference is not statistically significant.
+
+# 2) So are there any variables that show a statistically significant amount of imbalance? Use the `t.test` function to search through each variable in the `Treatment and `Control` groups until you find one that is imbalanced (i.e. where the probability that the mean difference between the specification in the treatment and control groups is less than 0.05). Write the name of the unbalanced trait between control and treatment groups into Solution1.
+
+    t.test(  )
+    Solution1<-""
+    
+```
+
+
+`@solution`
+
+```{r}
+t.test(Treatment$Color=="Black",Control$Color=="Black")
+#This is how we solve this answer when the data are randomized, but an easier way to solve this questions is to look through each variable manually
+a<-vector()
+for(i in 2:6){
+  a[i-1]<-t.test(WePhones[,i][WePhones$Treatment==0]==unique(WePhones[,i])[1],WePhones[,i][WePhones$Treatment==1]==unique(WePhones[,i])[1])$p.value
+}    
+  Solution1<-names(WePhones)[match(a[a<.05],a)+1]
+```
+
+
+`@sct`
+
+```{r}
+test_object("Solution1")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_error()
+
+success_msg("Good work! The methods for computing balance in this exercise are very common to experimental research. While we walked you through the steps this time, some of the later problems will be less guided. You may want to return to this exercise and look at how we computed imbalance if you ever get stuck in later ones.")
+```
+
+
+---
+
+## Statistical Inference
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 6ae426b824   
+```
+
+
+Under which scenario might an experimenter *not* need to use statistical inference to justify causal claims?
+
+
+`@instructions`
+- When his causal claim is logically sound.
+- When his sample is large.
+- When his experiment is well-designed.
+- When he can have his entire population of interest participate in the experiment.
+
+`@sct`
+
+```{r}
+msg1 = "Even if it makes sense, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again."
+msg2 = "Even with a large sample, you still need to use statistical measures to verify the experiment's validity, so try again."
+msg3 = "Even with a well-designed experiment, you still will have just a sample of the possible data to look at, so that's not quite right. Try again."
+msg4 = "Correct! The purpose of statistical inference in randomized experiments is to help researchers make valid propositions about a population given a sample. This is unnecessary if the entire population of interest participates in the experiment."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## p Values, Confidence Intervals, and Hypothesis Tests
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 76542ba835 
+video_link: //player.vimeo.com/video/205124286  
+```
+
+---
+
+## Let's Code: Getting to Work with Confidence
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 39b057a682 
+video_link: //player.vimeo.com/video/279737759  
+```
+
+---
+
+## Getting to Work With Confidence: Visualize the Data
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 907fdfb248   
+```
+
+
+Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time.
+
+
+`@instructions`
+- 1) Summarize the data in table form to see what information we have about Donny's commute.
+- 2) Visualize the data with a density plot to get a better sense for the distribution of his commute times.
 
 `@pre_exercise_code`
 
@@ -87,37 +377,112 @@ Laurel's video showed that the WePhone 10S was stronger than the Universe S10. L
 library(dplyr)
 library(data.table)
 
-PhoneSpecifications<-data.frame(Phone=c("WePhone 10S","UniverseS10"),Weight=c(190,180),Battery_Capacity=c(4000,3500),Diagonal_Length=c(5.5,5.2),Storage=c(64,64),Luminance=c(800,550))
+set.seed(1)
+#Create rnorm function that allows for min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Dataframe
+
+Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
 ```
 
 
 `@sample_code`
 
 ```{r}
-# 1) To begin, let's print the contents of the dataframe to the console by entering the dataframe name, PhoneSpecifications, into the print() function.
-    Solution1<- print()
+# 1) Let's first summarize Donny's commute time to get a sense of what the data looks like. Use the summary function on the dataframe Commute.
 
-# 2) Now write the column name of the specification with the largest ratio between the WePhone 10S and the Universe S10 (Must be a character).
-    Solution2<- ""
+    summary()
 
-# 3) Now return the ratio between the WePhone10S and UniverseS10 of the phone specification you selected for Question 2 (do not round!).  
-    Solution3<-
+# 2) It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. Use the plot(density()) commands on the dataframe Commute.
+
+    plot(density())
+    
+    
 ```
 
 
 `@solution`
 
 ```{r}
-Solution1<-print(PhoneSpecifications)
+summary(Commute)
+plot(density(Commute))
+```
 
-#This is how we solve this answer when the data are randomized, but an easier way to solve this questions is to look through each variable manually
-    Ratios<-vector(length=5)
-    for(i in 2:length(PhoneSpecifications[1,])){
-      Ratios[i-1]<-PhoneSpecifications[1,i]/PhoneSpecifications[2,i]
-    }
-    Solution2<-names(PhoneSpecifications)[match(max(Ratios),Ratios)+1]
 
-Solution3<-max(Ratios)
+`@sct`
+
+```{r}
+test_function("summary", incorrect_msg = "Did you use the `summary` function?")
+test_function("plot", incorrect_msg = "Did you use the `plot` function?")
+test_function("density", incorrect_msg = "Did you use the `density` function?")
+test_error()
+success_msg("Good job!  The Y axis, marked 'density', shows the proportion of times that Donny's travel time is a certain length, given by the x-axis. Based on Donny's previous commutes, about .08 or 8% of the time, Donny's travel takes exactly 9 minutes. Let's continue on this problem by trying to find a reasonable confidence interval that Donny should consider to give himself a safe time margin.")
+```
+
+
+---
+
+## Getting to Work With Confidence: Choosing a Departure Time
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: 243a4bf8bb   
+```
+
+
+Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work and his commute takes 10 minutes on average, his commute often takes longer than that. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time.
+
+
+`@instructions`
+- 1) Assuming that Donny's sample is representative of the true distribution of commute times, use the vector `Commute` to determine how much time Donny should leave for his commute if he wants to arrive to work on time at least 95% of the time. 
+- 2) Since Donny's sample is subject to error, determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 50% of the time with 95% confidence.
+
+`@pre_exercise_code`
+
+```{r}
+library(dplyr)
+library(data.table)
+
+set.seed(1)
+#Create rnorm function that allows for min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Dataframe
+
+Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
+```
+
+
+`@sample_code`
+
+```{r}
+# Note: The following questions are difficult, so we'll give you some hints about useful functions to determine the key values of the confidence intervals that Donny needs to know.
+
+# If you look closely at the numbers in the instructions, you'll see that Donny is looking for the 95% confidence interval for his commute time, whcih means we need to find out how many minutes that 95% of Donny's commutes take. The answer is simply the commute time that is greater or equal to 95% of the observations in the dataset. To solve this question, we would recommend using the "quantile" function. The quantile function requires two arguments, a variable (Commute) and a quantile to be returned (.95); that is, quantile(VARIABLE,QUANTILE)
+
+# 1) Determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. 
+
+    Solution1<- 
+  
+# Another way of stating Donny's main question is this: given our limited sample, at what time of the morning are we 95% confident that he could leave and have a 50% chance to make it to work on time? We can do this by examining the confidence interval on the *mean* of Donny's commute times; specifically, the upper bound of the mean's 95% confidence interval. The confidence interval of a mean is determined with the t.test function; the upper bound that we are interested in can be returned with t.test(VARIABLE)$conf.int[2]  
+
+# 2) Precisely how long should Donny leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence? 
+  
+    Solution2<-
+```
+
+
+`@solution`
+
+```{r}
+Solution1<- quantile(Commute,.95) #95th quantile  
+Solution2<-t.test(Commute)$conf.int[2] #upper bound
 ```
 
 
@@ -126,26 +491,60 @@ Solution3<-max(Ratios)
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-test_object("Solution3")
-success_msg("Good work! Keep in mind, even though there is a correlation between the treatment (luminance) and outcome (durability), this correlation is spurious; in reality, a phone's luminance (brightness) does not have a causal effect on its durability.
-")
+test_error()
+success_msg("Good job! Based on Donny's previous commutes, he can be fairly confident that he will get to work at least half the time if he allows himself 10.7 minutes to get there. Of course, this is assuming that the future traffic levels stays the same as the past traffic levels. If the traffic changes according to when Donny leaves, it would bias our results.")
 ```
 
 
 ---
 
-## Is it a Controlled Experiment?
+## Sample Size
 
 ```yaml
 type: MultipleChoiceExercise 
 lang: r
 xp: 50 
 skills: 1
-key: a880db44ea   
+key: d2fc3d44de   
 ```
 
 
-As a staunch fiscal conservative, Peter is looking for ways to lower his daily expenses. Peter believes he might be able to lower his costs on car gasoline if he stops using his air conditioner and just opens his window. As an experiment, Peter tracks his gas usage during his commute to work over two days. During the first day, Peter uses his air conditioner. The second day, Peter opens his window. Is this a controlled experiment?
+A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. 
+
+All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was 5/5 - 2/5 = 3/5, or 60%. Why might the professor want to get a larger sample before publishing these results?
+
+
+`@instructions`
+- To please his reviewers.
+- To control for non-compliance.
+- To make sure that the observed average treatment effect did not occur by chance.
+- To control for confounding variables.
+
+`@sct`
+
+```{r}
+msg1 = "While this might feel like the most immediate reason, what other reason do you think his reviewers mentioned? Try again"
+msg2 = "Noncompliance isn't mentioned as an issue in this case, so it's not the key issue we're looking for. Try again"
+msg3 = "Correct! Even when we draw from a completely random sample, there is always the chance that our sample is not representative of the whole population. The larger the sample size that we draw from, the less likely that our findings were to have occurred by chance."
+msg4 = "Confounders are always an issue, particularly when looking at real world data, but that's not quite the best reason to get a larger sample in this case. Try again"
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Statistical Inference Across Disciplines
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: e587a26773   
+```
+
+
+Let's say that you are an economics major, and your roommate is a chemistry major.  They're trying to figure out the results from an experiment run in the lab where they work as an RA, and ask you to look at the data because it looks "weird."  Given the differences between your disciplines, is there any point in trying to help?
 
 
 `@instructions`
@@ -155,9 +554,75 @@ As a staunch fiscal conservative, Peter is looking for ways to lower his daily e
 `@sct`
 
 ```{r}
-msg1 = "Can we be sure that that independent variable is the only factor being adjusted in Peter's experiement? Try again."
-msg2 = "Correct! An experiment is considered a 'controlled' experiment when the independent variable is the only factor that is adjusted between the treatment and control. However, Peter's gas usage could be influenced by many factors that are outside of his control, like the traffic or the weather."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+msg1 = "Of course there is! The data analysis techniques in all of the sciences are much, much more similar than different. While academic fields can create their own algorithms for field-specific problems, they are all joined together by the same basic concepts about finding the best and most quantitative ways to tie causes to effects."
+msg2 = "Try again."
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
+```
+
+
+---
+
+## Fishing for a Good Experimental Design
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 01b4c71047   
+```
+
+
+After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: she spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. 
+
+Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design?
+
+
+`@instructions`
+- Rachel's experiment is unethical.
+- Rachel's sample is probably too small.
+- Rachel's sample is not likely representative of her target population.
+- Rachel's findings are not intuitive.
+
+`@sct`
+
+```{r}
+msg1 = "While a vegetarian might make such an argument, there is a much more direct answer to this question. Try again."
+msg2 = "It's possible that Rachel's sample after two days of fishing would be too small to ascertain statistical significance, but the question did not state how large her sample size was. Try again."
+msg3 = "Correct! The fish one finds near a dock on the Atlantic Ocean are not necessarily (or likely) to be the same size as ones found deeper in the ocean. It's possible that Rachel's fishing spot at the lake is a better spot for catching large fish than her spot at the Atlantic Ocean, but this does not necessarily imply that fish in her lake are larger than fish in the Atlantic Ocean."
+msg4 = "Non intuitive findings can be cause for worry, but aren't necessarily problematic. Try again."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Problems with Convenience Sampling
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 870135287b   
+```
+
+
+Does income cause happiness? It is generally believed that income increases happiness for those who have less money. So a bump in income for a poor person is likely to increase his happiness much more than the same bump in income for a wealthy person. 
+
+Siggy, an academic psychologist, was interested in how one-time cash rewards affect happiness. Siggy decided to conduct an experiment by giving people a $10 bill, and then measuring the their corresponding change in happiness at that moment. If Siggy only conducted this experiment on college students (a demographic that is usually strapped for cash, but a convenient sample for academics to conduct experiments on), how might we expect it to bias his experiment's average treatment effect?
+
+
+`@instructions`
+- Upward
+- Downward
+
+`@sct`
+
+```{r}
+msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a larger average treatment effect than an experiment conducted on a random sample of the entire population)."
+msg2 = "Given that this demographic is, as stated, strapped for cash, this isn't the likely bias. Try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 
