@@ -1,263 +1,148 @@
 ---
-title: 'Experiments 8: Long-term Average Treatment Effects'
-description: 'These videos and exercises discuss how to compute and interpret long-term causal effects.'
+title: 'Bounds Analysis & Putting It All Together'
+description: 'This chapter discusses how to form bounds on causal effects in the presence of experimental noncompliance, and we wrap up the course with a bigger exercise to review what we've learned.'
 ---
 
-## Introducing Perry Preschool
+## Bounds Analysis for Missing Data
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 9223675c47 
-video_link: //player.vimeo.com/video/198212111  
+key: 25526ab294 
+video_link: //player.vimeo.com/video/199858153  
 ```
 
 ---
 
-## Perry Preschool: Comparing Educational Attainment Data
+## Let's Code: Computing Bounds Under Noncompliance
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: c91ef16385 
-video_link: //player.vimeo.com/video/198212115  
+key: 06215f9d20 
+video_link: //player.vimeo.com/video/279737481  
 ```
 
 ---
 
-## Let's Code: Practice Identifying Heterogenous Outcomes
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 95080b34c4 
-video_link: //player.vimeo.com/video/279737592  
-```
-
----
-
-## Unhappiness at Unter: Identifying Heterogeneous Outcomes - ATE
+## Offering a Higher Credit Card Limit: Computing Bounds Under Noncompliance
 
 ```yaml
 type: NormalExercise 
 lang: r
 xp: 100 
 skills: 1
-key: 4ddc3a17bc   
+key: a42175703d   
 ```
 
 
-The transportation network company, Unter Technologies, is interested in improving their employee morale and reducing employee turnover rate by downsizing their Human Resources (HR) Department.
+Your first calculations on the CreditCo data in Chapter 7 showed that noncompliance was an issue in the experiment. In the previous chapter, you examined how to resolve this issue using a natural experiment. This time, we have provided you with more data to examine, particularly the credit ratings for the individuals in both the treatment and control groups. But goal remains the same as before: does the offer of a higher credit limit decrease the number of late payments (defaults)? 
 
-To make sure this would not antagonize their workforce, Unter conducts an experiment: With a balanced sample of employees, Unter tells a treatment group that the HR Department will be downsized in the following year, and tells a control group that the HR Department will remain the same size in the following year. Miraculously, these two groups don't end up discussing this with each other. Unter then surveys the employees to find out whether employees plan to look for new jobs, with response options 0="No" and 1="Yes."
-
-With the dataframe, `UnterHR`, determine whether there is a negative or positive average treatment effect of reducing the size of Unter's HR department on employee turnover. Specifically:
+Let's try a different approach in this exercise. Specifically, compute the bounds of the average treatment effect of opting into a credit line offer. This question is tricky. To accomplish this task, you may want to refer to the video at the beginning of the chapter.
 
 
 `@instructions`
-- 1) Find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) 
-- 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
-- 3) Determine the average effect of reducing the size of HR (`treatment`) on whether employees plan to leave their job in the following year (`LeaveJob`) by subtracting the mean rate of people's intention to leave their job in the control condition from the mean rate of people's intention to leave their job in the treatment condition.
+- 1) Determine the ratio of people who accepted the offer.
+- 2) Compute upper bound on the average treatment effect under non-compliant behavior.
+- 3) Compute lower bound on the average treatment effect under non-compliant behavior.
+- Bonus: Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
 
 `@hint`
-- To make things a bit simpler to understand, subset the treatment and control groups into new dataframes based on their values of the `Treatment` variable.  
-- You will need to use the `mean` command.
+- When the values of a variable are binary (0 or 1), you can calculate the proportion of 1s by simply taking the mean of the variable.
+- Remember to be aware of selecting the correct subsample.
 
 `@pre_exercise_code`
 
 ```{r}
 library(data.table)
 library(dplyr)
-set.seed(1)
-n=382
-#Dataframe
-  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
-#LeaveJob
-  #treatment makes men less likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
-  #treatment makes wommen more likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
+  set.seed(1)
+  n             <- 9e3
+  frac_treated  <- .5
+  frac_female   <- .5656
+  frac_white    <- .688
+
+# Initialize dataframe
+  CreditCo <- as.data.frame(matrix(0, ncol=11,nrow=n))
+  colnames(CreditCo) <- c("id","offered","opt_in","FICO","age","female","race_white","default_pre","default_post","balance_pre","balance_post")
+
+# Simulate baseline data
+  CreditCo$id         <- seq(1,n,1)
+  CreditCo$offered    <- as.integer(runif(n)<frac_treated)
+  CreditCo$opt_in     <- rep.int(0,n)
+  CreditCo$FICO       <- rnorm(n, mean=736, sd=300)
+  CreditCo$age        <- sample(18:55, n, replace=T)
+  CreditCo$female     <- as.integer(runif(n)<frac_female)
+  CreditCo$race_white <- as.integer(runif(n)<frac_white)
+
+# make FICO score intelligible
+  CreditCo$FICO[CreditCo$FICO>850] <- 850
+  CreditCo$FICO[CreditCo$FICO<300] <- 300
+  CreditCo$FICO                    <- round(CreditCo$FICO)
+
+# simulate pre-experiment default rate
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_pre <- as.integer(draw<p)
+
+# simulate pre-experiment balance level
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_pre <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + draw
+  CreditCo$balance_pre <- exp(CreditCo$balance_pre)
+
+# Simulate noncompliance and opt-in behavior
+  draw <- runif(sum(CreditCo$offered))
+  xb   <- 6.75-1.2*CreditCo$FICO/100+.07*(CreditCo$FICO^2)/10000-2.1*CreditCo$female-2*CreditCo$race_white
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw<p[CreditCo$offered==1])
+
+# Simulate post outcomes
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white+4*CreditCo$offered*CreditCo$opt_in
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_post <- as.integer(draw<p)
+
+# balance
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_post <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + 1*CreditCo$offered*CreditCo$opt_in + draw
+  CreditCo$balance_post <- exp(CreditCo$balance_post)
+
+# Remove elements and variables from environment
+  rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
+  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post")]
 ```
 
 
 `@sample_code`
 
 ```{r}
-# 1)  Calculate the mean rate of `LeaveJob`in the control condition (`Treatment=0`)
-    mean()
+# 1) Determine the ratio of people who accepted the offer and assign this to Solution1.
 
-# 2) Find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`)
-    mean()
+    Solution1<-mean()
 
-# 3) Calculate the average treatment effect, which is is simply the mean outcome of the treatment group minus the mean outcome of the control group. Assign this to Solution3.
-    Solution3<-
-```
+# 2) Compute upper bound on the average treatment effect under non-compliant behavior and assign this to Solution2.
 
-
-`@solution`
-
-```{r}
-mean(UnterHR$LeaveJob[UnterHR$Treatment==1])
-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
-Solution3<- mean(UnterHR$LeaveJob[UnterHR$Treatment==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0])
-```
-
-
-`@sct`
-
-```{r}
-test_function("mean", incorrect_msg = "Did you use the `mean` function?")
-test_object("Solution3")
-test_error()
-success_msg("Good work! It seems that reducing the size of HR also reduced Unter employees' intentions to leave their jobs by about 7%.")
-```
-
-
----
-
-## Unhappiness at Unter: Identifying Heterogeneous Outcomes - CATEs
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: c229f94a13   
-```
-
-
-Since reducing the size of HR seems to reduce the rate of employee turnover, the CEO of Unter Technologies is now heavily considering this option.
-
-However, his chief operating officer (COO) warns him that reducing the size of HR might be unpopular among certain minority groups within the company, particularly among women. The COO sends the CEO a figure (illustrated in the R workspace) showing the results of his experiment among men and women. Which of the following does the figure suggest?
-
-
-`@instructions`
-- While the pooled average treatment effect is slightly negative, and the average treatment effect for men is negative, the average treatment effect for women is positive.
-- While the pooled average treatment effect is slightly positive, and the average treatment effect for men is positive, the average treatment effect for women is negative.
-- While the pooled average treatment effect is slightly negative, and the average treatment effect for men is positive, the average treatment effect for women is negative.
-- While the pooled average treatment effect is slightly positive, and the average treatment effect for men is negative, the average treatment effect for women is positive.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-set.seed(1)
-n=382
-#Dataframe
-  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
-#LeaveJob
-  #treatment makes men less likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
-  #treatment makes wommen more likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
-    library(ggplot2)
-    library(scales)
-    df<-data.frame(Treatment=c("Control","Control","Treatment","Treatment"),Gender=c("Male","Female","Male","Female"),Value=c(mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])))
-    df<-data.frame(Treatment=c("Control","Control","Control","Treatment","Treatment","Treatment"),Gender=c("Male","Female","Pooled","Male","Female","Pooled"),Value=c(mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),mean(UnterHR$LeaveJob[UnterHR$Treatment==1])))
-    df$Gender<-factor(df$Gender, levels = c("Male","Pooled","Female"))
-    df$`Percent Intending to Quit`<-df$Value
-    df$`Control and Treatment Groups`<-df$Treatment
-    p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
-    p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
-```
-
-
-`@sample_code`
-
-```{r}
-p<-ggplot(df, aes(x=`Control and Treatment Groups`,y=`Percent Intending to Quit`,group=Gender,color=Gender))
-    p+geom_point(size=3)+geom_line(size=2)+scale_y_continuous(label = percent,limits = c(0,1))
-```
-
-
-`@sct`
-
-```{r}
-msg1 = "Good job! This is an example of a heterogeneous average treatment effect - the treatment has different effects on men and women. However, when men and women are pooled, this heterogeneity is masked."
-msg2 = "Whoa! While you're right that there are different effects for men and for women, it looks like you're confused about which effects are negative and which are positive.  Try again."
-msg3 = "While you're right that the pooled effects are negative and there are different effects for men and for women, it looks like you're confused about which gender-specific effects are negative and which are positive. Look again."
-msg4 = "You're right about the gender-specific effects, but not the pooled effects. Check your results again."
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Unhappiness at Unter: Identifying Heterogenous Outcomes - CATEs (2)
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: a52ff8b8f4   
-```
-
-
-Let's further analyze the heterogeneous effect of the treatment on men vs. women in Unter Technologies. With the dataframe, `UnterHR`, determine the average treatment effect of reducing the size of Unter's HR department on employee turnover by gender (`Female`).
-
-
-`@instructions`
-- 1) Determine the average effect of reducing the size of HR (`treatment`) on whether male employees (`Female = 0`) plan to leave the job in the following year (`LeaveJob`).
-- 2) Determine the average effect of reducing the size of HR (`treatment`) on whether female employees (`Female = 1`) plan to leave the job in the following year (`LeaveJob`).
-
-`@hint`
-- Remember, you can determine the ATE by subtracting the mean rate of the outcome in the control condition by the mean rate of the outcome in the treatment condition.
-- You will need to use the `mean` function and R's `subset` syntax.
-- Try breaking the task into pieces. First find the mean rate of `LeaveJob`in the control condition (`Treatment=0`) then find the mean rate of `LeaveJob`in the treatment condition (`Treatment=1`).
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-
-set.seed(1)
-n=382
-#Dataframe
-  UnterHR<-data.frame(Treatment=rbinom(n,1,.4),Female=rbinom(n,1,.1),LeaveJob=0)
-#LeaveJob
-  #treatment makes men less likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0]),1,.2)
-  #treatment makes wommen more likely to leave
-    UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1]),1,.3)
-    UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]<-rbinom(length(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1]),1,.6)
-```
-
-
-`@sample_code`
-
-```{r}
-# Note: We want to determine the CATE of Unter's HR reduction on intention to leave by gender, but it may be useful to examine a table of this relationship first. The following syntax prints two tables showing the number of respondents who intend to leave work by treatment group and gender.
-    xtabs(~LeaveJob+Treatment+Female, data=UnterHR)
-
-# Note: From the tables produced above, it looks like we have a lot more men than women in our samples. Within the upper table, it appears that relatively few men om either experimental group want to leave. However, the lower table indicates that the majority of women in the treatment group want to leave, whereas the majority of women in the control group do not. To be sure, let's actually calculate the differences in the average treatment effects among men and women.
-
-# 1) Determine the average treatment effect among men. Assign this number to Solution1
-    Solution1<- 
-
-# 2) Determine the average treatment effect among women. Assign this number to Solution1
     Solution2<-
+
+# 3) Compute lower bound on the average treatment effect under non-compliant behavior and assign this to Solution3.
+      
+    Solution3<-
+
+# Bonus: Compare this with the results of an intention-to-treat analysis, under random compliance, or both!
 ```
 
 
 `@solution`
 
 ```{r}
-Solution1 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==0])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==0])
-Solution2 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])-mean(UnterHR$LeaveJob[UnterHR$Treatment==0 & UnterHR$Female==1])
+Solution1 <- mean(CreditCo$opt_in[CreditCo$offered==1])
+Solution2 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*1 - mean(CreditCo$default_post[CreditCo$offered==0])
+Solution3 <- Solution1*mean(CreditCo$default_post[CreditCo$opt_in==1]) + (1-Solution1)*0 - mean(CreditCo$default_post[CreditCo$offered==0])
 ```
 
 
@@ -266,223 +151,80 @@ Solution2 <- mean(UnterHR$LeaveJob[UnterHR$Treatment==1 & UnterHR$Female==1])-me
 ```{r}
 test_object("Solution1")
 test_object("Solution2")
-test_error()
-success_msg("Good work! We can see a clear difference in the treatment effect among men and women. This is a clear example of a conditional average treatment effect.")
+test_object("Solution3")
+
+success_msg("Nice job! As you can see, we get slightly different answers based on the method we use. What did we learn from this experiment overall? Well, that depended on the technique you used to analyze it. When working with data, usually the best option is to learn the answers from multiple techniques so that you can have a more complete and nuanced interpretation of what really happened.")
 ```
 
 
 ---
 
-## Perry Preschool: Calculating the Lifetime Cost of Crime
+## Experimental Design & RCTs
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 381790e170 
-video_link: //player.vimeo.com/video/198212123  
+key: 0588056e73 
+video_link: //player.vimeo.com/video/209271489  
 ```
 
 ---
 
-## Identifying Underlying Mechanisms
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 2924e39895   
-```
-
-
-Based solely on the information shown in the table of the previous video, can you identify exactly why the numbers regarding the effect of preschool on criminal behavior came out so differently between the treatment and control group?
-
-
-`@instructions`
-- Yes, the results support common beliefs about why attending preschool leads to lower rates of criminal activity among men and women.
-- No, we need more information about how preschool education affects individuals before we can definitively identify why preschool leads to reduced criminal activity.
-
-`@sct`
-
-```{r}
-msg1 = "Although you may have ideas about why preschool attendance reduces criminal activity later in life, the exact causal connection between these two activities is not apparent from the data presented. Try again."
-msg2 = "Correct! Although the data suggest that attending preschool leads to reduced rates of criminal behavior, this table does not identify exactly why that might be the case. We can hypothesize several explanations for this relationship (for example, attending preschool might lead to better educational outcomes, which lead to better job outcomes, which reduces people's incentive to commit crimes), but we cannot know for sure without testing them."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
-```
-
----
-
-## A Bayesian Primer and ATEs
-
-```yaml
-type: VideoExercise
-lang: r
-xp: 50
-skills: 1
-key: 553340889c
-video_link: "//player.vimeo.com/video/230617297"
-```
-
----
-
-## Finding Lifetime Outcomes of Experiments
+## Splitting Samples, Dimensionality, and Big Data
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: a4a42746de 
-video_link: //player.vimeo.com/video/199856517  
+key: a39c1976d4 
+video_link: //player.vimeo.com/video/230616790  
 ```
 
 ---
 
-## Reasons to Use Proxy Variables
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 8eb0408533   
-```
-
-
-What is the key reason people use proxy variables for their outcomes of interest in experiments?
-
-
-`@instructions`
-- Because proxy variables are less biased than dependent variables.
-- Because an experiment might yield heterogeneous treatment effects.
-- Because an experiment does not always yield statistically significant results.
-- Because an experiment's true outcome of interest is not always possible to study.
-
-`@sct`
-
-```{r}
-msg1 = "The wording on this answer is tricky, but remember that an experiment's dependent variable is the outcome that is being measured. If a proxy variable is used in place of one's outcome of interest, it is an experiment's dependent variable. In actuality, proxy variables tend to be more susceptible to experimental biases than are direct measurements of one's outcome of interest. Try again."
-msg2 = "If anything, using a proxy variable might hide the fact that an experiment yields heterogeneous effects on one's outcome of interest, which is not good. Try again."
-msg3 = "It is certainly true that experiments do not always yield statistically significant results, but this is a poor reason to use a proxy variable if you can measure your outcome of interest directly. Try again."
-msg4 = "Correct! Experimentalists only use proxy variables in place of an experiment's outcome or treatment of interest when it is not viable to test or measure one's outcome or treatment of interest directly."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Choosing a Good Proxy Variable
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 1913543c45   
-```
-
-
-Business analysts are often interested in learning which business strategies work and which do not. One useful way to study whether a certain business strategy is effective is to examine a large group of startups over time, and track whether businesses that implemented that strategy were more likely to close down. The difficulty with this research strategy is that it can take many years for startups to close, delaying one's ability to determine their experiment's results.
-
-To reduce the time it takes to determine how a business strategy affects a business's chance of survival, which of the following would be the most effective and direct proxy variable for business closure?
-
-
-`@instructions`
-- A business's proportion of online sales to retail sales
-- The number of years that a business has been active
-- A business's annual operating income (i.e. profit)
-- A business's employee turnover rate
-
-`@sct`
-
-```{r}
-msg1 = "This is only tangentially related to a business's survival, since the ideal proportion of online sales to retail sales differs dramatically by industry. Try again."
-msg2 = "This answer might be tempting, but this is basically just an inverse measurement of the time it takes for businesses to close. It does not reduce the time required to gather data. Try again."
-msg3 = "Correct! While it may take many years to see which strategies lead to business closure, a business's profits are highly correlated with (and causal of) a business's eventual disbandment."
-msg4 = "This is only indirectly related to a business's survival, and the effect of employee turnover rates on business survival tends to differ dramatically across industries. Try again."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Dr. Max Funn: Questionable Proxy Variables
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 3329371fd4   
-```
-
-
-Hedonism is the ethical theory that people should maximize their own pleasure in life. One hedonist in particular, Dr. Max Funn, wondered if religious attendance leads to happiness, and decides to conduct an experiment to answer this question. Since Mr. Funn was also trained as an economist, instead of directly measuring the effect of religious attendance on his sample's subjective happiness, he decides instead to study the effect of religious attendance on a proxy variable for happiness---income---which is known to be correlated with and causal of happiness.
-
-Dr. Funn randomly divides a large sample of non-religious people into two groups, and has one group attend church weekly, and the other not attend church at all. After a year, the economist asks his sample to report their incomes and finds a statistically significant average treatment effect of religious attendance on happiness (measured as income). This result increases Dr. Funn's own happiness.
-
-Which of the following hypothetical scenarios, if true, would make us question whether income is a good proxy variable for happiness in this experiment?
-
-
-`@instructions`
-- If religious attendance were found to have a positive effect on happiness.
-- If, across the population, income were not associated with church attendance.
-- If religious attendance made people sad, and employers were more likely to give raises to employees who seem sad.
-
-`@sct`
-
-```{r}
-msg1 = "This scenario is consistent with our results, so if anything, this would suggest that income is a good proxy variable for happiness. Try again."
-msg2 = "Since we are conducting an experiment, we can directly control who goes to church and who does not. Whether there is an association between income and church attendance among the population is irrelevant to our experimental results. Try again."
-msg3 = "Correct! If this were the case, the effect of religious attendance on income would be positive even though its effect on happiness is negative. Following treatment, a good proxy variable should be positively correlated with the outcome of interest not (as here) negatively correlated."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
-```
-
-
----
-
-## Let's Code: Practice Identifying Bad Proxy Variables
+## Let's Code: Putting it All Together
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 7faf6d0645 
-video_link: //player.vimeo.com/video/279737572  
+key: 9a2307ad3e 
+video_link: //player.vimeo.com/video/279737460  
 ```
 
 ---
 
-## Dr. Max Funn: Identifying Spurious Results with Bad Proxy Variables
+## Putting it All Together with KittyCatch: Part 1 - Explore the Data
 
 ```yaml
 type: NormalExercise 
 lang: r
 xp: 100 
-skills: 1
-key: 5465244188   
+skills: 2
+key: 11aa1bb0da   
 ```
 
 
-Dr. Max Funn from the previous question then runs a second experiment: this time measuring the effect of *work hours* on happiness, once again using income as a proxy variable. The respondents in his treatment group agree to work an additional 10 hours at their primary jobs per week for one year. This time he finds a statistically significant effect: increasing work hours appears to increase happiness (measured as income). But the relationship between work hours and happiness might be suspect. 
+Often, our experiments don't go as planned. This long and complex exercise will test your knowledge in resolving a question with realistic problems. 
 
-In this question, we shall see how a more experienced economist replicates the study. In addition to duplicating the newest experiment by Dr. Funn, this economist also directly measures the effect of work hours on happiness to test whether the original proxy variable was appropriate.
+KittyCatch is a location-based augmented reality game developed by Meowtec. In this game, players use their cell phones' GPS abilities to locate and capture virtual kittens. Although KittyCatch is free to play, Meowtec generates revenue from KittyCatch through pop-up ads, which appear about once for every half-mile the player walks while using the application, up to 5 times a day. Since Meowtec's revenue is highly dependent on how far people walk while playing KittyCatch, their primary goal for future updates to KittyCatch is to incentivize play.
 
-Using the dataframe,`econometrics`, determine whether income is a good proxy variable for happiness in this experiment by doing the following:
+One strategy to increase users' play time is to increase the distance between KittyCatch's "Points of Kinterest"; that is, increase the distance that users must travel to capture new kittens. Many players stop their sessions of KittyCatch before they catch a single kitten, and may be turned off by the need to travel farther to catch a kitten. However, Meowtec believes that the loss of play time for these players would be offset by the many other players who consistently travel as far as needed to catch a kitten. 
+
+To test this hypothesis, Meowtec constructs an experiment: For a small random sample of players in Springfield, Massachusetts, Meowtec increases the distance that players must walk to reach a Point of Kinterest (specifically, from .25 miles to .5 miles). They compare these players to an equal random sample of players in Springfield, Massachusetts that have the default distance between Points of Kinterest (.25 miles). However, as they explore their data, they find a few problems with their experiment. 
+
+With the dataset, `KittyCatch`, and the annotations in the R workspace, help Meowtec determine a valid and reliable average treatment effect from their experiment. Specifically, balance the data and correct for any coding errors in the original dataset to estimate a reliable average treatment effect. We will spend many more steps on this problem than in previous exercises, but also more representative of the types of steps that data scientists use when working with experimental data.  But first, we need to get familiar with the data.
 
 
 `@instructions`
-- 1) Examine the structure of the economist's data.
-- 2) Demonstrate that the proxy variable for happiness, `Income`, is correlated with the outcome of interest, `Happiness`. Use the cor() function.
-- 3) Run a t-test to determine the average treatment affect of the experiment (`Treatment`) on `Income`.
-- 4) Run a t-test to determine the average treatment affect of the experiment (`Treatment`) on `Happiness`.
-
-`@hint`
-- For the first question, you will need to `subset` the `econometrics` data frame by treatment.
-- Use the `t.test` function where (mu=0) to test whether the treatment and control group are different from each other, and the `cor` function to determine whether variables are correlated.
+- 1) Take a look at the variable names and dataframe structure.
+- 2) See what a "naive" treatment effect looks like.
+- 3) Run a t-test to see a different early calculation of the treatment effect.
+- 4) Examine the values of our outcome of interest, the distance the users walk.
 
 `@pre_exercise_code`
 
@@ -491,55 +233,85 @@ library(data.table)
 library(dplyr)
 
 set.seed(1)
-#Create rnorm function that allows for min and max
+#Create rnorm function that allows for random distribution with min and max
   rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+    qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
   }
 #Create rounding function that allows to round to numbers above 1
-  mround <- function(x,base){
-          base*round(x/base)
-  }
-#Dataframe
-  econometrics<-data.frame(Treatment=1:1000,WorkHours=1:1000,Income=1:1000,Happiness=1:1000)
-#Assign treatment
-  econometrics$Treatment<-rbinom(1000,1,.45)
-#Vaguely realistic Work hours
-  econometrics$WorkHours<-round(rtnorm(n=1000,mean=40,sd=6,min=0,max=50))
-  econometrics$WorkHours<-mround(econometrics$WorkHours,10)
-  temp<-rbinom(1000,1,.2)
-  econometrics$WorkHours<-ifelse(temp==1,0,econometrics$WorkHours)
-  econometrics$WorkHours<-ifelse(econometrics$Treatment==1,econometrics$WorkHours+10,econometrics$WorkHours)
-#Happiness
-  econometrics$Happiness<-round(rtnorm(n=1000,mean=4,sd=2,min=0,max=5))
-#Income
-  econometrics$Income<-(10*econometrics$Happiness+econometrics$WorkHours+mround(rtnorm(n=1000,mean=30,sd=10,min=0,max=100),10))/2
+  mround <- function(x,base){ 
+    base*round(x/base) 
+  } 
+
+n=688
+#Create dataframe
+  KittyCatch<-as.data.frame(matrix(nrow=n,ncol=4))
+  names(KittyCatch)<-c("DistanceWalked","Age","TotalHoursPlayed","Treatment")
+#Assign Treatment randomly
+  KittyCatch$Treatment<-rbinom(n,1,.35)
+#Assign Values to variables
+ #DistanceWalked
+  #Create Variable
+    KittyCatch$DistanceWalked<-round(rtnorm(n=n, mean=.62, sd=.3, min = 0, max = 1.3),2)
+  #Assign 4 Outliers to DistanceWalked among control
+    KittyCatch$DistanceWalked[KittyCatch$Treatment==0][sample(sum(KittyCatch$Treatment==0),4)]<-round(rtnorm(n=4, mean=7.00, sd=.6, min = 5, max = 9),2)
+  #Age
+    #Create Variable
+      KittyCatch$Age<-round(rtnorm(n=n, mean=14, sd=4, min = 10, max = 40))
+    #Assign age to be correlated with DistanceWalked
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$DistanceWalked>median(KittyCatch$DistanceWalked),2,-2)))
+    #Assign age to be correlated with treatment above age 18
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$Age>17 & KittyCatch$Treatment==1,4,0)))
+    #Top code in control group
+      KittyCatch$Age[KittyCatch$Treatment==0]<-ifelse(KittyCatch$Age[KittyCatch$Treatment==0]>18,18,KittyCatch$Age[KittyCatch$Treatment==0])
+  #TotalHoursPlayed
+    #Create Variable
+      KittyCatch$TotalHoursPlayed<-round(rtnorm(n=n, mean=30, sd=10, min = 1, max = 50))
+    #Make it correlated with distance walked
+      KittyCatch$TotalHoursPlayed<-round(.8*KittyCatch$TotalHoursPlayed + .2*KittyCatch$TotalHoursPlayed*KittyCatch$DistanceWalked)
+    #Randomly assign missing values, make the proportion larger in the treatment; and make the likelihood for NA correlate with larger values
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]<-ifelse(rbinom(sum(KittyCatch$Treatment==0),1,(.05+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]/mean(KittyCatch$TotalHoursPlayed))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]<-ifelse(rbinom(sum(KittyCatch$Treatment==1),1,(.25+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]/mean(KittyCatch$TotalHoursPlayed,na.rm = T))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1])
+  #Make distance walked negatively correlated with treatment prior to balance, and positvely correlated with treatment after balance
+      removed<-ifelse(KittyCatch$Age>17 | is.na(KittyCatch$TotalHoursPlayed),1,0)
+      KittyCatch$DistanceWalked<-round(ifelse(removed==1 & KittyCatch$Treatment==0,1.5*KittyCatch$DistanceWalked,ifelse(removed==0 & KittyCatch$Treatment==1,1.3*KittyCatch$DistanceWalked,KittyCatch$DistanceWalked)),2)
 ```
 
 
 `@sample_code`
 
 ```{r}
-# 1) As usual, we recommend exploring the structure of the data before diving into the questions. Use the str() command on the dataframe `econometrics`:
+# 1) Let's dig into the data. We first run the structure function, str(), to get a sense of the dataset. DistanceWalked is our outcome of interest, and Treatment is the key independent variable that we care about. TotalHoursPlayed refers to how many hours the user has put into KittyCatch in total.
+
     str()
 
-# 2) Use the 'cor' function to determine and report whether Happiness is correlated with Income.
-    cor()
+# 2) Although it is bad practice, let's begin this exercise by first taking a naive estimate of the average treatment effect on DistanceWalked before exploring the dataset. Subtract the mean of the control group from the mean of the treatment group and assign this to Solution2.
 
-# 3) Run a t-test to determine the average treatment affect of the experiment on Income.
+    Solution2<- 
+
+# 3) Now let's do that again, but with a t-test.  
+      
     t.test()
 
-# 4) Run a t-test to determine the average treatment affect of the experiment on Happiness
-    t.test()
+# You will see that, based on the t-test results, it seems that there is substantial negative treatment effect; respondents walked less in the treatment than in the control. But is this finding reliable?
+
+# 4) Now let's examine our outcome of interest, DistanceWalked, with the summary function. 
+    
+    summary()
+    
 ```
 
 
 `@solution`
 
 ```{r}
-str(econometrics)
-cor(econometrics$Happiness,econometrics$Income)
-t.test(econometrics$Income[econometrics$Treatment==1],econometrics$Income[econometrics$Treatment==0])
-t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[econometrics$Treatment==0])
+#1
+str(KittyCatch)
+#2
+Solution2<- mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1]) -  mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+#3
+t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+#4
+summary(KittyCatch$DistanceWalked)
 ```
 
 
@@ -547,214 +319,511 @@ t.test(econometrics$Happiness[econometrics$Treatment==1],econometrics$Happiness[
 
 ```{r}
 test_function("str", incorrect_msg = "Did you use the `str` function?")
+test_object("Solution2")
+test_function("mean", incorrect_msg = "Did you use the `mean` function?")
+test_function("summary", incorrect_msg = "Did you use the `summary` function?")
+
+success_msg("Great Job! Notice that the maximum value is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t-test results by violating its assumption that the data is normally distributed.")
+```
+
+
+---
+
+## Putting it All Together with KittyCatch: Part 2 - Use Graphs to Understand the Outcome
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 2
+key: 7a39e3fee6   
+```
+
+
+As we saw in the previous exercise, the maximum value for our outcome of interest - the distance users walked - is much larger than the mean, median, and 3rd quartile of the dataset. This outlier might bias our t-test results by violating its assumption that the data is normally distributed, so we need to deal with outliers for this variable. Let's create some charts to see the current distribution of `DistanceWalked`, and then let's try a method to deal with the outliers and make another chart to see if our method makes our data look more like a normal distribution.
+
+
+`@instructions`
+- 1) Chart the values of our outcome of interest.
+- 2) Examine the highest distances that our sample users walked.
+- 3) Use top coding to help us handle outlier values of DistanceWalked.
+- 4) Create a new chart to see if Step 3 helps make our values look more normal.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+set.seed(1)
+#Create rnorm function that allows for random distribution with min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+    qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Create rounding function that allows to round to numbers above 1
+  mround <- function(x,base){ 
+    base*round(x/base) 
+  } 
+
+n=688
+#Create dataframe
+  KittyCatch<-as.data.frame(matrix(nrow=n,ncol=4))
+  names(KittyCatch)<-c("DistanceWalked","Age","TotalHoursPlayed","Treatment")
+#Assign Treatment randomly
+  KittyCatch$Treatment<-rbinom(n,1,.35)
+#Assign Values to variables
+ #DistanceWalked
+  #Create Variable
+    KittyCatch$DistanceWalked<-round(rtnorm(n=n, mean=.62, sd=.3, min = 0, max = 1.3),2)
+  #Assign 4 Outliers to DistanceWalked among control
+    KittyCatch$DistanceWalked[KittyCatch$Treatment==0][sample(sum(KittyCatch$Treatment==0),4)]<-round(rtnorm(n=4, mean=7.00, sd=.6, min = 5, max = 9),2)
+  #Age
+    #Create Variable
+      KittyCatch$Age<-round(rtnorm(n=n, mean=14, sd=4, min = 10, max = 40))
+    #Assign age to be correlated with DistanceWalked
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$DistanceWalked>median(KittyCatch$DistanceWalked),2,-2)))
+    #Assign age to be correlated with treatment above age 18
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$Age>17 & KittyCatch$Treatment==1,4,0)))
+    #Top code in control group
+      KittyCatch$Age[KittyCatch$Treatment==0]<-ifelse(KittyCatch$Age[KittyCatch$Treatment==0]>18,18,KittyCatch$Age[KittyCatch$Treatment==0])
+  #TotalHoursPlayed
+    #Create Variable
+      KittyCatch$TotalHoursPlayed<-round(rtnorm(n=n, mean=30, sd=10, min = 1, max = 50))
+    #Make it correlated with distance walked
+      KittyCatch$TotalHoursPlayed<-round(.8*KittyCatch$TotalHoursPlayed + .2*KittyCatch$TotalHoursPlayed*KittyCatch$DistanceWalked)
+    #Randomly assign missing values, make the proportion larger in the treatment; and make the likelihood for NA correlate with larger values
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]<-ifelse(rbinom(sum(KittyCatch$Treatment==0),1,(.05+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]/mean(KittyCatch$TotalHoursPlayed))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]<-ifelse(rbinom(sum(KittyCatch$Treatment==1),1,(.25+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]/mean(KittyCatch$TotalHoursPlayed,na.rm = T))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1])
+  #Make distance walked negatively correlated with treatment prior to balance, and positvely correlated with treatment after balance
+      removed<-ifelse(KittyCatch$Age>17 | is.na(KittyCatch$TotalHoursPlayed),1,0)
+      KittyCatch$DistanceWalked<-round(ifelse(removed==1 & KittyCatch$Treatment==0,1.5*KittyCatch$DistanceWalked,ifelse(removed==0 & KittyCatch$Treatment==1,1.3*KittyCatch$DistanceWalked,KittyCatch$DistanceWalked)),2)
+```
+
+
+`@sample_code`
+
+```{r}
+# 1) Run a density plot on DistanceWalked to observe the long right tail in the distribution of our outcome of interest.
+
+     plot(density())
+
+# 2) Since the dataset is relatively small, let's use the `head` and `order` commands to examine the highest DistanceWalked observations in the dataset. The following syntax will order the top results by the outcome of interest. Use it as a guide; replace the dataframe and variable names to those we care about:
+
+    head(Dataframe[order(Dataframe$Variable,decreasing=T),])
+
+# Note: Notice that the four largest values for DistanceWalked are more than three times as large as the 5th largest value for DistanceWalked. These are clearly outliers. However, we should also note that all of these values are in the control group, so removing them from our dataset, as we had done with previous outliers, might also bias our estimates by lowering the mean values for the treatment group. Instead, let's say that our maximum distance we will allow is 2. This is known as top-coding. We will top-code these values so that they are still the largest values in the dataset, but so that they are not outliers and do not violate our assumptions of a normal distribution. 
+
+# 3) Top coding can be arbitrary (and there are better methods for handling outliers), but for this assignment, use the following syntax as a model to create an ifelse statement that says that any value of DistanceWalked over 2 will be changed to equal 2: dataframe$variable<-ifelse(dataframe$variable>x,y,dataframe$variable). 
+    
+#Note: x is the current value of the variable, and y is the final value we want.
+    
+    
+
+# 4) If you completed question 3 correctly, the distribution of DistanceWalked should now look much more normal. Create a new density plot of DistanceWalked to see if that is true.
+    
+    plot(density())
+    
+```
+
+
+`@solution`
+
+```{r}
+#1  
+plot(density(KittyCatch$DistanceWalked))
+#2
+head(KittyCatch[order(KittyCatch$DistanceWalked,decreasing=T),])
+#3
+KittyCatch$DistanceWalked<-ifelse(KittyCatch$DistanceWalked>2,2,KittyCatch$DistanceWalked)
+#4
+plot(density(KittyCatch$DistanceWalked))
+```
+
+
+`@sct`
+
+```{r}
+test_function("plot", incorrect_msg = "Did you use the `plot` function?")
+test_function("head", incorrect_msg = "Did you use the `head` function?")
+test_function("ifelse", incorrect_msg = "Did you use the `ifelse` function?")
+
+success_msg("Nice work so far!")
+```
+
+
+---
+
+## Putting it All Together with KittyCatch: Part 3 - Balance the Data
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 2
+key: 4d6d2d8bf2   
+```
+
+
+So we've looked at our dataframe structure, run some "naive" treatment effect calculations, and identified and corrected for some outliers on our outcome of interest, the distance our users walked while playing KittyCatch during the experiment. Now we are ready to check our treatment and control groups for balance across several variables, and deal with tricky problems that might come up.
+
+
+`@instructions`
+- 1) Create a boxplot to help us look for balance between treatment and control groups.
+- 2) Is the distance people walk correlated with their age?
+- 3) Are the ages of users balanced in the treatment and control groups?
+- 4) Subset the data to help us compare groups with similar ages.
+- 5) Check if these new subsets are balanced on user age.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+set.seed(1)
+#Create rnorm function that allows for random distribution with min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+    qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Create rounding function that allows to round to numbers above 1
+  mround <- function(x,base){ 
+    base*round(x/base) 
+  } 
+
+n=688
+#Create dataframe
+  KittyCatch<-as.data.frame(matrix(nrow=n,ncol=4))
+  names(KittyCatch)<-c("DistanceWalked","Age","TotalHoursPlayed","Treatment")
+#Assign Treatment randomly
+  KittyCatch$Treatment<-rbinom(n,1,.35)
+#Assign Values to variables
+ #DistanceWalked
+  #Create Variable
+    KittyCatch$DistanceWalked<-round(rtnorm(n=n, mean=.62, sd=.3, min = 0, max = 1.3),2)
+  #Assign 4 Outliers to DistanceWalked among control
+    KittyCatch$DistanceWalked[KittyCatch$Treatment==0][sample(sum(KittyCatch$Treatment==0),4)]<-round(rtnorm(n=4, mean=7.00, sd=.6, min = 5, max = 9),2)
+  #Age
+    #Create Variable
+      KittyCatch$Age<-round(rtnorm(n=n, mean=14, sd=4, min = 10, max = 40))
+    #Assign age to be correlated with DistanceWalked
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$DistanceWalked>median(KittyCatch$DistanceWalked),2,-2)))
+    #Assign age to be correlated with treatment above age 18
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$Age>17 & KittyCatch$Treatment==1,4,0)))
+    #Top code in control group
+      KittyCatch$Age[KittyCatch$Treatment==0]<-ifelse(KittyCatch$Age[KittyCatch$Treatment==0]>18,18,KittyCatch$Age[KittyCatch$Treatment==0])
+  #TotalHoursPlayed
+    #Create Variable
+      KittyCatch$TotalHoursPlayed<-round(rtnorm(n=n, mean=30, sd=10, min = 1, max = 50))
+    #Make it correlated with distance walked
+      KittyCatch$TotalHoursPlayed<-round(.8*KittyCatch$TotalHoursPlayed + .2*KittyCatch$TotalHoursPlayed*KittyCatch$DistanceWalked)
+    #Randomly assign missing values, make the proportion larger in the treatment; and make the likelihood for NA correlate with larger values
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]<-ifelse(rbinom(sum(KittyCatch$Treatment==0),1,(.05+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]/mean(KittyCatch$TotalHoursPlayed))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]<-ifelse(rbinom(sum(KittyCatch$Treatment==1),1,(.25+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]/mean(KittyCatch$TotalHoursPlayed,na.rm = T))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1])
+  #Make distance walked negatively correlated with treatment prior to balance, and positvely correlated with treatment after balance
+      removed<-ifelse(KittyCatch$Age>17 | is.na(KittyCatch$TotalHoursPlayed),1,0)
+      KittyCatch$DistanceWalked<-round(ifelse(removed==1 & KittyCatch$Treatment==0,1.5*KittyCatch$DistanceWalked,ifelse(removed==0 & KittyCatch$Treatment==1,1.3*KittyCatch$DistanceWalked,KittyCatch$DistanceWalked)),2)
+  KittyCatch$DistanceWalked<-ifelse(KittyCatch$DistanceWalked>2,2,KittyCatch$DistanceWalked)
+```
+
+
+`@sample_code`
+
+```{r}
+# 1) Next, we'll want to make sure that our control groups and treatment groups are balanced. Let's compare the age of the control group and treatment group with boxplots. Replace the variable names below for creating this boxplot: 
+
+    boxplot(dataframe$variable[dataframe$Treatment==0], dataframe$variable[dataframe$Treatment==1], names=c("Control","Treatment")) 
+
+# Note: Notice that the medians and interquartile ranges are very similar between the treatment and control groups, but that the largest values in the treatment group rest much higher than in the control group. It turns out that this did not happen by chance; by default, KittyCatch only requires respondents to enter their ages if they state that they are younger than 18; however, for the experiment, all respondents in the treatment group were required to enter their ages. 
+
+# 2) It could be problematic if the ages among the treatment group are different than those in the control group, especially if Age is correlated with DistanceWalked. Run a cor() function between Age and DistanceWalked to see if they are indeed correlated. Replace the variable names in the following syntax:
+
+    cor(dataframe$variable1, dataframe$variable2):
+
+# 3) Are the treatment and control groups balanced on Age, or are they imbalanced? Let's run a t-test to see. As a reminder, the syntax for this is:
+      
+    t.test(dataframe$variable[dataframe$Treatment==0],dataframe$variable[dataframe$Treatment==1])
+
+# 4) As you can see, they are imbalanced. There are two options to deal with this problem. One option is to ignore it, as we know that age was top-coded in the control group, and may be the entire cause of the imbalance between the treatment and control group. However, what if people who opted into the treatment group tended to be older on average? This could bias our results. The best way to deal with this problem is with a different modeling technique (e.g. regression models). However, since we want to continue using t-tests for this module, a good way to deal with this problem is to subset the data to only use observations we can be sure are similarly aged. Since we can only be sure of the age of respondents in the treatment group for those younger than 18, let's subset the dataset to only include respondents who are 17 or younger. Correct the syntax below to accomplish this: 
+    
+    KittyCatch<-dataframe[dataframe$variable<=17,].
+  
+# 5) If you completed question 4 correctly, Age among the treatment and control groups should now be balanced. Run the t-test from Question 3 again to see if the two groups are now balanced on Age.
+    
+    t.test()
+```
+
+
+`@solution`
+
+```{r}
+#1
+boxplot(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1],names=c("Control","Treatment"))
+#2
+cor(KittyCatch$Age,KittyCatch$DistanceWalked)
+#3
+t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
+#4
+KittyCatch<-KittyCatch[KittyCatch$Age<=17,]
+#5
+t.test(KittyCatch$Age[KittyCatch$Treatment==0],KittyCatch$Age[KittyCatch$Treatment==1])
+```
+
+
+`@sct`
+
+```{r}
+test_function("boxplot", incorrect_msg = "Did you use the `boxplot` function?")
 test_function("cor", incorrect_msg = "Did you use the `cor` function?")
 test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
 
-test_error()
-success_msg("Good work! While proxy variables can be an extremely useful tool for causal inference, they should be used carefully. If a proxy dependent variable has a very different relationship with the treatment effect than the outcome of interest, it can induce spurious results.")
+success_msg("Great! We've made a lot of progress, so let's look further at the quality of our data.")
 ```
 
 
 ---
 
-## Issues with Sample Sizes & Extrapolation
+## Putting it All Together with KittyCatch: Part 4 - Missing Data Problems
 
 ```yaml
-type: VideoExercise 
+type: NormalExercise 
 lang: r
-xp: 50 
-skills: 1
-key: dc13ef9f57 
-video_link: //player.vimeo.com/video/209271673  
-```
-
----
-
-## Reporting Informative Results
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 80741dce58   
+xp: 100 
+skills: 2
+key: 7c37576a8f   
 ```
 
 
-Let's say that you are writing up a report on an experiment, and your mentor asked you to report all results to the nearest hundredth. If the p value for your key statistic were 0.0542, and your field tends to consider any result with p-values of 0.05 or less to be statistically significant and valid, what would be the most informative/least misleading number to write down as the p-value in your report?
+Let's continue our look at our data by checking for balance on our treatment variable and outcome variable, and looking to see how correlated they are. One common problem in data science is missing data: empty gaps in the values of some variables that will throw off our results. If we find any in our key variables, we will need to deal with them.
 
 
 `@instructions`
-- 0.05
-- 0.054
-- 0.06
-- 0.1
-
-`@hint`
-- Here is a useful hint: Bear in mind that you want both to follow your mentor's instructions and to avoid overstating your confidence in the certainty of your findings.
-
-`@sct`
-
-```{r}
-msg1 = "This seems like the right answer, but it will mislead your readers to think that your results are more statistically significant than they truly are. Try again."
-msg2 = "This is accurate, but this response is not to the nearest hundredth like the question asked. Try again."
-msg3 = "Correct! The best answer would be to write p=.06. Even though .05 is closer to the true p-value of your key statistic, this will mislead readers to think that your results are more statistically significant than they truly are."
-msg4 = "This is accurate, but this response is not to the nearest hundredth like the question asked. Try again."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Experiment Design & RCTs
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 209271489 
-video_link: //player.vimeo.com/video/209271489  
-```
-
----
-
-## Levels vs. Percentages in Long-term Average Treatment Effects
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: b301caf4fc   
-```
-
-
-Suppose that the Greater Gumville School District started a free book program back in 1976 that delivered free books to half of the children in Gumville. These books were dropped from a hot air balloon and landed randomly across town, so they had perfect balance between the children who got a book (treatment) and the children who did not (control).
-
-Now Gumville wants to see the long-term impact of this experiment on a key statistic: did the kids with free books earn more money as adults? Because they know that rich kids tend to become rich adults, they decide to split their sample into high income and low income groups. The CATEs for each income group are below, listed in the absolute level increase (in $) in their annual salaries 30 year later:
-
-| childhood family income | CATE |
-|-------------------------|-----------:|
-|              high income|   $6,000   |
-|               low income|   $3,000   |
-
-You are scheduled to discuss your findings with Gumville's mayor. The mayor wants to know the best way to improve Gumville's per-capita-income (mean income). Of the options below, which one would you recommend based on the data provided?
-
-
-`@instructions`
-- The long-term CATE is larger for high-income children, so the government should offer books to high-income families.
-- The long-term CATE is smaller for low-income children, so the government should not offer books to low-income families.
-- The long-term CATE is positive for both income groups, so the government should offer books to all families, regardless of income.
-
-`@hint`
-
+- 1) Check for balance on TotalHoursPlayed
+- 2) See the correlation between the number of hours played and distance walked.
+- 3) Look at the average values of TotalHoursPlayed in the treatment and control groups.
+- 4) Is DistanceWalked balanced across treatment and control groups?
+- 5) Use a rough method to remove some problem data entries
 
 `@pre_exercise_code`
 
 ```{r}
+library(data.table)
+library(dplyr)
 
+set.seed(1)
+#Create rnorm function that allows for random distribution with min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+    qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Create rounding function that allows to round to numbers above 1
+  mround <- function(x,base){ 
+    base*round(x/base) 
+  } 
+
+n=688
+#Create dataframe
+  KittyCatch<-as.data.frame(matrix(nrow=n,ncol=4))
+  names(KittyCatch)<-c("DistanceWalked","Age","TotalHoursPlayed","Treatment")
+#Assign Treatment randomly
+  KittyCatch$Treatment<-rbinom(n,1,.35)
+#Assign Values to variables
+ #DistanceWalked
+  #Create Variable
+    KittyCatch$DistanceWalked<-round(rtnorm(n=n, mean=.62, sd=.3, min = 0, max = 1.3),2)
+  #Assign 4 Outliers to DistanceWalked among control
+    KittyCatch$DistanceWalked[KittyCatch$Treatment==0][sample(sum(KittyCatch$Treatment==0),4)]<-round(rtnorm(n=4, mean=7.00, sd=.6, min = 5, max = 9),2)
+  #Age
+    #Create Variable
+      KittyCatch$Age<-round(rtnorm(n=n, mean=14, sd=4, min = 10, max = 40))
+    #Assign age to be correlated with DistanceWalked
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$DistanceWalked>median(KittyCatch$DistanceWalked),2,-2)))
+    #Assign age to be correlated with treatment above age 18
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$Age>17 & KittyCatch$Treatment==1,4,0)))
+    #Top code in control group
+      KittyCatch$Age[KittyCatch$Treatment==0]<-ifelse(KittyCatch$Age[KittyCatch$Treatment==0]>18,18,KittyCatch$Age[KittyCatch$Treatment==0])
+  #TotalHoursPlayed
+    #Create Variable
+      KittyCatch$TotalHoursPlayed<-round(rtnorm(n=n, mean=30, sd=10, min = 1, max = 50))
+    #Make it correlated with distance walked
+      KittyCatch$TotalHoursPlayed<-round(.8*KittyCatch$TotalHoursPlayed + .2*KittyCatch$TotalHoursPlayed*KittyCatch$DistanceWalked)
+    #Randomly assign missing values, make the proportion larger in the treatment; and make the likelihood for NA correlate with larger values
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]<-ifelse(rbinom(sum(KittyCatch$Treatment==0),1,(.05+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]/mean(KittyCatch$TotalHoursPlayed))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]<-ifelse(rbinom(sum(KittyCatch$Treatment==1),1,(.25+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]/mean(KittyCatch$TotalHoursPlayed,na.rm = T))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1])
+  #Make distance walked negatively correlated with treatment prior to balance, and positvely correlated with treatment after balance
+      removed<-ifelse(KittyCatch$Age>17 | is.na(KittyCatch$TotalHoursPlayed),1,0)
+      KittyCatch$DistanceWalked<-round(ifelse(removed==1 & KittyCatch$Treatment==0,1.5*KittyCatch$DistanceWalked,ifelse(removed==0 & KittyCatch$Treatment==1,1.3*KittyCatch$DistanceWalked,KittyCatch$DistanceWalked)),2)
+  KittyCatch$DistanceWalked<-ifelse(KittyCatch$DistanceWalked>2,2,KittyCatch$DistanceWalked)
+  KittyCatch<-KittyCatch[KittyCatch$Age<=17,]
+```
+
+
+`@sample_code`
+
+```{r}
+# 1) Now let's look for balance in the last variable we know about the treatment and control groups, TotalHoursPlayed. Run the summary function on the variable TotalHoursPlayed.  
+
+    summary()
+
+# 2) Notice from the summary function that 96 values are labeled "NA". These cases are missing information, in large part because KittyCatch allows users to opt out of recording how many hours they play. This could be very problematic, as it indicates that we only have distance walked information for respondents who selected to do so. Let's find the correlation between TotalHoursPlayed and DistanceWalked the entire sample population. Replace the variable names in the following syntax: 
+
+    cor(dataframe$variable1, dataframe$variable2, use="complete").
+
+# That doesn't look too good.
+    
+# 3) Even more worrisome, the NA values for TotalHoursPlayed appear at higher rates for respondents in the treatment group than in the control group. Check the average values of TotalHoursPlayed in both treatment and control groups, in separate lines, using the syntax: mean(is.na(dataframe$variable)) Also remember that you can select units within a dataframe by their Treatment value with the syntax variable[dataframe$Treatment==x]. 
+    
+    mean()
+    mean()
+
+# 4) This isn't the end for our analysis, though. Let's look for some good news about our data within TotalHoursPlayed. One simple thing we can do is see if that variable is balanced across the treatment and control groups for the units that we actually do have information for, so run a t-test between the treatment and control groups on the variable TotalHoursPlayed.
+    
+    t.test()
+
+# Note: While total hours played appears balanced among the treatment and control groups for those whose information is available, the fact that its missingness is correlated with DistanceWalked and is also patterned among the treatment and control groups is cause for concern. Specifically, this could suggest that respondents in the treatment group play more KittyCatch than those in the control group, and are likely to walk further with KittyCatch due to this. 
+  
+# 5) A simple, albeit imperfect, solution to this problem is listwise deletion; that is, removing respondents from our sample who did not report their total hours played. Subset KittyCatch to respondents who reported their total hours played. The syntax for this will be:
+    
+    KittyCatch<-dataframe[!is.na(dataframe$variable),].
+```
+
+
+`@solution`
+
+```{r}
+#1
+summary(KittyCatch$TotalHoursPlayed)
+#2
+cor(KittyCatch$TotalHoursPlayed,KittyCatch$DistanceWalked,use="complete")
+#3
+mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]))
+mean(is.na(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]))
+#4
+t.test(KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1],KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
+#5
+KittyCatch<-KittyCatch[!is.na(KittyCatch$TotalHoursPlayed),]
 ```
 
 
 `@sct`
 
 ```{r}
-msg1 = "Maybe, but income-per-capita is based on all households in a town. Is this really the best option?"
-msg2 = "While the CATE for low-income families is smaller in absolute terms, it is likely that the CATE as a **proportion of income** in low-income families is larger than that for high-income families, and both seem large and positive. There must be a better option."
-msg3 = "Correct! There **is probably** enough information to provide an opinion here, and the data suggests that providing books increases the income of all families"
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
+test_function("summary", incorrect_msg = "Did you use the `summary` function?")
+test_function("cor", incorrect_msg = "Did you use the `cor` function?")
+test_function("is.na", incorrect_msg = "Did you use the `is.na` function?")
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+
+success_msg("Whew! We've explored the data, dealt with the issues, and now we can finally calculate the treatment effect of our experiment!")
 ```
 
 
 ---
 
-## Following Up with Gumville Book Drop Experiment
+## Putting it All Together with KittyCatch: Part 5 - Calculate ATE
 
 ```yaml
-type: MultipleChoiceExercise 
+type: NormalExercise 
 lang: r
-xp: 50 
-skills: 1
-key: 56ccbb72f1   
+xp: 100 
+skills: 2
+key: f0b1e58f5c   
 ```
 
 
-It turns out that the results of the Gumville Book Drop Experiment were not statistically significant. What does this imply?
+We've examined our data, checked for balance, and dealt with outliers and missing data. Now it's time to calculate the average treatment effect of making KittyCatch users walk farther to their next Point of Kinterest, and see if that effect is statistically significant.
 
 
 `@instructions`
-- The increase in income does not have a significant impact on people's lives.
-- Free books do not improve income.
-- We do not have enough evidence to determine whether our hypothesis was correct or not.
-
-`@hint`
-
+- 1) Calculate the average treatment effect of the `Treatment` on `DistanceWalked`.
+- 2) Run a t.test to estimate the statistical significance of that result.
+- 3) Based on question 2), indicate whether the above t.test is statistically significant with `Yes` or `No`.
 
 `@pre_exercise_code`
 
 ```{r}
+library(data.table)
+library(dplyr)
 
+set.seed(1)
+#Create rnorm function that allows for random distribution with min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+    qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Create rounding function that allows to round to numbers above 1
+  mround <- function(x,base){ 
+    base*round(x/base) 
+  } 
+
+n=688
+#Create dataframe
+  KittyCatch<-as.data.frame(matrix(nrow=n,ncol=4))
+  names(KittyCatch)<-c("DistanceWalked","Age","TotalHoursPlayed","Treatment")
+#Assign Treatment randomly
+  KittyCatch$Treatment<-rbinom(n,1,.35)
+#Assign Values to variables
+ #DistanceWalked
+  #Create Variable
+    KittyCatch$DistanceWalked<-round(rtnorm(n=n, mean=.62, sd=.3, min = 0, max = 1.3),2)
+  #Assign 4 Outliers to DistanceWalked among control
+    KittyCatch$DistanceWalked[KittyCatch$Treatment==0][sample(sum(KittyCatch$Treatment==0),4)]<-round(rtnorm(n=4, mean=7.00, sd=.6, min = 5, max = 9),2)
+  #Age
+    #Create Variable
+      KittyCatch$Age<-round(rtnorm(n=n, mean=14, sd=4, min = 10, max = 40))
+    #Assign age to be correlated with DistanceWalked
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$DistanceWalked>median(KittyCatch$DistanceWalked),2,-2)))
+    #Assign age to be correlated with treatment above age 18
+      KittyCatch$Age<-round(KittyCatch$Age+(ifelse(KittyCatch$Age>17 & KittyCatch$Treatment==1,4,0)))
+    #Top code in control group
+      KittyCatch$Age[KittyCatch$Treatment==0]<-ifelse(KittyCatch$Age[KittyCatch$Treatment==0]>18,18,KittyCatch$Age[KittyCatch$Treatment==0])
+  #TotalHoursPlayed
+    #Create Variable
+      KittyCatch$TotalHoursPlayed<-round(rtnorm(n=n, mean=30, sd=10, min = 1, max = 50))
+    #Make it correlated with distance walked
+      KittyCatch$TotalHoursPlayed<-round(.8*KittyCatch$TotalHoursPlayed + .2*KittyCatch$TotalHoursPlayed*KittyCatch$DistanceWalked)
+    #Randomly assign missing values, make the proportion larger in the treatment; and make the likelihood for NA correlate with larger values
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]<-ifelse(rbinom(sum(KittyCatch$Treatment==0),1,(.05+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0]/mean(KittyCatch$TotalHoursPlayed))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==0])
+      KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]<-ifelse(rbinom(sum(KittyCatch$Treatment==1),1,(.25+.05*KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1]/mean(KittyCatch$TotalHoursPlayed,na.rm = T))),NA,KittyCatch$TotalHoursPlayed[KittyCatch$Treatment==1])
+  #Make distance walked negatively correlated with treatment prior to balance, and positvely correlated with treatment after balance
+      removed<-ifelse(KittyCatch$Age>17 | is.na(KittyCatch$TotalHoursPlayed),1,0)
+      KittyCatch$DistanceWalked<-round(ifelse(removed==1 & KittyCatch$Treatment==0,1.5*KittyCatch$DistanceWalked,ifelse(removed==0 & KittyCatch$Treatment==1,1.3*KittyCatch$DistanceWalked,KittyCatch$DistanceWalked)),2)
+  KittyCatch$DistanceWalked<-ifelse(KittyCatch$DistanceWalked>2,2,KittyCatch$DistanceWalked)
+  KittyCatch<-KittyCatch[KittyCatch$Age<=17,]
+  KittyCatch<-KittyCatch[!is.na(KittyCatch$TotalHoursPlayed),]
+```
+
+
+`@sample_code`
+
+```{r}
+# 1) Now that we have balanced our data on all known dimensions, let's return the average treatment effect of being in the treatment group with distance walked playing KittyCatch by subtracting the mean DistanceWalked of our control group from the mean DistanceWalked of our treatment group. Assign this answer to Solution1.
+
+    Solution1<-
+
+# Great job. But is that value statistically significant? We don't want to get too excited about it until we know that as well.
+
+# 2) Finally, let's test if the ATE is significant by running a t.test.
+  
+    t.test()
+
+# 3) Is the p-value of a t-test less than .05? We will use as our standard of significance. Assign Solution3 with "Yes" or "No".
+
+    Solution3<-""
+```
+
+
+`@solution`
+
+```{r}
+Solution1<-mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==1])-mean(KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+  t.test(KittyCatch$DistanceWalked[KittyCatch$Treatment==1],KittyCatch$DistanceWalked[KittyCatch$Treatment==0])
+  Solution3<-"Yes"
 ```
 
 
 `@sct`
 
 ```{r}
-msg1 = "We don't have any data on the real-world changes that happen because of this experiment, so we don't know if this is true. Try again"
-msg2 = "This is not a correct interpretation. This answer requires a statistically significant and negative ATE, but we have neither. Try again."
-msg3 = "Correct! It means that we just don't have enough data to tell us either way. Gumville either needs to try again, or a bigger city should give it a shot."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3))
+test_object("Solution1")
+test_object("Solution3")
+success_msg("Good work! Hooray!! Our naive estimate of the average treatment effect was opposite our estimate after we tried to balance the data. However, we had to ignore a large fraction of our observations to get to that conclusion. This is the difficulty of computing conditional average treatment effects with t-tests. However, this problem can be sidestepped with regression models. Our next module teaches how to use regression models in detail.")
 ```
 
-
----
-
-## A Furry Conclusion to Long-term Average Treatment Effects
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 9118aacf5b   
-```
-
-
-A recent study tried to find out who loves their owners more: cats or dogs. The study had a random sample of cat and dog owners play with their pets for 10 minutes, and measured changes in the pets' levels of oxytocin, often referred to as the "happy hormone."
-
-Immediately after 10 minutes of play, dogs had a 56% increase in oxytocin levels, whereas cats only had a 12% increase in oxytocin levels. However, after another 60 minutes of rest, both animal's oxytocin levels were only 5% higher than they were prior to play.
-
-What is an accurate summary of the results of this experiment?
-
-
-`@instructions`
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for cats** than for dogs, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **much larger for dogs** than for cats, but the **long-term** average treatment effect of play on cats and dogs oxytocin levels is **identical**.
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical**, but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for dogs** than for cats.
-- The **short-term** average treatment effect of play on cats' and dogs' oxytocin levels is **identical,** but the **long-term** average treatment effect of play on pets' oxytocin levels is **much larger for cats** than for dogs.
-
-`@sct`
-
-```{r}
-msg1 = "Incorrect.  You are right that the long-term effects are identical, but review the short-term effects of the experiment carefully and try again."
-msg2 = "Correct! The experiment suggests that playing with a dog might make it love you more than playing with a cat in the short term, but in the long term, both pets love you equally for it."
-msg3 = "Incorrect.  You may be mixing up the long- and short-term effects.  Review the effects of the experiment carefully and try again."
-msg4 = "Incorrect.  You may be mixing up the long- and short-term effects.  Review the effects of the experiment carefully and try again."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Spillover Effects Among Subjects
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 2049273381 
-video_link: //player.vimeo.com/video/199856665  
-```
 
