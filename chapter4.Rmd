@@ -1,191 +1,274 @@
 ---
-title: 'Experiments 4: Statistical Inference in Experiments'
-description: 'These videos and exercises explain why we need statistical inference in experiments.'
+title: 'Common Issues in Experiments'
+description: 'These videos and exercises discuss common issues in carrying out experiments.'
 ---
 
-## Statistical Inference
+## Important Issues in Experiment Design These Modules Ignore
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: ef7f2e2846 
+video_link: //player.vimeo.com/video/198212060  
+```
+
+---
+
+## Other Issues in Experiments (Including Money & Ethics)
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 5f5a6d0023 
+video_link: //player.vimeo.com/video/209272116  
+```
+
+---
+
+## Drawing Conclusions from Experiments
 
 ```yaml
 type: MultipleChoiceExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 6ae426b824   
+key: e302f4bddd   
 ```
 
 
-Under which scenario might an experimenter *not* need to use statistical inference to justify causal claims?
+The transportation network company, Unter Technologies, is interested in increasing its revenue. Its CEO hypothesizes that the firm would generate substantially greater profits if it lowered its per-ride costs and profit margins. 
+
+Unter conducts an experiment on how its sales are sensitive to price reductions by offering a 25% discount for all of its services for one day. To their pleasant surprise, Unter sees a huge spike in sales and profits during the promotional day. 
+
+Seeing the results of this experiment, Unter's CEO decides that Unter should lower its prices permanently. Why might this conclusion be a bit hasty?
 
 
 `@instructions`
-- When his causal claim is logically sound.
-- When his sample is large.
-- When his experiment is well-designed.
-- When he can have his entire population of interest participate in the experiment.
+- Unter did not survey its customers to determine if they were enticed by Unter's lower prices.
+- Unter does not have enough data to test the statistical significance of its findings.
+- The treatment in Unter's experiment might not have the same effect as the treatment in their policy proposal.
+- Unter's experiment didn't address the strategic responses of its competitors.
 
 `@sct`
 
 ```{r}
-msg1 = "Even if it makes sense, an argument without data isn't science, so it's not enough to avoid using statistical inference. Try again."
-msg2 = "Even with a large sample, you still need to use statistical measures to verify the experiment's validity, so try again."
-msg3 = "Even with a well-designed experiment, you still will have just a sample of the possible data to look at, so that's not quite right. Try again."
-msg4 = "Correct! The purpose of statistical inference in randomized experiments is to help researchers make valid propositions about a population given a sample. This is unnecessary if the entire population of interest participates in the experiment."
+msg1 = "Doing additional research to learn The Why behind a behavioral change can be helpful, but there's an experimental design issue to address first. Try again"
+msg2 = "This question doesn't say how much data Unter used, but there's another experimental design issue to consider, so try again"
+msg3 = "Correct! Unter's experiment specifically tests the effect on profits of a temporary price reduction in its services, rather than the effect of a permanent price reduction. Profits increased during the promotional period, but there is no evidence that profits would remain higher over a longer period of time."
+msg4 = "While Unter's profits are impacted by its competitors' behavior, there is another experimental design issue that is more appropriate. Try again"
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Generalizing Experimental Results
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: fa050e19b1   
+```
+
+
+Unter's CEO is still convinced that lowering the prices of their services might increase the company's profits. He is hesitant to lower Unter's prices for a longer period, since the company would risk losing a great deal of income if the price-drop did not substantially increase revenue. 
+
+Therefore, to understand how a long-term price drop would affect Unter's profits, the CEO of Unter decides to drop the prices of their services in one city. Over the course of a year, Unter's profits in that city rose substantially. Unter's CEO is now convinced that he should drop Unter's prices nation-wide. Why might this conclusion still be too hasty?
+
+
+`@instructions`
+- Unter's experiment did not pay attention to how its changes affected its competitors.
+- The context in Unter's experiment might not generalize to other contexts affected by Unter's policy proposal.
+- Unter's experiment did not specify why people might be enticed by lower prices.
+- Unter's experiment did not control for noncompliance.
+
+`@sct`
+
+```{r}
+msg1 = "The company probably does exist in a complex market, but there's something else to worry about without that consideration. Try again."
+msg2 = "Correct! Unter's experimental results may have been specific to the city that Unter conducted the experiment in. People from other cities may not be as sensitive to price-reductions as the city in Unter's experiment."
+msg3 = "Doing some research to learn The Why behind a behavior change can be helpful, but there's an experiment design issue to address first. Try again."
+msg4 = "The question assumes the CEO can successfully set prices in his own company, so if that's true, what other answer might still be a design issue we need to worry about?"
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Ethics in experiments
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 7c1f83a32b   
+```
+
+
+Which of the following causal questions is it possible to answer with a randomized experiment (without major ethical concerns)?
+
+
+`@instructions`
+- The effect of losing one's job on mental health.
+- The effect of religion on financial well-being.
+- The effect of social isolation on academic performance.
+- The effect of financial incentives on athletic performance.
+
+`@sct`
+
+```{r}
+msg1 = "This would definitely cause major ethical concerns because randomly assigning people to lose their job is not allowed.Try again."
+msg2 = "This is a very personal topic to many people, and likely to involve big ethical concerns, so try again."
+msg3 = "Randomly assigning people to social isolation is incredibly unethical, so look for a better answer!"
+msg4 = "Correct! Each of the other experiments is not only difficult to create, but could cause substantial harm to an experiment's participants."
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
 ---
 
-## p Values, Confidence Intervals, and Hypothesis Tests
+## Common Issues in Interpretation I: Box-and-Whisker Plots
 
 ```yaml
-type: VideoExercise 
+type: MultipleChoiceExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 76542ba835 
-video_link: //player.vimeo.com/video/205124286  
-```
-
----
-
-## Let's Code: Getting to Work with Confidence
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 39b057a682 
-video_link: //player.vimeo.com/video/279737759  
-```
-
----
-
-## Getting to Work With Confidence: Visualize the Data
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 907fdfb248   
+key: 9ca8c3a544   
 ```
 
 
-Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work, and his commute takes 10 minutes on average, his commute often takes longer than 10 minutes. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time.
+Not only are there common issues in experiments, but there are many common ways that people misinterpret statistical results. Box-and-whisker plots (also known as box plots) are a great tool for summarizing data, but can be a source of confusion for new analysts. To refamiliarize yourself with boxplots, You can read our summary of them in the Chapter 5 exercise, "Practice working with eGulf," or on various websites, such as Wikipedia (https://en.wikipedia.org/wiki/Box_plot).
+
+Following an experiment regarding how computer keyboard layouts affect people's typing speed, the principal investigator, Kurt Devorak, compared the hand sizes among respondents in the treatment group and control group to make sure his sample was balanced. He plotted the results in two box-and-whiskers plots (illustrated in the R workspace). Which of the following conclusions **cannot** be determined from these boxplots (or almost any boxplot)?
 
 
 `@instructions`
-- 1) Summarize the data in table form to see what information we have about Donny's commute.
-- 2) Visualize the data with a density plot to get a better sense for the distribution of his commute times.
+- The maximum hand size in the treatment group is identical to the maximum hand size in the control group.
+- The third quartile hand size in the treatment group is identical to the third quartile hand size in the control group.
+- The median hand size in the treatment group is identical to the median hand size in the control group.
+- The mean hand size in the treatment group is identical to the mean hand size in the control group.
 
 `@pre_exercise_code`
 
 ```{r}
-library(dplyr)
 library(data.table)
-
+library(dplyr)
 set.seed(1)
-#Create rnorm function that allows for min and max
-  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-  }
-#Dataframe
-
-Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
+rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+}
+options(scipen=1)
+n=200
+Control<-round(rtnorm(n,7.44,sd=.5,min = 6,max=9),2)
+Treatment<-Control
+#increase values between median and third quartile
+  Treatment<-ifelse(Treatment<quantile(Treatment,.74)& Treatment>quantile(Treatment,.51),quantile(Treatment,.74),Treatment)
+#increase values between median and first quartile
+  Treatment<-ifelse(Treatment<quantile(Treatment,.49)& Treatment>quantile(Treatment,.26),quantile(Treatment,.49),Treatment)
+  boxplot(Treatment,Control,names=c("Treatment","Control"),main="Hand Sizes (inches) across Experimental Groups")
 ```
 
 
 `@sample_code`
 
 ```{r}
-# 1) Let's first summarize Donny's commute time to get a sense of what the data looks like. Use the summary function on the dataframe Commute.
-    summary()
-
-# 2) It seems that Donny's travel time is usually less than 10 minutes, but it can last as long as 23 minutes! For additional information, let's also plot what Donny's commute time looks like on a density curve. This is just another way of representing Donny's commute time. Use the plot(density()) commands on the dataframe Commute.
-    plot(density())
-```
-
-
-`@solution`
-
-```{r}
-summary(Commute)
-plot(density(Commute))
+boxplot(Treatment,Control,names=c("Treatment","Control"),main="Hand Sizes (inches) across Experimental Groups")
 ```
 
 
 `@sct`
 
 ```{r}
-test_function("summary", incorrect_msg = "Did you use the `summary` function?")
-test_function("plot", incorrect_msg = "Did you use the `plot` function?")
-test_function("density", incorrect_msg = "Did you use the `density` function?")
-test_error()
-success_msg("Good job!  The Y axis, marked 'density', shows the proportion of times that Donny's travel time is a certain length, given by the x-axis. Based on Donny's previous commutes, about .08 or 8% of the time, Donny's travel takes exactly 9 minutes. Let's continue on this problem by trying to find a reasonable confidence interval that Donny should consider to give himself a safe time margin.")
+msg1 = "The maximum value in both plots is indicated by the line above the whiskers. These are identical. Try again."
+msg2 = "The third quartile in both plots is indicated by the top edge of the boxes. These are identical. Try again."
+msg3 = "The median value in both plots is indicated by the thick line within the box. These are identical. Try again."
+msg4 = "Correct! Box-and-whiskers plots do not show the mean values in a sample. Although these two plots have identical quartile distributions, medians, and ranges, the mean values are actually different (7.8 in the treatment and 7.5 in the control)."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
 ---
 
-## Getting to Work With Confidence: Choosing a Departure Time
+## Let's Code: Common Issues II - Non-Normal Distributions
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 83164453d5 
+video_link: //player.vimeo.com/video/279737678  
+```
+
+---
+
+## Common Issues in Interpretation II: Non-Normal Distributions
 
 ```yaml
 type: NormalExercise 
 lang: r
 xp: 100 
 skills: 1
-key: 243a4bf8bb   
+key: d411db8160   
 ```
 
 
-Donny doesn't like to wake up early, so he often arrives late to work. Donny blames his lateness on traffic. While Donny usually leaves home 10 minutes before work and his commute takes 10 minutes on average, his commute often takes longer than that. For a year, Donny, measures exactly how many minutes his morning commute takes, and records it in the vector `Commute`. Let's use this information to help Donny figure out when he should leave for work if he wants to arrive to work on time.
+Many statistical models assume that the data is normally distributed like in a bell curve, where a) most observations lie around the mean, b) the frequency of data that falls far from the mean is inversely related with its distance from the mean, and c) the distribution of observations above and below the mean are relatively identical. Often, results from experiments are non-normal, which can lead to spurious findings. Therefore, data transformations often need to be made to account for such problems.
+
+On the TV show, Kitchen Horrors, Bordon Hannity tries to revive failing restaurants by offering advice to their management and chefs. To measure the effectiveness of Hannity's efforts, a fan measures the average reviews of one of Hannity's revived restaurants before and after he offers them advice. With these results:
 
 
 `@instructions`
-- 1) Assuming that Donny's sample is representative of the true distribution of commute times, use the vector `Commute` to determine how much time Donny should leave for his commute if he wants to arrive to work on time at least 95% of the time. 
-- 2) Since Donny's sample is subject to error, determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 50% of the time with 95% confidence.
-
-`@hint`
-- 1) This question does not specify with what confidence, so the answer is simply the commute time that is greater or equal to 95% of the observations in the dataset. To solve this question, we would recommend using the "quantile" function. The quantile function requires two arguments, a variable (Commute) and a quantile to be returned (.95); that is, quantile(VARIABLE,QUANTILE)
-- 2) Another way of stating the question is: given our limited sample, at what time are we 95% confident that Donny could leave and get to work on time half of the time? We can do this by examining the confidence interval on the mean of Donny's commute times; specifically, the upper bound of its 95% confidence interval. The confidence interval of a mean is determined with the t.test function; the upper bound can be returned with t.test(VARIABLE)$conf.int[2].
+- 1) Find the mean difference of the reviews before (`Reviews_Before`) and after (`Reviews_After`) Bordon Hannity's advice.
+- 2) Produce kernal density plots of the reviews with the functions `plot` and `density`.
+- 3) Determine whether the reviews are normally distributed
 
 `@pre_exercise_code`
 
 ```{r}
-library(dplyr)
 library(data.table)
+library(dplyr)
 
-set.seed(1)
-#Create rnorm function that allows for min and max
-  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-  }
-#Dataframe
-
-Commute<-round(rtnorm(n=200, mean=10, sd=5, min = 0, max = 60))
+Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
+Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
 ```
 
 
 `@sample_code`
 
 ```{r}
-# Note: The following questions are difficult. If you get stuck, we highly recommend looking at our hints, located below the instructions tab.
+# Note: It is best practice to explore your data before running any significance tests. However, let's be bad statisticians and dive into the results before we explore the data. The two review variables are measured on Likert scales, ranging from 1 to 5, where 1 signals that the reviewers strongly disliked the restaurant and 5 signals that reviewers strongly liked the restaurant. 
 
-# 1) Determine how much time Donny should leave for his commute if he wants to arrive to work on time approximately 95% of the time. 
-    Solution1<- 
+# 1) Estimate the mean difference in reviews; that is, the mean of Reviews_Before minus the mean of Reviews_After.
 
-# 2) Precisely how long should Donny leave himself if he wants to arrive to work on time at least 50% of the time, with 95% confidence? 
-    Solution2<-
+    Solution1<-
+
+# 2) The mean reviews before and after treatment are identical! But does this mean that Hannity's show had no effect on this restaurant's ratings? Not necessarily. To illustrate, let's plot the kernel densities of the reviews in the treatment and control groups to see how they are distributed. Use the plot(density()) functions on the variables Reviews_Before and Reviews_After.
+  
+    plot(density())
+    plot(density())
+    
+# 3) Use the Previous Plot and Next Plot buttons to cycle between the two graphs. Do these these look approximately normally distributed? Answer with "Yes" or "No."
+    
+    Solution3<-""
 ```
 
 
 `@solution`
 
 ```{r}
-Solution1<- quantile(Commute,.95) #95th quantile  
-Solution2<-t.test(Commute)$conf.int[2] #upper bound
+Solution1<-mean(Reviews_Before)-mean(Reviews_After)
+  plot(density(Reviews_Before))
+  plot(density(Reviews_After))
+  Solution3<-"No"
 ```
 
 
@@ -193,139 +276,187 @@ Solution2<-t.test(Commute)$conf.int[2] #upper bound
 
 ```{r}
 test_object("Solution1")
-test_object("Solution2")
+test_object("Solution3")
 test_error()
-success_msg("Good job! Based on Donny's previous commutes, he can be fairly confident that he will get to work at least half the time if he allows himself 10.7 minutes to get there. Of course, this is assuming that the future traffic levels stays the same as the past traffic levels. If the traffic changes according to when Donny leaves, it would bias our results.")
+success_msg("Good work! This is an easy call in this particular case, but if it's close then you'll want to try some statistical tests too. And it might provoke some healthy discussion with your colleagues!")
 ```
 
 
 ---
 
-## Sample Size
+## Common Issues in Interpretation II: Non-Normal Distributions (2)
 
 ```yaml
-type: MultipleChoiceExercise 
+type: NormalExercise 
 lang: r
-xp: 50 
+xp: 100 
 skills: 1
-key: d2fc3d44de   
+key: 5b26b74b8c   
 ```
 
 
-A professor was interested in whether myopia in children could be caused by environmental factors. He found a completely random sample of 10 children, and had 5 of them sleep with nightlights and 5 of them sleep without nightlights for the first 10 years of their lives. 
-
-All of the children who had slept with nightlights developed myopia, whereas only 2 of the children who did not sleep with nightlights developed myopia. From this study, the professor determined that the average treatment effect of using a nightlight on myopia was 5/5 - 2/5 = 3/5, or 60%. Why might the professor want to get a larger sample before publishing these results?
+There are many ways to deal with data that are multimodal in order to get them to be normally distributed. A common strategy for dealing with data that are ordered on a Likert scale is to collapse the response options. This is feasible if we assume that it is not important to differentiate the degree of positive or negative feelings for a restaurant. In this case, we will want to collapse response options 1 and 2 into a single response option to represent negative opinions, and 4 and 5 into a single response option to represent positive opinions.
 
 
 `@instructions`
-- To please his reviewers.
-- To control for non-compliance.
-- To make sure that the observed average treatment effect did not occur by chance.
-- To control for confounding variables.
+- 1) Create a new variable that collapses Reviews_After variable into 3 points: negative, ambivalent, and positive.
+- 2) Run a t-test that compares the treatment and control with the new ratings scale, and look at the p value.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+Reviews_Before<-sample(c(rep(1,23),rep(2,34),rep(3,28),rep(4,6),rep(5,34)))
+
+Reviews_After<-sample(c(rep(1,37),rep(2,4),rep(3,26),rep(4,44),rep(5,14)))
+```
+
+
+`@sample_code`
+
+```{r}
+# Note: We want to create a new variable with three parameters, where 1= Negative (1 or 2), 2= Ambivalent (3), and 3= Positive (4 or 5). To do this for the Reviews_Before variable, we can use the ifelse function. The first line of the below syntax says, if Reviews_Before is equal to 1 or 2, set Reviews_Before to 1, otherwise just return Reviews_Before. The following lines can be interpreted similarly.
+
+    Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before)
+    Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
+    Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
+  
+# 1) Use the above syntax as a guide to rescale the Reviews_After variable, so that Reviews_After is coded as 1 if it previously was coded as 1 or 2, 2 if it was previously coded as 3, and 3 if it was previously coded as 4 or 5.
+    
+    Reviews_After<-
+
+# 2): Now that you have rescaled the Reviews_After variable, run a t-test between the Reviews_After and Reviews_Before variables.
+      
+    t.test()
+```
+
+
+`@solution`
+
+```{r}
+Reviews_Before<-ifelse(Reviews_Before==1 | Reviews_Before==2,1,Reviews_Before)
+    Reviews_Before<-ifelse(Reviews_Before==3,2,Reviews_Before) 
+    Reviews_Before<-ifelse(Reviews_Before==4 | Reviews_Before==5,3,Reviews_Before)
+    Reviews_After<-ifelse(Reviews_After==1 | Reviews_After==2,1,Reviews_After) 
+    Reviews_After<-ifelse(Reviews_After==3,2,Reviews_After) 
+    Reviews_After<-ifelse(Reviews_After==4 | Reviews_After==5,3,Reviews_After)
+    t.test(Reviews_After,Reviews_Before)
+```
+
 
 `@sct`
 
 ```{r}
-msg1 = "While this might feel like the most immediate reason, what other reason do you think his reviewers mentioned? Try again"
-msg2 = "Noncompliance isn't mentioned as an issue in this case, so it's not the key issue we're looking for. Try again"
-msg3 = "Correct! Even when we draw from a completely random sample, there is always the chance that our sample is not representative of the whole population. The larger the sample size that we draw from, the less likely that our findings were to have occurred by chance."
-msg4 = "Confounders are always an issue, particularly when looking at real world data, but that's not quite the best reason to get a larger sample in this case. Try again"
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_error()
+success_msg("Good work! If we assume that the difference in respondent's degrees of positive or negative feelings towards the restaurant are non-meaningful, we can conclude that Hannity's restaurant revival is effective (i.e. it increases the number of postive versus negative reviews). If the degree of positive or negative feelings towards restaurants are meaningful, then we do not have enough information to reject the null hypothesis (i.e. evidence does not support the claim that Hannity's contributions leads restaurants to get better reviews")
 ```
 
 
 ---
 
-## Statistical Inference Across Disciplines
+## Let's Code: Common Issues III - Outliers
 
 ```yaml
-type: MultipleChoiceExercise 
+type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: e587a26773   
+key: 970feae737 
+video_link: //player.vimeo.com/video/279737696  
 ```
-
-
-Let's say that you are an economics major, and your roommate is a chemistry major.  They're trying to figure out the results from an experiment run in the lab where they work as an RA, and ask you to look at the data because it looks "weird."  Given the differences between your disciplines, is there any point in trying to help?
-
-
-`@instructions`
-- Yes
-- No
-
-`@sct`
-
-```{r}
-msg1 = "Of course there is! The data analysis techniques in all of the sciences are much, much more similar than different. While academic fields can create their own algorithms for field-specific problems, they are all joined together by the same basic concepts about finding the best and most quantitative ways to tie causes to effects."
-msg2 = "Try again."
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
-```
-
 
 ---
 
-## Fishing for a Good Experimental Design
+## Common Issues in Interpretation III: Outliers
 
 ```yaml
-type: MultipleChoiceExercise 
+type: NormalExercise 
 lang: r
-xp: 50 
+xp: 100 
 skills: 1
-key: 01b4c71047   
+key: 12e1bc32a2   
 ```
 
 
-After fishing for a 30 consecutive days in the Atlantic ocean, Edgar, a professional bass fisherman, is asked by his 8 year old daughter, Rachel, why he can't just fish in a nearby lake. To keep his explanation simple, Edgar tells Rachel that the fish in the lake are much smaller than out at sea. Rachel is unconvinced, and tests her father's excuse through an experiment: she spends one day fishing off of a dock on the Atlantic ocean, and one day fishing off of a dock at her nearby lake. Rachel catches many fish during this experiment, but the size of the fish that Rachel caught at the lake were much larger than those caught at the Atlantic. 
+Outliers are another common source of causal misinpretation that often confound results. An outlier is an observation that has a very distant parameter or outcome from other observations. In this question, we will learn how to identify and handle outliers. 
 
-Rachel's experiment is problematic. Which of the following best describes the problem in Rachel's experimental design?
+In a previous exercise, we examined an experiment conducted by the popular online auctioneer, eGulf, where a random sample of dedicated sellers of used WePhones was drawn. This sample only included eGulf sellers who typically post 10 pictures of their used WePhones. As an experimental treatment, eGulf temporarily allowed some of these sellers to post up to 15 pictures for each auction of their WePhones, and measured whether posting more than 10 pictures affected final WePhone sales prices. In this exercise, eGulf conducted their experiment again. Their sample size seems sufficiently large (N=350), and the mean sales prices of users in the treatment group also seem substantially higher than in the control group. But are they? Follow the code in the workspace to identify and correct for outliers.
 
 
 `@instructions`
-- Rachel's experiment is unethical.
-- Rachel's sample is probably too small.
-- Rachel's sample is not likely representative of her target population.
-- Rachel's findings are not intuitive.
+- Create boxplots of the final sales prices for the treatment and control groups.
+- Identify and remove the outliers from the sample.
+- Examine the mean difference between the Treatment and Control group.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+}
+set.seed(1)
+n <- 350
+eGulf <- as.data.frame(matrix(0, ncol=2,nrow=n))
+colnames(eGulf) <- c("Seller_Feedback_Count","Seller_Feedback_Score")
+# Simulate baseline data
+  # Make seller feedback count
+    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
+  # Make feedback score loosely correlated with feedback count 
+    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(n,1,10),2)
+  # Make final sales price also correlated with seller_feedback_score
+    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
+  # Add parameters for new problem
+    eGulf$Treatment<-rbinom(n,1,.5)
+    eGulf$temp<-rnorm(n)
+  #Create 3 outliers
+    eGulf$Treatment[1:3]<-1
+    eGulf$Final_Sales_Price[1:3]<-round(rtnorm(3,mean=2000,sd=200,min=1500,max=2500))
+    eGulf<-eGulf[order(eGulf$temp),]
+```
+
+
+`@sample_code`
+
+```{r}
+# Note: Although it's generally recommended to explore your data before running any statistical tests on it, for the sake of learning, let's naively estimate the average treatment effect on final sales prices with a t-test.
+
+    t.test(eGulf$Final_Sales_Price[eGulf$Treatment==1],eGulf$Final_Sales_Price[eGulf$Treatment==0])
+
+# 1) The ATE for the above t-test is almost $36, but the results are not statistically significant. This seems suspicious; usually a large means difference found in a sample of this size would be statically significant. Let's examine the distribution of the treatment and control groups with a box plot. Fill in the box plot with the final sales prices for the treatment and control groups. For reference, the syntax for making this boxplot is identical to that of a t-test.
+
+    Solution1<-boxplot()
+
+# 2) Notice that there are a few dots above each box plot. These dots indicate outliers. The cutoff for outliers in the boxplot is any value that is 1.5 times the interquartile range above the upper quartile or below the lower quartile. Is it possible that these outliers are driving our treatment effect? Let's correct for these extreme outliers. Subset the data so that it excludes any WePhone sales that were above $1500. 
+    
+    eGulf<-
+
+# 3) Now that you have subsetted the data, calculate the mean difference in final sales prices between the treatment and control groups (i.e. mean of treatment 0 mean of control).
+      
+    Solution3<-
+```
+
+
+`@solution`
+
+```{r}
+Solution1<- boxplot(eGulf$Final_Sales_Price[eGulf$Treatment==1],eGulf$Final_Sales_Price[eGulf$Treatment==0])
+eGulf<-eGulf[eGulf$Final_Sales_Price<=1500,]
+Solution3<-mean(eGulf$Final_Sales_Price[eGulf$Treatment==1])-mean(eGulf$Final_Sales_Price[eGulf$Treatment==0])
+```
+
 
 `@sct`
 
 ```{r}
-msg1 = "While a vegetarian might make such an argument, there is a much more direct answer to this question. Try again."
-msg2 = "It's possible that Rachel's sample after two days of fishing would be too small to ascertain statistical significance, but the question did not state how large her sample size was. Try again."
-msg3 = "Correct! The fish one finds near a dock on the Atlantic Ocean are not necessarily (or likely) to be the same size as ones found deeper in the ocean. It's possible that Rachel's fishing spot at the lake is a better spot for catching large fish than her spot at the Atlantic Ocean, but this does not necessarily imply that fish in her lake are larger than fish in the Atlantic Ocean."
-msg4 = "Non intuitive findings can be cause for worry, but aren't necessarily problematic. Try again."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Problems with Convenience Sampling
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 870135287b   
-```
-
-
-Does income cause happiness? It is generally believed that income increases happiness for those who have less money. So a bump in income for a poor person is likely to increase his happiness much more than the same bump in income for a wealthy person. 
-
-Siggy, an academic psychologist, was interested in how one-time cash rewards affect happiness. Siggy decided to conduct an experiment by giving people a $10 bill, and then measuring the their corresponding change in happiness at that moment. If Siggy only conducted this experiment on college students (a demographic that is usually strapped for cash, but a convenient sample for academics to conduct experiments on), how might we expect it to bias his experiment's average treatment effect?
-
-
-`@instructions`
-- Upward
-- Downward
-
-`@sct`
-
-```{r}
-msg1 = "Correct! If the effect of income on happiness is larger for people with less income than those with more income, conducting a similar experiment on a sample that has a relatively low income is likely to bias the results upward (i.e. result in a larger average treatment effect than an experiment conducted on a random sample of the entire population)."
-msg2 = "Given that this demographic is, as stated, strapped for cash, this isn't the likely bias. Try again"
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
+test_object("Solution1")
+test_object("Solution3")
+success_msg("Good work! When you removed the outliers from the data, the mean difference was much smaller between the treatment and control group. This is a problem that comes up often in data analysis.")
 ```
 
 
