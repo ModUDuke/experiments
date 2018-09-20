@@ -1,721 +1,77 @@
 ---
-title: 'Experiments 5: Practice with Published Experiments - The Oregon Health Insurance Experiment'
-description: 'These videos and exercises offer practice in skills used in analyzing experimental data.'
+title: 'Dealing with Noncompliance in Experiments'
+description: 'These videos and exercises discuss the issue of noncompliance in experiments.'
 ---
 
-## The Design of the Oregon Health Experiment
+## Noncompliance in Experiments
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 46fda452f0 
-video_link: //player.vimeo.com/video/198212086  
+key: a5a7d9f747 
+video_link: //player.vimeo.com/video/198212091  
 ```
 
 ---
 
-## Reading Average Treatment Effect & Confidence Intervals in a Table: Depression in the Oregon Health Experiment
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 47f92415c5 
-video_link: //player.vimeo.com/video/198212094  
-```
-
----
-
-## Confidence Intervals
+## Ways to Deal with Noncompliance
 
 ```yaml
 type: MultipleChoiceExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 2e74d95e94   
+key: c896674673   
 ```
 
 
-Why might it be risky to implement a policy that has an that has average treatment effect with a confidence interval that overlaps with zero?
+Which one of the following approaches is *NOT* a way to deal with treatment noncompliance?
 
 
 `@instructions`
-- Because the confidence interval equation defaults to 0 with large amounts of data.
-- Because having zero in one's confidence interval implies that a treatment effect could have a positive or negative effect on the outcome of interest.
-- Because having zero in one's confidence interval implies that a treatment effect has no effect.
-- It's incorrect to think this would be risky; as long as relationship between the policy and its treatment effect are within the desired range, a confidence interval that includes zero is not a problem.
+- Bounds Analysis
+- Instrumental Variables
+- Randomized Control Trial
+- Intention to Treat Analysis
+- Assume Random Compliance
 
 `@sct`
 
 ```{r}
-msg1 = "This is not true. With tremendous sample size (N > 1,000,000), confidence intervals rarely cross 0, even for relatively insignificant treatment effects. Try again."
-msg2 = "Correct! It would be very risky to implement a policy that could potentially have the opposite effect than you intended."
-msg3 = "This is often how such confidence intervals are interpreted, but this is a mistake. A confidence interval that contains zero does is not evidence that there is no treatment effect, but that it is uncertain whether there is a treatment effect. Try again."
-msg4 = "A confidence interval that contains zero is inherently problematic.  Try again."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+msg1 = "Bounds Analysis is definitely a common method used to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again."
+msg2 = "Instrumental variables is definitely a common method used to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again."
+msg3 = "Correct! Randomized Control Trials are not a valid way to correct for noncompliance, because they themselves are susceptible to treatment noncompliance."
+msg4 = "Intention to Treat Analysis is definitely a common way to deal with noncompliance, and we're looking for a way that is **NOT** appropriate, so try again"
+msg5 = "Assuming Random Compliance is not always applicable, but it is nonetheless commonly used to deal with noncompliance, so try again"
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4,msg5))
 ```
 
 
 ---
 
-## Significance
+## A Refresher on eGulf Auctions Experiment and Confidence Intervals
 
 ```yaml
 type: MultipleChoiceExercise 
 lang: r
 xp: 50 
 skills: 1
-key: 533b160157   
+key: 84487e1a9f   
 ```
 
 
-What is the difference between a statistically significant effect and a clinically (or "substantively") significant effect?
+Let's go back to our experiment with eGulf, the popular online auctioneer. In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions (the treatment group) had higher sales prices than sellers who only posted 10 pictures of their WePhones (the control group). eGulf wanted to make sure these results were not spurious by conducting their experiment a second time, now with a larger sample. 
+
+The results of this second experiment were visualized as a bar graph, with 95% confidence intervals indicated by error bars. Based on these results, shown in the R workspace, what can we conclude about the Average Treatment Effect (ATE)?
 
 
 `@instructions`
-- Statistically significant effects are bigger than clinically significant effects.
-- Statistically significant effects don't necessarily matter, whereas clinically significant effects do matter.
-- Statistically significant effects have smaller confidence intervals than clinically significant effects.
-- Statistically significant effects always matter, whereas clinically significant effects sometimes don't matter.
-
-`@sct`
-
-```{r}
-msg1 = "This might be true in some individual cases, but it's not true in general, so try again"
-msg2 = "Correct! Statistical significance indicates whether an effect is likely real (probably not observed just by chance), but it does not necessarily indicate whether it is meaningful. With enough data, a study might find a statistically significant effect of season on people's preference to buy tissue paper, but the effect might not be important (for example, if people were 0.2% more likely to buy tissue paper in the spring over the fall)."
-msg3 = "This might be true in some individual cases, but it's not true in general, so try again."
-msg4 = "This is not how you should interpret treatment effects, so look again!"
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
-```
-
-
----
-
-## Let's Code: Practice Reading Tables
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 0cf6c74c4c 
-video_link: //player.vimeo.com/video/279737733  
-```
-
----
-
-## Oregon Health Experiment Data: Reading Tables for Results
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 0fa656dc08   
-```
-
-
-Now let's practice reading tables from the Oregon Health Experiment. As described in the previous video, the Oregon Health Experiment studies the effect of getting Medicaid coverage on respondent's health, so let's look at some mental health results in the data.
-
-The dataframe "OregonHealthResults" indicates results from the Oregon Health Experiment (in percentages) pertaining to depression. To get a good sense of how this was affected in the experiment, let's review some of its results and calculate some of the numbers ourselves. 
-
-One of the most interesting results of any experiment is the Average Treatment Effect relative to the mean value of a parameter. Therefore, let's use this dataframe to look at two basic items: The average positive screen value in the control group, and the Average Treatment Effect of Medicaid on positive screen values. These calculations will give you a deeper sense of the impact of health insurance on basic mental health.
-
-
-`@instructions`
-- What is the mean value of positive screening in the control group?
-- What is the average treatment effect of medicaid coverage on positive screening? 
-- Given the mean value of positive screening in the control group and the average treatment effect of medicaid coverage on positive screening, estimate the mean value of positive screening in the treatment group.
-
-`@hint`
-- You can calculate the mean value of positive screening in the treatment group by adding the mean value in the control group with the average treatment effect.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
-OregonHealth<-data.frame(c("Blood pressure - Systolic (mm Hg)","Blood pressure - Diastolic (mm Hg)","Blood pressure - Elevated (%)","Hypertension - Diagnosis after lottery (%)","Hypertension - Current use of medication for hypertension (%)","Cholesterol - Total level (mg/dl)","Cholesterol - High total level (%)","Cholesterol - HDL level (mg/dl)","Cholesterol - Low HDL level (%)","Hypercholesterolemia - Diagnosis after lottery (%)","Hypercholesterolemia - Current use of medication for high cholesterol level (%)","Glycated hemoglobin - Level (%)","Glycated hemoglobin - Level ???6.5% (%)","Diabetes - Diagnosis after lottery (%)","Diabetes - Current use of medication for diabetes (%)","Depression - Positive screening result (%)","Depression - Diagnosis after lottery (%)","Depression - Current use of medication for depression (%)","Framingham risk score - Overall","Framingham risk score - High-risk diagnosis","Framingham risk score - Age 50-65 yr"),
-              c(119.3,76,16.3,5.6,13.9,204.1,14.1,47.6,28,6.1,8.5,5.3,5.1,1.1,6.4,30,4.8,16.8,8.2,11.6,13.9),
-              c(-0.52,-0.81,-1.33,1.76,0.66,2.2,-2.43,0.83,-2.82,2.39,3.8,0.01,-0.93,3.83,5.43,-9.15,3.81,5.49,-0.21,1.63,-0.37),
-              c(-2.97,-2.65,-7.16,-1.89,-4.48,-3.44,-7.75,-1.31,-10.28,-1.52,-0.75,-0.09,-4.44,1.93,1.39,-16.7,0.15,-0.46,-1.56,-1.11,-2.64),
-              c(1.93,1.04,4.49,5.4,5.8,7.84,2.89,2.98,4.64,6.29,8.35,0.11,2.59,5.73,9.48,-1.6,7.46,11.45,1.15,4.37,1.9),
-              c(0.68,0.39,0.65,0.34,0.8,0.45,0.37,0.45,0.46,0.23,0.1,0.82,0.61,0.001,0.008,0.02,0.04,0.07,0.76,0.24,0.75))
-names(OregonHealth)<-c("Variable","Mean_Value_in_Control_Group","Change_with_Medicaid_Coverage","95%_Confidence_Interval_(lower_bound)","95%_Confidence_Interval_(Upper_Bound)","P_Value")
-OregonHealthResults<-OregonHealth[16:18,]
-OregonHealthResults$Variable<-c("Positive_Screening","Diagnosis_After_Lottery","Current_Use_Of_Medication")
-rm(OregonHealth)
-```
-
-
-`@sample_code`
-
-```{r}
-# Let's being by printing the results from the OregonHealthResults dataframe
-    print(OregonHealthResults) 
-
-# 1) Find the mean value of positive screening in the control group (do not round).
-    Solution1<-
-
-# 2) Find the average treatment effect of medicaid coverage on positive screening.
-    Solution2<- 
-
-# 3) Use Solution1 and Solution2 to calculate the mean value of positive screening in the treatment group.
-    Solution3<-
-```
-
-
-`@solution`
-
-```{r}
-Solution1<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$Mean_Value_in_Control_Group
-Solution2<-OregonHealthResults[OregonHealthResults$Variable=="Positive_Screening",]$Change_with_Medicaid_Coverage
-Solution3<-Solution1+Solution2
-```
-
-
-`@sct`
-
-```{r}
-test_object("Solution1")
-test_object("Solution2")
-test_object("Solution3")
-success_msg("Good work!")
-```
-
-
----
-
-## Oregon Health Experiment Data: Reading Tables for Statistical Significance
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 5fa7d35f25   
-```
-
-
-Now that we know how an Average Treatment Effect is related to mean values in the treatment and control groups, we should examine the reliability of these results. Therefore, let's examine the 95% confidence interval lower bound, and statistical significance for one of the table's Average Treatment Effects.
-
-
-`@instructions`
-- What is the the 95% confidence interval lower bound for the treatment effect of Medicaid coverage on current use of medication?
-- Which average treatment effect of Medicaid coverage on depression was not statistically significant? You can write this out as a line of text.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
-OregonHealth<-data.frame(c("Blood pressure - Systolic (mm Hg)","Blood pressure - Diastolic (mm Hg)","Blood pressure - Elevated (%)","Hypertension - Diagnosis after lottery (%)","Hypertension - Current use of medication for hypertension (%)","Cholesterol - Total level (mg/dl)","Cholesterol - High total level (%)","Cholesterol - HDL level (mg/dl)","Cholesterol - Low HDL level (%)","Hypercholesterolemia - Diagnosis after lottery (%)","Hypercholesterolemia - Current use of medication for high cholesterol level (%)","Glycated hemoglobin - Level (%)","Glycated hemoglobin - Level ???6.5% (%)","Diabetes - Diagnosis after lottery (%)","Diabetes - Current use of medication for diabetes (%)","Depression - Positive screening result (%)","Depression - Diagnosis after lottery (%)","Depression - Current use of medication for depression (%)","Framingham risk score - Overall","Framingham risk score - High-risk diagnosis","Framingham risk score - Age 50-65 yr"),
-              c(119.3,76,16.3,5.6,13.9,204.1,14.1,47.6,28,6.1,8.5,5.3,5.1,1.1,6.4,30,4.8,16.8,8.2,11.6,13.9),
-              c(-0.52,-0.81,-1.33,1.76,0.66,2.2,-2.43,0.83,-2.82,2.39,3.8,0.01,-0.93,3.83,5.43,-9.15,3.81,5.49,-0.21,1.63,-0.37),
-              c(-2.97,-2.65,-7.16,-1.89,-4.48,-3.44,-7.75,-1.31,-10.28,-1.52,-0.75,-0.09,-4.44,1.93,1.39,-16.7,0.15,-0.46,-1.56,-1.11,-2.64),
-              c(1.93,1.04,4.49,5.4,5.8,7.84,2.89,2.98,4.64,6.29,8.35,0.11,2.59,5.73,9.48,-1.6,7.46,11.45,1.15,4.37,1.9),
-              c(0.68,0.39,0.65,0.34,0.8,0.45,0.37,0.45,0.46,0.23,0.1,0.82,0.61,0.001,0.008,0.02,0.04,0.07,0.76,0.24,0.75))
-names(OregonHealth)<-c("Variable","Mean_Value_in_Control_Group","Change_with_Medicaid_Coverage","95%_Confidence_Interval_(lower_bound)","95%_Confidence_Interval_(Upper_Bound)","P_Value")
-OregonHealthResults<-OregonHealth[16:18,]
-OregonHealthResults$Variable<-c("Positive_Screening","Diagnosis_After_Lottery","Current_Use_Of_Medication")
-rm(OregonHealth)
-```
-
-
-`@sample_code`
-
-```{r}
-# Let's begin by printing the results from the OregonHealthResults dataframe
-    print(OregonHealthResults)
-
-# 1) Find the 95% confidence interval lower bound for the treatment   
-    Solution1<-
-
-# 2) Find the name of the variable whose average treatment effect was not statistically significant (must be a string).
-    Solution2<-""
-```
-
-
-`@solution`
-
-```{r}
-Solution1<-OregonHealthResults[OregonHealthResults$Variable=="Current_Use_Of_Medication",]$`95%_Confidence_Interval_(lower_bound)`
-Solution2<-OregonHealthResults[OregonHealthResults$P_Value>.05,]$Variable
-```
-
-
-`@sct`
-
-```{r}
-test_object("Solution1")
-test_object("Solution2")
-success_msg("Good work!")
-```
-
-
----
-
-## A Note on Heteroskedasticity
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 743f5494ef 
-video_link: //player.vimeo.com/video/205124690  
-```
-
----
-
-## Identifying Heteroskedastic Outcomes
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 92568b1f93   
-```
-
-
-An easy way to identify whether the variability of a dependent variable is unequal across the range of values in an independent variable is to examine these relationships in a scatter plot. The R Workspace contains plots for income's relationship with three different predictors: Education, Age, and City Population. You can see each plot by clicking the "Next Plot" and "Previous Plot" buttons below the plot. Within the plots, each dot represents an observation from our sample. Using these plots, determine the independent variable with which income is most heteroskedastic.
-
-
-`@instructions`
-- Education
-- Age
-- City Population
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-set.seed(1)
-mround <- function(x,base){ 
-  base*round(x/base) 
-} 
-rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-  qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-}
-options(scipen=1)
-n=900
-Sample<-as.data.frame(matrix(nrow=n,ncol=4))
-names(Sample)<-c("Income","Education","Age","City_Population")
-Sample$Education<-rtnorm(n, mean=15, sd=3, min = 10, max = 20)
-Sample$Age<-round(rtnorm(n, mean=45, sd=10, min = 15, max = 92),0)
-Sample$City_Population<-rtnorm(n, mean=10000, sd=1000, min = 8000, max = 15000)
-Sample$Income<-(20000*Sample$Education+20*Sample$City_Population+Sample$Age*5000+ifelse(Sample$Age>45,rtnorm(n, mean=1000, sd=1000*(45-Sample$Age)^2, min = -500000, max = 1000000),0))/2
-  
-plot(Sample$Age,Sample$Income)
-plot(Sample$Education,Sample$Income)
-plot(Sample$City_Population,Sample$Income)
-```
-
-
-`@sample_code`
-
-```{r}
-#Relationship between Age and Income
-  plot(Sample$Age,Sample$Income)
-
-#Relationship between Education and Income
-  plot(Sample$Education,Sample$Income)
-
-#Relationship between City Population and Income
-  plot(Sample$City_Population,Sample$Income)
-```
-
-
-`@sct`
-
-```{r}
-msg1 = "Almost, try again."
-msg2 = "Good job! This is an example of a heteroskedastic treatment effect. Among our sample, income was slightly correlated with age, but only varied slightly until respondents reached their late 50s. If we were to ignore this trend while studying the relationship between age and income, it could confound or bias our results."
-msg3 = "Almost, try again."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
-```
-
-
----
-
-## Reading Average Treatment Effect & Confidence Intervals in a Table: Cholesterol in the Oregon Health Experiment
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 6a474387e6 
-video_link: //player.vimeo.com/video/198212098  
-```
-
----
-
-## Interpreting Effect Sizes
-
-```yaml
-type: MultipleChoiceExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 5765daa781   
-```
-
-
-The head of marketing at Bizer, Inc. is trying to decide whether to include a new cholesterol medicine's average treatment effect in the company's advertisements for that medicine. He knows that on average, the medicine reduces cholesterol in respondents by about 1mg/dL and knows that the effect is statistically different from zero. However, he's not sure whether that number is large or small; that is, whether the medicine's average treatment effect is worth advertising. 
-
-If cholesterol is highly variable in the population (about 70% of the population has cholesterol between 160mg/dL and 240mg/dL), does an average treatment effect of 1mg/dL seem relatively small or relatively large? In other words, when an average treatment effect is substantially smaller than the standard error of the mean for a parameter, how would we typically interpret the size of that average treatment effect?
-
-
-`@instructions`
-- The average treatment effect is large.
-- The average treatment effect is small.
-
-`@sct`
-
-```{r}
-msg1 = "Although a 1mg/dL reduction in cholesterol is statistically significant and might be substantial for some members of the population, it is not a very large reduction relative to the amount of variance in cholesterol in the population. Try again."
-msg2 = "Correct! When an average treatment effect is small relative to the standard error of a sample mean, it suggests that the average treatment effect is small, relative to the amount of variance typically found in that parameter. This thought process is especially helpful when deciding if an estimated effect is clinically significant (even if it is statistically significant)."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
-```
-
-
----
-
-## Let's Code: Practice with OHIE data
-
-```yaml
-type: VideoExercise 
-lang: r
-xp: 50 
-skills: 1
-key: 970feae737 
-video_link: //player.vimeo.com/video/279737708  
-```
-
----
-
-## Oregon Health Experiment Data: Data Structures
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 060acdb7c4   
-```
-
-
-Let's say you're wondering how much mens' and womens' health differed in the experiment, and what the data says about Medicaid's effects on those differences, so you decide to look at some of the basic health numbers in the data. A simulated version of the Oregon Health Insurance Experiment data, `OHIE`, is available in the workspace. With this dataframe, we will make some quick calculations to learn about any differences. Our first step will be to separate out the treatment and control groups into new dataframes.
-
-
-`@instructions`
-- 1) Use the `str` function to examine the structure of the `OHIE` dataframe.
-- 2) Create a dataframe called `TreatmentGroup` that only contains respondents that were selected into the `OHIE` treatment group (`OHIE$treatment==1). 
-- 3) Create a dataframe called `ControlGroup` that only contains respondents that were not selected into the `OHIE` treatment group (`OHIE$treatment==0).
-
-`@hint`
-- The treatment group is identified when `treatment` equals 1.
-- You can use the `subset` function on the `OHIE` dataframe based on the treatment value.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-set.seed(1)
-load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
-OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
-```
-
-
-`@sample_code`
-
-```{r}
-# 1) Let's get a sense of the OHIE dataframe by looking at its structure with the str() command:
-    str()   
-
-# Note: Since we are going to run several t-tests, we can simplify the syntax in  later steps by separating the OHIE dataset into two dataframes that represent its treatment and control groups. There are several ways to do this in R. We recommend using R's bracket accessor's or dplyr's select function. As an example, below shows how to create a data.frame called "df.gender.0" that only contains respondents with gender equal to 0 with R's bracket syntax.
-    df.gender.0<-OHIE[OHIE$gender_inp==0,]
- 
-# 2) Create a dataframe called `TreatmentGroup` that only contains respondents that were selected into the `OHIE` treatment group (`OHIE$treatment==1).
-    TreatmentGroup<-
-
-# 3) Create a dataframe called `ControlGroup` that only contains respondents that were not selected into the `OHIE` treatment group (`OHIE$treatment==0). 
-    ControlGroup<-
-```
-
-
-`@solution`
-
-```{r}
-str(OHIE)
-TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-ControlGroup <- OHIE[OHIE$treatment==0, ]
-```
-
-
-`@sct`
-
-```{r}
-test_function("str", incorrect_msg = "Did you use the `str` function?")
-test_object("TreatmentGroup")
-test_object("ControlGroup")
-test_error()
-success_msg("Good work!")
-```
-
-
----
-
-## Oregon Health Experiment Data: Balance Checks
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: e3d1a5a3ed   
-```
-
-
-Now that we've created separate dataframes for the treatment and control groups, let's do some balance checks between the groups to see if they are sufficiently balanced to allow for our comparisons. Run a t-test between the two groups, examine the results, and decide whether the t-test is statistically significant by analyzing its confidence interval. In real analysis, you'll check for statistically significant balance on more than just one variable, but we'll just stick with gender for this set of questions.
-
-
-`@instructions`
-- 1) Run a t-test to see if there is a statistically significant difference in gender between the treatment and control groups (i.e. whether gender is balanced between the treatment and control group). 
-- 2) After looking at the confidence interval of the t-test, can we say the t-test results are statistically significant? Answer "yes" or "no".
-
-`@hint`
-- For each of the following questions, use the `t.test` function to test whether the treatment and control group are different from each other.
-- Your answer for the first question should look something like t.test(TreatmentGroup$variable,ControlGroup$variable). 
-- If the 95% confidence interval includes 0, we cannot be confident that there is a difference between the treatment and control group, so that t-test result is not statistically significant.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-
-set.seed(1)
-load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
-OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
-TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-ControlGroup <- OHIE[OHIE$treatment==0, ]
-```
-
-
-`@sample_code`
-
-```{r}
-# 1) We need to determine whether gender is balanced between the treatment and control groups. This requires a two sample t-test. In R, the format of the t.test function is t.test(Variable1, Variable2). Try this with the treatment and control groups, and our gender variable gender_inp. To help, we fill in the first half of the t.test function with gender in the treatment group. Replace `y` with gender in the control group.
-    t.test(TreatmentGroup$gender_inp,y)
-
-# 2) To determine whether the t-test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically significant (i.e. our evidence does not suggest a great difference between the rate of gender in the treatment and control groups). Based on the confidence interval in Solution 1, do the results appear statistically significant? Answer with "Yes" or "No." 
-    Solution2<-""
-```
-
-
-`@solution`
-
-```{r}
-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp)
-#This is one way to test (without eyes) whether the confidence interval overlaps with 0.
-Solution1<-t.test(TreatmentGroup$gender_inp,ControlGroup$gender_inp)
-Solution2<-ifelse(sign(Solution1$conf.int[1])==sign(Solution1$conf.int[2]),"Yes",
-"No")
-```
-
-
-`@sct`
-
-```{r}
-test_object("Solution2")
-test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
-test_error()
-success_msg("Good work! Since there is no significant difference in rates of gender between the treatment and control groups, we assume the groups are balanced on gender.")
-```
-
-
----
-
-## Oregon Health Experiment Data: Finding an ATE
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 1729739153   
-```
-
-
-Now that we've checked for balance between our treatment and control, let's check to see the effect of Medicaid on some of our medical outcomes of interest, like the patients' blood pressure. A person's blood pressure is measured by two numbers, e.g. 114/71, where the first number is the "systolic" blood pressure and the second is the "diastolic" blood pressure. These are counted in the `OHIE` dataframe through two variables: systolic pressure in `bp_sar_inp` and diastolic pressure in `bp_var_inp`. 
-
-Now let's check the treatment effect on systolic blood pressure (`bp_sar_inp`) by comparing systolic blood pressure in the treatment and control groups. To check for statistical significance, let's look at p values of the t-test. A p-value below .05 suggests that a result is statistically significant.
-
-
-`@instructions`
-- 1) Manually calculate the average treatment effect on systolic blood pressure by subtracting the `mean` value for systolic blood pressure in the treatment group minus the `mean` value for systolic blood pressure in the control group.
-- 2) Use a t.test to determine whether the treatment and control groups have significantly different average values for systolic blood pressure (variable `bp_sar_inp`).
-- 3) After looking at the p-value of the t-test, can we say the t-test results are statistically significant? Answer "yes" or "no".
-
-`@hint`
-- 2) Your input for the t-tests should look something like t.test(TreatmentGroup$variable,ControlGroup$variable).
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-
-set.seed(1)
-load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
-OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
-TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-ControlGroup <- OHIE[OHIE$treatment==0, ]
-```
-
-
-`@sample_code`
-
-```{r}
-#  1) Calculate the average treatment effect of Medicaid on the systolic blood pressure of units in the experiment. This is equal to the `mean` value for systolic blood pressure in the treatment group minus the `mean` value for systolic blood pressure in the control group. We help by filling out the front end of this equation
-    mean(TreatmentGroup$bp_sar_inp)-
-
-#  2) Use a t-test to determine whether the treatment had a statistically significant effect on systolic blood pressure.
-    t.test()
-
-# 3) A p.value of less than .05 is generally considered statistically significant. Based on your results in Solution 2, did the experiment yield a statistically signficant average treatment effect on systolic blood pressure? Answer with "Yes" or "No."
-    Solution3<-""
-```
-
-
-`@solution`
-
-```{r}
-mean(TreatmentGroup$bp_sar_inp)-mean(ControlGroup$bp_sar_inp)
-t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp)
-
-#We can computationally determine whether the p-value is lower than .05 with the syntax below
-Solution2<-t.test(TreatmentGroup$bp_sar_inp,ControlGroup$bp_sar_inp)
-Solution3<-ifelse(Solution2$p.value<.05,"Yes","No")
-```
-
-
-`@sct`
-
-```{r}
-test_function("mean", incorrect_msg = "Did you use the `mean` function?")
-test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
-test_object("Solution3")
-test_error()
-success_msg("Good work. The high p-value means that the estimate is not statistically significan, which is not what we were hoping for. Let's see if that's also true of the treatment effect on diastolic blood pressure.")
-```
-
-
----
-
-## Oregon Health Experiment Data: Finding Another ATE
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 3e2623b84b   
-```
-
-
-Now let's check the treatment effect on diastolic blood pressure values `bp_var_inp` across our treatment and control groups. Once again, we'll use a t-test to measure statistical significance, and assume a p-value of less than .05 is statistically significant.
-
-
-`@instructions`
-- 1) Run a t.test to determine if the treatment and control groups have significantly different average values for diastolic blood pressure (`bp_dar_inp`).
-- 2) After looking at the p-value of the t-test, can we say the t-test results are statistically significant? Answer "Yes" or "No".
-
-`@hint`
-- 1) Your answers for the t-tests should look something like t.test(TreatmentGroup$variable,ControlGroup$variable).
-- A p.value of less than .05 is generally considered statistically significant.
-
-`@pre_exercise_code`
-
-```{r}
-library(data.table)
-library(dplyr)
-
-set.seed(1)
-load(url("https://assets.datacamp.com/production/repositories/1145/datasets/9aab9e80125d94148dd065f169df4d4263b9f619/OHIEexperimental.Rda"))
-OHIE <- OHIE[!is.na(OHIE$treatment),c("id","treatment","gender_inp","bp_sar_inp","bp_dar_inp")]
-TreatmentGroup <- OHIE[OHIE$treatment==1, ]
-ControlGroup <- OHIE[OHIE$treatment==0, ]
-```
-
-
-`@sample_code`
-
-```{r}
-# 1) Run a t-test that measures the average treatment effect on diastolic blood pressure.
-    t.test()
-
-# 2) Based on your t-test, did the treatment have a statistically significant effect on diastolic blood pressure? Answer with "Yes" or "No."
-    Solution2<-""
-```
-
-
-`@solution`
-
-```{r}
-t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp)
-
-#We can computationally determine whether the p-value is lower than .05 with the syntax below
-Solution1<-t.test(TreatmentGroup$bp_dar_inp,ControlGroup$bp_dar_inp)
-Solution2<-ifelse(Solution1$p.value<.05,"Yes","No")
-```
-
-
-`@sct`
-
-```{r}
-test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
-test_object("Solution2")
-test_error()
-success_msg("Good work. Our estimate for the treatment effect on diastolic blood pressure had a p-value under .05, so we will say that it's statistically significant. Because some of our estimates were not statistically significant, and some are, we probably will need to work a little harder before we can conclude that our experiment suggests that the Medicaid program should be expanded.")
-```
-
-
----
-
-## Increasing the Auction Prices on eGulf
-
-```yaml
-type: NormalExercise 
-lang: r
-xp: 100 
-skills: 1
-key: 4f3ebb92a2   
-```
-
-
-To increase their commissions, the popular online auctioneer, eGulf, wants to help its sellers increase the final sales prices of their merchandise. For each auction on eGulf, sellers are allowed to post up to 10 pictures of an item that they are selling. Past studies suggest that customers' appraisals of merchandise (and subsequently, final bids of merchandise) improve when sellers include more pictures of their merchandise; therefore, eGulf considers raising the limit on the number of pictures that a seller can post on an auction's webpage.
-
-To test whether eGulf should allow sellers to post more than 10 pictures of their items, eGulf conducts an experiment: eGulf finds a random sample of dedicated used WePhone sellers who typically post 10 pictures of their used WePhones, and temporarily allows them to post up to 15 pictures for each auction of their WePhones. Using the results of this experiment, listed in dataset `eGulf`, test whether there is an added benefit to posting more than 10 pictures on WePhone auctions. Specifically:
-
-
-`@instructions`
-- 1) Use the structure function on eGulf to get a sense of the dataframe
-- 2) Test whether sellers who posted more than 10 pictures (`Seller_Opted_Into_Treatment`==1) on their WePhone auctions (`Final_Sales_Price`) sold their WePhones at higher prices than sellers who posted 10 or fewer pictures on their WePhone auctions (`Seller_Opted_Into_Treatment`==0)
-
-`@hint`
-- It may help to create a new dataframe called `TreatmentGroup` that contains only sellers who opted into treatment, and a new dataframe called `ControlGroup` that contains only sellers who posted fewer than 11 pictures in the control group.
+- The ATE is not statistically significant at a 95% confidence interval.
+- The ATE is not statistically significant at a 99% confidence interval.
+- The ATE is statistically significant at a 95% confidence interval.
+- The ATE is statistically significant at a 99% confidence interval.
 
 `@pre_exercise_code`
 
@@ -738,53 +94,345 @@ colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","S
     eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
   # Make final sales price also correlated with seller_feedback_score
     eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
-```
 
+    
+#Prepare data for graphing
+  TreatmentSalesPrices<-eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1]
+  ControlSalesPrices<-eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0]
+  TreatmentMean<-mean(TreatmentSalesPrices)
+  ControlMean<-mean(ControlSalesPrices)
+  TreatmentStandardError<-sd(TreatmentSalesPrices)/sqrt(length(TreatmentSalesPrices))
+  ControlStandardError<-sd(ControlSalesPrices)/sqrt(length(ControlSalesPrices))
+  Means<-c(ControlMean,TreatmentMean)
+  names(Means)<-c("Control Mean","Treatment Mean")
+  CIs<-c(ControlStandardError,TreatmentStandardError)
 
-`@sample_code`
-
-```{r}
-# 1) To begin, examine the structure of the dataframe `eGulf` with the str function. 
-    str()
-
-# Note: To get an even better sense of the data, let's visualize the data graphically. Boxplots are often ideal for studying data in controlled experiments, as they offer a convenient means to compare two groups (the treatment and control).
-    boxplot(eGulf$Final_Sales_Price~eGulf$Seller_Opted_Into_Treatment)
-
-# These boxplots show the relationship between opting into treatment and final sales prices. The boxplot on the left represents data from the control group, whereas the boxplot on the right represents data from the treatment group. Within these boxplots, the bold middle line represents the median of the values within each group. The two lines above and below the median that complete the "box" represent the upper and lower quartiles of data in the dataset. The dots and "whiskers" at the edge of the plot represent the most extreme datapoints in the two datasets. From this boxplot, it appears that sellers who opted into treatment (the box on the right), sold their WePhones at slightly higher prices. Let's determine whether this difference is statistically significant, or whether it is the result of random chance. 
-
-# 2) Use the t.test function to test whether opting into treatment (i.e. posting more than 10 pictures) increased final sales prices. If you get stuck, consider checking the hints pane.
-    t.test()
-```
-
-
-`@solution`
-
-```{r}
-str(eGulf)
-t.test(eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==1],eGulf$Final_Sales_Price[eGulf$Seller_Opted_Into_Treatment==0])
+#Graph results
+  #(cheat to pretend this is a different sample; just use the standard errors rather than true confidence intervals. This makes the differences clearly visible.)
+  arrows(x0=barplot(Means,ylim=c(325, 375),col=c(3,5)), y0=Means-(1*CIs), y1=Means+(1*CIs), code=3, angle=90,length=.4)
 ```
 
 
 `@sct`
 
 ```{r}
-test_function("str", incorrect_msg = "Did you use the `str` function?")
-test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
-
-success_msg("Good work! Since the p-value is well below .05, it seems that our finding is robust; likely posting more photos was positively associated with final WePhone sales prices.")
+msg1 = "Do the error bars overlap? Look carefully at the graph and try again."
+msg2 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
+msg3 = "Correct! Since the 95% confidence interval error bars do not appear to overlap, we can conclude that the difference is statistically significant at the 95% confidence level."
+msg4 = "The graph does not show error bars for the 99% confidence interval, so no conclusion can be made about the statistical significance of the ATE at the 99% confidence interval. Try again."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
 ---
 
-## Where the Chapter Will Go From Here
+## Let's Code: Noncompliance in eGulf Data
 
 ```yaml
 type: VideoExercise 
 lang: r
 xp: 50 
 skills: 1
-key: ad358b17bb 
-video_link: //player.vimeo.com/video/205124618  
+key: f309deee16 
+video_link: //player.vimeo.com/video/279737646  
 ```
+
+---
+
+## eGulf Auctions Experiment: Noncompliance
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: ac78544021   
+```
+
+
+In a previous exercise, we found that sellers on eGulf who posted more than 10 pictures of their WePhones during auctions had higher sales prices. However, we never examined whether noncompliance could have confounded our results. Specifically, was there some systematic difference between the sellers who chose to post more than 10 pictures of their WePhones and those who chose to post less than 10 pictures? 
+
+If an outcome variable is associated with systematic difference between compliers and noncompliers, our observed treatment effect may be spurious. Therefore, let's test whether compliance was associated with any traits among the sellers, and whether such traits were associated with final sales prices. With the dataset `eGulf`:
+
+
+`@instructions`
+- 1) Test whether sellers who were offered treatment *and* opted into the treatment had different prior average feedback scores than sellers who were offered treatment but did *not* opt into treatment (tracked with `Seller_Offered_Treatment`, `Seller_Opted_Into_Treatment`, and `Seller_Feedback_Score`)
+- 2) Estimate how sellers' prior average feedback scores were correlated with their recent auction's final sales price (`Final_Sales_Price`).
+
+`@hint`
+- For the first question, you will need to `subset` the `eGulf` data frame by whether they were offered treatment `and` by whether they opted in. 
+- It may help to create a new dataframe called `CompliantTreatmentGroup` that contains only sellers who were offered and opted into treatment, and a new data frame called `NoncompliantTreatmentGroup` who were offered but did not opt into treatment.
+- Use the `t.test` function where (mu=0) to statistically test whether the treatment and control group are different from each other.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+# Initialize dataframe
+set.seed(1)
+n <- 1000
+eGulf <- as.data.frame(matrix(0, ncol=5,nrow=n))
+colnames(eGulf) <- c("Seller_Offered_Treatment","Seller_Opted_Into_Treatment","Seller_Feedback_Count","Seller_Feedback_Score","Auction_Final_Sales_Price")
+
+# Simulate baseline data
+  # Make seller feedback count
+    eGulf$Seller_Feedback_Count<-as.integer(abs(round(rnorm(n,200,100))))
+  # Make feedback score loosely correlated with feedback count 
+    eGulf$Seller_Feedback_Score<-round(.9+.1*eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)-rbeta(100,1,10),2)
+  # Make seller offered treatment loosely correlated with with feedback count 
+    eGulf$Seller_Offered_Treatment<-rbinom(n,1,.5+eGulf$Seller_Feedback_Count/max(eGulf$Seller_Feedback_Count)/5)
+  # Make seller opted_into_treatment correlated with seller_feedback_score
+    eGulf$Seller_Opted_Into_Treatment<-ifelse(eGulf$Seller_Offered_Treatment==0,0,rbinom(n,1,eGulf$Seller_Feedback_Score^5)) #
+  # Make final sales price also correlated with seller_feedback_score
+    eGulf$Final_Sales_Price<-round(rlnorm(n, meanlog=log(400), sdlog = log(1.2))*eGulf$Seller_Feedback_Score)
+```
+
+
+`@sample_code`
+
+```{r}
+# Note: To check for noncompliance in an experiment, we will only want to examine individuals that were offered treatment. It might make the following questions easier if you first subset the eGulf data.frame to sellers who were offered treatment as we did in eGulf2. Additionally, before running a significance test to see whether compliers and noncompliers were different, we recommend running the code below to summarize the data. 
+
+    eGulf2<-eGulf[eGulf$Seller_Offered_Treatment==1,]
+    summary(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0])
+    summary(eGulf2$Seller_Feedback_Score[eGulf$Seller_Opted_Into_Treatment==1])
+
+# 1) It appears that those who opted into the treatment have slightly higher feedback scores than those who did not, but is the difference statistically significant? Test whether sellers who were offered treatment *and* opted into the treatment had different prior average feedback scores than sellers who were offered treatment but did *not* opt into treatment.
+    
+    t.test()
+
+# 2) The confidence interval indicates a range of values for the average treatment effect that we would expect to find if we gathered a new sample. If the lower and upper bound of the 95% confidence interval are both negative, we can conclude that there is a negative and statistically significant difference between the two groups. Based on the results from your t-test above, does it appear that those who opted into treatment had seller feedback scores that were significantly higher than those who did not opt into treatment? Answer with "Yes" or "No".
+    
+    Solution2<- ""
+
+# 3) For a fuller understanding of the potential bias produced by noncompliance, estimate the correlation between seller feedback scores and final sales prices within the *entire sample*.
+    
+    cor()
+    
+```
+
+
+`@solution`
+
+```{r}
+eGulf2<-eGulf[eGulf$Seller_Offered_Treatment==1,]
+
+#1
+t.test(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0],eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==1])
+
+#2
+temp<-t.test(eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==0],eGulf2$Seller_Feedback_Score[eGulf2$Seller_Opted_Into_Treatment==1])
+Significant<-sign(temp$conf.int[1])==sign(temp$conf.int[2])
+Solution2<-ifelse(Significant==T,"Yes","No")
+
+#3
+cor(eGulf$Seller_Feedback_Score,eGulf$Final_Sales_Price)
+```
+
+
+`@sct`
+
+```{r}
+test_function("t.test", incorrect_msg = "Did you use the `t.test` function?")
+test_function("cor", incorrect_msg = "Did you use the `cor` function?")
+test_object("Solution2")
+test_error()
+success_msg("Good work! It looks like sellers who posted more photos tended to have higher prior average feedback scores than those who did not post more photos. Additionally, prior average feedback scores were positively correlated with final WePhone sales prices. Since compliers and non-compliers have different feedback scores, and feedback scores are associated with final sales prices, we have more reason to worry that the experiment's results were spurious. While the experiment had intended to estimate whether posting more photos caused sellers to attain higher sales prices, the experiment might have just shown that sellers who care about customer feedback tend to sell their goods at high prices, and would be willing to post more photos on their ebay auctions if they were given the chance.")
+```
+
+
+---
+
+## Survey Noncompliance
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: db0bf3e371 
+video_link: //player.vimeo.com/video/198212102  
+```
+
+---
+
+## Offering a Higher Credit Card Limit: Quantifying Noncompliance Concerns
+
+```yaml
+type: MultipleChoiceExercise 
+lang: r
+xp: 50 
+skills: 1
+key: 1557ba9536   
+```
+
+
+CreditCo, a large credit card company, decides to run an experiment. It sends an offer in the mail to a random group of 50% of its customers: those in the treatment group are invited to navigate to a webpage and opt in for a 10% higher credit limit. CreditCo wants to see how credit balances and late payments are impacted six months later as a result of the experiment. 
+
+Suppose that, of the group that received the mail offer, 40% of people opted in. Do you think that noncompliance will be a problem for CreditCo's analysis? Why or why not?
+
+
+`@instructions`
+- No, because people in the treatment group likely used a coin flip to make their opt-in decision.
+- Yes, because the opt-in rate is low.
+- No, because an opt-in rate of 40% is actually quite high.
+- Yes, because the set of people opting in are probably people with worse spending habits.
+
+`@sct`
+
+```{r}
+msg1 = "While this is a possibility, it is unlikely to actually be the case. Try again."
+msg2 = "This is partially correct. A low compliance rate is one symptom of a noncompliance problem."
+msg3 = "While high compliance rates indicate a lower noncompliance problem, the rate of 40% in this situation is likely to be problematic."
+msg4 = "Correct! In this situation, researchers at CreditCo should be worried about the spending habits of those who opted in to the offer."
+test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+---
+
+## Let's Code: Working with Noncompliance
+
+```yaml
+type: VideoExercise 
+lang: r
+xp: 50 
+skills: 1
+key: f6472f88d4 
+video_link: //player.vimeo.com/video/279737627  
+```
+
+---
+
+## Offering a Higher Credit Card Limit: Working with Noncompliance
+
+```yaml
+type: NormalExercise 
+lang: r
+xp: 100 
+skills: 1
+key: a00d1ebc4c   
+```
+
+
+Let's continue with the CreditCo dataset described in the previous exercise. The CFO has assigned you to figure out the average treatment effect of taking a credit line increase offer on late payments (`default_post`), and he wants to see something before lunch. You realize that you can give him a simple result: you just need to do some quick checks for balance in your samples and compute a "naive" average treatment effect to get the analysis started.
+
+A simulated version of this dataset, `CreditCo`, is available in the workspace.  With that data:
+
+
+`@instructions`
+- 1) See if treatment and control groups (`offered`) are of equal size.
+- 2) Compute the fraction of people who opted in (`opt_in`) to the credit offer.
+- 3) Compute a naive average treatment effect on late payments (`default_post`).
+
+`@hint`
+- When a variable's values are binary (0 or 1), you can compute the proportion of 1s by simply taking the mean of the variable.
+- Remember to select the appropriate sample when computing the opt-in rate of the credit offer.
+
+`@pre_exercise_code`
+
+```{r}
+library(data.table)
+library(dplyr)
+
+  set.seed(1)
+  n             <- 9e3
+  frac_treated  <- .5
+  frac_female   <- .5656
+  frac_white    <- .688
+
+# Initialize dataframe
+  CreditCo <- as.data.frame(matrix(0, ncol=11,nrow=n))
+  colnames(CreditCo) <- c("id","offered","opt_in","FICO","age","female","race_white","default_pre","default_post","balance_pre","balance_post")
+
+# Simulate baseline data
+  CreditCo$id         <- seq(1,n,1)
+  CreditCo$offered    <- as.integer(runif(n)<frac_treated)
+  CreditCo$opt_in     <- rep.int(0,n)
+  CreditCo$FICO       <- rnorm(n, mean=736, sd=300)
+  CreditCo$age        <- sample(18:55, n, replace=T)
+  CreditCo$female     <- as.integer(runif(n)<frac_female)
+  CreditCo$race_white <- as.integer(runif(n)<frac_white)
+
+# make FICO score intelligible
+  CreditCo$FICO[CreditCo$FICO>850] <- 850
+  CreditCo$FICO[CreditCo$FICO<300] <- 300
+  CreditCo$FICO                    <- round(CreditCo$FICO)
+
+# simulate pre-experiment default rate
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_pre <- as.integer(draw<p)
+
+# simulate pre-experiment balance level
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_pre <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + draw
+  CreditCo$balance_pre <- exp(CreditCo$balance_pre)
+
+# Simulate noncompliance and opt-in behavior
+  draw <- runif(sum(CreditCo$offered))
+  xb   <- 6.75-1.2*CreditCo$FICO/100+.07*(CreditCo$FICO^2)/10000-2.1*CreditCo$female-2*CreditCo$race_white
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$opt_in[CreditCo$offered==1] <- as.integer(draw<p[CreditCo$offered==1])
+
+# Simulate post outcomes
+  draw <- runif(n)
+  xb   <- -1.82-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-5.1*CreditCo$female-7*CreditCo$race_white+4*CreditCo$offered*CreditCo$opt_in
+  p    <- exp(xb)/(1+exp(xb))
+  CreditCo$default_post <- as.integer(draw<p)
+
+# balance
+  draw <- rnorm(n, mean=0, sd=0.5)
+  CreditCo$balance_post <- 8.5-0.2*CreditCo$FICO/100+.046*(CreditCo$FICO^2)/10000-0.15*CreditCo$female-0.85*CreditCo$race_white + 1*CreditCo$offered*CreditCo$opt_in + draw
+  CreditCo$balance_post <- exp(CreditCo$balance_post)
+
+# Remove elements and variables from environment
+  rm(draw,frac_female,frac_treated,frac_white,n,p,xb)
+  CreditCo <- CreditCo[,c("id","offered","opt_in","FICO","female","race_white","default_pre","default_post","balance_pre","balance_post")]
+```
+
+
+`@sample_code`
+
+```{r}
+# The dataset `CreditCo` is available in your workspace. You may want to explore it with the structure "str" command before solving the following questions.
+
+# 1) Using the mean command, compute the percentage of people who were offered a higher credit limit. 
+
+    mean()
+
+# 2) Of the people who were offered, what percentage opted in? 
+
+    Solution2<- mean()
+
+# 3) Compute a naive average treatment effect of late payment (variable `default_post`), where treatment state is defined by having been offered **and** opted in to the program. 
+    
+    Solution3<- mean()
+```
+
+
+`@solution`
+
+```{r}
+#1
+  mean(CreditCo$offered)
+#2
+  Solution2<-mean(CreditCo$opt_in[CreditCo$offered==1])
+#3
+  Solution3<-mean(CreditCo$default_post[CreditCo$opt_in==1])-mean(CreditCo$default_post[CreditCo$offered==0])
+```
+
+
+`@sct`
+
+```{r}
+test_object("Solution2")
+test_object("Solution3")
+test_error()
+success_msg("Nice job! As you can see, about half of the sample received an offer, but only about 41% of people actually accepted it. For the people who complied, the 'naive' treatment effect is a +26% default rate--the default rate went up for people who accepted the offer! However, while this 'naive' ATE is quick to calculate, it's probably not accurate, as there are likely confounders that we can deal with when we have more time.")
+```
+
 
