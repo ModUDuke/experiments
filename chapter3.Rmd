@@ -531,6 +531,8 @@ ControlGroup <- OHIE[OHIE$treatment==0, ]
 
     t.test(TreatmentGroup$gender_inp,y)
 
+# As a reminder, the last line of the t.test function results shows the two estimated means for the X and Y variables that we inserted into the function. To get the difference between these means, you'll need to do a separate subtraction by hand. 
+
 # 2) To determine whether the t-test shows that gender is balanced, we need to determine whether its results are statistically significant. If the 95% confidence interval includes 0, the results are not statistically significant (i.e. our evidence does not suggest a great difference between the rate of gender in the treatment and control groups). Based on the confidence interval in Solution 1, do the results appear statistically significant? Answer with "Yes" or "No." 
 
     Solution2<-""
