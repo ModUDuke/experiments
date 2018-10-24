@@ -258,7 +258,7 @@ library(data.table)
 
     t.test(x,y)
 
-# The t.test function in R returns quite a lot of results, and the number we are looking for is listed in the second line of results with the label `t:`. That's the difference in the means of our two variables (while accounting for any different variances in the two groups). 
+# The t.test function in R returns quite a lot of results, and the number we are looking for is listed in the second line of results with the label `t =`. That's the difference in the means of our two variables (while accounting for any different variances in the two groups). 
 
 # The t-test shows a difference in the number of black phones in each group, but is that difference statistically significant? Take a look at the p-value. Because the p-value is 0.46, which is well above .05, we can say that the difference is not statistically significant.
 
@@ -267,7 +267,7 @@ library(data.table)
     t.test(  )
     Solution1<-""
     
-# Note: Again, the number we are looking for is listed in the second line of results with the label `t:`. That's the difference in the means of our two variables (while accounting for any different variances in the two groups). 
+# Note: Again, the number we are looking for is listed in the second line of results with the label `t =`. That's the difference in the means of our two variables (while accounting for any different variances in the two groups). 
 ```
 
 
