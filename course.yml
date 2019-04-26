@@ -1,14 +1,12 @@
-title            : Causal Inference with R - Experiments
-description      : Welcome to the Causal Inference with R – Experiments, the 2nd of 7 courses on causal inference concepts and methods created by Duke University with support from eBay, Inc. Designed to teach you about concepts, methods, and how to code in R with realistic data, this course focuses on experiment design, working with data from controlled and natural experiments, and dealing with noncompliance. We’ll stay away from dense statistical math and focus instead on higher level concepts that data scientists need to always consider when examining and making inferences about experimental data. The course instructors and creators are Dr. Matt Masten (Duke University), James Speckart (Duke), Brian Aronson (Duke), Dr. Tyler Ransom (University of Oklahoma), Dr. Bentley Coffey (University of South Carolina), and Alexandra Cooper (Duke).
+title            : Causal Inference with R - Regression
+description: In solidarity with the DataCamp instructors who are protesting the recent corporate response to behavior of a member of its executive staff, we have suspended this course.  If and when DataCamp has made a satisfactory response to this situation, we will make the course available again. We still have materials about causal inference at our website (https://modu.ssri.duke.edu).  To learn more about the events at DataCamp, you can read the following letter signed by 100 DataCamp instructors: https://docs.google.com/document/d/1gWqAlf7yhDBCZhkbLUysOCmMl58IrVdG26C8Hiy9b-I
 programming_language: r
 instructors      :
- - matt.masten@duke.edu
- - bentleygcoffey@gmail.com
- - speckart@duke.edu
- - bdaronson@gmail.com
- - ransom@ou.edu
- - cooper@duke.edu
- - weston@datacamp.com
+- matt.masten@duke.edu
+- speckart@duke.edu
+- bdaronson@gmail.com
+- ransom@ou.edu
+- cooper@duke.edu
 university       : DataCamp
 difficulty_level : 4
-time_needed      : 20 hours
+time_needed      : 10 hours
